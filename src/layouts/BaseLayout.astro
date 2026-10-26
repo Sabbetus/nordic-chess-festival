@@ -16,7 +16,9 @@ interface Props {
   jsonLd?: object | object[];
 }
 
-const { lang, path, title, description, image = '/preview.jpg', noindex = false, jsonLd } = Astro.props;
+const { lang, path, title, description, image = '/preview.jpg', noindex: noindexProp = false, jsonLd } = Astro.props;
+// Set PUBLIC_NOINDEX=true as a build variable on test and preview deployments.
+const noindex = noindexProp || import.meta.env.PUBLIC_NOINDEX === 'true';
 const m = messages[lang];
 const pageTitle = title ? `${title} | ${m.meta.siteName} 2027` : m.meta.title;
 const pageDescription = description ?? m.meta.description;

@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers Builds: serve the static Astro build from ./dist.
+  // "name" must match the project name in the Cloudflare dashboard.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nordic-chess-festival",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

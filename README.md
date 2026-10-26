@@ -30,11 +30,11 @@ Entries with `placeholder: true` are dummy content. They are marked `noindex` an
 
 ## Hosting
 
-The site is built and hosted on Cloudflare Pages.
+The site is built and hosted with Cloudflare Workers Builds (static assets). `wrangler.jsonc` serves `dist/`.
 
-- Framework preset: Astro
 - Build command: `npm run build`
-- Output directory: `dist`
-- Environment variable: `NODE_VERSION=22`
+- Deploy command: `npx wrangler deploy`
+- Build variables: `NODE_VERSION=22`, and `PUBLIC_NOINDEX=true` on test and preview deployments
+  (adds `noindex` to every page; remove it at launch)
 
-`public/_headers` keeps `*.pages.dev` and `test.nordicchess.fi` out of search engines.
+Production branch is set in Cloudflare under Settings > Builds > Branch control.
