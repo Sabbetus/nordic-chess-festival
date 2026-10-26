@@ -42,7 +42,7 @@ const fi: Messages = {
   },
   home: {
     eyebrow: 'Kangasala · 12.–20.6.2027',
-    lead: 'Mahdollisesti suurin Suomessa koskaan järjestetty kansainvälinen shakkiturnaus. Yhdeksän päivää. Yhdeksän kierrosta. Oheistapahtumia. Vahvoja suurmestareita, huippustriimaajia ja taattu palkintopotti. Keskellä pohjoista kesää.',
+    lead: 'Yhdeksän kierrosta avointa shakkia Kangasalla: pelilaudoilla suurmestareita ja huippustriimaajia, palkintopotti vähintään 10\u00A0000\u00A0€ ja mahdollisuus titteliosuuksiin. Mukaan pääsee kuka tahansa suurmestareista ratingittomiin aloittelijoihin. Tule shakin vuoksi, jää nauttimaan pohjoisesta kesästä.',
     ctaPrimary: 'Maksut ja ilmoittautuminen',
     ctaSecondary: 'Aikataulu ja säännöt',
     countdown: {
@@ -105,8 +105,8 @@ const fi: Messages = {
     newsTitle: 'Uusimmat uutiset',
     newsEmpty: 'Uutiset ja tiedotteet ilmestyvät tähän.',
     newsletter: {
-      title: 'Ole ensimmäisten joukossa.',
-      text: 'Ilmoittautuminen, palkintopotin julkistus, vahvistetut suurmestarit ja erikoisvieraat. Tilaa tiedotteet, niin kuulet ne ennen muita.',
+      title: 'Pysy mukana.',
+      text: 'Uudet vieraat, käytännön tietoa pelaajille ja festivaalin uutiset suoraan sähköpostiisi aina, kun on jotain kerrottavaa.',
       cta: 'Tilaa tiedotteet',
       note: 'Ei roskapostia. Peruutus milloin tahansa.',
     },

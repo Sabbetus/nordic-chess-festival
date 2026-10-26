@@ -227,7 +227,7 @@ const jsonLd = [
   }
   /* One line, scaled to the container width */
   .hero h1 {
-    font-size: clamp(2rem, 8.4vw, 7.6rem); line-height: 1; letter-spacing: -0.02em; white-space: nowrap;
+    font-size: clamp(1.75rem, 6.4vw, 5.6rem); line-height: 1.02; letter-spacing: -0.02em; white-space: nowrap;
     margin-block: var(--space-4) var(--space-6);
   }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--space-7); align-items: end; }
@@ -242,7 +242,7 @@ const jsonLd = [
   .surface { background: linear-gradient(180deg, var(--surface) 0%, rgba(17, 17, 17, 0.4) 100%); }
   .head-text { max-width: 62rem; display: grid; gap: var(--space-3); }
   .head-text .lead { margin-top: var(--space-2); max-width: 52rem; }
-  .guest-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-4); }
+  .guest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); --guest-aspect: 4 / 3; }
   .more { margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted-2); letter-spacing: 0.04em; }
   .ceremonies { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted); }
   .ceremonies strong { color: var(--white); font-weight: 500; margin-left: var(--space-2); }
@@ -279,7 +279,7 @@ const jsonLd = [
   .partners a:hover { color: var(--ice); }
 
   @media (max-width: 1100px) {
-    .guest-grid { grid-template-columns: repeat(3, 1fr); }
+    .guest-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-grid { grid-template-columns: 1fr; gap: var(--space-6); align-items: start; }
     .panels { grid-template-columns: 1fr; }
     .prize-grid { grid-template-columns: 1fr; gap: var(--space-5); }
@@ -287,7 +287,7 @@ const jsonLd = [
     .news-grid > :first-child { grid-row: auto; }
   }
   @media (max-width: 700px) {
-    .guest-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+    .guest-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); --guest-aspect: 3 / 4; }
     .facts { grid-template-columns: 1fr 1fr; gap: var(--space-5) var(--space-4); margin-top: var(--space-7); }
     .floor { height: 40%; }
   }

@@ -40,7 +40,7 @@ const en = {
   },
   home: {
     eyebrow: 'Kangasala, Finland · 12–20 June 2027',
-    lead: 'Quite possibly the biggest international chess tournament ever held in Finland. Nine days. Nine rounds. Side events. Strong grandmasters, top streamers and a guaranteed prize fund. All in the heart of the Nordic summer.',
+    lead: 'Nine rounds of open chess in Kangasala, Finland, with grandmasters and top streamers at the boards, a prize pool of at least 10\u00A0000\u00A0€ and chances for title norms. Anyone can play, from grandmasters to unrated beginners. Come for the chess, stay for the Nordic summer.',
     ctaPrimary: 'Entry fees & registration',
     ctaSecondary: 'Schedule & regulations',
     countdown: {
@@ -103,8 +103,8 @@ const en = {
     newsTitle: 'Latest news',
     newsEmpty: 'News and announcements will appear here.',
     newsletter: {
-      title: 'Be the first to know.',
-      text: 'Registration, prize fund announcement, confirmed grandmasters and special guests. Sign up and you will hear it before anyone else.',
+      title: 'Stay in the loop.',
+      text: 'New guests, practical information for players and news from the festival, straight to your inbox whenever there is something worth sharing.',
       cta: 'Sign up for updates',
       note: 'No spam. Unsubscribe anytime.',
     },
