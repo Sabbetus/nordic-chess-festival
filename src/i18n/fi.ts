@@ -57,7 +57,6 @@ const fi: Messages = {
       when: 'lauantaina 12. kesäkuuta 2027 klo 14:00',
       started: 'Festivaali on alkanut',
     },
-    bigMonth: 'Kesäkuu 2027',
     facts: [
       { value: '9', label: 'Kierrosta' },
       { value: '9', label: 'Päivää' },

@@ -55,7 +55,6 @@ const en = {
       when: 'Saturday 12 June 2027 at 14:00',
       started: 'The festival has begun',
     },
-    bigMonth: 'June 2027',
     facts: [
       { value: '9', label: 'Rounds' },
       { value: '9', label: 'Days' },
