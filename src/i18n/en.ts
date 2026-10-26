@@ -43,10 +43,10 @@ const en = {
     leadLines: [
       'A former World Championship challenger.',
       'Finland’s strongest player of all time.',
-      'Nordic champions.',
+      'Multiple Nordic champions.',
       'One of the biggest names in chess content creation.',
       'And you, across the board.',
-      'This is Nordic Chess Festival.',
+      'This\u00A0is\u00A0Nordic\u00A0Chess\u00A0Festival.',
     ],
     ctaPrimary: 'Entry fees & registration',
     ctaSecondary: 'Schedule & regulations',

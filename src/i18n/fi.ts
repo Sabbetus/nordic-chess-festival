@@ -45,10 +45,10 @@ const fi: Messages = {
     leadLines: [
       'Entinen maailmanmestaruushaastaja.',
       'Suomen kaikkien aikojen vahvin pelaaja.',
-      'Pohjoismaiden mestareita.',
+      'Useita Pohjoismaiden mestareita.',
       'Yksi shakkisisällöntuotannon suurimmista nimistä.',
       'Ja sinä, laudan toisella puolella.',
-      'Tämä on Nordic Chess Festival.',
+      'Tämä\u00A0on\u00A0Nordic\u00A0Chess\u00A0Festival.',
     ],
     ctaPrimary: 'Maksut ja ilmoittautuminen',
     ctaSecondary: 'Aikataulu ja säännöt',
