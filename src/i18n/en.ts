@@ -42,7 +42,7 @@ const en = {
     eyebrow: 'Kangasala, Finland · 12–20 June 2027',
     leadLines: [
       'A former World Championship challenger.',
-      'Finland’s strongest player of all time.',
+      'Strongest Finnish player of\u00A0all\u00A0time.',
       'Multiple Nordic champions.',
       'One of the biggest names in chess content creation.',
       'And you, across the board.',
