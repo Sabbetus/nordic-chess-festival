@@ -73,6 +73,12 @@ const en = {
       opening: 'Opening ceremony',
       prizegiving: 'Prize-giving ceremony',
     },
+    location: {
+      eyebrow: 'Kangasala, Finland',
+      title: 'Lakes, forests and the Nordic summer',
+      text: 'A lakeside town right next to the city of Tampere.',
+      alt: 'Aerial view of Kangasala between its lakes in summer',
+    },
     prize: {
       eyebrow: 'Prizes',
       text: 'A guaranteed prize pool for the whole field. There is a prize for the best women player, and there are rating tier prizes, so there is something to play for at every level.',

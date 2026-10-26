@@ -75,6 +75,12 @@ const fi: Messages = {
       opening: 'Avajaiset',
       prizegiving: 'Palkintojenjako',
     },
+    location: {
+      eyebrow: 'Kangasala',
+      title: 'Järviä, metsiä ja pohjoinen kesä',
+      text: 'Järvenrantakaupunki aivan Tampereen vieressä.',
+      alt: 'Ilmakuva Kangasalasta järvien välissä kesällä',
+    },
     prize: {
       eyebrow: 'Palkinnot',
       text: 'Taattu palkintopotti koko kentälle. Parhaalle naispelaajalle on oma palkintonsa, ja ratingluokille jaetaan palkintoja, joten jokaisella tasolla on tavoiteltavaa.',

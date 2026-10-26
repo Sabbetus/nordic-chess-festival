@@ -5,6 +5,7 @@ import GuestCard from '../../components/GuestCard.astro';
 import Countdown from '../../components/Countdown.astro';
 import RoundTiles from '../../components/RoundTiles.astro';
 import Newsletter from '../../components/Newsletter.astro';
+import LocationBand from '../../components/LocationBand.astro';
 import { localeStaticPaths, localePath, messages, formatDate, formatDayShort } from '../../i18n/utils';
 import { festival } from '../../data/fees';
 import { schedule, venue } from '../../data/schedule';
@@ -140,6 +141,8 @@ const jsonLd = [
       </div>
     </div>
   </section>
+
+  <LocationBand lang={lang} />
 
   <!-- FEES + VENUE -->
   <section class="section surface">

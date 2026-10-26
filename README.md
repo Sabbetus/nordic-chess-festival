@@ -43,3 +43,16 @@ Until launch the production branch is the development branch (`claude/stoic-fran
 stable `workers.dev` address always shows the latest new site while `main` still holds the teaser.
 At launch: merge to `main`, switch the production branch back to `main`, remove `PUBLIC_NOINDEX`,
 and point nordicchess.fi at Cloudflare.
+
+## Image sources
+
+Guest portraits come from Wikimedia Commons; author and licence are shown next to each photo (see
+`photoCredit` and `photoSourceUrl` in `src/content/guests/*.yaml`). Kangasala images in `src/assets/`:
+
+| File | Source |
+| --- | --- |
+| `kangasala-aerial.jpg` | Wikimedia Commons, "Kangasala aerial 4.jpg" |
+| `kangasala-talo.jpg` | Wikimedia Commons, "Kangasala-talo kesäaamun valossa.jpg" (not used yet) |
+
+Licences for the Kangasala images have not been checked. Replace them with images from the city of Kangasala
+once the partnership is in place.
