@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { locales, defaultLocale, localePath, messages, formatDate } from "../../../i18n/utils";
+
+export async function getStaticPaths() {
+  const all = await getCollection("news");
+  return locales.flatMap((lang) =>
+    all
+      .filter((e) => e.id.startsWith(`${lang}/`))
+      .map((entry) => ({
+        params: { locale: lang === defaultLocale ? undefined : lang, slug: entry.id.split("/")[1] },
+        props: { lang, entry },
+      })),
+  );
+}
+
+const { lang, entry } = Astro.props;
+const m = messages[lang];
+const { Content } = await render(entry);
+const slug = entry.id.split("/")[1];
+---
+
+<BaseLayout lang={lang} path={`/news/${slug}/`} title={entry.data.title} description={entry.data.summary} noindex={entry.data.placeholder}>
+  <article class="section article">
+    <div class="container narrow">
+      <a class="back" href={localePath(lang, "/news/")}>← {m.news.allNews}</a>
+      <p class="eyebrow">{formatDate(lang, entry.data.date)}</p>
+      <h1>{entry.data.title}</h1>
+      <div class="prose body"><Content /></div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article { border-top: 0; }
+  .back { font-size: var(--text-sm); color: var(--muted); display: inline-block; margin-bottom: var(--space-5); }
+  h1 { font-size: clamp(2.25rem, 5vw, 4rem); margin-block: var(--space-3) var(--space-6); }
+  .body { color: var(--white); font-size: var(--text-lg); }
+</style>

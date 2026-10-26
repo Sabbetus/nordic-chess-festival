@@ -1,0 +1,25 @@
+---
+import { locales, localeNames, localePath, messages, type Locale } from '../i18n/utils';
+
+interface Props { lang: Locale; path: string }
+const { lang, path } = Astro.props;
+---
+
+<nav class="lang" aria-label={messages[lang].common.language}>
+  {locales.map((l) => (
+    <a
+      href={localePath(l, path)}
+      hreflang={l}
+      lang={l}
+      aria-current={l === lang ? 'true' : undefined}
+      title={localeNames[l]}
+    >{l.toUpperCase()}</a>
+  ))}
+</nav>
+
+<style>
+  .lang { display: inline-flex; gap: 0.25rem; font-size: var(--text-xs); letter-spacing: 0.14em; font-weight: 500; }
+  .lang a { color: var(--muted-2); padding: 0.35rem 0.5rem; border-radius: 2px; }
+  .lang a:hover { color: var(--white); }
+  .lang a[aria-current='true'] { color: var(--ice); border-bottom: 1px solid var(--ice-border); }
+</style>

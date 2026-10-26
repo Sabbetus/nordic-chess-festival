@@ -1,0 +1,38 @@
+---
+import { bands, formatEuro } from '../data/fees';
+import { messages, type Locale } from '../i18n/utils';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const m = messages[lang].register;
+const price = (n: number) => (n === 0 ? m.free : formatEuro(n));
+const label = (id: string, fallback: string) => (id === 'unrated' ? m.unrated : fallback);
+---
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">{m.colRating}</th>
+        <th scope="col" class="col-num">{m.colRegular}</th>
+        <th scope="col" class="col-num" data-early-bird>{m.colEarly}<small>{m.colEarlyNote}</small></th>
+        <th scope="col" class="col-num">{m.colDiscount}<small>{m.colDiscountNote}</small></th>
+      </tr>
+    </thead>
+    <tbody>
+      {bands.map((b) => (
+        <tr>
+          <th scope="row">{label(b.id, b.label)}</th>
+          <td class="col-num">{price(b.regular)}</td>
+          <td class="col-num accent" data-early-bird>{price(b.discounted)}</td>
+          <td class="col-num accent">{price(b.discounted)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  td { font-family: var(--font-body); font-weight: 500; font-size: 1.05rem; }
+  td.accent { color: var(--ice); }
+</style>

@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { messages } from '../i18n/utils';
+const en = messages.en.notFound;
+const fi = messages.fi.notFound;
+---
+
+<BaseLayout lang="en" path="/404/" title={en.title} noindex>
+  <section class="section">
+    <div class="container narrow stack">
+      <p class="eyebrow">404</p>
+      <h1>{en.title}</h1>
+      <p class="lead">{en.text} <a href="/">{en.home}</a></p>
+      <p class="lead" lang="fi">{fi.text} <a href="/fi/">{fi.home}</a></p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PageHero from "../../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+import { getCollection } from "astro:content";
+import GuestCard from "../../../components/GuestCard.astro";
+const g = m.guests;
+const all = (await getCollection("guests")).sort((a, b) => a.data.order - b.data.order);
+const groups = [
+  { title: g.gm, items: all.filter((x) => x.data.kind === "gm") },
+  { title: g.streamer, items: all.filter((x) => x.data.kind === "streamer") },
+].filter((x) => x.items.length > 0);
+---
+
+<BaseLayout lang={lang} path="/guests/" title={g.title} description={g.lead}>
+  <PageHero eyebrow={m.common.place} title={g.title} lead={g.lead} />
+  {groups.length === 0 ? (
+    <section class="section"><div class="container"><div class="notice"><p>{g.empty}</p></div></div></section>
+  ) : groups.map((grp) => (
+    <section class="section">
+      <div class="container">
+        <h2 class="title">{grp.title}</h2>
+        <div class="grid grid-4">{grp.items.map((x) => <GuestCard guest={x} lang={lang} />)}</div>
+      </div>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>.title { margin-bottom: var(--space-5); }</style>

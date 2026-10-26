@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+const p = m.prizes;
+---
+
+<BaseLayout lang={lang} path="/prizes/" title={p.title} description={p.lead}>
+  <PageHero eyebrow={m.common.dates} title={p.title} lead={p.lead} />
+  <section class="section">
+    <div class="container narrow stack">
+      <h2>{p.fundTitle}</h2>
+      <p class="lead">{p.fundText}</p>
+      <span class="placeholder-note">{m.common.placeholder}</span>
+    </div>
+  </section>
+</BaseLayout>

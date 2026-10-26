@@ -1,0 +1,173 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GuestCard from '../../components/GuestCard.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import { localeStaticPaths, localePath, messages, formatDate } from '../../i18n/utils';
+import { festival } from '../../data/fees';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const { lang } = Astro.props;
+const m = messages[lang];
+const h = m.home;
+
+const guests = (await getCollection('guests')).sort((a, b) => a.data.order - b.data.order).slice(0, 4);
+const news = (await getCollection('news'))
+  .filter((n) => n.id.startsWith(`${lang}/`))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const exploreKeys = ['tournament', 'register', 'guests', 'prizes', 'sideEvents', 'travel'] as const;
+const explorePaths = {
+  tournament: '/tournament/',
+  register: '/register/',
+  guests: '/guests/',
+  prizes: '/prizes/',
+  sideEvents: '/side-events/',
+  travel: '/travel/',
+} as const;
+
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: festival.name, url: site.url },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SportsEvent',
+    name: `${festival.name} ${festival.year}`,
+    description: messages.en.meta.description,
+    startDate: festival.startDate,
+    endDate: festival.endDate,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: {
+      '@type': 'Place',
+      name: 'Kangasala',
+      address: { '@type': 'PostalAddress', addressLocality: 'Kangasala', addressCountry: 'FI' },
+    },
+    organizer: { '@type': 'Organization', name: site.organiser, url: site.url, email: site.email },
+    url: site.url,
+    image: `${site.url}/preview.jpg`,
+    sport: 'Chess',
+  },
+];
+---
+
+<BaseLayout lang={lang} path="/" jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow reveal">♛ {h.eyebrow}</p>
+      <h1 class="reveal reveal-1">Nordic <em>Chess</em> Festival</h1>
+      <p class="lead reveal reveal-2">{h.lead}</p>
+      <p class="btn-row reveal reveal-3">
+        <a class="btn btn-primary" href={localePath(lang, '/register/')}>{h.ctaPrimary} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href={localePath(lang, '/tournament/')}>{h.ctaSecondary}</a>
+      </p>
+      <dl class="facts reveal reveal-4">
+        {h.facts.map((f) => (
+          <div>
+            <dt>{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="band" data-early-bird>
+    <div class="container band-inner">
+      <p><strong>{h.earlyBird.title}</strong> · {h.earlyBird.text}</p>
+      <a class="btn btn-ghost btn-sm" href={localePath(lang, '/register/')}>{h.earlyBird.cta}</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><h2>{h.exploreTitle}</h2></div>
+      <div class="grid grid-3">
+        {exploreKeys.map((k) => (
+          <a class="card" href={localePath(lang, explorePaths[k])}>
+            <h3>{m.nav[k]}</h3>
+            <p>{h.explore[k]}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>{h.guestsTitle}</h2>
+          <p class="lead">{h.guestsText}</p>
+        </div>
+        <a class="btn btn-ghost btn-sm" href={localePath(lang, '/guests/')}>{m.common.viewAll}</a>
+      </div>
+      <div class="grid grid-4">
+        {guests.map((g) => <GuestCard guest={g} lang={lang} />)}
+      </div>
+    </div>
+  </section>
+
+  {news.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>{h.newsTitle}</h2>
+          <a class="btn btn-ghost btn-sm" href={localePath(lang, '/news/')}>{m.news.allNews}</a>
+        </div>
+        <div class="grid grid-3">
+          {news.map((n) => (
+            <a class="card" href={localePath(lang, `/news/${n.id.split('/')[1]}/`)}>
+              <p class="eyebrow">{formatDate(lang, n.data.date)}</p>
+              <h3>{n.data.title}</h3>
+              <p>{n.data.summary}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <Newsletter lang={lang} />
+
+  <section class="partners">
+    <div class="container">
+      <p>
+        {h.partnersLabel}
+        {site.partners.map((p, i) => (
+          <>{i > 0 && ' & '}<a href={p.url} target="_blank" rel="noopener">{p.name}</a></>
+        ))}
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { position: relative; padding-block: clamp(4rem, 12vw, 9rem) var(--space-8); overflow: hidden; }
+  .hero::after {
+    content: ''; position: absolute; right: -10%; top: -20%; width: 70%; aspect-ratio: 1; pointer-events: none;
+    background: repeating-conic-gradient(rgba(126, 200, 227, 0.07) 0% 25%, transparent 0% 50%) 0 0 / 7rem 7rem;
+    -webkit-mask-image: radial-gradient(closest-side, #000 0%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 0%, transparent 100%);
+  }
+  .hero .container > * { position: relative; z-index: 1; }
+  .hero h1 { margin-block: var(--space-4) var(--space-5); }
+  .hero .btn-row { margin-top: var(--space-6); }
+  .facts { display: flex; flex-wrap: wrap; gap: var(--space-6); margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--line); }
+  .facts div { display: flex; flex-direction: column-reverse; gap: 0.25rem; }
+  .facts dd { font-family: var(--font-display); font-weight: 600; font-size: 2.25rem; line-height: 1; }
+  .facts dt { font-size: var(--text-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+  .band { border-block: 1px solid var(--ice-border); background: var(--ice-dim); position: relative; z-index: 1; }
+  .band-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; padding-block: var(--space-4); color: var(--ice); font-size: var(--text-sm); letter-spacing: 0.04em; }
+  .band strong { font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  .partners { border-top: 1px solid var(--line); padding-block: var(--space-5); text-align: center; position: relative; z-index: 1; }
+  .partners p { font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-2); }
+  .partners a { color: var(--muted); }
+  .partners a:hover { color: var(--ice); }
+</style>

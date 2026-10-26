@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PageHero from "../../../components/PageHero.astro";
+import { localeStaticPaths, localePath, messages } from "../../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+import { getCollection } from "astro:content";
+import { formatDate } from "../../../i18n/utils";
+const n = m.news;
+const items = (await getCollection("news"))
+  .filter((x) => x.id.startsWith(`${lang}/`))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout lang={lang} path="/news/" title={n.title} description={n.lead}>
+  <PageHero title={n.title} lead={n.lead} />
+  <section class="section">
+    <div class="container">
+      {items.length === 0 ? (
+        <div class="notice"><p>{n.empty}</p></div>
+      ) : (
+        <div class="grid grid-3">
+          {items.map((i) => (
+            <a class="card" href={localePath(lang, `/news/${i.id.split("/")[1]}/`)}>
+              <p class="eyebrow">{formatDate(lang, i.data.date)}</p>
+              <h3>{i.data.title}</h3>
+              <p>{i.data.summary}</p>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

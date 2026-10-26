@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+const t = m.tournament;
+const rows = [
+  [t.details.dates, `${m.common.dates}`],
+  [t.details.venue, m.common.tba],
+  [t.details.rounds, t.roundsValue],
+  [t.details.format, m.common.tba],
+  [t.details.timeControl, m.common.tba],
+  [t.details.rating, m.common.tba],
+  [t.details.arbiters, m.common.tba],
+  [t.details.regulations, m.common.tba],
+];
+const rounds = Array.from({ length: 9 }, (_, i) => i + 1);
+---
+
+<BaseLayout lang={lang} path="/tournament/" title={t.title} description={t.lead}>
+  <PageHero eyebrow={`${m.common.place} · ${m.common.dates}`} title={t.title} lead={t.lead} />
+
+  <section class="section">
+    <div class="container">
+      <h2>{t.detailsTitle}</h2>
+      <dl class="details">
+        {rows.map(([k, v]) => (<div><dt>{k}</dt><dd>{v}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><h2>{t.scheduleTitle}</h2><span class="placeholder-note">{m.common.placeholder}</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">{t.round}</th><th scope="col">{t.dateTime}</th></tr></thead>
+          <tbody>
+            {rounds.map((r) => (<tr><th scope="row">{t.round} {r}</th><td>{m.common.tba}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .details { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-top: var(--space-5); border-top: 1px solid var(--line); }
+  .details div { padding-block: var(--space-4); border-bottom: 1px solid var(--line); display: grid; gap: 0.25rem; }
+  dt { font-size: var(--text-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  dd { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; }
+</style>

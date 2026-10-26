@@ -1,0 +1,49 @@
+---
+import LanguageSwitch from './LanguageSwitch.astro';
+import { footerGroups } from '../data/nav';
+import { site } from '../data/site';
+import { localePath, messages, type Locale } from '../i18n/utils';
+
+interface Props { lang: Locale; path: string }
+const { lang, path } = Astro.props;
+const m = messages[lang];
+---
+
+<footer class="site-footer">
+  <div class="container top">
+    <div class="brand">
+      <p class="logo">Nordic <span>Chess</span> Festival</p>
+      <p class="muted">{m.common.place} · {m.common.dates}</p>
+      <p>{m.footer.questions} <a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    {footerGroups.map((g) => (
+      <nav aria-label={g.title === 'tournament' ? m.nav.tournament : m.footer.questions}>
+        <ul>
+          {g.items.map((item) => <li><a href={localePath(lang, item.path)}>{m.nav[item.key]}</a></li>)}
+        </ul>
+      </nav>
+    ))}
+  </div>
+  <div class="container bottom">
+    <p>© 2027 {m.footer.organiser}</p>
+    <LanguageSwitch lang={lang} path={path} />
+  </div>
+</footer>
+
+<style>
+  .site-footer { position: relative; z-index: 1; border-top: 1px solid var(--line); margin-top: var(--space-8); padding-top: var(--space-7); }
+  .top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: var(--space-6); padding-bottom: var(--space-7); }
+  .brand { display: grid; gap: var(--space-3); align-content: start; font-size: var(--text-sm); }
+  .logo { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); }
+  .logo span { color: var(--ice); }
+  ul { list-style: none; display: grid; gap: var(--space-2); }
+  nav a { color: var(--muted); font-size: var(--text-sm); }
+  nav a:hover { color: var(--ice); }
+  .bottom {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-3);
+    background: linear-gradient(var(--line), var(--line)) center top / calc(100% - 2 * var(--gutter)) 1px no-repeat;
+    padding-block: var(--space-5);
+    font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-2);
+  }
+  @media (max-width: 768px) { .top { grid-template-columns: 1fr 1fr; } .brand { grid-column: 1 / -1; } }
+</style>

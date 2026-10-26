@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+const t = m.travel;
+const blocks = [
+  [t.venueTitle, t.venueText],
+  [t.gettingThereTitle, t.gettingThereText],
+  [t.stayTitle, t.stayText],
+  [t.visaTitle, t.visaText],
+];
+---
+
+<BaseLayout lang={lang} path="/travel/" title={t.title} description={t.lead}>
+  <PageHero eyebrow={m.common.place} title={t.title} lead={t.lead} />
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2">
+        {blocks.map(([title, text]) => (
+          <div class="card"><h3>{title}</h3><p>{text}</p></div>
+        ))}
+      </div>
+      <p class="note"><span class="placeholder-note">{m.common.placeholder}</span></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>.note { margin-top: var(--space-5); }</style>

@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+import FeeTable from "../../components/FeeTable.astro";
+import { site } from "../../data/site";
+const r = m.register;
+---
+
+<BaseLayout lang={lang} path="/register/" title={r.title} description={r.lead}>
+  <PageHero eyebrow={m.common.dates} title={r.title} lead={r.lead} />
+
+  <section class="section">
+    <div class="container narrow-wrap">
+      <div class="notice">
+        <h2>{r.statusTitle}</h2>
+        <p>{r.statusText}</p>
+        <p class="btn-row"><a class="btn btn-primary" href={site.newsletterUrl} target="_blank" rel="noopener">{r.statusCta} <span class="arrow" aria-hidden="true">→</span></a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title">{r.feesTitle}</h2>
+      <FeeTable lang={lang} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid-2">
+      <div>
+        <h2>{r.rulesTitle}</h2>
+        <ul class="prose rules">{r.rules.map((x) => <li>{x}</li>)}</ul>
+      </div>
+      <div class="stack">
+        <h2>{r.refundTitle}</h2>
+        <p class="prose">{r.refundText}</p>
+        <h2 class="gap">{r.howTitle}</h2>
+        <ol class="prose rules">{r.how.map((x) => <li>{x}</li>)}</ol>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .title { margin-bottom: var(--space-5); }
+  .gap { margin-top: var(--space-6); }
+  .rules { display: grid; gap: var(--space-3); padding-left: 1.25rem; margin-top: var(--space-4); }
+  .rules li + li { margin-top: 0; }
+</style>

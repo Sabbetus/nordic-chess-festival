@@ -1,0 +1,80 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { locales, defaultLocale, localePath, messages } from "../../../i18n/utils";
+
+export async function getStaticPaths() {
+  const guests = await getCollection("guests");
+  return locales.flatMap((lang) =>
+    guests.map((guest) => ({
+      params: { locale: lang === defaultLocale ? undefined : lang, slug: guest.id },
+      props: { lang, guest },
+    })),
+  );
+}
+
+const { lang, guest } = Astro.props;
+const m = messages[lang];
+const d = guest.data;
+const fullName = `${d.title ? d.title + " " : ""}${d.name}`;
+const paragraphs = d.bio[lang].trim().split(/\n\s*\n/);
+const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join("");
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: d.name,
+  ...(d.links.length ? { sameAs: d.links.map((l) => l.url) } : {}),
+};
+---
+
+<BaseLayout lang={lang} path={`/guests/${guest.id}/`} title={fullName} description={d.tagline?.[lang]} jsonLd={d.placeholder ? undefined : jsonLd} noindex={d.placeholder}>
+  <section class="section profile">
+    <div class="container">
+      <a class="back" href={localePath(lang, "/guests/")}>← {m.guests.backToGuests}</a>
+      <div class="layout">
+        <figure class="photo">
+          {d.photo ? (
+            <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={[480, 720, 960]} sizes="(min-width: 900px) 30rem, 90vw" loading="eager" />
+          ) : (
+            <span class="mono" aria-hidden="true">{initials}</span>
+          )}
+          {d.photoCredit && <figcaption>{m.common.photoCredit}: {d.photoCredit}</figcaption>}
+        </figure>
+        <div class="stack">
+          <p class="eyebrow">{d.kind === "gm" ? m.guests.gm : m.guests.streamer}{d.placeholder ? ` · ${m.guests.placeholderBadge}` : ""}</p>
+          <h1>{fullName}</h1>
+          {d.tagline && <p class="lead">{d.tagline[lang]}</p>}
+          <dl class="facts">
+            {d.federation && <div><dt>{m.guests.federation}</dt><dd>{d.federation}</dd></div>}
+            {d.rating && <div><dt>{m.guests.rating}</dt><dd class="num">{d.rating}</dd></div>}
+          </dl>
+          <div class="prose">{paragraphs.map((p) => <p>{p}</p>)}</div>
+          {d.links.length > 0 && (
+            <div>
+              <h2 class="links-title">{m.guests.links}</h2>
+              <p class="btn-row">{d.links.map((l) => <a class="btn btn-ghost btn-sm" href={l.url} target="_blank" rel="noopener">{l.label}</a>)}</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .profile { border-top: 0; padding-top: var(--space-6); }
+  .back { font-size: var(--text-sm); color: var(--muted); display: inline-block; margin-bottom: var(--space-6); }
+  .layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-7); align-items: start; }
+  .photo { position: sticky; top: calc(var(--header-h) + 1.5rem); aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(160deg, var(--surface-2), var(--surface)); display: grid; place-items: center; }
+  .photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .photo figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: var(--space-2) var(--space-3); font-size: var(--text-xs); color: var(--muted); background: rgba(10, 10, 10, 0.7); }
+  .mono { font-family: var(--font-display); font-size: 8rem; color: var(--ice); opacity: 0.5; }
+  h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+  .facts { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+  .facts div { display: flex; flex-direction: column-reverse; gap: 0.2rem; }
+  .facts dd { font-family: var(--font-display); font-size: 2rem; font-weight: 600; line-height: 1; }
+  .facts dt { font-size: var(--text-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .links-title { font-size: 1.5rem; margin-bottom: var(--space-3); }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; gap: var(--space-5); } .photo { position: static; max-width: 24rem; } }
+</style>

@@ -1,0 +1,7 @@
+order: 6
+question:
+  en: Which rating counts for the entry fee?
+  fi: Mikä rating vaikuttaa osallistumismaksuun?
+answer:
+  en: Your FIDE rating on the day you pay your entry fee.
+  fi: FIDE-ratingisi osallistumismaksun maksupäivänä.

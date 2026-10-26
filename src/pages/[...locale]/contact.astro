@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+import { site } from "../../data/site";
+const c = m.contact;
+---
+
+<BaseLayout lang={lang} path="/contact/" title={c.title} description={c.lead}>
+  <PageHero title={c.title} lead={c.lead} />
+  <section class="section">
+    <div class="container grid grid-2">
+      <div class="card"><h3>{c.emailTitle}</h3><p><a href={`mailto:${site.email}`}>{site.email}</a></p></div>
+      <div class="card">
+        <h3>{c.organiserTitle}</h3>
+        <p>{c.organiserText}</p>
+        <p>{c.businessId}: {m.common.tba}</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

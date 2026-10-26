@@ -1,0 +1,24 @@
+---
+import { site } from '../data/site';
+import { messages, type Locale } from '../i18n/utils';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const n = messages[lang].home.newsletter;
+---
+
+<section class="section newsletter">
+  <div class="container narrow">
+    <h2>{n.title}</h2>
+    <p class="lead">{n.text}</p>
+    <p class="btn-row">
+      <a class="btn btn-primary" href={site.newsletterUrl} target="_blank" rel="noopener">{n.cta} <span class="arrow" aria-hidden="true">→</span></a>
+    </p>
+    <p class="note">{n.note}</p>
+  </div>
+</section>
+
+<style>
+  .newsletter .container > * + * { margin-top: var(--space-5); }
+  .note { font-size: var(--text-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-2); }
+</style>

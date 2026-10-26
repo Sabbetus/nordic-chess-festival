@@ -1,0 +1,101 @@
+---
+import LanguageSwitch from './LanguageSwitch.astro';
+import { headerNav, registerItem } from '../data/nav';
+import { localePath, messages, type Locale } from '../i18n/utils';
+
+interface Props { lang: Locale; path: string }
+const { lang, path } = Astro.props;
+const m = messages[lang];
+const here = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? 'page' : undefined);
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="logo" href={localePath(lang, '/')} aria-label={m.meta.siteName}>
+      Nordic <span>Chess</span> Festival
+    </a>
+
+    <nav id="site-nav" class="nav" aria-label={m.common.mainNavigation} data-nav>
+      <ul>
+        {headerNav.map((item) => (
+          <li><a href={localePath(lang, item.path)} aria-current={here(item.path)}>{m.nav[item.key]}</a></li>
+        ))}
+      </ul>
+      <div class="nav-extras">
+        <LanguageSwitch lang={lang} path={path} />
+        <a class="btn btn-primary btn-sm" href={localePath(lang, registerItem.path)}>{m.common.register}</a>
+      </div>
+    </nav>
+
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-btn>
+      <span class="sr-only">{m.common.menu}</span>
+      <span class="bars" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50; height: var(--header-h);
+    border-bottom: 1px solid var(--line);
+  }
+  /* The blur lives on a pseudo-element: backdrop-filter on the header itself would make it
+     the containing block of the fixed mobile menu and collapse the menu to header height. */
+  .site-header::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: rgba(10, 10, 10, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  }
+  .bar { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); }
+  .logo {
+    font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--white); white-space: nowrap; position: relative; z-index: 2;
+  }
+  .logo span { color: var(--ice); }
+  .logo:hover { color: var(--white); }
+  .nav { display: flex; align-items: center; gap: var(--space-6); }
+  .nav ul { display: flex; list-style: none; gap: 1.25rem; }
+  .nav ul a { color: var(--muted); font-size: 0.9rem; font-weight: 400; white-space: nowrap; padding-block: 0.4rem; border-bottom: 1px solid transparent; }
+  .nav ul a:hover, .nav ul a[aria-current='page'] { color: var(--white); border-color: var(--ice); }
+  .nav-extras { display: flex; align-items: center; gap: var(--space-4); }
+  .menu-btn { display: none; }
+
+  @media (max-width: 1320px) {
+    .menu-btn {
+      display: grid; place-items: center; width: 2.75rem; height: 2.75rem; position: relative; z-index: 2;
+      background: none; border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--white); cursor: pointer;
+    }
+    .bars { position: relative; width: 1.1rem; height: 0.7rem; }
+    .bars i { position: absolute; left: 0; right: 0; height: 1px; background: currentColor; transition: transform 0.25s var(--ease), top 0.25s var(--ease); }
+    .bars i:first-child { top: 0; } .bars i:last-child { top: 100%; }
+    .menu-btn[aria-expanded='true'] .bars i:first-child { top: 50%; transform: rotate(45deg); }
+    .menu-btn[aria-expanded='true'] .bars i:last-child { top: 50%; transform: rotate(-45deg); }
+
+    .nav {
+      position: fixed; inset: var(--header-h) 0 0 0; background: var(--black);
+      flex-direction: column; align-items: stretch; justify-content: flex-start; gap: var(--space-6);
+      padding: var(--space-6) var(--gutter); overflow-y: auto;
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), visibility 0.25s;
+    }
+    .nav[data-open] { opacity: 1; visibility: visible; transform: none; }
+    .nav ul { flex-direction: column; gap: 0; }
+    .nav ul li { border-bottom: 1px solid var(--line); }
+    .nav ul a { display: block; font-family: var(--font-display); font-size: 1.9rem; font-weight: 600; color: var(--white); padding-block: var(--space-3); border: 0; }
+    .nav-extras { justify-content: space-between; }
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-menu-btn]');
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  if (btn && nav) {
+    const set = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      nav.toggleAttribute('data-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+    nav.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
+  }
+</script>

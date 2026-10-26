@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+import registered from "../../data/registered-players.json";
+import { site } from "../../data/site";
+import { formatDate } from "../../i18n/utils";
+const p = m.players;
+const list = registered.players as { title?: string; name: string; fed: string; rating?: number }[];
+const updated = registered.updatedAt ? formatDate(lang, new Date(registered.updatedAt)) : null;
+---
+
+<BaseLayout lang={lang} path="/players/" title={p.title} description={p.lead}>
+  <PageHero eyebrow={m.common.dates} title={p.title} lead={p.lead} />
+
+  <section class="section">
+    <div class="container">
+      {list.length === 0 ? (
+        <div class="notice"><p>{p.empty}</p></div>
+      ) : (
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col" class="col-num">{p.colNo}</th>
+                <th scope="col">{p.colTitle}</th>
+                <th scope="col">{p.colName}</th>
+                <th scope="col">{p.colFed}</th>
+                <th scope="col" class="col-num">{p.colRating}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {list.map((pl, i) => (
+                <tr>
+                  <td class="col-num">{i + 1}</td>
+                  <td>{pl.title ?? ''}</td>
+                  <th scope="row">{pl.name}</th>
+                  <td>{pl.fed}</td>
+                  <td class="col-num">{pl.rating ?? ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      <p class="meta">
+        {updated && <span>{p.updated}: {updated}</span>}
+        {site.chessResultsUrl && <a href={site.chessResultsUrl} target="_blank" rel="noopener">{p.officialList} →</a>}
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .meta { margin-top: var(--space-4); display: flex; gap: var(--space-5); flex-wrap: wrap; font-size: var(--text-sm); color: var(--muted); }
+</style>

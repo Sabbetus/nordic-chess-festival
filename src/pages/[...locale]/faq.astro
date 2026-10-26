@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+import { getCollection } from "astro:content";
+const f = m.faq;
+const items = (await getCollection("faq")).sort((a, b) => a.data.order - b.data.order);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((i) => ({
+    "@type": "Question",
+    name: i.data.question[lang],
+    acceptedAnswer: { "@type": "Answer", text: i.data.answer[lang] },
+  })),
+};
+---
+
+<BaseLayout lang={lang} path="/faq/" title={f.title} description={f.lead} jsonLd={jsonLd}>
+  <PageHero title={f.title} lead={f.lead} />
+  <section class="section">
+    <div class="container narrow">
+      {items.map((i) => (
+        <details>
+          <summary>{i.data.question[lang]}</summary>
+          <p>{i.data.answer[lang]}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  details { border-bottom: 1px solid var(--line); }
+  details:first-child { border-top: 1px solid var(--line); }
+  summary { cursor: pointer; list-style: none; padding-block: var(--space-4); font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; display: flex; justify-content: space-between; gap: var(--space-4); align-items: center; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; color: var(--ice); font-family: var(--font-body); font-weight: 300; font-size: 1.6rem; transition: transform 0.25s var(--ease); }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { color: var(--muted); padding-bottom: var(--space-5); max-width: 40rem; }
+</style>

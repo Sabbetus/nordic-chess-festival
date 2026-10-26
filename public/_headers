@@ -1,0 +1,12 @@
+# Keep preview and test hosts out of search engines
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://test.nordicchess.fi/*
+  X-Robots-Tag: noindex
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

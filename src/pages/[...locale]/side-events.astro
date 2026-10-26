@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const m = messages[lang];
+import { getCollection } from "astro:content";
+const s = m.sideEvents;
+const events = (await getCollection("sideEvents")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout lang={lang} path="/side-events/" title={s.title} description={s.lead}>
+  <PageHero eyebrow={m.common.dates} title={s.title} lead={s.lead} />
+  <section class="section">
+    <div class="container">
+      {events.length === 0 ? (
+        <div class="notice"><p>{s.empty}</p></div>
+      ) : (
+        <div class="grid grid-2">
+          {events.map((e) => (
+            <article class="card">
+              <h3>{e.data.title[lang]}</h3>
+              <p>{e.data.description[lang]}</p>
+              {e.data.when && <p class="meta">{s.when}: {e.data.when[lang]}</p>}
+              {e.data.entryFee && <p class="meta">{s.entryFee}: {e.data.entryFee[lang]}</p>}
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>.meta { margin-top: var(--space-2); color: var(--ice); }</style>
