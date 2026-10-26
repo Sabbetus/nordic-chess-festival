@@ -2,6 +2,10 @@ name: Nigel Short
 kind: gm
 title: GM
 federation: ENG
+fideId: 400025
+rating:
+  value: 2594
+  month: '2026-10'
 peakRating: 2712
 photo: ../../assets/guests/nigel-short.jpg
 photoCredit: "GibChess, CC BY 3.0"

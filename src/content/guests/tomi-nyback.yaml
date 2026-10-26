@@ -2,17 +2,21 @@ name: Tomi Nybäck
 kind: gm
 title: GM
 federation: FIN
+fideId: 503142
+rating:
+  value: 2570
+  month: '2026-10'
 peakRating: 2656
 photo: ../../assets/guests/tomi-nyback.jpg
 photoCredit: "Przemysław Jahr, CC BY-SA 3.0"
 photoSourceUrl: https://commons.wikimedia.org/wiki/File:Tomi_Nyb%C3%A4ck_2013.jpg
 photoPosition: "50% 25%"
-order: 3
+order: 2
 tagline:
   en: The strongest Finnish player of all time
   fi: Kaikkien aikojen vahvin suomalaispelaaja
 bio:
   en: |
-    The strongest Finnish player of all time, and in a league of his own among Finnish players. Tomi became Finland's youngest ever grandmaster in 2003 at the age of 18, won the Finnish Championship in 2008 with a perfect 9/9 and played for Finland at seven Chess Olympiads.
+    In a league of his own among Finnish players, Tomi became Finland's youngest ever grandmaster in 2003 at the age of 18, won the Finnish Championship in 2008 with a perfect 9/9 and played for Finland at seven Chess Olympiads.
   fi: |
-    Kaikkien aikojen vahvin suomalainen shakinpelaaja, joka on omassa sarjassaan suomalaisten pelaajien joukossa. Tomista tuli Suomen nuorin suurmestari vuonna 2003 18-vuotiaana, hän voitti Suomen mestaruuden vuonna 2008 täydellä 9/9-tuloksella ja pelasi Suomen joukkueessa seitsemissä shakkiolympialaisissa.
+    Tomi on omassa sarjassaan suomalaisten pelaajien joukossa. Hänestä tuli Suomen nuorin suurmestari vuonna 2003 18-vuotiaana, hän voitti Suomen mestaruuden vuonna 2008 täydellä 9/9-tuloksella ja pelasi Suomen joukkueessa seitsemissä shakkiolympialaisissa.

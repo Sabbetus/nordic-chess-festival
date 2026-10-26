@@ -140,6 +140,26 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- NEWS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="head-text">
+          <p class="eyebrow rule">{m.nav.news}</p>
+          <h2>{h.newsTitle}</h2>
+        </div>
+        <a class="btn btn-ghost btn-sm" href={localePath(lang, '/news/')}>{m.news.allNews}</a>
+      </div>
+      {news.length === 0 ? (
+        <div class="notice"><p>{h.newsEmpty}</p></div>
+      ) : (
+        <div class="news-grid">
+          {news.map((n, i) => <NewsCard entry={n} lang={lang} featured={i === 0} />)}
+        </div>
+      )}
+    </div>
+  </section>
+
   <LocationBand lang={lang} />
 
   <!-- FEES + VENUE -->
@@ -168,26 +188,6 @@ const jsonLd = [
           <a class="btn btn-ghost" href={venue.mapUrl} target="_blank" rel="noopener">{h.venue.map}</a>
         </p>
       </article>
-    </div>
-  </section>
-
-  <!-- NEWS -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <div class="head-text">
-          <p class="eyebrow rule">{m.nav.news}</p>
-          <h2>{h.newsTitle}</h2>
-        </div>
-        <a class="btn btn-ghost btn-sm" href={localePath(lang, '/news/')}>{m.news.allNews}</a>
-      </div>
-      {news.length === 0 ? (
-        <div class="notice"><p>{h.newsEmpty}</p></div>
-      ) : (
-        <div class="news-grid">
-          {news.map((n, i) => <NewsCard entry={n} lang={lang} featured={i === 0} />)}
-        </div>
-      )}
     </div>
   </section>
 
@@ -253,7 +253,7 @@ const jsonLd = [
   .amount { display: grid; gap: var(--space-2); }
   .amount .eyebrow { margin-bottom: var(--space-4); }
   .amount .prefix { font-size: var(--text-sm); letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
-  .amount .big { font-family: var(--font-display); font-weight: 600; font-size: clamp(4.5rem, 12vw, 9.5rem); line-height: 0.95; letter-spacing: -0.02em; color: var(--ice); white-space: nowrap; }
+  .amount .big { font-family: var(--font-display); font-weight: 600; font-size: clamp(3rem, 7vw, 5.75rem); line-height: 1; letter-spacing: -0.02em; color: var(--ice); white-space: nowrap; }
   .amount .note { font-size: var(--text-xs); letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
   .prize-copy { display: grid; gap: var(--space-5); }
 

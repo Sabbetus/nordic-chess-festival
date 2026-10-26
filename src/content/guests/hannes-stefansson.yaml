@@ -2,6 +2,10 @@ name: Hannes Hlífar Stefánsson
 kind: gm
 title: GM
 federation: ISL
+fideId: 2300087
+rating:
+  value: 2407
+  month: '2026-10'
 peakRating: 2604
 photo: ../../assets/guests/hannes-stefansson.jpg
 photoCredit: "Stefan64, CC BY-SA 3.0"
@@ -9,8 +13,8 @@ photoSourceUrl: https://commons.wikimedia.org/wiki/File:Hannes_Stefansson.jpg
 photoPosition: "55% 25%"
 order: 4
 tagline:
-  en: Thirteen-time Icelandic champion
-  fi: Islannin mestari 13 kertaa
+  en: Thirteen-time Icelandic champion, a national record
+  fi: Islannin mestari 13 kertaa, kansallinen ennätys
 bio:
   en: |
     Iceland's most successful champion, with a record thirteen national titles. Hannes won the World Under-16 Championship in 1987 and became a grandmaster in 1993.

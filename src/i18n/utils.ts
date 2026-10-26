@@ -79,3 +79,9 @@ export function formatDayLong(lang: Locale, isoDate: string): string {
     weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Europe/Helsinki',
   }).format(d);
 }
+
+/** "October 2026" in English, "lokakuu 2026" in Finnish, from "2026-10". */
+export function formatMonthYear(lang: Locale, yyyymm: string): string {
+  const [y, mo] = yyyymm.split('-').map(Number);
+  return new Intl.DateTimeFormat(dateFormats[lang], { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(y, mo - 1, 15)));
+}

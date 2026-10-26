@@ -2,12 +2,12 @@
 // (EEST, UTC+3 in June). Update here and the tournament page, home page and countdown follow.
 
 export const venue = {
-  name: 'Kangasala Arena',
+  name: 'Kangasala Areena',
   street: 'Finnentie 37',
   city: 'Kangasala',
   country: 'Finland',
   countryCode: 'FI',
-  mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kangasala+Arena%2C+Finnentie+37%2C+Kangasala%2C+Finland',
+  mapUrl: 'https://maps.app.goo.gl/v6PUZcjyR2sazAJW6',
 } as const;
 
 export type ScheduleKind = 'confirmation' | 'opening' | 'round' | 'prizegiving';

@@ -16,6 +16,8 @@ const guests = defineCollection({
       title: z.string().optional(),
       federation: z.string().length(3).optional(),
       fideId: z.number().int().optional(),
+      /** Current FIDE standard rating and the rating list month it comes from, e.g. { value: 2594, month: '2026-10' }. */
+      rating: z.object({ value: z.number().int(), month: z.string().regex(/^\d{4}-\d{2}$/) }).optional(),
       /** Highest FIDE rating ever reached (does not go stale, unlike the current rating). */
       peakRating: z.number().int().optional(),
       photo: image().optional(),

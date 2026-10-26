@@ -2,15 +2,19 @@ name: Anna Cramling
 kind: streamer
 title: WFM
 federation: SWE
+fideId: 32009232
+rating:
+  value: 2060
+  month: '2026-10'
 peakRating: 2175
 photo: ../../assets/guests/anna-cramling.jpg
 photoCredit: "Zquid, CC BY-SA 4.0"
 photoSourceUrl: https://commons.wikimedia.org/wiki/File:Anna_Cramling_2021_DSC_1765_(cropped).jpg
 photoPosition: "50% 25%"
-order: 2
+order: 3
 tagline:
-  en: Chess creator and streamer
-  fi: Shakkisisällöntuottaja ja striimaaja
+  en: Streamer with over a million subscribers
+  fi: Striimaaja, jolla on yli miljoona tilaajaa
 bio:
   en: |
     One of the biggest names in chess content, with a huge following on YouTube and Twitch. Anna is a Woman FIDE Master who has played for Sweden at the Chess Olympiad, and the daughter of grandmasters Pia Cramling and Juan Manuel Bellón López.
