@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { localePath, formatDate, messages, type Locale } from '../i18n/utils';
+
+interface Props { entry: CollectionEntry<'news'>; lang: Locale; featured?: boolean }
+const { entry, lang, featured = false } = Astro.props;
+const m = messages[lang];
+const slug = entry.id.split('/')[1];
+---
+
+<a class:list={['card', 'news', { featured }]} href={localePath(lang, `/news/${slug}/`)}>
+  <p class="eyebrow">
+    {formatDate(lang, entry.data.date)}{entry.data.placeholder && ` · ${m.guests.placeholderBadge}`}
+  </p>
+  <h3>{entry.data.title}</h3>
+  <p class="summary">{entry.data.summary}</p>
+  <span class="more">{m.common.readMore} →</span>
+</a>
+
+<style>
+  .news { display: grid; gap: var(--space-3); align-content: start; }
+  .news h3 { margin: 0; }
+  .summary { color: var(--muted); }
+  .more { margin-top: var(--space-2); font-size: var(--text-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ice); }
+  .featured { padding: clamp(1.5rem, 3vw, 2.5rem); align-content: end; min-height: 18rem; background: linear-gradient(160deg, var(--surface-2), var(--surface)); border-color: var(--line-strong); }
+  .featured h3 { font-size: clamp(2rem, 3.4vw, 3rem); line-height: 1.1; }
+  .featured .summary { font-size: var(--text-lg); max-width: 40rem; }
+</style>

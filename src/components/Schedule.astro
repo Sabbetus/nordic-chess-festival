@@ -35,15 +35,15 @@ const label = (i: (typeof schedule)[number]) =>
 
 <style>
   .timeline { list-style: none; border-top: 1px solid var(--line); }
-  .day { display: grid; grid-template-columns: minmax(11rem, 16rem) 1fr; gap: var(--space-5); padding-block: var(--space-5); border-bottom: 1px solid var(--line); }
-  .day h3 { font-size: 1.5rem; color: var(--white); text-transform: capitalize; }
-  .day ul { list-style: none; display: grid; gap: var(--space-3); }
-  .item { display: grid; grid-template-columns: 8.5rem 1fr; align-items: baseline; gap: var(--space-4); }
+  .day { display: grid; grid-template-columns: 17rem 1fr; gap: var(--space-5); padding-block: var(--space-4); border-bottom: 1px solid var(--line); align-items: baseline; }
+  .day h3 { font-size: 1.5rem; line-height: 1.3; color: var(--white); text-transform: capitalize; }
+  .day ul { list-style: none; display: grid; gap: var(--space-2); }
+  .item { display: grid; grid-template-columns: 8.5rem 1fr; align-items: baseline; gap: var(--space-4); min-height: 2.25rem; }
   .time { font-weight: 500; color: var(--muted); font-size: var(--text-sm); letter-spacing: 0.04em; }
   .what { color: var(--muted); }
   .what small { display: block; font-size: var(--text-sm); color: var(--muted-2); }
   .round .time { color: var(--ice); }
-  .round .what { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; color: var(--white); font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; line-height: 1.2; }
-  .opening .what, .prizegiving .what, .confirmation .what { font-size: var(--text-base); }
+  .round .what { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; color: var(--white); font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+  .opening .what, .prizegiving .what, .confirmation .what { font-size: var(--text-base); line-height: 1.6; }
   @media (max-width: 700px) { .day { grid-template-columns: 1fr; gap: var(--space-3); } .item { grid-template-columns: 7rem 1fr; } }
 </style>

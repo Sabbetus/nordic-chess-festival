@@ -7,7 +7,7 @@ export const venue = {
   city: 'Kangasala',
   country: 'Finland',
   countryCode: 'FI',
-  mapUrl: 'https://www.openstreetmap.org/search?query=Finnentie%2037%2C%20Kangasala',
+  mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kangasala+Arena%2C+Finnentie+37%2C+Kangasala%2C+Finland',
 } as const;
 
 export type ScheduleKind = 'confirmation' | 'opening' | 'round' | 'prizegiving';

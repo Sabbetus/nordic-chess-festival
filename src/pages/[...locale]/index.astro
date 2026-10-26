@@ -4,9 +4,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import GuestCard from '../../components/GuestCard.astro';
 import Countdown from '../../components/Countdown.astro';
 import RoundTiles from '../../components/RoundTiles.astro';
+import NewsCard from '../../components/NewsCard.astro';
 import Newsletter from '../../components/Newsletter.astro';
 import LocationBand from '../../components/LocationBand.astro';
-import { localeStaticPaths, localePath, messages, formatDate, formatDayShort } from '../../i18n/utils';
+import { localeStaticPaths, localePath, messages, formatDayShort } from '../../i18n/utils';
 import { festival } from '../../data/fees';
 import { schedule, venue } from '../../data/schedule';
 import { site } from '../../data/site';
@@ -21,7 +22,7 @@ const h = m.home;
 
 const guests = (await getCollection('guests')).sort((a, b) => a.data.order - b.data.order);
 const news = (await getCollection('news'))
-  .filter((n) => n.id.startsWith(`${lang}/`) && !n.data.placeholder)
+  .filter((n) => n.id.startsWith(`${lang}/`))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
@@ -61,26 +62,23 @@ const jsonLd = [
   <!-- HERO -->
   <section class="hero">
     <div class="floor" aria-hidden="true"></div>
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow reveal">♛ {h.eyebrow}</p>
-        <h1 class="reveal reveal-1">
-          <span class="line">Nordic <em>Chess</em></span>
-          <span class="line">Festival</span>
-        </h1>
-        <p class="lead reveal reveal-2">{h.lead}</p>
-        <p class="btn-row reveal reveal-3">
-          <a class="btn btn-primary" href={localePath(lang, '/register/')}>{h.ctaPrimary} <span class="arrow" aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost" href={localePath(lang, '/tournament/#schedule')}>{h.ctaSecondary}</a>
-        </p>
-        <p class="pill reveal reveal-4" data-early-bird><span class="dot" aria-hidden="true"></span>{h.earlyBirdPill}</p>
-      </div>
-      <div class="hero-side reveal reveal-3">
-        <p class="bigdate" aria-hidden="true"><span class="d">12–20</span><span class="mo">{h.bigMonth}</span></p>
-        <Countdown lang={lang} />
-      </div>
-    </div>
     <div class="container">
+      <p class="eyebrow reveal">♛ {h.eyebrow}</p>
+      <h1 class="reveal reveal-1">Nordic <em>Chess</em> Festival</h1>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="lead reveal reveal-2">{h.lead}</p>
+          <p class="btn-row reveal reveal-3">
+            <a class="btn btn-primary" href={localePath(lang, '/register/')}>{h.ctaPrimary} <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href={localePath(lang, '/tournament/#schedule')}>{h.ctaSecondary}</a>
+          </p>
+        </div>
+        <div class="hero-side reveal reveal-3">
+          <Countdown lang={lang} />
+        </div>
+      </div>
+
       <dl class="facts reveal reveal-4">
         {h.facts.map((f) => (
           <div><dt>{f.label}</dt><dd>{f.value}</dd></div>
@@ -174,25 +172,24 @@ const jsonLd = [
   </section>
 
   <!-- NEWS -->
-  {news.length > 0 && (
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="head-text">
+          <p class="eyebrow rule">{m.nav.news}</p>
           <h2>{h.newsTitle}</h2>
-          <a class="btn btn-ghost btn-sm" href={localePath(lang, '/news/')}>{m.news.allNews}</a>
         </div>
-        <div class="grid grid-3">
-          {news.map((n) => (
-            <a class="card" href={localePath(lang, `/news/${n.id.split('/')[1]}/`)}>
-              <p class="eyebrow">{formatDate(lang, n.data.date)}</p>
-              <h3>{n.data.title}</h3>
-              <p>{n.data.summary}</p>
-            </a>
-          ))}
-        </div>
+        <a class="btn btn-ghost btn-sm" href={localePath(lang, '/news/')}>{m.news.allNews}</a>
       </div>
-    </section>
-  )}
+      {news.length === 0 ? (
+        <div class="notice"><p>{h.newsEmpty}</p></div>
+      ) : (
+        <div class="news-grid">
+          {news.map((n, i) => <NewsCard entry={n} lang={lang} featured={i === 0} />)}
+        </div>
+      )}
+    </div>
+  </section>
 
   <Newsletter lang={lang} />
 
@@ -210,7 +207,7 @@ const jsonLd = [
 
 <style>
   /* ---------- Hero ---------- */
-  .hero { position: relative; isolation: isolate; overflow: hidden; padding-block: clamp(3.5rem, 9vw, 7rem) var(--space-7); }
+  .hero { position: relative; isolation: isolate; overflow: hidden; padding-block: clamp(3.5rem, 8vw, 6.5rem) var(--space-7); }
   .hero::before {
     content: ''; position: absolute; inset: 0; z-index: -2; pointer-events: none;
     background:
@@ -228,34 +225,23 @@ const jsonLd = [
     -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.35) 55%, transparent 92%);
     mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.35) 55%, transparent 92%);
   }
-  .hero-side { display: grid; gap: var(--space-5); }
-  .bigdate { display: grid; justify-items: end; line-height: 0.85; user-select: none; }
-  .bigdate .d {
-    font-family: var(--font-display); font-weight: 600; font-size: clamp(6rem, 13vw, 12rem); letter-spacing: -0.03em;
-    color: transparent; -webkit-text-stroke: 1px rgba(126, 200, 227, 0.38);
+  /* One line, scaled to the container width */
+  .hero h1 {
+    font-size: clamp(2rem, 8.4vw, 7.6rem); line-height: 1; letter-spacing: -0.02em; white-space: nowrap;
+    margin-block: var(--space-4) var(--space-6);
   }
-  .bigdate .mo { font-size: var(--text-xs); letter-spacing: 0.42em; text-transform: uppercase; color: var(--ice); margin-top: var(--space-3); margin-right: 0.2rem; }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: var(--space-7); align-items: end; }
-  .hero h1 { font-size: clamp(3.4rem, 9.2vw, 9rem); line-height: 0.92; margin-block: var(--space-5) var(--space-5); letter-spacing: -0.02em; }
-  .hero h1 .line { display: block; }
-  .hero .lead { font-size: var(--text-lg); max-width: 38rem; }
-  .hero .btn-row { margin-top: var(--space-6); }
-  .pill {
-    display: inline-flex; align-items: center; gap: 0.6rem; margin-top: var(--space-5); padding: 0.55rem 1rem;
-    border: 1px solid var(--ice-border); border-radius: 999px; background: var(--ice-dim);
-    font-size: var(--text-sm); color: var(--ice); letter-spacing: 0.02em;
-  }
-  .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--ice); box-shadow: 0 0 0 0 rgba(126, 200, 227, 0.6); animation: pulse 2.4s var(--ease) infinite; }
-  @keyframes pulse { 70% { box-shadow: 0 0 0 0.6rem rgba(126, 200, 227, 0); } 100% { box-shadow: 0 0 0 0 rgba(126, 200, 227, 0); } }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--space-7); align-items: end; }
+  .hero-copy { display: grid; gap: var(--space-6); align-content: end; }
+  .hero .lead { font-size: var(--text-lg); max-width: 42rem; }
   .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--line-strong); }
   .facts div { display: flex; flex-direction: column-reverse; gap: 0.3rem; }
-  .facts dd { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1; }
+  .facts dd { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1; white-space: nowrap; }
   .facts dt { font-size: var(--text-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
 
   /* ---------- Sections ---------- */
   .surface { background: linear-gradient(180deg, var(--surface) 0%, rgba(17, 17, 17, 0.4) 100%); }
-  .head-text { max-width: 40rem; display: grid; gap: var(--space-3); }
-  .head-text .lead { margin-top: var(--space-2); }
+  .head-text { max-width: 62rem; display: grid; gap: var(--space-3); }
+  .head-text .lead { margin-top: var(--space-2); max-width: 52rem; }
   .guest-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-4); }
   .more { margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted-2); letter-spacing: 0.04em; }
   .ceremonies { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted); }
@@ -278,8 +264,14 @@ const jsonLd = [
   }
   .panel::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--ice), transparent); opacity: 0.7; }
   .panel h2 { font-size: clamp(2rem, 3.4vw, 3rem); }
+  .panel .lead { max-width: none; }
   .panel .free { color: var(--white); font-size: var(--text-sm); letter-spacing: 0.04em; }
   .addr { color: var(--white); font-size: 1.05rem; line-height: 1.6; }
+
+  .news-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: var(--space-5); }
+  .news-grid > :first-child { grid-row: span 2; }
+  .news-grid:has(> :only-child) { grid-template-columns: minmax(0, 1fr); }
+  .news-grid:has(> :nth-child(2):last-child) > :first-child { grid-row: auto; }
 
   .partners { border-top: 1px solid var(--line); padding-block: var(--space-5); text-align: center; position: relative; z-index: 1; }
   .partners p { font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-2); }
@@ -289,9 +281,10 @@ const jsonLd = [
   @media (max-width: 1100px) {
     .guest-grid { grid-template-columns: repeat(3, 1fr); }
     .hero-grid { grid-template-columns: 1fr; gap: var(--space-6); align-items: start; }
-    .bigdate { display: none; }
     .panels { grid-template-columns: 1fr; }
     .prize-grid { grid-template-columns: 1fr; gap: var(--space-5); }
+    .news-grid { grid-template-columns: minmax(0, 1fr); }
+    .news-grid > :first-child { grid-row: auto; }
   }
   @media (max-width: 700px) {
     .guest-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }

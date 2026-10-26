@@ -13,6 +13,7 @@ const { eyebrow, title, lead } = Astro.props;
 
 <style>
   .page-hero { padding-block: clamp(3rem, 9vw, 7rem) var(--space-7); border-bottom: 1px solid var(--line); position: relative; z-index: 1; }
-  .page-hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); margin-block: var(--space-4); max-width: 18ch; }
+  .page-hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); margin-block: var(--space-4); max-width: none; }
   .page-hero .eyebrow { margin-bottom: 0; }
+  .page-hero .lead { max-width: 60rem; }
 </style>

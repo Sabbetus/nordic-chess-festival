@@ -1,28 +1,47 @@
 ---
-import { messages, type Locale } from '../i18n/utils';
+import { messages, localePath, type Locale } from '../i18n/utils';
 import { firstRoundStart, venue } from '../data/schedule';
+import { rules } from '../data/fees';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const c = messages[lang].home.countdown;
 
+// The early bird ends at the end of 31 January, Finnish time (UTC+2 in winter).
+const earlyBirdEnd = `${rules.earlyBirdDeadline}T23:59:59+02:00`;
+
 // Initial values at build time; the script below keeps them current in the browser.
-const ms = Math.max(0, Date.parse(firstRoundStart) - Date.now());
-const days = Math.floor(ms / 86_400_000);
-const hours = Math.floor((ms % 86_400_000) / 3_600_000);
-const minutes = Math.floor((ms % 3_600_000) / 60_000);
+const now = Date.now();
+const target = now <= Date.parse(earlyBirdEnd) ? Date.parse(earlyBirdEnd) : Date.parse(firstRoundStart);
+const ms = Math.max(0, target - now);
+const parts = {
+  d: Math.floor(ms / 86_400_000),
+  h: Math.floor((ms % 86_400_000) / 3_600_000),
+  m: Math.floor((ms % 3_600_000) / 60_000),
+  s: Math.floor((ms % 60_000) / 1000),
+};
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
-<div class="countdown" data-countdown={firstRoundStart}>
-  <p class="label">{c.label}</p>
+<div class="countdown" data-countdown data-early-end={earlyBirdEnd} data-round-start={firstRoundStart}>
+  <!-- Early bird mode is the default; the "early-bird-over" class on <html> switches to round 1. -->
+  <p class="label cd-early">{c.earlyLabel}</p>
+  <p class="label cd-round">{c.label}</p>
   <div class="digits">
-    <div><span data-d class="num">{days}</span><small>{c.days}</small></div>
-    <div><span data-h class="num">{pad(hours)}</span><small>{c.hours}</small></div>
-    <div><span data-m class="num">{pad(minutes)}</span><small>{c.minutes}</small></div>
+    <div><span data-d class="num">{parts.d}</span><small>{c.days}</small></div>
+    <div><span data-h class="num">{pad(parts.h)}</span><small>{c.hours}</small></div>
+    <div><span data-m class="num">{pad(parts.m)}</span><small>{c.minutes}</small></div>
+    <div><span data-s class="num">{pad(parts.s)}</span><small>{c.seconds}</small></div>
   </div>
   <p class="started" hidden>{c.started}</p>
-  <p class="when">{c.when}<br /><span>{venue.name}</span></p>
+  <div class="when cd-early">
+    <p>{c.earlyWhen}</p>
+    <a href={localePath(lang, '/register/')}>{c.earlyCta} →</a>
+  </div>
+  <div class="when cd-round">
+    <p>{c.when}</p>
+    <span>{venue.name}</span>
+  </div>
 </div>
 
 <style>
@@ -33,26 +52,39 @@ const pad = (n: number) => String(n).padStart(2, '0');
     box-shadow: 0 0 80px rgba(126, 200, 227, 0.08);
   }
   .label { font-size: var(--text-xs); letter-spacing: 0.24em; text-transform: uppercase; color: var(--ice); font-weight: 500; }
-  .digits { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: var(--space-4); }
+  .digits { display: grid; grid-template-columns: 1.45fr 1fr 1fr 1fr; gap: var(--space-3); }
   .digits div { display: grid; gap: 0.35rem; }
-  .digits .num { font-weight: 300; font-size: clamp(2.75rem, 4.4vw, 4rem); line-height: 1; letter-spacing: -0.02em; color: var(--white); }
-  .digits small { font-size: var(--text-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-  .when { font-size: var(--text-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: var(--space-4); line-height: 1.6; }
-  .when span { color: var(--white); }
+  .digits .num { font-weight: 300; font-size: clamp(2.25rem, 3.7vw, 3.5rem); line-height: 1; letter-spacing: -0.02em; color: var(--white); font-variant-numeric: tabular-nums; }
+  .digits small { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .when { font-size: var(--text-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: var(--space-4); line-height: 1.6; display: grid; gap: 0.25rem; }
+  .when p { color: var(--white); }
+  .when a { color: var(--ice); font-weight: 500; }
+  .when span { color: var(--muted); }
   .started { font-family: var(--font-display); font-size: 2rem; color: var(--ice); }
-  .is-started .digits, .is-started .label { display: none; }
-  @media (max-width: 480px) { .countdown { padding: var(--space-4); } }
+
+  /* Which mode is shown: early bird until the deadline, then round 1. */
+  .cd-round { display: none; }
+  :global(.early-bird-over) .cd-early { display: none; }
+  :global(.early-bird-over) .cd-round { display: block; }
+  :global(.early-bird-over) .when.cd-round { display: grid; }
+  .is-started .digits, .is-started .cd-round, .is-started .cd-early { display: none !important; }
+
+  @media (max-width: 480px) { .countdown { padding: var(--space-4); } .digits { gap: var(--space-2); } }
 </style>
 
 <script>
   document.querySelectorAll<HTMLElement>('[data-countdown]').forEach((el) => {
-    const target = Date.parse(el.dataset.countdown!);
+    const earlyEnd = Date.parse(el.dataset.earlyEnd!);
+    const roundStart = Date.parse(el.dataset.roundStart!);
     const d = el.querySelector('[data-d]')!;
     const h = el.querySelector('[data-h]')!;
     const m = el.querySelector('[data-m]')!;
+    const s = el.querySelector('[data-s]')!;
     const pad = (n: number) => String(n).padStart(2, '0');
     const tick = () => {
-      const ms = target - Date.now();
+      const now = Date.now();
+      const target = now <= earlyEnd ? earlyEnd : roundStart;
+      const ms = target - now;
       if (ms <= 0) {
         el.classList.add('is-started');
         el.querySelector('.started')?.removeAttribute('hidden');
@@ -61,10 +93,11 @@ const pad = (n: number) => String(n).padStart(2, '0');
       d.textContent = String(Math.floor(ms / 86_400_000));
       h.textContent = pad(Math.floor((ms % 86_400_000) / 3_600_000));
       m.textContent = pad(Math.floor((ms % 3_600_000) / 60_000));
+      s.textContent = pad(Math.floor((ms % 60_000) / 1000));
       return true;
     };
     if (tick()) {
-      const id = setInterval(() => { if (!tick()) clearInterval(id); }, 15_000);
+      const id = setInterval(() => { if (!tick()) clearInterval(id); }, 1000);
     }
   });
 </script>

@@ -206,3 +206,7 @@ tbody th { font-weight: 400; }
 
 /* Lining figures in display type, so "Round 1" and dates do not read as old-style numerals */
 h1, h2, h3, dd, summary, .what, .lining { font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; }
+
+/* Long words (Finnish compounds) must never push the page sideways */
+h1, h2, h3, .card { overflow-wrap: break-word; hyphens: auto; }
+.hero h1 { hyphens: none; overflow-wrap: normal; }
