@@ -202,7 +202,7 @@ tbody th { font-weight: 400; }
 .early-bird-over .after-early-bird { display: block; }
 .notice.warn { border-color: rgba(232, 195, 122, 0.35); background: rgba(232, 195, 122, 0.06); }
 .notice.warn p { color: var(--white); }
-.guest-grid-lg { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: var(--space-5); --guest-aspect: 4 / 3; }
+.guest-grid-lg { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: var(--space-5); --guest-aspect: 4 / 5; }
 
 /* Lining figures in display type, so "Round 1" and dates do not read as old-style numerals */
 h1, h2, h3, dd, summary, .what, .lining { font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; }

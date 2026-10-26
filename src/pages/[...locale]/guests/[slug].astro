@@ -42,7 +42,7 @@ const jsonLd = {
           {d.photoCredit && (
             <figcaption>
               {m.common.photoCredit}: {d.photoCredit}
-              {d.photoSourceUrl && <> · <a href={d.photoSourceUrl} target="_blank" rel="noopener">Wikimedia Commons</a></>}
+              {d.photoSourceUrl && <> · <a href={d.photoSourceUrl} target="_blank" rel="noopener">{new URL(d.photoSourceUrl).hostname.includes("wikimedia") ? "Wikimedia Commons" : new URL(d.photoSourceUrl).hostname}</a></>}
             </figcaption>
           )}
         </figure>
