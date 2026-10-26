@@ -16,10 +16,16 @@ const guests = defineCollection({
       title: z.string().optional(),
       federation: z.string().length(3).optional(),
       fideId: z.number().int().optional(),
-      rating: z.number().int().optional(),
+      /** Highest FIDE rating ever reached (does not go stale, unlike the current rating). */
+      peakRating: z.number().int().optional(),
       photo: image().optional(),
       photoAlt: localized.optional(),
+      /** Author and licence, e.g. "Jane Doe, CC BY-SA 4.0". Required by most Commons licences. */
       photoCredit: z.string().optional(),
+      /** Page the photo came from (Wikimedia Commons file page). */
+      photoSourceUrl: z.url().optional(),
+      /** CSS object-position for cropping portraits, e.g. "50% 20%". */
+      photoPosition: z.string().optional(),
       tagline: localized.optional(),
       bio: localized,
       links: z.array(z.object({ label: z.string(), url: z.url() })).default([]),
@@ -62,4 +68,10 @@ const sideEvents = defineCollection({
   }),
 });
 
-export const collections = { guests, news, faq, sideEvents };
+// Competition regulations: one Markdown file per language (en.md, fi.md).
+const regulations = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/regulations' }),
+  schema: z.object({ title: z.string(), preliminary: z.boolean().default(false) }),
+});
+
+export const collections = { guests, news, faq, sideEvents, regulations };

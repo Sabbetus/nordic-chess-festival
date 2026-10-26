@@ -1,0 +1,25 @@
+name: Nigel Short
+kind: gm
+title: GM
+federation: ENG
+peakRating: 2712
+photo: ../../assets/guests/nigel-short.jpg
+photoCredit: "GibChess, CC BY 3.0"
+photoSourceUrl: https://commons.wikimedia.org/wiki/File:Nigel_Short_(2018).jpg
+photoPosition: "50% 30%"
+order: 1
+tagline:
+  en: Former World Championship challenger
+  fi: Entinen maailmanmestaruushaastaja
+bio:
+  en: |
+    One of the great names of English chess. Short became a grandmaster in 1984, rose to world number three and won the Candidates cycle to challenge Garry Kasparov for the World Championship in 1993.
+
+    Today he is FIDE Director for Chess Development, and a well-known commentator and columnist.
+  fi: |
+    Yksi Englannin shakin suurista nimistä. Short sai suurmestarin arvon vuonna 1984, nousi maailmanlistan kolmanneksi ja voitti ehdokasturnauskierroksen, minkä jälkeen hän haastoi Garri Kasparovin maailmanmestaruudesta vuonna 1993.
+
+    Nykyään hän toimii FIDEn shakin kehitysjohtajana sekä tunnettuna kommentaattorina ja kolumnistina.
+links:
+  - label: Wikipedia
+    url: https://en.wikipedia.org/wiki/Nigel_Short

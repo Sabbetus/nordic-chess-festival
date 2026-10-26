@@ -1,22 +1,33 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
-import { localeStaticPaths, messages } from "../../i18n/utils";
-export function getStaticPaths() { return localeStaticPaths(); }
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Schedule from '../../components/Schedule.astro';
+import { localeStaticPaths, messages } from '../../i18n/utils';
+import { venue } from '../../data/schedule';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
 const { lang } = Astro.props;
 const m = messages[lang];
 const t = m.tournament;
+
+const regs = await getEntry('regulations', lang);
+const { Content, headings } = await render(regs!);
+const toc = headings.filter((h) => h.depth === 2);
+
 const rows = [
-  [t.details.dates, `${m.common.dates}`],
-  [t.details.venue, m.common.tba],
-  [t.details.rounds, t.roundsValue],
-  [t.details.format, m.common.tba],
-  [t.details.timeControl, m.common.tba],
-  [t.details.rating, m.common.tba],
-  [t.details.arbiters, m.common.tba],
-  [t.details.regulations, m.common.tba],
+  [t.details.dates, m.common.dates],
+  [t.details.venue, `${venue.name}, ${venue.street}, ${venue.city}`],
+  [t.details.rounds, '9'],
+  [t.details.format, t.values.format],
+  [t.details.timeControl, t.values.timeControl],
+  [t.details.rating, t.values.rating],
+  [t.details.arbiters, 'IA Eetu Tiiva'],
+  [t.details.organiser, 'Henry Brade'],
 ];
-const rounds = Array.from({ length: 9 }, (_, i) => i + 1);
 ---
 
 <BaseLayout lang={lang} path="/tournament/" title={t.title} description={t.lead}>
@@ -31,24 +42,53 @@ const rounds = Array.from({ length: 9 }, (_, i) => i + 1);
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="schedule">
     <div class="container">
-      <div class="section-head"><h2>{t.scheduleTitle}</h2><span class="placeholder-note">{m.common.placeholder}</span></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th scope="col">{t.round}</th><th scope="col">{t.dateTime}</th></tr></thead>
-          <tbody>
-            {rounds.map((r) => (<tr><th scope="row">{t.round} {r}</th><td>{m.common.tba}</td></tr>))}
-          </tbody>
-        </table>
+      <div class="section-head">
+        <h2>{t.scheduleTitle}</h2>
+        <p class="muted small">{t.scheduleNote}</p>
+      </div>
+      <Schedule lang={lang} />
+      <div class="notice warn"><p>{t.confirmationWarning}</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="regulations">
+    <div class="container">
+      <div class="section-head">
+        <h2>{t.regulationsTitle}</h2>
+      </div>
+      {regs!.data.preliminary && <p class="notice-line">{t.preliminary}</p>}
+      <div class="regs">
+        <nav class="toc" aria-label={t.regulationsTitle}>
+          <ul>
+            {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+          </ul>
+        </nav>
+        <div class="prose regs-body"><Content /></div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .details { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-top: var(--space-5); border-top: 1px solid var(--line); }
-  .details div { padding-block: var(--space-4); border-bottom: 1px solid var(--line); display: grid; gap: 0.25rem; }
+  .details { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); margin-top: var(--space-5); border-top: 1px solid var(--line); }
+  .details div { padding-block: var(--space-4); padding-right: var(--space-5); border-bottom: 1px solid var(--line); display: grid; gap: 0.3rem; align-content: start; }
   dt { font-size: var(--text-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-  dd { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; }
+  dd { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; line-height: 1.25; }
+  .small { font-size: var(--text-sm); }
+  .warn { margin-top: var(--space-5); }
+  .notice-line { color: var(--muted); border-left: 2px solid var(--ice); padding-left: var(--space-4); margin-bottom: var(--space-6); max-width: 44rem; }
+  .regs { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: var(--space-7); align-items: start; }
+  .toc { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+  .toc ul { list-style: none; display: grid; gap: var(--space-2); border-left: 1px solid var(--line); }
+  .toc a { display: block; padding: 0.2rem 0 0.2rem var(--space-4); margin-left: -1px; border-left: 1px solid transparent; font-size: var(--text-sm); color: var(--muted); }
+  .toc a:hover { color: var(--ice); border-left-color: var(--ice); }
+  .regs-body { max-width: 46rem; }
+  .regs-body :global(h2) { font-size: 2rem; margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--line); }
+  .regs-body :global(h2:first-child) { margin-top: 0; padding-top: 0; border-top: 0; }
+  .regs-body :global(p + ul), .regs-body :global(p + ol) { margin-top: var(--space-3); }
+  .regs-body :global(ul), .regs-body :global(ol) { margin-top: var(--space-3); }
+  .regs-body :global(strong) { color: var(--white); font-weight: 500; }
+  @media (max-width: 900px) { .regs { grid-template-columns: 1fr; gap: var(--space-5); } .toc { position: static; } .toc ul { grid-template-columns: 1fr 1fr; border-left: 0; } .toc a { padding-left: 0; } }
 </style>

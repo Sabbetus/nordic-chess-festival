@@ -1,0 +1,70 @@
+---
+import { messages, type Locale } from '../i18n/utils';
+import { firstRoundStart, venue } from '../data/schedule';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const c = messages[lang].home.countdown;
+
+// Initial values at build time; the script below keeps them current in the browser.
+const ms = Math.max(0, Date.parse(firstRoundStart) - Date.now());
+const days = Math.floor(ms / 86_400_000);
+const hours = Math.floor((ms % 86_400_000) / 3_600_000);
+const minutes = Math.floor((ms % 3_600_000) / 60_000);
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<div class="countdown" data-countdown={firstRoundStart}>
+  <p class="label">{c.label}</p>
+  <div class="digits">
+    <div><span data-d class="num">{days}</span><small>{c.days}</small></div>
+    <div><span data-h class="num">{pad(hours)}</span><small>{c.hours}</small></div>
+    <div><span data-m class="num">{pad(minutes)}</span><small>{c.minutes}</small></div>
+  </div>
+  <p class="started" hidden>{c.started}</p>
+  <p class="when">{c.when}<br /><span>{venue.name}</span></p>
+</div>
+
+<style>
+  .countdown {
+    background: rgba(17, 17, 17, 0.62); border: 1px solid var(--ice-border); border-radius: var(--radius);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    padding: var(--space-5) var(--space-6); display: grid; gap: var(--space-4);
+    box-shadow: 0 0 80px rgba(126, 200, 227, 0.08);
+  }
+  .label { font-size: var(--text-xs); letter-spacing: 0.24em; text-transform: uppercase; color: var(--ice); font-weight: 500; }
+  .digits { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: var(--space-4); }
+  .digits div { display: grid; gap: 0.35rem; }
+  .digits .num { font-weight: 300; font-size: clamp(2.75rem, 4.4vw, 4rem); line-height: 1; letter-spacing: -0.02em; color: var(--white); }
+  .digits small { font-size: var(--text-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .when { font-size: var(--text-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: var(--space-4); line-height: 1.6; }
+  .when span { color: var(--white); }
+  .started { font-family: var(--font-display); font-size: 2rem; color: var(--ice); }
+  .is-started .digits, .is-started .label { display: none; }
+  @media (max-width: 480px) { .countdown { padding: var(--space-4); } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-countdown]').forEach((el) => {
+    const target = Date.parse(el.dataset.countdown!);
+    const d = el.querySelector('[data-d]')!;
+    const h = el.querySelector('[data-h]')!;
+    const m = el.querySelector('[data-m]')!;
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const tick = () => {
+      const ms = target - Date.now();
+      if (ms <= 0) {
+        el.classList.add('is-started');
+        el.querySelector('.started')?.removeAttribute('hidden');
+        return false;
+      }
+      d.textContent = String(Math.floor(ms / 86_400_000));
+      h.textContent = pad(Math.floor((ms % 86_400_000) / 3_600_000));
+      m.textContent = pad(Math.floor((ms % 3_600_000) / 60_000));
+      return true;
+    };
+    if (tick()) {
+      const id = setInterval(() => { if (!tick()) clearInterval(id); }, 15_000);
+    }
+  });
+</script>

@@ -19,6 +19,14 @@ const n = messages[lang].home.newsletter;
 </section>
 
 <style>
-  .newsletter .container > * + * { margin-top: var(--space-5); }
+  .newsletter { position: relative; overflow: hidden; text-align: center; border-top: 1px solid var(--line); }
+  .newsletter::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(50% 70% at 50% 100%, rgba(126, 200, 227, 0.14), transparent 70%);
+  }
+  .newsletter .container { display: grid; justify-items: center; gap: var(--space-5); }
+  .newsletter h2 { font-size: clamp(2.5rem, 5vw, 4.25rem); }
+  .newsletter .lead { margin-inline: auto; }
+  .newsletter .btn-row { justify-content: center; }
   .note { font-size: var(--text-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-2); }
 </style>

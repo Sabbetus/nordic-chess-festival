@@ -60,3 +60,22 @@ export function formatDate(lang: Locale, date: Date): string {
     timeZone: 'Europe/Helsinki',
   }).format(date);
 }
+
+/** "Sat 12 Jun" in English, "la 12.6." in Finnish. */
+export function formatDayShort(lang: Locale, isoDate: string): string {
+  const d = new Date(`${isoDate}T12:00:00+03:00`);
+  const parts = new Intl.DateTimeFormat(dateFormats[lang], {
+    weekday: 'short', day: 'numeric', month: 'short', timeZone: 'Europe/Helsinki',
+  }).formatToParts(d);
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
+  if (lang === 'fi') return `${get('weekday')} ${get('day')}.${d.getUTCMonth() + 1}.`;
+  return `${get('weekday')} ${get('day')} ${get('month')}`;
+}
+
+/** "Saturday 12 June" in English, "lauantai 12. kesäkuuta" in Finnish. */
+export function formatDayLong(lang: Locale, isoDate: string): string {
+  const d = new Date(`${isoDate}T12:00:00+03:00`);
+  return new Intl.DateTimeFormat(dateFormats[lang], {
+    weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Europe/Helsinki',
+  }).format(d);
+}

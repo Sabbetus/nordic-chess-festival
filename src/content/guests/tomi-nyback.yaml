@@ -1,0 +1,21 @@
+name: Tomi Nybäck
+kind: gm
+title: GM
+federation: FIN
+peakRating: 2656
+photo: ../../assets/guests/tomi-nyback.jpg
+photoCredit: "Przemysław Jahr, CC BY-SA 3.0"
+photoSourceUrl: https://commons.wikimedia.org/wiki/File:Tomi_Nyb%C3%A4ck_2013.jpg
+photoPosition: "50% 25%"
+order: 3
+tagline:
+  en: Finnish champion and Olympiad veteran
+  fi: Suomen mestari ja olympiaveteraani
+bio:
+  en: |
+    Finland's youngest ever grandmaster, who earned the title in 2003 at the age of 18. Tomi won the Finnish Championship in 2008 with a perfect 9/9 and played for Finland at seven Chess Olympiads.
+  fi: |
+    Suomen nuorin suurmestari, joka sai arvon vuonna 2003 18-vuotiaana. Tomi voitti Suomen mestaruuden vuonna 2008 täydellä 9/9-tuloksella ja pelasi Suomen joukkueessa seitsemissä shakkiolympialaisissa.
+links:
+  - label: Wikipedia
+    url: https://en.wikipedia.org/wiki/Tomi_Nyb%C3%A4ck

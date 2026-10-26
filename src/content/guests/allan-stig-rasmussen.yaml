@@ -1,0 +1,21 @@
+name: Allan Stig Rasmussen
+kind: gm
+title: GM
+federation: DEN
+peakRating: 2577
+photo: ../../assets/guests/allan-stig-rasmussen.jpg
+photoCredit: "Stefan64, CC BY-SA 3.0"
+photoSourceUrl: https://commons.wikimedia.org/wiki/File:ASRasmussen11.jpg
+photoPosition: "55% 25%"
+order: 5
+tagline:
+  en: Four-time Danish champion
+  fi: Tanskan mestari neljä kertaa
+bio:
+  en: |
+    Danish grandmaster from Aarhus, a grandmaster since 2009 and four-time national champion, winning the Danish Championship in 2010, 2011, 2014 and 2019.
+  fi: |
+    Tanskalainen suurmestari Aarhusista, suurmestari vuodesta 2009 ja nelinkertainen kansallinen mestari: hän voitti Tanskan mestaruuden vuosina 2010, 2011, 2014 ja 2019.
+links:
+  - label: Wikipedia
+    url: https://en.wikipedia.org/wiki/Allan_Stig_Rasmussen

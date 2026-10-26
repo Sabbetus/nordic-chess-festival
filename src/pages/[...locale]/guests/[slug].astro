@@ -35,11 +35,16 @@ const jsonLd = {
       <div class="layout">
         <figure class="photo">
           {d.photo ? (
-            <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={[480, 720, 960]} sizes="(min-width: 900px) 30rem, 90vw" loading="eager" />
+            <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={[480, 720, 960]} sizes="(min-width: 900px) 30rem, 90vw" loading="eager" style={d.photoPosition ? `object-position: ${d.photoPosition}` : undefined} />
           ) : (
             <span class="mono" aria-hidden="true">{initials}</span>
           )}
-          {d.photoCredit && <figcaption>{m.common.photoCredit}: {d.photoCredit}</figcaption>}
+          {d.photoCredit && (
+            <figcaption>
+              {m.common.photoCredit}: {d.photoCredit}
+              {d.photoSourceUrl && <> · <a href={d.photoSourceUrl} target="_blank" rel="noopener">Wikimedia Commons</a></>}
+            </figcaption>
+          )}
         </figure>
         <div class="stack">
           <p class="eyebrow">{d.kind === "gm" ? m.guests.gm : m.guests.streamer}{d.placeholder ? ` · ${m.guests.placeholderBadge}` : ""}</p>
@@ -47,7 +52,7 @@ const jsonLd = {
           {d.tagline && <p class="lead">{d.tagline[lang]}</p>}
           <dl class="facts">
             {d.federation && <div><dt>{m.guests.federation}</dt><dd>{d.federation}</dd></div>}
-            {d.rating && <div><dt>{m.guests.rating}</dt><dd class="num">{d.rating}</dd></div>}
+            {d.peakRating && <div><dt>{m.guests.peakRating}</dt><dd class="num">{d.peakRating}</dd></div>}
           </dl>
           <div class="prose">{paragraphs.map((p) => <p>{p}</p>)}</div>
           {d.links.length > 0 && (
@@ -68,7 +73,9 @@ const jsonLd = {
   .layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-7); align-items: start; }
   .photo { position: sticky; top: calc(var(--header-h) + 1.5rem); aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(160deg, var(--surface-2), var(--surface)); display: grid; place-items: center; }
   .photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .photo figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: var(--space-2) var(--space-3); font-size: var(--text-xs); color: var(--muted); background: rgba(10, 10, 10, 0.7); }
+  .photo figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: var(--space-2) var(--space-3); font-size: var(--text-xs); color: var(--muted); background: rgba(10, 10, 10, 0.78); }
+  .photo figcaption a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+  .photo figcaption a:hover { color: var(--ice); }
   .mono { font-family: var(--font-display); font-size: 8rem; color: var(--ice); opacity: 0.5; }
   h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
   .facts { display: flex; gap: var(--space-6); flex-wrap: wrap; }

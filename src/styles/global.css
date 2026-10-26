@@ -194,3 +194,15 @@ tbody th { font-weight: 400; }
   .section { padding-block: var(--space-7); }
   th, td { padding: 0.85rem 0.9rem; }
 }
+
+/* ---------- Additions ---------- */
+.eyebrow.rule { display: flex; align-items: center; gap: 0.9rem; }
+.eyebrow.rule::before { content: ''; width: 2.5rem; height: 1px; background: var(--ice); flex: none; }
+.after-early-bird { display: none; }
+.early-bird-over .after-early-bird { display: block; }
+.notice.warn { border-color: rgba(232, 195, 122, 0.35); background: rgba(232, 195, 122, 0.06); }
+.notice.warn p { color: var(--white); }
+.guest-grid-lg { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: var(--space-5); }
+
+/* Lining figures in display type, so "Round 1" and dates do not read as old-style numerals */
+h1, h2, h3, dd, summary, .what, .lining { font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; }
