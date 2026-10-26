@@ -3,7 +3,7 @@ const en = {
     siteName: 'Nordic Chess Festival',
     title: 'Nordic Chess Festival 2027',
     description:
-      'Nordic Chess Festival: an international open chess tournament in Kangasala, Finland, 12–20 June 2027. Nine rounds, side events and a guaranteed prize fund.',
+      'Nordic Chess Festival: an international open chess tournament in Kangasala, Finland, 12–20 June 2027. Nine rounds, side events and a prize pool of at least 10 000 €.',
     ogLocale: 'en_US',
   },
   common: {
@@ -56,7 +56,7 @@ const en = {
     facts: [
       { value: '9', label: 'Rounds' },
       { value: '90 + 30', label: 'Minutes, +30 s per move' },
-      { value: 'Open', label: 'All welcome' },
+      { value: '10 000 €', label: 'Prize pool, at least' },
       { value: 'Norms', label: 'GM, IM, WGM, WIM' },
     ],
     guests: {
@@ -72,6 +72,11 @@ const en = {
       link: 'Full schedule and regulations',
       opening: 'Opening ceremony',
       prizegiving: 'Prize-giving ceremony',
+    },
+    prize: {
+      eyebrow: 'Prizes',
+      text: 'A guaranteed prize pool for the whole field. There is a prize for the best women player, and there are rating tier prizes, so there is something to play for at every level.',
+      cta: 'About the prizes',
     },
     fees: {
       eyebrow: 'Entry fees',
@@ -190,9 +195,19 @@ const en = {
   },
   prizes: {
     title: 'Prizes',
-    lead: 'A guaranteed prize fund for the open tournament, with prizes across the whole field.',
-    fundTitle: 'Prize fund',
-    fundText: 'The prize fund will be announced soon.',
+    lead: 'A guaranteed prize pool of at least 10 000 €, with prizes across the whole field.',
+    amountPrefix: 'At least',
+    amount: '10 000 €',
+    amountNote: 'Guaranteed prize pool',
+    detailsTitle: 'What we know so far',
+    items: [
+      'A prize for the best women player',
+      'Rating tier prizes, so there is something to play for at every level',
+    ],
+    sharing: 'Prizes are shared among players on the same score, and one player can receive only one cash prize. See § 8 of the competition regulations.',
+    regulationsLink: 'Read the regulations',
+    tbaTitle: 'Prize list',
+    tba: 'The exact prizes will be announced later.',
   },
   sideEvents: {
     title: 'Side events',

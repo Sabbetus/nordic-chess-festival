@@ -5,7 +5,7 @@ const fi: Messages = {
     siteName: 'Nordic Chess Festival',
     title: 'Nordic Chess Festival 2027',
     description:
-      'Nordic Chess Festival: kansainvälinen avoin shakkiturnaus Kangasalla 12.–20.6.2027. Yhdeksän kierrosta, oheistapahtumia ja taattu palkintopotti.',
+      'Nordic Chess Festival: kansainvälinen avoin shakkiturnaus Kangasalla 12.–20.6.2027. Yhdeksän kierrosta, oheistapahtumia ja vähintään 10 000 euron palkintopotti.',
     ogLocale: 'fi_FI',
   },
   common: {
@@ -58,7 +58,7 @@ const fi: Messages = {
     facts: [
       { value: '9', label: 'Kierrosta' },
       { value: '90 + 30', label: 'Minuuttia, +30 s siirrolta' },
-      { value: 'Avoin', label: 'Kaikki tervetulleita' },
+      { value: '10 000 €', label: 'Palkintopotti vähintään' },
       { value: 'Normit', label: 'GM, IM, WGM, WIM' },
     ],
     guests: {
@@ -74,6 +74,11 @@ const fi: Messages = {
       link: 'Koko aikataulu ja säännöt',
       opening: 'Avajaiset',
       prizegiving: 'Palkintojenjako',
+    },
+    prize: {
+      eyebrow: 'Palkinnot',
+      text: 'Taattu palkintopotti koko kentälle. Parhaalle naispelaajalle on oma palkintonsa, ja ratingluokille jaetaan palkintoja, joten jokaisella tasolla on tavoiteltavaa.',
+      cta: 'Tietoa palkinnoista',
     },
     fees: {
       eyebrow: 'Osallistumismaksut',
@@ -192,9 +197,19 @@ const fi: Messages = {
   },
   prizes: {
     title: 'Palkinnot',
-    lead: 'Taattu palkintopotti avoimeen turnaukseen, palkintoja koko kentälle.',
-    fundTitle: 'Palkintopotti',
-    fundText: 'Palkintopotti julkistetaan pian.',
+    lead: 'Taattu vähintään 10 000 euron palkintopotti, ja palkintoja koko kentälle.',
+    amountPrefix: 'Vähintään',
+    amount: '10 000 €',
+    amountNote: 'Taattu palkintopotti',
+    detailsTitle: 'Tiedossa tähän mennessä',
+    items: [
+      'Palkinto parhaalle naispelaajalle',
+      'Ratingluokkapalkinnot, joten jokaisella tasolla on tavoiteltavaa',
+    ],
+    sharing: 'Palkinnot jaetaan samalla pistemäärällä olevien pelaajien kesken, ja yksi pelaaja voi saada vain yhden rahapalkinnon. Katso kilpailusääntöjen 8 §.',
+    regulationsLink: 'Lue säännöt',
+    tbaTitle: 'Palkintolista',
+    tba: 'Tarkat palkinnot julkistetaan myöhemmin.',
   },
   sideEvents: {
     title: 'Oheistapahtumat',

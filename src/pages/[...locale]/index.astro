@@ -125,6 +125,22 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- PRIZES -->
+  <section class="section prize">
+    <div class="container prize-grid">
+      <div class="amount">
+        <p class="eyebrow rule">{h.prize.eyebrow}</p>
+        <p class="prefix">{m.prizes.amountPrefix}</p>
+        <p class="big lining">{m.prizes.amount}</p>
+        <p class="note">{m.prizes.amountNote}</p>
+      </div>
+      <div class="prize-copy">
+        <p class="lead">{h.prize.text}</p>
+        <p class="btn-row"><a class="btn btn-ghost" href={localePath(lang, '/prizes/')}>{h.prize.cta}</a></p>
+      </div>
+    </div>
+  </section>
+
   <!-- FEES + VENUE -->
   <section class="section surface">
     <div class="container panels">
@@ -242,6 +258,16 @@ const jsonLd = [
   .ceremonies { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted); }
   .ceremonies strong { color: var(--white); font-weight: 500; margin-left: var(--space-2); }
 
+  .prize { position: relative; overflow: hidden; }
+  .prize::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(45% 80% at 18% 50%, rgba(126, 200, 227, 0.13), transparent 70%); }
+  .prize-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-7); align-items: center; }
+  .amount { display: grid; gap: var(--space-2); }
+  .amount .eyebrow { margin-bottom: var(--space-4); }
+  .amount .prefix { font-size: var(--text-sm); letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+  .amount .big { font-family: var(--font-display); font-weight: 600; font-size: clamp(4.5rem, 12vw, 9.5rem); line-height: 0.95; letter-spacing: -0.02em; color: var(--ice); white-space: nowrap; }
+  .amount .note { font-size: var(--text-xs); letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .prize-copy { display: grid; gap: var(--space-5); }
+
   .panels { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
   .panel {
     position: relative; overflow: hidden; background: var(--black); border: 1px solid var(--line-strong); border-radius: var(--radius);
@@ -262,6 +288,7 @@ const jsonLd = [
     .hero-grid { grid-template-columns: 1fr; gap: var(--space-6); align-items: start; }
     .bigdate { display: none; }
     .panels { grid-template-columns: 1fr; }
+    .prize-grid { grid-template-columns: 1fr; gap: var(--space-5); }
   }
   @media (max-width: 700px) {
     .guest-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }

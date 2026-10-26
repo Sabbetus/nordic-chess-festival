@@ -1,8 +1,12 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageHero from "../../components/PageHero.astro";
-import { localeStaticPaths, messages } from "../../i18n/utils";
-export function getStaticPaths() { return localeStaticPaths(); }
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { localeStaticPaths, localePath, messages } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
 const { lang } = Astro.props;
 const m = messages[lang];
 const p = m.prizes;
@@ -10,11 +14,43 @@ const p = m.prizes;
 
 <BaseLayout lang={lang} path="/prizes/" title={p.title} description={p.lead}>
   <PageHero eyebrow={m.common.dates} title={p.title} lead={p.lead} />
+
+  <section class="section amount-section">
+    <div class="container">
+      <p class="prefix">{p.amountPrefix}</p>
+      <p class="big lining">{p.amount}</p>
+      <p class="note">{p.amountNote}</p>
+    </div>
+  </section>
+
   <section class="section">
-    <div class="container narrow stack">
-      <h2>{p.fundTitle}</h2>
-      <p class="lead">{p.fundText}</p>
-      <span class="placeholder-note">{m.common.placeholder}</span>
+    <div class="container details">
+      <div>
+        <h2>{p.detailsTitle}</h2>
+        <ul class="list">
+          {p.items.map((i) => <li>{i}</li>)}
+        </ul>
+        <p class="prose sharing">{p.sharing}</p>
+        <p class="btn-row"><a class="btn btn-ghost btn-sm" href={localePath(lang, '/tournament/#regulations')}>{p.regulationsLink}</a></p>
+      </div>
+      <div class="notice">
+        <h3>{p.tbaTitle}</h3>
+        <p>{p.tba}</p>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .amount-section { position: relative; overflow: hidden; }
+  .amount-section::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(40% 90% at 20% 50%, rgba(126, 200, 227, 0.14), transparent 70%); }
+  .prefix { font-size: var(--text-sm); letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+  .big { font-family: var(--font-display); font-weight: 600; font-size: clamp(5rem, 16vw, 12rem); line-height: 0.95; letter-spacing: -0.02em; color: var(--ice); white-space: nowrap; margin-block: var(--space-2); }
+  .note { font-size: var(--text-xs); letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .details { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-7); align-items: start; }
+  .list { list-style: none; display: grid; gap: var(--space-3); margin-block: var(--space-5); }
+  .list li { font-family: var(--font-display); font-size: 1.75rem; font-weight: 600; line-height: 1.25; padding-left: 2rem; position: relative; }
+  .list li::before { content: '♛'; position: absolute; left: 0; color: var(--ice); font-size: 1.1rem; top: 0.35rem; }
+  .sharing { margin-bottom: var(--space-5); }
+  @media (max-width: 900px) { .details { grid-template-columns: 1fr; gap: var(--space-5); } }
+</style>
