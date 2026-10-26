@@ -68,11 +68,11 @@ const jsonLd = [
 
       <div class="hero-grid">
         <div class="hero-copy">
-          <div class="intro reveal reveal-2">
+          <p class="lead reveal reveal-2">
             {h.leadLines.map((line, i) => (
-              <p class:list={['line', { accent: i === h.leadLines.length - 2, last: i === h.leadLines.length - 1 }]}>{line}</p>
+              <><span class:list={{ accent: i === h.leadLines.length - 2 }}>{line}</span>{' '}</>
             ))}
-          </div>
+          </p>
           <p class="btn-row reveal reveal-3">
             <a class="btn btn-primary" href={localePath(lang, '/register/')}>{h.ctaPrimary} <span class="arrow" aria-hidden="true">→</span></a>
             <a class="btn btn-ghost" href={localePath(lang, '/tournament/#schedule')}>{h.ctaSecondary}</a>
@@ -236,11 +236,8 @@ const jsonLd = [
   }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--space-7); align-items: end; }
   .hero-copy { display: grid; gap: var(--space-6); align-content: end; }
-  /* The intro is a stack of short punchy lines in the display face */
-  .intro { display: grid; gap: 0.15rem; }
-  .intro .line { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem, 2.3vw, 2.05rem); line-height: 1.22; color: var(--white); }
-  .intro .line.accent { color: var(--ice); font-style: italic; font-weight: 400; }
-  .intro .line.last { font-family: var(--font-body); font-weight: 500; font-size: var(--text-xs); letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin-top: var(--space-3); }
+  .hero .lead { font-size: var(--text-lg); max-width: 42rem; }
+  .hero .lead .accent { color: var(--ice); }
   .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--line-strong); }
   .facts div { display: flex; flex-direction: column-reverse; gap: 0.3rem; }
   .facts dd { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1; white-space: nowrap; }

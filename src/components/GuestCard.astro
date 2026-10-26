@@ -7,13 +7,21 @@ interface Props { guest: CollectionEntry<'guests'>; lang: Locale }
 const { guest, lang } = Astro.props;
 const m = messages[lang];
 const d = guest.data;
+// A landscape photo shown with object-fit: cover in a portrait box is scaled far wider than the box,
+// so the browser must be offered images sized for that (not for the box width).
+const photo = d.photo;
+const spread = photo ? Math.max(1, photo.width / photo.height / 0.75) : 1;
+const widths = photo
+  ? [...new Set([480, 800, 1200, 1600, 2000].filter((w) => w < photo.width).concat(photo.width))].sort((a, b) => a - b)
+  : [];
+const sizes = `(min-width: 1100px) ${Math.round(400 * spread)}px, ${Math.round(50 * spread)}vw`;
 const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
 ---
 
 <a class="guest" href={localePath(lang, `/guests/${guest.id}/`)}>
   <div class="photo">
     {d.photo ? (
-      <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={[320, 480, 640, 800]} sizes="(min-width: 1100px) 15rem, (min-width: 600px) 30vw, 90vw" style={d.photoPosition ? `object-position: ${d.photoPosition}` : undefined} />
+      <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={widths} sizes={sizes} quality={90} style={d.photoPosition ? `object-position: ${d.photoPosition}` : undefined} />
     ) : (
       <span class="mono" aria-hidden="true">{initials}</span>
     )}

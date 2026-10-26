@@ -19,6 +19,11 @@ const m = messages[lang];
 const d = guest.data;
 const fullName = `${d.title ? d.title + " " : ""}${d.name}`;
 const paragraphs = d.bio[lang].trim().split(/\n\s*\n/);
+const spread = d.photo ? Math.max(1, d.photo.width / d.photo.height / 0.8) : 1;
+const widths = d.photo
+  ? [...new Set([480, 800, 1200, 1600, 2000].filter((w) => w < d.photo!.width).concat(d.photo.width))].sort((a, b) => a - b)
+  : [];
+const sizes = `(min-width: 900px) ${Math.round(480 * spread)}px, ${Math.round(90 * spread)}vw`;
 const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join("");
 const jsonLd = {
   "@context": "https://schema.org",
@@ -35,7 +40,7 @@ const jsonLd = {
       <div class="layout">
         <figure class="photo">
           {d.photo ? (
-            <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={[480, 720, 960]} sizes="(min-width: 900px) 30rem, 90vw" loading="eager" style={d.photoPosition ? `object-position: ${d.photoPosition}` : undefined} />
+            <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={widths} sizes={sizes} quality={90} loading="eager" style={d.photoPosition ? `object-position: ${d.photoPosition}` : undefined} />
           ) : (
             <span class="mono" aria-hidden="true">{initials}</span>
           )}
