@@ -42,7 +42,14 @@ const fi: Messages = {
   },
   home: {
     eyebrow: 'Kangasala · 12.–20.6.2027',
-    lead: 'Yhdeksän kierrosta avointa shakkia Kangasalla: pelilaudoilla suurmestareita ja huippustriimaajia, palkintopotti vähintään 10\u00A0000\u00A0€ ja mahdollisuus titteliosuuksiin. Mukaan pääsee kuka tahansa suurmestareista ratingittomiin aloittelijoihin. Tule shakin vuoksi, jää nauttimaan pohjoisesta kesästä.',
+    leadLines: [
+      'Entinen maailmanmestaruushaastaja.',
+      'Suomen kaikkien aikojen vahvin pelaaja.',
+      'Pohjoismaiden mestareita.',
+      'Yksi shakkisisällöntuotannon suurimmista nimistä.',
+      'Ja sinä, laudan toisella puolella.',
+      'Tämä on Nordic Chess Festival.',
+    ],
     ctaPrimary: 'Maksut ja ilmoittautuminen',
     ctaSecondary: 'Aikataulu ja säännöt',
     countdown: {

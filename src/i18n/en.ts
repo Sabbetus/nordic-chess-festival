@@ -40,7 +40,14 @@ const en = {
   },
   home: {
     eyebrow: 'Kangasala, Finland · 12–20 June 2027',
-    lead: 'Nine rounds of open chess in Kangasala, Finland, with grandmasters and top streamers at the boards, a prize pool of at least 10\u00A0000\u00A0€ and chances for title norms. Anyone can play, from grandmasters to unrated beginners. Come for the chess, stay for the Nordic summer.',
+    leadLines: [
+      'A former World Championship challenger.',
+      'Finland’s strongest player of all time.',
+      'Nordic champions.',
+      'One of the biggest names in chess content creation.',
+      'And you, across the board.',
+      'This is Nordic Chess Festival.',
+    ],
     ctaPrimary: 'Entry fees & registration',
     ctaSecondary: 'Schedule & regulations',
     countdown: {
