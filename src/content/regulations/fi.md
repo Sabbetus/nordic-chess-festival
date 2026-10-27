@@ -1,5 +1,5 @@
 ---
-title: 'Nordic Chess Festival 2027, Main Event: kilpailusäännöt'
+title: 'Nordic Chess Festival 2027, pääturnaus: kilpailusäännöt'
 preliminary: true
 ---
 
