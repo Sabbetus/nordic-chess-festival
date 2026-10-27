@@ -26,7 +26,7 @@ const ui = {
     name: f.errName, email: f.errEmail, phone: f.errPhone, fideId: f.errFideId, rating: f.errRating, birthYear: f.errBirthYear,
     federation: f.errFederation, accept: f.errAccept, required: f.errRequired,
   },
-  blocked: f.blockedFederation, errDuplicate: f.errDuplicate, errUnavailable: f.errUnavailable, errGeneric: f.errGeneric, errorSummary: f.errorSummary,
+  category: f.categoryLabel, categoryUnrated: f.categoryUnrated, categoryLowRating: f.categoryLowRating, blocked: f.blockedFederation, errDuplicate: f.errDuplicate, errUnavailable: f.errUnavailable, errGeneric: f.errGeneric, errorSummary: f.errorSummary,
   thanks: localePath(lang, '/register/thanks/'),
   lookup: { checking: f.lookupChecking, found: f.lookupFound, foundNote: f.lookupFoundNote, notFound: f.lookupNotFound, unavailable: f.lookupUnavailable, list: f.lookupList, none: f.fideTitleNone },
 };
@@ -203,7 +203,7 @@ const ui = {
   type UI = {
     lang: string; bus: number; free: string; reasons: Record<string, string>; hint: string; earlyBirdNote: string; gmNote: string;
     unratedNote: string; submitPay: string; submitFree: string; sending: string; errors: Record<string, string>;
-    blocked: string; errDuplicate: string; errUnavailable: string; errGeneric: string; errorSummary: string; thanks: string;
+    category: string; categoryUnrated: string; categoryLowRating: string; blocked: string; errDuplicate: string; errUnavailable: string; errGeneric: string; errorSummary: string; thanks: string;
     lookup: { checking: string; found: string; foundNote: string; notFound: string; unavailable: string; list: string; none: string };
   };
   type Lookup =
@@ -341,7 +341,9 @@ const ui = {
       if (!valid) { $('[data-notes]').textContent = ''; setButton(false); return; }
       const q = quote({ title: s.title || null, rating: s.rating, birthYear: s.by, bus: s.bus }, helsinkiToday());
       $('[data-entry]').textContent = q.entryCents === 0 ? ui.free : euro(q.entryCents);
-      $('[data-reason]').textContent = q.entryCents === 0 ? '' : (ui.reasons[q.fee.discount] ?? '');
+      // Which fee category was applied, so the player can see the right price was used.
+      const category = q.fee.band.id === 'unrated' ? (s.rating && s.rating < 1400 ? ui.categoryLowRating : ui.categoryUnrated) : ui.category.replace('{label}', q.fee.band.label);
+      $('[data-reason]').textContent = [category, q.entryCents === 0 ? '' : (ui.reasons[q.fee.discount] ?? '')].filter(Boolean).join(' · ');
       $('[data-bus-line]').hidden = !s.bus;
       $('[data-bus]').textContent = euro(q.busCents);
       $('[data-total]').textContent = q.totalCents === 0 ? ui.free : euro(q.totalCents);
