@@ -1,0 +1,77 @@
+# Keeps the FIDE rating list on the site current, automatically, every month.
+#
+# The registration form looks players up in a copy of FIDE's list that is built into each deployment
+# (scripts/build-fide.mjs). FIDE publishes a new list around the start of each month at an unknown time, so:
+#   - on the 1st this job checks every 30 minutes, and on the 2nd and 3rd every hour;
+#   - each check is cheap: if the live site already has this month's list, or FIDE has not published it yet, it stops;
+#   - as soon as FIDE has published it, the job rebuilds and redeploys the site with the new list;
+#   - if FIDE still has not published by the 3rd, the job fails on purpose, so GitHub emails the repository owner.
+# It can also be started by hand (Actions tab, "Refresh FIDE rating list", Run workflow).
+#
+# Needs the same repository secrets as deploy.yml: CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID.
+# Repository variables (Settings, Secrets and variables, Actions, Variables):
+#   SITE_URL        address of the live site, e.g. https://nordicchess.fi (default: the test site)
+#   DEPLOY_BRANCH   branch that Cloudflare deploys (default: the repository's default branch)
+# Scheduled workflows only run from the default branch, so this file must be merged there to run by itself.
+name: Refresh FIDE rating list
+
+on:
+  schedule:
+    - cron: '7,37 * 1 * *'
+    - cron: '7 * 2-3 * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Rebuild and redeploy even if the site already has this month''s list'
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      HAS_SECRETS: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://nordic-chess-festival.henry-b55.workers.dev' }}
+    steps:
+      - name: Check for Cloudflare secrets
+        if: env.HAS_SECRETS != 'true'
+        run: echo "::warning::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID are not set, so the FIDE list cannot be refreshed automatically."
+
+      - uses: actions/checkout@v4
+        if: env.HAS_SECRETS == 'true'
+        with:
+          ref: ${{ vars.DEPLOY_BRANCH || github.event.repository.default_branch }}
+
+      - uses: actions/setup-node@v4
+        if: env.HAS_SECRETS == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Does the site need this month's list?
+        id: status
+        if: env.HAS_SECRETS == 'true'
+        run: |
+          if [ "${{ inputs.force }}" = "true" ]; then echo "refresh=true" >> "$GITHUB_OUTPUT"; else node scripts/fide-status.mjs; fi
+
+      - name: Build the site with the current FIDE list
+        if: env.HAS_SECRETS == 'true' && steps.status.outputs.refresh == 'true'
+        run: |
+          npm ci
+          npx astro build
+          node scripts/build-fide.mjs --require --min-month "$(date -u +%Y-%m)"
+        env:
+          # Same as deploy.yml: keep the test site out of search engines. Remove when the site goes live.
+          PUBLIC_NOINDEX: ${{ vars.PUBLIC_NOINDEX || 'true' }}
+
+      - name: Deploy
+        if: env.HAS_SECRETS == 'true' && steps.status.outputs.refresh == 'true'
+        run: npx --yes wrangler@4.152.0 deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

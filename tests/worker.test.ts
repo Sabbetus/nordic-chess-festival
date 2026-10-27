@@ -159,9 +159,9 @@ test('without database or secrets the API reports that it is not available', asy
   const res = await handleRegister(post('/api/register', person()), {} as Env, NOW);
   assert.equal(res.status, 503);
   const health = await worker.fetch(new Request('https://nordicchess.fi/api/health'), {});
-  assert.deepEqual(await health.json(), { ok: true, registration: false, turnstile: false });
+  assert.deepEqual(await health.json(), { ok: true, registration: false, turnstile: false, fideList: null, fideMonth: null });
   const ready = await worker.fetch(new Request('https://nordicchess.fi/api/health'), env);
-  assert.deepEqual(await ready.json(), { ok: true, registration: true, turnstile: false });
+  assert.deepEqual(await ready.json(), { ok: true, registration: true, turnstile: false, fideList: null, fideMonth: null });
 });
 
 test('organiser endpoints need the token, list registrations, export CSV safely and record verification', async () => {
@@ -185,6 +185,10 @@ test('organiser endpoints need the token, list registrations, export CSV safely 
   assert.equal(upd.status, 200);
   assert.equal(rows()[0].review_status, 'verified');
   assert.equal(rows()[0].note, 'Checked on FIDE');
+  const renamed = await handleAdmin(post(`/api/admin/registrations/${id}`, { review_status: 'verified', note: 'Checked', name: 'Preferred Name' }, { authorization: 'Bearer organiser-token-with-at-least-32-characters' }), env);
+  assert.equal(renamed.status, 200);
+  assert.equal(rows()[0].name, 'Preferred Name');
+  assert.match(String(rows()[0].note), /Name changed by organiser, was "=HYPERLINK/);
   const bad = await handleAdmin(post(`/api/admin/registrations/${id}`, { review_status: 'whatever' }, { authorization: 'Bearer organiser-token-with-at-least-32-characters' }), env);
   assert.equal(bad.status, 400);
 });
@@ -229,4 +233,77 @@ test('stale unpaid registrations are purged, paid ones stay', async () => {
   env.DB.raw.prepare(`UPDATE registrations SET payment_status = 'paid' WHERE email = 'b@example.com'`).run();
   await purgeStalePending(env, new Date(NOW.getTime() + 49 * 3_600_000));
   assert.deepEqual(rows().map((r) => r.email), ['b@example.com']);
+});
+
+// --- FIDE rating list ---
+import { clearFideCache } from '../worker/fide.ts';
+import { buildShards } from '../scripts/fide-list.mjs';
+
+const XML = `<playerslist>
+<player><fideid>500410</fideid><name>Ebeling, Mika</name><country>FIN</country><title>FM</title><w_title></w_title><rating>2216</rating><birthday>1964</birthday></player>
+<player><fideid>519456</fideid><name>Brade, Henry</name><country>FIN</country><title></title><w_title></w_title><rating>1722</rating><birthday>1985</birthday></player>
+<player><fideid>700001</fideid><name>Doe, Jane</name><country>ENG</country><title>GM</title><w_title>WGM</w_title><rating>2500</rating><birthday>2012</birthday></player>
+</playerslist>`;
+
+function withFide(): Env & { DB: ReturnType<typeof makeDb> } {
+  clearFideCache();
+  const { shards } = buildShards(XML, '2027-03-01');
+  const assets = { fetch: async (r: Request) => {
+    const n = Number(/\/api\/fide\/(\d+)\.json/.exec(r.url)?.[1]);
+    return Number.isInteger(n) && shards[n] ? new Response(JSON.stringify(shards[n])) : new Response('no', { status: 404 });
+  } };
+  return { ...env, ASSETS: assets };
+}
+
+test('the FIDE list gives name, federation, title, rating and birth year; the browser values are ignored', async () => {
+  const e = withFide();
+  const res = await handleRegister(post('/api/register', person({ fideId: '500410', name: 'Not My Name', federation: 'SWE', title: 'GM', rating: '2800', birthYear: '2015' })), e, NOW);
+  assert.equal(res.status, 200);
+  const [row] = e.DB.raw.prepare('SELECT * FROM registrations').all() as Record<string, unknown>[];
+  assert.equal(row.name, 'Mika Ebeling');
+  assert.equal(row.federation, 'FIN');
+  assert.equal(row.title, 'FM');
+  assert.equal(row.rating, 2216);
+  assert.equal(row.birth_year, 1964);
+  assert.equal(row.band, 'fm'.length ? row.band : '');
+  assert.match(String(row.note), /FIDE list 2027-03-01/);
+});
+
+test('name, federation and birth year need not be sent when the FIDE ID is found', async () => {
+  const e = withFide();
+  const res = await handleRegister(post('/api/register', person({ fideId: '519456', name: '', federation: '', birthYear: '', title: '', rating: '' })), e, NOW);
+  assert.equal(res.status, 200);
+  const [row] = e.DB.raw.prepare('SELECT name, rating, birth_year FROM registrations').all() as Record<string, unknown>[];
+  assert.deepEqual({ ...row }, { name: 'Henry Brade', rating: 1722, birth_year: 1985 });
+});
+
+test('a GM from the list registers for free', async () => {
+  const e = withFide();
+  const res = (await (await handleRegister(post('/api/register', person({ fideId: '700001', title: '', rating: '' })), e, NOW)).json()) as { free?: boolean };
+  assert.equal(res.free, true);
+});
+
+test('an ID missing from the list is registered unrated, whatever the browser claims', async () => {
+  const e = withFide();
+  const res = await handleRegister(post('/api/register', person({ fideId: '123456', title: 'GM', rating: '2700' })), e, NOW);
+  assert.equal(res.status, 200);
+  const [row] = e.DB.raw.prepare('SELECT title, rating, band, note FROM registrations').all() as Record<string, unknown>[];
+  assert.equal(row.title, null);
+  assert.equal(row.rating, null);
+  assert.equal(row.band, 'unrated');
+  assert.match(String(row.note), /not in the standard rating list/);
+});
+
+test('the lookup endpoint answers found, not found, and refuses anything else', async () => {
+  const e = withFide();
+  const get = (p: string) => worker.fetch(new Request(`https://nordicchess.fi${p}`), e);
+  const found = (await (await get('/api/fide/500410')).json()) as Record<string, unknown>;
+  assert.equal(found.status, 'found');
+  assert.equal(found.name, 'Mika Ebeling');
+  assert.equal(((await (await get('/api/fide/123456')).json()) as { status: string }).status, 'not_found');
+  assert.equal((await get('/api/fide/12.json')).status, 400);
+  assert.equal((await get('/api/fide/meta.json')).status, 400);
+  clearFideCache();
+  const bare = await worker.fetch(new Request('https://nordicchess.fi/api/fide/500410'), { ...env, ASSETS: undefined });
+  assert.equal(((await bare.json()) as { status: string }).status, 'unavailable');
 });

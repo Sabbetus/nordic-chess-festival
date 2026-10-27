@@ -35,9 +35,23 @@ Besides the access key, put `/admin/*` behind **Cloudflare Access** (Zero Trust 
 
 Repeat step 2–3 with live-mode keys and a webhook for the final domain. Test in test mode first (card 4242 4242 4242 4242): every price band, early bird (before/after 31 Jan), junior/senior, no FIDE ID, bus, GM free, MobilePay, cancelled payment, a partial refund.
 
+## FIDE rating list (automatic)
+
+Players type only their FIDE ID. Name, federation, title, rating and birth year come from FIDE's official monthly rating list, which is built into every deployment as small data files (`scripts/build-fide.mjs`, written to `dist/api/fide/`). The Worker looks players up there; nothing is typed in or trusted from the browser for those fields. IDs that are not in the list register as unrated (name, federation and birth year are then typed). Organisers can change a name afterwards in `/admin/` (the FIDE name is kept in the note).
+
+Every build downloads the current list, so every normal deploy also refreshes it. In addition, `.github/workflows/fide-refresh.yml` makes sure each new month's list is picked up by itself:
+
+- On the 1st it checks every 30 minutes, on the 2nd and 3rd every hour. If FIDE has published the new month and the live site does not have it yet, it rebuilds and redeploys. Otherwise it stops after a few seconds.
+- If FIDE has not published by the 3rd, the job fails so GitHub emails you.
+- `/admin/` shows the age of the list and turns red if it is older than 40 days.
+
+To enable it, in GitHub (Settings, Secrets and variables, Actions): secrets `CLOUDFLARE_API_TOKEN` (template "Edit Cloudflare Workers") and `CLOUDFLARE_ACCOUNT_ID`; variables `SITE_URL` (the live address) and `DEPLOY_BRANCH` (the branch Cloudflare deploys). GitHub runs scheduled jobs only from the default branch, so the workflow file has to be on `main`.
+
+Recommended: a Cloudflare rate-limiting rule for `/api/fide/*` (Security, WAF, Rate limiting rules) so the lookup cannot be used to scan IDs in bulk. The data is public on FIDE, but there is no reason to serve it in bulk.
+
 ## Security summary
 
-- Server validates everything and recalculates the price; the browser is never trusted.
+- Server validates everything and recalculates the price; the browser is never trusted. Name, federation, title, rating and birth year of players with a FIDE ID come from the FIDE list on the server.
 - Card and MobilePay details never reach us (Stripe Checkout); webhook is HMAC-verified with a 5-minute replay window.
 - Same-origin check and honeypot on registration, optional Turnstile, duplicate checks.
 - Organiser access: long secret token compared in constant time, plus Cloudflare Access; the key is kept only in page memory.

@@ -89,9 +89,17 @@ export async function listRegistrations(db: D1Like, includePending: boolean): Pr
   return results;
 }
 
-export async function updateReview(db: D1Like, id: string, reviewStatus: string, note: string | null): Promise<boolean> {
-  const row = await db.prepare('SELECT id FROM registrations WHERE id = ?').bind(id).first();
+/** Organiser review. A new name (for the entry list, badge and so on) replaces the FIDE name; the old one is kept in the note. */
+export async function updateReview(db: D1Like, id: string, reviewStatus: string, note: string | null, name: string | null = null): Promise<boolean> {
+  const row = await db.prepare('SELECT name FROM registrations WHERE id = ?').bind(id).first<{ name: string }>();
   if (!row) return false;
-  await db.prepare('UPDATE registrations SET review_status = ?, note = ? WHERE id = ?').bind(reviewStatus, note, id).run();
+  let finalNote = note;
+  let finalName = row.name;
+  if (name && name !== row.name) {
+    finalName = name;
+    const trail = `Name changed by organiser, was "${row.name}".`;
+    finalNote = note && !note.includes(trail) ? `${note} ${trail}` : note ?? trail;
+  }
+  await db.prepare('UPDATE registrations SET review_status = ?, note = ?, name = ? WHERE id = ?').bind(reviewStatus, finalNote, finalName, id).run();
   return true;
 }

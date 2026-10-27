@@ -1,16 +1,32 @@
-import { helsinkiToday, quote, validateRegistration } from '../src/lib/registration.ts';
+import { helsinkiToday, quote, validateRegistration, type RegistrationInput } from '../src/lib/registration.ts';
 import {
   applyRefund, attachSession, deleteRegistration, deleteStalePending, findDuplicate, insertRegistration, listRegistrations, markPaid, updateReview,
   type RegistrationRow,
 } from './db.ts';
 import { buildSessionParams, createCheckoutSession, safeEqual, verifyStripeSignature } from './stripe.ts';
+import { fideListInfo, lookupFide } from './fide.ts';
 import type { Env } from './types.ts';
 
 export const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } });
 
-export function handleHealth(env: Env): Response {
-  return json({ ok: true, registration: Boolean(env.DB && env.STRIPE_SECRET_KEY && env.STRIPE_WEBHOOK_SECRET), turnstile: Boolean(env.TURNSTILE_SECRET) });
+export async function handleHealth(env: Env): Promise<Response> {
+  const list = await fideListInfo(env);
+  return json({
+    ok: true,
+    registration: Boolean(env.DB && env.STRIPE_SECRET_KEY && env.STRIPE_WEBHOOK_SECRET),
+    turnstile: Boolean(env.TURNSTILE_SECRET),
+    fideList: list.updated,
+    fideMonth: list.month,
+  });
+}
+
+/** GET /api/fide/<id>: what the registration form shows (and fills in) once the player has typed a FIDE ID. */
+export async function handleFideLookup(request: Request, env: Env): Promise<Response> {
+  if (request.method !== 'GET') return json({ error: 'method_not_allowed' }, 405);
+  const id = new URL(request.url).pathname.slice('/api/fide/'.length);
+  if (!/^\d{3,10}$/.test(id)) return json({ error: 'bad_request' }, 400);
+  return json(await lookupFide(env, id));
 }
 
 async function verifyTurnstile(token: string, secret: string, ip: string | null, base = 'https://challenges.cloudflare.com'): Promise<boolean> {
@@ -60,7 +76,27 @@ export async function handleRegister(request: Request, env: Env, now: Date = new
     }
   }
 
-  const v = validateRegistration(body);
+  // Everything FIDE knows comes from FIDE's list, never from the browser.
+  const input = (body && typeof body === 'object' ? { ...(body as Record<string, unknown>) } : {}) as RegistrationInput;
+  let fideNote: string | null = null;
+  if (input.noFideId !== true && typeof input.fideId === 'string' && /^\d{3,10}$/.test(input.fideId.trim())) {
+    const found = await lookupFide(env, input.fideId.trim());
+    if (found.status === 'found') {
+      Object.assign(input, {
+        fideId: found.fideId, name: found.name, federation: found.federation, title: found.title, rating: String(found.rating),
+        birthYear: found.birthYear || input.birthYear,
+      });
+      fideNote = `FIDE list ${found.updated}`;
+    } else if (found.status === 'not_found') {
+      // Not in the standard rating list: unrated, whatever the browser claims. The player supplies name, federation and birth year.
+      Object.assign(input, { title: '', rating: '' });
+      fideNote = `FIDE ID not in the standard rating list ${found.updated}: registered as unrated`;
+    } else {
+      fideNote = 'FIDE list unavailable: title and rating are as declared, check them';
+    }
+  }
+
+  const v = validateRegistration(input);
   if (!v.ok) return json({ error: 'validation', errors: v.errors }, 422);
   const reg = v.value;
 
@@ -75,7 +111,7 @@ export async function handleRegister(request: Request, env: Env, now: Date = new
     birth_year: reg.birthYear, federation: reg.federation, locale: reg.locale, band: q.fee.band.id, discount: q.fee.discount,
     bus: reg.bus ? 1 : 0, entry_cents: q.entryCents, bus_cents: q.busCents, total_cents: q.totalCents, paid_on: paidOn,
     payment_status: q.free ? 'not_required' : 'pending', stripe_session_id: null, stripe_payment_intent: null, paid_at: null,
-    refunded_cents: 0, review_status: 'unverified', note: null, accepted_terms_at: iso,
+    refunded_cents: 0, review_status: 'unverified', note: fideNote, accepted_terms_at: iso,
   };
   await insertRegistration(env.DB, row);
   if (q.free) return json({ ok: true, free: true, id });
@@ -165,10 +201,11 @@ export async function handleAdmin(request: Request, env: Env): Promise<Response>
   const prefix = '/api/admin/registrations/';
   if (request.method === 'POST' && url.pathname.startsWith(prefix)) {
     const id = url.pathname.slice(prefix.length);
-    const body = (await request.json().catch(() => null)) as { review_status?: string; note?: string } | null;
+    const body = (await request.json().catch(() => null)) as { review_status?: string; note?: string; name?: string } | null;
     if (!body || !REVIEW.includes(String(body.review_status))) return json({ error: 'bad_request' }, 400);
     const note = typeof body.note === 'string' && body.note.trim() ? body.note.trim().slice(0, 500) : null;
-    return (await updateReview(env.DB, id, String(body.review_status), note)) ? json({ ok: true }) : json({ error: 'not_found' }, 404);
+    const name = typeof body.name === 'string' ? body.name.trim().replace(/\s+/g, ' ').slice(0, 100) : '';
+    return (await updateReview(env.DB, id, String(body.review_status), note, name.length >= 2 ? name : null)) ? json({ ok: true }) : json({ error: 'not_found' }, 404);
   }
   return json({ error: 'not_found' }, 404);
 }

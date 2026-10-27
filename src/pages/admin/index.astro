@@ -13,6 +13,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <p class="err" data-login-err></p>
       </form>
       <div data-panel hidden>
+        <p class="banner" data-fide hidden></p>
         <div class="bar">
           <label class="check"><input type="checkbox" data-all /> Show unpaid attempts too</label>
           <button class="btn btn-ghost btn-sm" type="button" data-refresh>Refresh</button>
@@ -39,6 +40,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   .bar { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; margin-bottom: var(--space-4); }
   .muted { color: var(--muted); font-size: var(--text-sm); }
   td, th { font-size: var(--text-sm); white-space: nowrap; }
+  td input.name { width: 12rem; }
+  .banner { border: 1px solid var(--ice-border); border-radius: var(--radius); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4); font-size: var(--text-sm); }
+  .banner.stale { border-color: var(--danger); color: var(--danger); }
   td input { background: var(--black); color: var(--white); border: 1px solid var(--line); border-radius: 4px; padding: 0.3rem; width: 9rem; font: inherit; font-size: var(--text-xs); }
   .status-verified { color: var(--ice); }
   .status-rejected { color: var(--danger); }
@@ -65,7 +69,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     for (const r of registrations) {
       const tr = document.createElement('tr');
       cell(tr, r.created_at.slice(0, 10));
-      cell(tr, r.name);
+      const nameInput = document.createElement('input');
+      nameInput.value = r.name; nameInput.className = 'name'; nameInput.setAttribute('aria-label', 'Name');
+      cell(tr, '').append(nameInput);
       cell(tr, r.federation);
       cell(tr, r.fide_id ?? '—');
       cell(tr, r.title ?? '');
@@ -79,12 +85,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       const checkCell = cell(tr, `${r.review_status} `, `status-${r.review_status}`);
       checkCell.append(note);
       const actions = cell(tr, '');
-      for (const [status, label] of [['verified', 'Verify'], ['rejected', 'Reject']] as const) {
+      for (const [status, label] of [['verified', 'Verify'], ['rejected', 'Reject'], [r.review_status, 'Save']] as const) {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'btn btn-ghost btn-sm'; b.textContent = label;
         b.addEventListener('click', async () => {
           b.disabled = true;
-          await api(`/api/admin/registrations/${encodeURIComponent(r.id)}`, { method: 'POST', body: JSON.stringify({ review_status: status, note: note.value }) });
+          await api(`/api/admin/registrations/${encodeURIComponent(r.id)}`, { method: 'POST', body: JSON.stringify({ review_status: status, note: note.value, name: nameInput.value }) });
           await load().catch(() => {});
         });
         actions.append(b, ' ');
@@ -92,6 +98,18 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       body.append(tr);
     }
     $('[data-count]').textContent = `${registrations.length} shown`;
+  }
+
+  async function showFideAge() {
+    const banner = $('[data-fide]');
+    try {
+      const { fideList } = (await (await fetch('/api/health', { cache: 'no-store' })).json()) as { fideList: string | null };
+      banner.hidden = false;
+      if (!fideList) { banner.textContent = 'FIDE rating list: not available. Registrations use the ratings players declare. Check the monthly refresh.'; banner.classList.add('stale'); return; }
+      const days = Math.floor((Date.now() - Date.parse(fideList)) / 86_400_000);
+      banner.textContent = `FIDE rating list from ${fideList} (${days} days old).`;
+      if (days > 40) { banner.textContent += ' Older than a month: the automatic refresh has not worked, check it.'; banner.classList.add('stale'); }
+    } catch { /* the banner is only a convenience */ }
   }
 
   $('[data-login]').addEventListener('submit', async (e) => {
@@ -102,6 +120,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       await load();
       $('[data-login]').hidden = true;
       $('[data-panel]').hidden = false;
+      showFideAge();
     } catch (err) {
       key = '';
       $('[data-login-err]').textContent = err instanceof Error ? err.message : 'Failed.';

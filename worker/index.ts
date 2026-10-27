@@ -1,10 +1,11 @@
-import { purgeStalePending, handleAdmin, handleHealth, handleRegister, handleStripeWebhook, json } from './handlers.ts';
+import { purgeStalePending, handleAdmin, handleFideLookup, handleHealth, handleRegister, handleStripeWebhook, json } from './handlers.ts';
 import type { Env } from './types.ts';
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const { pathname } = new URL(request.url);
     if (pathname === '/api/health') return handleHealth(env);
+    if (pathname.startsWith('/api/fide/')) return handleFideLookup(request, env);
     if (pathname === '/api/register') return handleRegister(request, env);
     if (pathname === '/api/stripe/webhook') return handleStripeWebhook(request, env);
     if (pathname.startsWith('/api/admin/')) return handleAdmin(request, env);

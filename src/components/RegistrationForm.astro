@@ -28,6 +28,7 @@ const ui = {
   },
   errDuplicate: f.errDuplicate, errUnavailable: f.errUnavailable, errGeneric: f.errGeneric, errorSummary: f.errorSummary,
   thanks: localePath(lang, '/register/thanks/'),
+  lookup: { checking: f.lookupChecking, found: f.lookupFound, foundNote: f.lookupFoundNote, notFound: f.lookupNotFound, unavailable: f.lookupUnavailable, list: f.lookupList, none: f.fideTitleNone },
 };
 ---
 
@@ -38,51 +39,49 @@ const ui = {
     <div class="error-summary" role="alert" data-summary hidden></div>
 
     <fieldset>
-      <legend>{f.sectionAbout}</legend>
-      <div class="field">
-        <label for="f-name">{f.name}</label>
-        <input id="f-name" name="name" autocomplete="name" required maxlength="100" />
-        <p class="help">{f.nameHelp}</p><p class="err" data-err="name"></p>
+      <legend>{f.sectionChess}</legend>
+      <div class="field" data-fide-id>
+        <label for="f-fide">{f.fideId}</label>
+        <input id="f-fide" name="fideId" inputmode="numeric" maxlength="10" autocomplete="off" class="short" />
+        <p class="help">{f.fideIdHelp}</p><p class="err" data-err="fideId"></p>
       </div>
-      <div class="field">
-        <label for="f-email">{f.email}</label>
-        <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254" />
-        <p class="help">{f.emailHelp}</p><p class="err" data-err="email"></p>
+      <div class="lookup" data-lookup hidden aria-live="polite">
+        <p class="lookup-status" data-lookup-status></p>
+        <dl data-lookup-card hidden>
+          <div><dt>{f.lookupName}</dt><dd data-l-name></dd></div>
+          <div><dt>{f.lookupFederation}</dt><dd data-l-fed></dd></div>
+          <div data-l-born-row><dt>{f.lookupBorn}</dt><dd data-l-born></dd></div>
+          <div><dt>{f.lookupTitle}</dt><dd data-l-title></dd></div>
+          <div><dt>{f.lookupRating}</dt><dd data-l-rating></dd></div>
+        </dl>
+        <p class="help" data-lookup-note></p>
       </div>
-      <div class="field">
-        <label for="f-phone">{f.phone}</label>
-        <div class="phone">
-          <select name="phoneCountry" aria-label={f.phoneCountry} autocomplete="tel-country-code">
-            {phoneCodes.map((c) => <option value={c.code} selected={c.code === 'FI'}>{c.label}</option>)}
-          </select>
-          <input id="f-phone" name="phoneNumber" type="tel" autocomplete="tel-national" required maxlength="30" />
-        </div>
-        <p class="help">{f.phoneHelp}</p><p class="err" data-err="phone"></p>
-      </div>
-      <div class="field">
-        <label for="f-birth">{f.birthYear}</label>
-        <input id="f-birth" name="birthYear" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required class="short" />
-        <p class="help">{f.birthYearHelp}</p><p class="err" data-err="birthYear"></p>
-      </div>
+      <label class="check"><input type="checkbox" name="noFideId" /> <span>{f.noFideId}<small>{f.noFideIdHelp}</small></span></label>
     </fieldset>
 
     <fieldset>
-      <legend>{f.sectionChess}</legend>
-      <div class="field">
-        <label for="f-fed">{f.federation}</label>
-        <select id="f-fed" name="federation" required>
-          <option value="">{f.federationPlaceholder}</option>
-          {federations.map((x) => <option value={x.code}>{x.label} ({x.code})</option>)}
-        </select>
-        <p class="err" data-err="federation"></p>
-      </div>
-      <label class="check"><input type="checkbox" name="noFideId" /> <span>{f.noFideId}<small>{f.noFideIdHelp}</small></span></label>
-      <div data-fide>
+      <legend>{f.sectionAbout}</legend>
+      <div data-manual hidden>
         <div class="field">
-          <label for="f-fide">{f.fideId}</label>
-          <input id="f-fide" name="fideId" inputmode="numeric" maxlength="10" class="short" />
-          <p class="help">{f.fideIdHelp}</p><p class="err" data-err="fideId"></p>
+          <label for="f-name">{f.nameManual}</label>
+          <input id="f-name" name="name" autocomplete="name" maxlength="100" />
+          <p class="help">{f.nameHelp}</p><p class="err" data-err="name"></p>
         </div>
+        <div class="field">
+          <label for="f-fed">{f.federation}</label>
+          <select id="f-fed" name="federation">
+            <option value="">{f.federationPlaceholder}</option>
+            {federations.map((x) => <option value={x.code}>{x.label} ({x.code})</option>)}
+          </select>
+          <p class="err" data-err="federation"></p>
+        </div>
+      </div>
+      <div class="field" data-birth hidden>
+        <label for="f-birth">{f.birthYear}</label>
+        <input id="f-birth" name="birthYear" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" class="short" />
+        <p class="help">{f.birthYearHelp}</p><p class="err" data-err="birthYear"></p>
+      </div>
+      <div data-declared hidden>
         <div class="row">
           <div class="field">
             <label for="f-title">{f.fideTitle}</label>
@@ -98,6 +97,21 @@ const ui = {
           </div>
         </div>
         <p class="help">{f.ratingHelp}</p>
+      </div>
+      <div class="field">
+        <label for="f-email">{f.email}</label>
+        <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254" />
+        <p class="help">{f.emailHelp}</p><p class="err" data-err="email"></p>
+      </div>
+      <div class="field">
+        <label for="f-phone">{f.phone}</label>
+        <div class="phone">
+          <select name="phoneCountry" aria-label={f.phoneCountry} autocomplete="tel-country-code">
+            {phoneCodes.map((c) => <option value={c.code} selected={c.code === 'FI'}>{c.label}</option>)}
+          </select>
+          <input id="f-phone" name="phoneNumber" type="tel" autocomplete="tel-national" required maxlength="30" />
+        </div>
+        <p class="help">{f.phoneHelp}</p><p class="err" data-err="phone"></p>
       </div>
     </fieldset>
 
@@ -157,7 +171,15 @@ const ui = {
   .check { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: start; cursor: pointer; }
   .check input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; accent-color: var(--ice); }
   .check small { display: block; color: var(--muted-2); font-size: var(--text-xs); margin-top: 0.25rem; line-height: 1.5; }
-  [data-fide][hidden] { display: none; }
+  [data-manual], [data-declared] { display: grid; gap: var(--space-4); }
+  .lookup { display: grid; gap: var(--space-3); }
+  .lookup-status { font-size: var(--text-sm); color: var(--muted); }
+  .lookup.found .lookup-status { color: var(--ice); }
+  .lookup dl { border: 1px solid var(--ice-border); background: var(--ice-dim); border-radius: var(--radius); padding: var(--space-3) var(--space-5); }
+  .lookup dl > div { display: flex; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-2); border-top: 1px solid var(--line); }
+  .lookup dl > div:first-child { border-top: 0; }
+  .lookup dt { font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); align-self: center; }
+  .lookup dd { text-align: right; font-variant-numeric: lining-nums; }
   .summary { border: 1px solid var(--ice-border); border-radius: var(--radius); background: var(--ice-dim); padding: var(--space-5) var(--space-6); display: grid; gap: var(--space-3); }
   .summary h3 { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ice); }
   .summary dl > div { display: flex; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-2); border-top: 1px solid var(--line); }
@@ -181,7 +203,12 @@ const ui = {
     lang: string; bus: number; free: string; reasons: Record<string, string>; hint: string; earlyBirdNote: string; gmNote: string;
     unratedNote: string; submitPay: string; submitFree: string; sending: string; errors: Record<string, string>;
     errDuplicate: string; errUnavailable: string; errGeneric: string; errorSummary: string; thanks: string;
+    lookup: { checking: string; found: string; foundNote: string; notFound: string; unavailable: string; list: string; none: string };
   };
+  type Lookup =
+    | { status: 'found'; fideId: string; name: string; federation: string; title: string; rating: number; birthYear: number; updated: string }
+    | { status: 'not_found'; updated: string }
+    | { status: 'unavailable' };
 
   const root = document.querySelector<HTMLElement>('[data-register]');
   const openSoon = document.querySelector<HTMLElement>('[data-register-closed]');
@@ -215,45 +242,115 @@ const ui = {
       document.head.append(s);
     }
 
+    // --- FIDE lookup: the only thing a player with a FIDE ID types is the ID itself ---
+    let lookup: Lookup | null = null;
+    let checking: Promise<void> = Promise.resolve();
+    let seq = 0;
+
+    const fedLabel = (code: string) => form.querySelector<HTMLOptionElement>(`select[name=federation] option[value="${code}"]`)?.textContent ?? code;
+
+    function renderLookup() {
+      const noFide = el('noFideId').checked;
+      const L = lookup as Lookup | null;
+      const box = $('[data-lookup]');
+      const status = $('[data-lookup-status]');
+      const card = $('[data-lookup-card]');
+      const note = $('[data-lookup-note]');
+      $('[data-fide-id]').hidden = noFide;
+      const typed = el('fideId').value.trim();
+      const showBox = !noFide && typed.length >= 3;
+      box.hidden = !showBox;
+      box.classList.toggle('found', L?.status === 'found');
+      card.hidden = L?.status !== 'found';
+      note.textContent = '';
+      if (showBox) {
+        if (!L) status.textContent = ui.lookup.checking;
+        else if (L.status === 'found') {
+          status.textContent = `${ui.lookup.found} · ${ui.lookup.list.replace('{date}', L.updated)}`;
+          $('[data-l-name]').textContent = L.name;
+          $('[data-l-fed]').textContent = fedLabel(L.federation);
+          $('[data-l-born]').textContent = L.birthYear ? String(L.birthYear) : '';
+          $<HTMLElement>('[data-l-born-row]').hidden = !L.birthYear;
+          $('[data-l-title]').textContent = L.title || ui.lookup.none;
+          $('[data-l-rating]').textContent = String(L.rating);
+          note.textContent = ui.lookup.foundNote;
+        } else status.textContent = L.status === 'not_found' ? ui.lookup.notFound : ui.lookup.unavailable;
+      }
+      // Fields the player must fill in only when FIDE does not supply them.
+      const found = !noFide && L?.status === 'found';
+      const manual = noFide || (showBox && !!L && !found);
+      $('[data-manual]').hidden = !manual;
+      $('[data-birth]').hidden = !(manual || (L?.status === 'found' && !noFide && !L.birthYear));
+      $('[data-declared]').hidden = !(!noFide && L?.status === 'unavailable');
+    }
+
+    function onFideInput() {
+      lookup = null;
+      const id = el('fideId').value.trim();
+      const mine = ++seq;
+      if (el('noFideId').checked || !/^\d{3,10}$/.test(id)) { checking = Promise.resolve(); renderAll(); return; }
+      checking = new Promise<void>((resolve) => {
+        setTimeout(async () => {
+          if (mine !== seq) return resolve();
+          try {
+            const res = await fetch(`/api/fide/${id}`, { cache: 'no-store' });
+            const body = (await res.json()) as Lookup;
+            if (mine === seq) lookup = res.ok ? body : { status: 'unavailable' };
+          } catch {
+            if (mine === seq) lookup = { status: 'unavailable' };
+          }
+          if (mine === seq) renderAll();
+          resolve();
+        }, 350);
+      });
+      renderAll();
+    }
+
+    // --- price ---
     const state = () => {
       const noFide = el('noFideId').checked;
-      const by = Number(el('birthYear').value.trim());
-      const title = (noFide ? '' : el('title').value) as Title | '';
-      const r = noFide ? '' : el('rating').value.trim();
-      return { noFide, by, title, rating: /^\d{3,4}$/.test(r) ? Number(r) : null, bus: el('bus').checked };
+      const L = lookup as Lookup | null;
+      if (!noFide && L?.status === 'found') {
+        return { by: L.birthYear || Number(el('birthYear').value.trim()), title: L.title as Title | '', rating: L.rating, bus: el('bus').checked, ready: true };
+      }
+      const declared = !noFide && L?.status === 'unavailable';
+      const r = declared ? el('rating').value.trim() : '';
+      const ready = noFide || L?.status === 'not_found' || declared;
+      return { by: Number(el('birthYear').value.trim()), title: (declared ? el('title').value : '') as Title | '', rating: /^\d{3,4}$/.test(r) ? Number(r) : null, bus: el('bus').checked, ready };
     };
 
     function renderSummary() {
       const s = state();
-      const valid = /^\d{4}$/.test(el('birthYear').value.trim()) && s.by >= 1900 && s.by <= 2022;
-      $('[data-fide]').hidden = s.noFide;
+      const valid = s.ready && s.by >= 1900 && s.by <= 2022;
       const lines = $('[data-lines]');
       $('[data-hint]').hidden = valid;
       lines.hidden = !valid;
       if (!valid) { $('[data-notes]').textContent = ''; setButton(false); return; }
-      const paidOn = helsinkiToday();
-      const q = quote({ title: s.title || null, rating: s.rating, birthYear: s.by, bus: s.bus }, paidOn);
+      const q = quote({ title: s.title || null, rating: s.rating, birthYear: s.by, bus: s.bus }, helsinkiToday());
       $('[data-entry]').textContent = q.entryCents === 0 ? ui.free : euro(q.entryCents);
-      $('[data-reason]').textContent = q.entryCents === 0 ? '' : (ui.reasons[q.fee.discount === 'none' ? 'none' : q.fee.discount] ?? '');
+      $('[data-reason]').textContent = q.entryCents === 0 ? '' : (ui.reasons[q.fee.discount] ?? '');
       $('[data-bus-line]').hidden = !s.bus;
       $('[data-bus]').textContent = euro(q.busCents);
       $('[data-total]').textContent = q.totalCents === 0 ? ui.free : euro(q.totalCents);
       const notes: string[] = [];
       if (q.entryCents === 0) notes.push(ui.gmNote);
-      if (s.noFide) notes.push(ui.unratedNote);
+      if (q.fee.band.id === 'unrated') notes.push(ui.unratedNote);
       if (q.fee.discount === 'early-bird') notes.push(ui.earlyBirdNote);
       $('[data-notes]').textContent = notes.join(' ');
       setButton(q.totalCents === 0);
     }
 
     function setButton(free: boolean) {
-      const b = $<HTMLButtonElement>('[data-submit]');
-      b.firstChild!.textContent = (free ? ui.submitFree : ui.submitPay) + ' ';
+      $<HTMLButtonElement>('[data-submit]').firstChild!.textContent = (free ? ui.submitFree : ui.submitPay) + ' ';
     }
 
+    const renderAll = () => { renderLookup(); renderSummary(); };
+
+    el('fideId').addEventListener('input', onFideInput);
+    el('noFideId').addEventListener('change', onFideInput);
     form.addEventListener('input', renderSummary);
     form.addEventListener('change', renderSummary);
-    renderSummary();
+    renderAll();
 
     const clearErrors = () => {
       form.querySelectorAll('[data-err]').forEach((e) => (e.textContent = ''));
@@ -280,11 +377,19 @@ const ui = {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       clearErrors();
-      const s = state();
+      await checking;
+      const noFide = el('noFideId').checked;
+      const L = lookup as Lookup | null;
+      const found = !noFide && L?.status === 'found';
+      const declared = !noFide && L?.status === 'unavailable';
+      // With a FIDE record the server takes everything from FIDE; the browser sends only the ID and contact details.
       const data = {
-        name: el('name').value, email: el('email').value, phoneCountry: el('phoneCountry').value, phoneNumber: el('phoneNumber').value,
-        noFideId: s.noFide, fideId: el('fideId').value, title: s.title, rating: el('rating').value, birthYear: el('birthYear').value,
-        federation: el('federation').value, bus: s.bus, accept: el('accept').checked, locale: ui.lang, website: el('website').value, turnstile: token,
+        email: el('email').value, phoneCountry: el('phoneCountry').value, phoneNumber: el('phoneNumber').value,
+        noFideId: noFide, fideId: noFide ? '' : el('fideId').value,
+        name: found ? '' : el('name').value, federation: found ? '' : el('federation').value,
+        birthYear: found && L?.status === 'found' && L.birthYear ? '' : el('birthYear').value,
+        title: declared ? el('title').value : '', rating: declared ? el('rating').value : '',
+        bus: el('bus').checked, accept: el('accept').checked, locale: ui.lang, website: el('website').value, turnstile: token,
       };
       const button = $<HTMLButtonElement>('[data-submit]');
       const label = button.firstChild!.textContent;

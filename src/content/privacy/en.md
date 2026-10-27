@@ -15,10 +15,12 @@ The controller is **Nordic Chess Festival ry** (Kangasala, Finland). Contact for
 When you register we collect:
 
 - name, email address and phone number
-- FIDE ID (if you have one), the FIDE title and rating you declare, and your federation
-- year of birth (to apply junior and senior prices and to pair and publish players correctly)
+- FIDE ID (if you have one)
+- name, federation, FIDE title, FIDE rating and year of birth: if you have a FIDE ID we take these from FIDE's public rating list, so you do not type them; if you have no FIDE ID you give your name, federation and year of birth yourself (the year of birth is used to apply junior and senior prices)
 - whether you ordered the bus transfer
 - the amount you paid and whether the payment succeeded
+
+The organisers can correct a name on request, for example for the entry list or your badge.
 
 We do **not** receive or store your card or MobilePay details. Payments are handled entirely by Stripe, which gives us the payment status and the amount.
 
