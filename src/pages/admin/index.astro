@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 <BaseLayout lang="en" path="/admin/" title="Organiser registrations" noindex>
   <section class="section">
-    <div class="container stack">
+    <div class="container admin stack">
       <h1>Registrations</h1>
       <form data-login class="login">
         <label for="tok">Organiser access key</label>
@@ -12,7 +12,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <button class="btn btn-primary" type="submit">Open</button>
         <p class="err" data-login-err></p>
       </form>
-      <div data-panel hidden>
+      <div class="panel" data-panel hidden>
         <p class="banner" data-fide hidden></p>
         <div class="bar">
           <label class="check"><input type="checkbox" data-all /> Show unpaid attempts too</label>
@@ -23,7 +23,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Registered</th><th>Name</th><th>Fed</th><th>FIDE ID</th><th>Title</th><th>Rating</th><th>Born</th><th>Contact</th><th>Bus</th><th>Paid</th><th>Status</th><th></th></tr>
+              <tr><th>Registered</th><th>Name</th><th>Fed</th><th>FIDE ID</th><th>Title</th><th>Rating</th><th>Born</th><th>Contact</th><th>Bus</th><th>Paid</th><th>Status</th><th>Note</th><th></th></tr>
             </thead>
             <tbody data-rows></tbody>
           </table>
@@ -34,19 +34,36 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 </BaseLayout>
 
 <style>
+  .admin { max-width: none; padding-inline: var(--space-5); }
+  h1 { font-size: var(--text-h2); }
   .login { display: grid; gap: var(--space-3); max-width: 24rem; }
-  input[type='password'] { background: var(--black); color: var(--white); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 0.8rem; font: inherit; }
+  .login input { background: var(--black); color: var(--white); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 0.8rem; font: inherit; }
   .err { color: var(--danger); }
   .bar { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; margin-bottom: var(--space-4); }
+  .bar label { display: inline-flex; gap: var(--space-2); align-items: center; font-size: var(--text-sm); cursor: pointer; }
+  .bar input { accent-color: var(--ice); }
   .muted { color: var(--muted); font-size: var(--text-sm); }
-  td, th { font-size: var(--text-sm); white-space: nowrap; }
-  td input.name { width: 12rem; }
   .banner { border: 1px solid var(--ice-border); border-radius: var(--radius); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4); font-size: var(--text-sm); }
   .banner.stale { border-color: var(--danger); color: var(--danger); }
-  td input { background: var(--black); color: var(--white); border: 1px solid var(--line); border-radius: 4px; padding: 0.3rem; width: 9rem; font: inherit; font-size: var(--text-xs); }
-  .status-accepted { color: var(--ice); }
-  .status-rejected { color: var(--danger); }
-  tr.removed td { opacity: 0.55; }
+
+  /* Rows are created by script, so their styles are global. */
+  .panel :global(th), .panel :global(td) { padding: 0.6rem 0.65rem; font-size: var(--text-sm); vertical-align: middle; }
+  .panel :global(td.wrap) { white-space: normal; min-width: 12rem; }
+  .panel :global(tr.removed td) { opacity: 0.55; }
+  .panel :global(.status-accepted) { color: var(--ice); }
+  .panel :global(.status-rejected) { color: var(--danger); }
+
+  /* Text boxes look like plain text until clicked, then become editable. */
+  .panel :global(input.cell) {
+    width: 10rem; margin-left: -0.55rem; background: transparent; color: var(--white); border: 1px solid transparent; border-radius: 4px;
+    padding: 0.4rem 0.5rem; font: inherit; font-size: var(--text-sm); cursor: pointer;
+  }
+  .panel :global(input.cell.note) { width: 10rem; color: var(--muted); }
+  .panel :global(input.cell:read-only:hover) { border-color: var(--line-strong); }
+  .panel :global(input.cell:not(:read-only)) { background: var(--black); border-color: var(--ice); cursor: text; outline: none; }
+  .panel :global(.actions) { display: flex; gap: var(--space-2); }
+  .panel :global(.actions .btn) { padding: 0.5rem 0.7rem; letter-spacing: 0.08em; }
+  .panel :global(.btn.danger:hover) { border-color: var(--danger); color: var(--danger); }
 </style>
 
 <script>
@@ -60,6 +77,15 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   const api = (path: string, init: RequestInit = {}) => fetch(path, { ...init, cache: 'no-store', headers: { ...(init.headers ?? {}), authorization: `Bearer ${key}` } });
   const cell = (tr: HTMLElement, text: string, cls = '') => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.append(td); return td; };
 
+  /** A text box that reads as plain text until it is clicked; it locks again if left unchanged. */
+  function editable(value: string, className: string, label: string, placeholder = '') {
+    const input = document.createElement('input');
+    input.value = value; input.className = className; input.readOnly = true; input.placeholder = placeholder; input.setAttribute('aria-label', label);
+    input.addEventListener('click', () => { input.readOnly = false; input.focus(); });
+    input.addEventListener('blur', () => { if (input.value === value) input.readOnly = true; });
+    return input;
+  }
+
   async function load() {
     const all = $<HTMLInputElement>('[data-all]').checked;
     const res = await api(`/api/admin/registrations${all ? '?include=all' : ''}`);
@@ -70,34 +96,34 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     for (const r of registrations) {
       const tr = document.createElement('tr');
       cell(tr, r.created_at.slice(0, 10));
-      const nameInput = document.createElement('input');
-      nameInput.value = r.name; nameInput.className = 'name'; nameInput.setAttribute('aria-label', 'Name');
+      const nameInput = editable(r.name, 'cell', `Name of ${r.name}`);
       cell(tr, '').append(nameInput);
       cell(tr, r.federation);
       cell(tr, r.fide_id ?? '—');
       cell(tr, r.title ?? '');
       cell(tr, r.rating ? String(r.rating) : '');
       cell(tr, String(r.birth_year));
-      cell(tr, `${r.email} ${r.phone}`);
+      cell(tr, `${r.email} ${r.phone}`, 'wrap');
       cell(tr, r.bus ? 'yes' : '');
       cell(tr, r.payment_status === 'not_required' ? 'free' : `${r.total_cents / 100} € ${r.payment_status}`);
-      const note = document.createElement('input');
-      note.value = r.note ?? ''; note.placeholder = 'note'; note.setAttribute('aria-label', `Note for ${r.name}`);
+      const note = editable(r.note ?? '', 'cell note', `Note for ${r.name}`, 'add a note');
       const removed = r.review_status === 'rejected';
       if (removed) tr.className = 'removed';
-      const checkCell = cell(tr, removed ? 'Removed ' : 'Accepted ', removed ? 'status-rejected' : 'status-accepted');
-      checkCell.append(note);
-      const actions = cell(tr, '');
+      cell(tr, removed ? 'Removed' : 'Accepted', removed ? 'status-rejected' : 'status-accepted');
+      cell(tr, '').append(note);
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+      cell(tr, '').append(actions);
       for (const [status, label] of removed ? [['accepted', 'Restore'], ['rejected', 'Save']] as const : [['rejected', 'Remove'], ['accepted', 'Save']] as const) {
         const b = document.createElement('button');
-        b.type = 'button'; b.className = 'btn btn-ghost btn-sm'; b.textContent = label;
+        b.type = 'button'; b.className = `btn btn-ghost btn-sm${label === 'Remove' ? ' danger' : ''}`; b.textContent = label;
         b.addEventListener('click', async () => {
           if (label === 'Remove' && !confirm(`Remove ${r.name} from the entry list? This does not refund the payment: refund in Stripe if needed.`)) return;
           b.disabled = true;
           await api(`/api/admin/registrations/${encodeURIComponent(r.id)}`, { method: 'POST', body: JSON.stringify({ review_status: status, note: note.value, name: nameInput.value }) });
           await load().catch(() => {});
         });
-        actions.append(b, ' ');
+        actions.append(b);
       }
       body.append(tr);
     }
