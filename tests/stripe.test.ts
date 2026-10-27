@@ -26,7 +26,7 @@ test('webhook signatures: valid, wrong secret, stale, malformed', async () => {
 });
 
 test('checkout session: entry fee and bus as separate line items, amounts in cents', () => {
-  const v = validateRegistration({ name: 'Anna Test', email: 'a@example.com', phoneCountry: 'FI', phoneNumber: '0401234567', fideId: '500410', rating: '1850', birthYear: '1990', federation: 'FIN', bus: true, accept: true, locale: 'en' });
+  const v = validateRegistration({ name: 'Anna Test', email: 'a@example.com', phoneCountry: 'FI', phoneNumber: '0401234567', fideId: '100001', rating: '1850', birthYear: '1990', federation: 'FIN', bus: true, accept: true, locale: 'en' });
   assert.ok(v.ok);
   if (!v.ok) return;
   const params = buildSessionParams(v.value, quote(v.value, '2027-03-01'), 'reg-1', 'https://example.org', 1_800_000_000) as Record<string, unknown>;

@@ -4,7 +4,7 @@ import { helsinkiToday, quote, validateRegistration } from '../src/lib/registrat
 
 const good = {
   name: ' Mikko  Virtanen ', email: 'Mikko@Example.com', phoneCountry: 'FI', phoneNumber: '040 123 4567',
-  fideId: '500410', title: '', rating: '1850', birthYear: '1990', federation: 'FIN', bus: false, accept: true, locale: 'fi',
+  fideId: '100001', title: '', rating: '1850', birthYear: '1990', federation: 'FIN', bus: false, accept: true, locale: 'fi',
 };
 
 test('a complete registration is accepted and normalised', () => {

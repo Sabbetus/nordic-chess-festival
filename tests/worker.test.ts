@@ -10,7 +10,7 @@ const NOW = new Date('2027-03-01T10:00:00Z');
 const SECRETS = { STRIPE_SECRET_KEY: 'sk_test_x', STRIPE_WEBHOOK_SECRET: 'whsec_test', ADMIN_TOKEN: 'organiser-token-with-at-least-32-characters' };
 
 const person = (over: Record<string, unknown> = {}) => ({
-  name: 'Anna Test', email: 'anna@example.com', phoneCountry: 'FI', phoneNumber: '040 123 4567', fideId: '500410', title: '', rating: '1850',
+  name: 'Anna Test', email: 'anna@example.com', phoneCountry: 'FI', phoneNumber: '040 123 4567', fideId: '100001', title: '', rating: '1850',
   birthYear: '1990', federation: 'FIN', bus: false, accept: true, locale: 'en', ...over,
 });
 const post = (path: string, body: unknown, headers: Record<string, string> = {}) =>
@@ -240,8 +240,8 @@ import { clearFideCache } from '../worker/fide.ts';
 import { buildShards } from '../scripts/fide-list.mjs';
 
 const XML = `<playerslist>
-<player><fideid>500410</fideid><name>Ebeling, Mika</name><country>FIN</country><title>FM</title><w_title></w_title><rating>2216</rating><birthday>1964</birthday></player>
-<player><fideid>519456</fideid><name>Brade, Henry</name><country>FIN</country><title></title><w_title></w_title><rating>1722</rating><birthday>1985</birthday></player>
+<player><fideid>100001</fideid><name>Example, Testi</name><country>FIN</country><title>FM</title><w_title></w_title><rating>2216</rating><birthday>1964</birthday></player>
+<player><fideid>100002</fideid><name>Sample, Anna</name><country>FIN</country><title></title><w_title></w_title><rating>1722</rating><birthday>1985</birthday></player>
 <player><fideid>700001</fideid><name>Doe, Jane</name><country>ENG</country><title>GM</title><w_title>WGM</w_title><rating>2500</rating><birthday>2012</birthday></player>
 </playerslist>`;
 
@@ -257,10 +257,10 @@ function withFide(): Env & { DB: ReturnType<typeof makeDb> } {
 
 test('the FIDE list gives name, federation, title, rating and birth year; the browser values are ignored', async () => {
   const e = withFide();
-  const res = await handleRegister(post('/api/register', person({ fideId: '500410', name: 'Not My Name', federation: 'SWE', title: 'GM', rating: '2800', birthYear: '2015' })), e, NOW);
+  const res = await handleRegister(post('/api/register', person({ fideId: '100001', name: 'Not My Name', federation: 'SWE', title: 'GM', rating: '2800', birthYear: '2015' })), e, NOW);
   assert.equal(res.status, 200);
   const [row] = e.DB.raw.prepare('SELECT * FROM registrations').all() as Record<string, unknown>[];
-  assert.equal(row.name, 'Mika Ebeling');
+  assert.equal(row.name, 'Testi Example');
   assert.equal(row.federation, 'FIN');
   assert.equal(row.title, 'FM');
   assert.equal(row.rating, 2216);
@@ -271,10 +271,10 @@ test('the FIDE list gives name, federation, title, rating and birth year; the br
 
 test('name, federation and birth year need not be sent when the FIDE ID is found', async () => {
   const e = withFide();
-  const res = await handleRegister(post('/api/register', person({ fideId: '519456', name: '', federation: '', birthYear: '', title: '', rating: '' })), e, NOW);
+  const res = await handleRegister(post('/api/register', person({ fideId: '100002', name: '', federation: '', birthYear: '', title: '', rating: '' })), e, NOW);
   assert.equal(res.status, 200);
   const [row] = e.DB.raw.prepare('SELECT name, rating, birth_year FROM registrations').all() as Record<string, unknown>[];
-  assert.deepEqual({ ...row }, { name: 'Henry Brade', rating: 1722, birth_year: 1985 });
+  assert.deepEqual({ ...row }, { name: 'Anna Sample', rating: 1722, birth_year: 1985 });
 });
 
 test('a GM from the list registers for free', async () => {
@@ -297,14 +297,14 @@ test('an ID missing from the list is registered unrated, whatever the browser cl
 test('the lookup endpoint answers found, not found, and refuses anything else', async () => {
   const e = withFide();
   const get = (p: string) => worker.fetch(new Request(`https://nordicchess.fi${p}`), e);
-  const found = (await (await get('/api/fide/500410')).json()) as Record<string, unknown>;
+  const found = (await (await get('/api/fide/100001')).json()) as Record<string, unknown>;
   assert.equal(found.status, 'found');
-  assert.equal(found.name, 'Mika Ebeling');
+  assert.equal(found.name, 'Testi Example');
   assert.equal(((await (await get('/api/fide/123456')).json()) as { status: string }).status, 'not_found');
   assert.equal((await get('/api/fide/12.json')).status, 400);
   assert.equal((await get('/api/fide/meta.json')).status, 400);
   clearFideCache();
-  const bare = await worker.fetch(new Request('https://nordicchess.fi/api/fide/500410'), { ...env, ASSETS: undefined });
+  const bare = await worker.fetch(new Request('https://nordicchess.fi/api/fide/100001'), { ...env, ASSETS: undefined });
   assert.equal(((await bare.json()) as { status: string }).status, 'unavailable');
 });
 
