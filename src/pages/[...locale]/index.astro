@@ -26,6 +26,8 @@ const news = (await getCollection('news'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
+// When the last row of the three-column grid is not full, a placeholder card fills it.
+const fillsRow = guests.length % 3 === 0;
 const opening = schedule.find((i) => i.kind === 'opening')!;
 const prizegiving = schedule.find((i) => i.kind === 'prizegiving')!;
 
@@ -104,8 +106,9 @@ const jsonLd = [
       </div>
       <div class="guest-grid">
         {guests.map((g) => <GuestCard guest={g} lang={lang} />)}
+        {!fillsRow && <div class="guest-more"><p>{h.guests.more}</p></div>}
       </div>
-      <p class="more">{h.guests.more}</p>
+      {fillsRow && <p class="more">{h.guests.more}</p>}
     </div>
   </section>
 
@@ -248,6 +251,7 @@ const jsonLd = [
   .head-text { max-width: 62rem; display: grid; gap: var(--space-3); }
   .head-text .lead { margin-top: var(--space-2); max-width: 52rem; }
   .guest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); --guest-aspect: 4 / 5; }
+  .guest-more { aspect-ratio: var(--guest-aspect, 3 / 4); border: 1px dashed var(--line-strong); border-radius: var(--radius); display: grid; place-items: center; padding: var(--space-5); text-align: center; color: var(--muted); font-size: var(--text-sm); letter-spacing: 0.04em; }
   .more { margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted-2); letter-spacing: 0.04em; }
   .ceremonies { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted); }
   .ceremonies strong { color: var(--white); font-weight: 500; margin-left: var(--space-2); }
