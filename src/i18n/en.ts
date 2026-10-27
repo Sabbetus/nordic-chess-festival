@@ -261,6 +261,7 @@ const en = {
         'Confirm your participation on Saturday 12 June 2027, as described in the regulations.',
       ],
       contact: 'Questions or changes to your registration? Email info@nordicchess.fi.',
+      back: 'Back to the front page',
     },
   },
   players: {

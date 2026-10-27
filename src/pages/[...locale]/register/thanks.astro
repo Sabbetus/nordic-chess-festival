@@ -1,27 +1,57 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageHero from "../../../components/PageHero.astro";
-import { localeStaticPaths, messages } from "../../../i18n/utils";
+import { localeStaticPaths, localePath, messages } from "../../../i18n/utils";
 export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
 const t = messages[lang].register.thanks;
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <BaseLayout lang={lang} path="/register/thanks/" title={t.title} description={t.lead} noindex>
-  <PageHero title={t.title} lead={t.lead} />
+  <PageHero eyebrow={messages[lang].common.dates} title={t.title} lead={t.lead} />
   <section class="section">
-    <div class="container narrow stack">
-      <p class="prose" data-paid>{t.paid}</p>
-      <p class="prose" data-free hidden>{t.free}</p>
-      <h2>{t.nextTitle}</h2>
-      <ol class="prose next">{t.next.map((x) => <li>{x}</li>)}</ol>
-      <p class="prose">{t.contact}</p>
+    <div class="container wrap">
+      <div class="confirm">
+        <span class="tick" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+        </span>
+        <p data-paid>{t.paid}</p>
+        <p data-free hidden>{t.free}</p>
+      </div>
+
+      <div class="next">
+        <h2>{t.nextTitle}</h2>
+        <ol>
+          {t.next.map((x, i) => (
+            <li><span class="n">{pad(i + 1)}</span><span>{x}</span></li>
+          ))}
+        </ol>
+      </div>
+
+      <p class="contact">{t.contact}</p>
+      <p class="btn-row"><a class="btn btn-ghost" href={localePath(lang, '/')}>← {t.back}</a></p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .next { display: grid; gap: var(--space-3); padding-left: 1.25rem; }
+  .wrap { display: grid; gap: var(--space-7); max-width: 52rem; margin-inline: 0; }
+  .confirm {
+    display: grid; grid-template-columns: auto 1fr; gap: var(--space-5); align-items: start;
+    background: var(--ice-dim); border: 1px solid var(--ice-border); border-radius: var(--radius); padding: var(--space-5) var(--space-6);
+  }
+  .confirm p { color: var(--white); font-size: var(--text-lg); line-height: 1.6; }
+  .tick { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--ice); color: var(--ice); }
+  .next h2 { font-size: var(--text-h3); margin-bottom: var(--space-4); }
+  .next ol { list-style: none; display: grid; border-top: 1px solid var(--line); }
+  .next li { display: grid; grid-template-columns: 3.5rem 1fr; align-items: baseline; padding-block: var(--space-4); border-bottom: 1px solid var(--line); color: var(--muted); font-size: var(--text-lg); }
+  .n { font-family: var(--font-display); font-size: 1.75rem; color: var(--ice); font-variant-numeric: lining-nums; }
+  .contact { color: var(--muted); }
+  @media (max-width: 520px) {
+    .confirm { grid-template-columns: 1fr; padding: var(--space-4); }
+    .next li { grid-template-columns: 2.75rem 1fr; }
+  }
 </style>
 
 <script>

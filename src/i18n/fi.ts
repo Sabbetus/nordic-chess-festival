@@ -263,6 +263,7 @@ const fi: Messages = {
         'Vahvista osallistumisesi lauantaina 12. kesäkuuta 2027 sääntöjen mukaisesti.',
       ],
       contact: 'Kysyttävää tai muutoksia ilmoittautumiseesi? Kirjoita osoitteeseen info@nordicchess.fi.',
+      back: 'Takaisin etusivulle',
     },
   },
   players: {
