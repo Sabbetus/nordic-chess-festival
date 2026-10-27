@@ -26,6 +26,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 - [ ] Automatic FIDE list refresh: GitHub secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`, variables `SITE_URL` and `DEPLOY_BRANCH`, and `fide-refresh.yml` merged to `main`. Run it once by hand (Actions, "Refresh FIDE rating list", Run workflow) and check that `/admin/` shows a fresh list date.
 - [ ] Privacy policy: confirm the retention periods (12 months, 6 years for accounting) and the note about minors, then set `draft: false` in `src/content/privacy/*.md`.
 - [ ] Accountant: confirm the non-VAT assumption and the refund and receipt handling.
+- [ ] Russia and Belarus block (decision of the Finnish Chess Federation): confirm the wording with the Federation and decide about players with the neutral FIDE federation code (`FID`), which are currently allowed. Test with a Russian or Belarusian FIDE ID on the live site.
 - [ ] Full test round on the live site with a real small payment, then refund it.
 - [ ] Check that the Stripe webhook shows 200 responses in the event deliveries.
 
