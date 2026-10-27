@@ -1,9 +1,10 @@
 // Looks players up in the FIDE rating list shards that the build writes next to the site (dist/api/fide/).
+import { isBlockedFederation } from '../src/data/federations.ts';
 import { shardOf, shardPath, type FideRecord, type FideShard } from '../src/lib/fide.ts';
 import type { Env } from './types.ts';
 
 export type FideLookup =
-  | { status: 'found'; fideId: string; name: string; federation: string; title: string; rating: number; birthYear: number; updated: string }
+  | { status: 'found'; fideId: string; name: string; federation: string; title: string; rating: number; birthYear: number; updated: string; blocked: boolean }
   | { status: 'not_found'; updated: string }
   | { status: 'unavailable' };
 
@@ -33,7 +34,7 @@ export async function lookupFide(env: Env, fideId: string): Promise<FideLookup> 
   const r: FideRecord | undefined = shard.p[fideId];
   if (!r) return { status: 'not_found', updated: shard.u };
   const [name, federation, title, rating, birthYear] = r;
-  return { status: 'found', fideId, name, federation, title, rating, birthYear, updated: shard.u };
+  return { status: 'found', fideId, name, federation, title, rating, birthYear, updated: shard.u, blocked: isBlockedFederation(federation) };
 }
 
 /** Date and month (YYYY-MM, as FIDE labels it) of the list in this deployment, for the health check and the organiser page. */

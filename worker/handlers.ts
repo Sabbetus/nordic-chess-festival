@@ -4,6 +4,7 @@ import {
   type RegistrationRow,
 } from './db.ts';
 import { buildSessionParams, createCheckoutSession, safeEqual, verifyStripeSignature } from './stripe.ts';
+import { isBlockedFederation } from '../src/data/federations.ts';
 import { fideListInfo, lookupFide } from './fide.ts';
 import type { Env } from './types.ts';
 
@@ -95,6 +96,9 @@ export async function handleRegister(request: Request, env: Env, now: Date = new
       fideNote = 'FIDE list unavailable: title and rating are as declared, check them';
     }
   }
+
+  // Decision of the Finnish Chess Federation: no players representing Russia or Belarus, whichever way the federation was found.
+  if (isBlockedFederation(typeof input.federation === 'string' ? input.federation.trim() : '')) return json({ error: 'federation_blocked' }, 403);
 
   const v = validateRegistration(input);
   if (!v.ok) return json({ error: 'validation', errors: v.errors }, 422);

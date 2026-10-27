@@ -248,6 +248,7 @@ const fi: Messages = {
       errUnavailable: 'Ilmoittautuminen ei ole juuri nyt käytettävissä. Yritä myöhemmin uudelleen.',
       errGeneric: 'Jokin meni vikaan. Yritä uudelleen tai kirjoita osoitteeseen info@nordicchess.fi.',
       cancelled: 'Maksuasi ei viety loppuun, joten et ole vielä ilmoittautunut. Voit yrittää uudelleen alla.',
+      blockedFederation: 'Suomen Shakkiliiton päätöksen perusteella Venäjää tai Valko-Venäjää edustavat pelaajat eivät voi osallistua Suomessa järjestettäviin turnauksiin.',
       lookupChecking: 'Tarkistetaan FIDE-ratinglistaa…',
       lookupFound: 'Löytyi FIDE-ratinglistalta',
       lookupFoundNote: 'Nämä tiedot tulevat suoraan FIDEltä, ja niitä käytetään sellaisenaan. Jos jokin on väärin, kirjoita ilmoittautumisen jälkeen osoitteeseen info@nordicchess.fi.',

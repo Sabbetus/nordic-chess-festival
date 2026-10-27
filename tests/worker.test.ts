@@ -243,6 +243,8 @@ const XML = `<playerslist>
 <player><fideid>100001</fideid><name>Example, Testi</name><country>FIN</country><title>FM</title><w_title></w_title><rating>2216</rating><birthday>1964</birthday></player>
 <player><fideid>100002</fideid><name>Sample, Anna</name><country>FIN</country><title></title><w_title></w_title><rating>1722</rating><birthday>1985</birthday></player>
 <player><fideid>700001</fideid><name>Doe, Jane</name><country>ENG</country><title>GM</title><w_title>WGM</w_title><rating>2500</rating><birthday>2012</birthday></player>
+<player><fideid>700002</fideid><name>Ivanov, Ivan</name><country>RUS</country><title></title><w_title></w_title><rating>2100</rating><birthday>1990</birthday></player>
+<player><fideid>700003</fideid><name>Petrov, Petr</name><country>BLR</country><title>IM</title><w_title></w_title><rating>2400</rating><birthday>1985</birthday></player>
 </playerslist>`;
 
 function withFide(): Env & { DB: ReturnType<typeof makeDb> } {
@@ -318,4 +320,27 @@ test('removed registrations are left out of the CSV unless everything is asked f
   assert.ok(!(await (await handleAdmin(get('/api/admin/registrations?format=csv'), env)).text()).includes('Anna Test'));
   assert.ok((await (await handleAdmin(get('/api/admin/registrations?format=csv&include=all'), env)).text()).includes('Anna Test'));
   assert.equal((await handleRegister(post('/api/register', person()), env, NOW)).status, 200);
+});
+
+test('players from Russia and Belarus cannot register, whether found in FIDE or typed in', async () => {
+  const e = withFide();
+  for (const id of ['700002', '700003']) {
+    const res = await handleRegister(post('/api/register', person({ fideId: id, name: '', federation: 'FIN' })), e, NOW);
+    assert.equal(res.status, 403);
+    assert.equal(((await res.json()) as { error: string }).error, 'federation_blocked');
+  }
+  for (const fed of ['RUS', 'BLR', 'rus']) {
+    const res = await handleRegister(post('/api/register', person({ noFideId: true, fideId: '', federation: fed })), e, NOW);
+    assert.equal(res.status, 403);
+  }
+  assert.equal(e.DB.raw.prepare('SELECT COUNT(*) AS n FROM registrations').get().n, 0);
+  const lookup = (await (await worker.fetch(new Request('https://nordicchess.fi/api/fide/700002'), e)).json()) as { blocked: boolean };
+  assert.equal(lookup.blocked, true);
+});
+
+test('the federation list offered to unrated players leaves out Russia and Belarus', async () => {
+  const { federationOptions } = await import('../src/data/federations.ts');
+  const codes = federationOptions('en').map((f) => f.code);
+  assert.ok(codes.includes('FIN') && codes.includes('UKR'));
+  assert.ok(!codes.includes('RUS') && !codes.includes('BLR'));
 });

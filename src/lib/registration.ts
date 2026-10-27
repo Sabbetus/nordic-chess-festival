@@ -3,7 +3,7 @@
 
 import { parsePhoneNumberFromString, type CountryCode } from 'libphonenumber-js/min';
 import type { Title } from '../data/fees.ts';
-import { isFederation } from '../data/federations.ts';
+import { isBlockedFederation, isFederation } from '../data/federations.ts';
 
 export const titles: readonly Title[] = ['GM', 'WGM', 'IM', 'WIM', 'FM', 'WFM', 'CM', 'WCM'];
 export const locales = ['en', 'fi'] as const;
@@ -108,7 +108,7 @@ export function validateRegistration(input: unknown):
 
   const federation = text(i.federation).toUpperCase();
   if (!federation) errors.federation = 'required';
-  else if (!isFederation(federation)) errors.federation = 'invalid';
+  else if (!isFederation(federation) || isBlockedFederation(federation)) errors.federation = 'invalid';
 
   if (i.accept !== true) errors.accept = 'required';
 

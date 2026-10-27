@@ -246,6 +246,7 @@ const en = {
       errUnavailable: 'Registration is not available right now. Please try again later.',
       errGeneric: 'Something went wrong. Please try again, or email info@nordicchess.fi.',
       cancelled: 'Your payment was not completed, so you are not registered yet. You can try again below.',
+      blockedFederation: 'Based on the decision of the Finnish Chess Federation, players representing Russia or Belarus cannot play in tournaments organised in Finland.',
       lookupChecking: 'Checking the FIDE rating list…',
       lookupFound: 'Found in the FIDE rating list',
       lookupFoundNote: 'These details come straight from FIDE and are used as they are. If something is wrong, email info@nordicchess.fi after you have registered.',

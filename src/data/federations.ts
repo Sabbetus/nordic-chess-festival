@@ -47,6 +47,13 @@ export const federations: readonly Federation[] = [
 
 const codes = new Set(federations.map((f) => f.code));
 
+/** Players representing these federations cannot play in tournaments organised in Finland (decision of the Finnish Chess Federation). */
+export const blockedFederations: readonly string[] = ['RUS', 'BLR'];
+
+export function isBlockedFederation(code: unknown): boolean {
+  return typeof code === 'string' && blockedFederations.includes(code.toUpperCase());
+}
+
 export function isFederation(code: unknown): code is string {
   return typeof code === 'string' && codes.has(code);
 }
@@ -55,6 +62,7 @@ export function isFederation(code: unknown): code is string {
 export function federationOptions(lang: 'en' | 'fi'): { code: string; label: string }[] {
   const names = new Intl.DisplayNames([lang], { type: 'region' });
   return federations
+    .filter((f) => !blockedFederations.includes(f.code))
     .map((f) => ({ code: f.code, label: f.names ? f.names[lang] : (f.region && names.of(f.region)) || f.code }))
     .sort((a, b) => a.label.localeCompare(b.label, lang));
 }

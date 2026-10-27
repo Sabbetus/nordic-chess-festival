@@ -26,7 +26,7 @@ const ui = {
     name: f.errName, email: f.errEmail, phone: f.errPhone, fideId: f.errFideId, rating: f.errRating, birthYear: f.errBirthYear,
     federation: f.errFederation, accept: f.errAccept, required: f.errRequired,
   },
-  errDuplicate: f.errDuplicate, errUnavailable: f.errUnavailable, errGeneric: f.errGeneric, errorSummary: f.errorSummary,
+  blocked: f.blockedFederation, errDuplicate: f.errDuplicate, errUnavailable: f.errUnavailable, errGeneric: f.errGeneric, errorSummary: f.errorSummary,
   thanks: localePath(lang, '/register/thanks/'),
   lookup: { checking: f.lookupChecking, found: f.lookupFound, foundNote: f.lookupFoundNote, notFound: f.lookupNotFound, unavailable: f.lookupUnavailable, list: f.lookupList, none: f.fideTitleNone },
 };
@@ -174,6 +174,8 @@ const ui = {
   .lookup { display: grid; gap: var(--space-3); }
   .lookup-status { font-size: var(--text-sm); color: var(--muted); }
   .lookup.found .lookup-status { color: var(--ice); }
+  .lookup .lookup-status.error { color: var(--danger); border: 1px solid var(--danger); border-radius: var(--radius); padding: var(--space-4); font-size: 1rem; }
+  .reg.blocked fieldset:not(:first-of-type), .reg.blocked .summary, .reg.blocked .accept, .reg.blocked [data-submit] { display: none; }
   .lookup dl { border: 1px solid var(--ice-border); background: var(--ice-dim); border-radius: var(--radius); padding: var(--space-3) var(--space-5); }
   .lookup dl > div { display: flex; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-2); border-top: 1px solid var(--line); }
   .lookup dl > div:first-child { border-top: 0; }
@@ -201,11 +203,11 @@ const ui = {
   type UI = {
     lang: string; bus: number; free: string; reasons: Record<string, string>; hint: string; earlyBirdNote: string; gmNote: string;
     unratedNote: string; submitPay: string; submitFree: string; sending: string; errors: Record<string, string>;
-    errDuplicate: string; errUnavailable: string; errGeneric: string; errorSummary: string; thanks: string;
+    blocked: string; errDuplicate: string; errUnavailable: string; errGeneric: string; errorSummary: string; thanks: string;
     lookup: { checking: string; found: string; foundNote: string; notFound: string; unavailable: string; list: string; none: string };
   };
   type Lookup =
-    | { status: 'found'; fideId: string; name: string; federation: string; title: string; rating: number; birthYear: number; updated: string }
+    | { status: 'found'; fideId: string; name: string; federation: string; title: string; rating: number; birthYear: number; updated: string; blocked: boolean }
     | { status: 'not_found'; updated: string }
     | { status: 'unavailable' };
 
@@ -267,9 +269,16 @@ const ui = {
       box.classList.toggle('found', L?.status === 'found');
       card.hidden = L?.status !== 'found';
       note.textContent = '';
+      // Players from blocked federations cannot register: say why and hide the rest of the form.
+      const blocked = !noFide && L?.status === 'found' && L.blocked;
+      form.classList.toggle('blocked', blocked);
+      status.classList.toggle('error', blocked);
       if (showBox) {
         if (!L) status.textContent = ui.lookup.checking;
-        else if (L.status === 'found') {
+        else if (L.status === 'found' && L.blocked) {
+          status.textContent = ui.blocked;
+          card.hidden = true;
+        } else if (L.status === 'found') {
           status.textContent = `${ui.lookup.found} · ${ui.lookup.list.replace('{date}', L.updated)}`;
           $('[data-l-name]').textContent = L.name;
           $('[data-l-fed]').textContent = fedLabel(L.federation);
@@ -406,6 +415,7 @@ const ui = {
         if (res.ok && body.url) { window.location.assign(body.url); return; }
         if (res.ok && body.ok) { window.location.assign(`${ui.thanks}?r=${encodeURIComponent(body.id ?? '')}&free=1`); return; }
         if (res.status === 422 && body.errors) showErrors(body.errors);
+        else if (res.status === 403 && body.error === 'federation_blocked') fail(ui.blocked);
         else if (res.status === 409) fail(ui.errDuplicate);
         else if (res.status === 503) fail(ui.errUnavailable);
         else fail(ui.errGeneric);
