@@ -28,7 +28,6 @@ Emme vastaanota emmekä tallenna kortti- tai MobilePay-tietojasi. Maksut käsitt
 
 - **Ilmoittautumisesi ja turnauksen toteutus** (osallistumisen vahvistus, arvonnat, tulokset, käytännön viestintä). Peruste: sopimuksen täyttäminen.
 - **Maksujen vastaanotto ja kirjanpito.** Peruste: sopimus ja kirjanpitolain mukaiset velvoitteemme.
-- **Pelaajatietojen tarkistus pääsuorittajien kanssa** (esim. titteli, rating ja ikäluokka). Peruste: oikeutettu etumme reilun turnauksen järjestämiseen.
 - **Pelaajaluettelon ja tulosten julkaiseminen.** Peruste: oikeutettu etu ja ratingturnauksen luonne; katso alla.
 
 Emme käytä tietojasi markkinointiin, ellet erikseen tilaa uutiskirjettä, emmekä myy tietoja eteenpäin.

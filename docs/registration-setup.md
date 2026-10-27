@@ -66,4 +66,4 @@ Done manually in the Stripe dashboard (75 % partial refund before the deadline);
 
 ## Later (stage 2)
 
-Automating chess-results entry: generate a Swiss-Manager import file from the verified registrations. Until then organisers copy verified players from the export.
+Automating chess-results entry: generate a Swiss-Manager import file from the registrations. Until then organisers copy players from the export.
