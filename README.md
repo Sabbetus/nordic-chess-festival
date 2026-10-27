@@ -42,7 +42,7 @@ Production branch is set in Cloudflare under Settings > Builds > Branch control.
 Until launch the production branch is the development branch (`claude/stoic-franklin-e6jw9t`), so the
 stable `workers.dev` address always shows the latest new site while `main` still holds the teaser.
 At launch: merge to `main`, switch the production branch back to `main`, remove `PUBLIC_NOINDEX`,
-and point nordicchess.fi at Cloudflare.
+and point nordicchess.fi at Cloudflare. The full list is in `docs/launch-checklist.md`.
 
 ## Image sources
 
