@@ -111,7 +111,7 @@ export async function handleRegister(request: Request, env: Env, now: Date = new
     birth_year: reg.birthYear, federation: reg.federation, locale: reg.locale, band: q.fee.band.id, discount: q.fee.discount,
     bus: reg.bus ? 1 : 0, entry_cents: q.entryCents, bus_cents: q.busCents, total_cents: q.totalCents, paid_on: paidOn,
     payment_status: q.free ? 'not_required' : 'pending', stripe_session_id: null, stripe_payment_intent: null, paid_at: null,
-    refunded_cents: 0, review_status: 'unverified', note: fideNote, accepted_terms_at: iso,
+    refunded_cents: 0, review_status: 'accepted', note: fideNote, accepted_terms_at: iso,
   };
   await insertRegistration(env.DB, row);
   if (q.free) return json({ ok: true, free: true, id });
@@ -162,7 +162,8 @@ export async function handleStripeWebhook(request: Request, env: Env, now: Date 
   return json({ received: true });
 }
 
-const REVIEW = ['unverified', 'verified', 'rejected'];
+// Registrations are accepted automatically (payment confirmed, or free). Organisers can remove one (rejected) and restore it.
+const REVIEW = ['accepted', 'rejected'];
 
 /** Typed-in text that starts like a formula gets a leading quote. Validated values (phone numbers) are safe as they are. */
 function csvCell(value: unknown, validated = false): string {
@@ -193,7 +194,9 @@ export async function handleAdmin(request: Request, env: Env): Promise<Response>
   if (request.method === 'GET' && url.pathname === '/api/admin/registrations') {
     const rows = await listRegistrations(env.DB, url.searchParams.get('include') === 'all');
     if (url.searchParams.get('format') === 'csv') {
-      return new Response(toCsv(rows), { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': 'attachment; filename="registrations.csv"', 'cache-control': 'no-store' } });
+      // The export is the entry list: removed registrations are left out unless everything was asked for.
+      const entries = url.searchParams.get('include') === 'all' ? rows : rows.filter((r) => r.review_status !== 'rejected');
+      return new Response(toCsv(entries), { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': 'attachment; filename="registrations.csv"', 'cache-control': 'no-store' } });
     }
     return json({ registrations: rows });
   }

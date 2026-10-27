@@ -25,7 +25,7 @@ CREATE TABLE registrations (
   stripe_payment_intent TEXT,
   paid_at TEXT,
   refunded_cents INTEGER NOT NULL DEFAULT 0,
-  -- unverified | verified | rejected  (organisers check title, rating and birth year against FIDE)
+  -- accepted (automatic) | rejected (removed by an organiser); older test rows may say unverified/verified
   review_status TEXT NOT NULL DEFAULT 'unverified',
   note TEXT,
   accepted_terms_at TEXT NOT NULL

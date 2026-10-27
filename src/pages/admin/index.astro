@@ -23,7 +23,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Registered</th><th>Name</th><th>Fed</th><th>FIDE ID</th><th>Title</th><th>Rating</th><th>Born</th><th>Contact</th><th>Bus</th><th>Paid</th><th>Check</th><th></th></tr>
+              <tr><th>Registered</th><th>Name</th><th>Fed</th><th>FIDE ID</th><th>Title</th><th>Rating</th><th>Born</th><th>Contact</th><th>Bus</th><th>Paid</th><th>Status</th><th></th></tr>
             </thead>
             <tbody data-rows></tbody>
           </table>
@@ -44,8 +44,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   .banner { border: 1px solid var(--ice-border); border-radius: var(--radius); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4); font-size: var(--text-sm); }
   .banner.stale { border-color: var(--danger); color: var(--danger); }
   td input { background: var(--black); color: var(--white); border: 1px solid var(--line); border-radius: 4px; padding: 0.3rem; width: 9rem; font: inherit; font-size: var(--text-xs); }
-  .status-verified { color: var(--ice); }
+  .status-accepted { color: var(--ice); }
   .status-rejected { color: var(--danger); }
+  tr.removed td { opacity: 0.55; }
 </style>
 
 <script>
@@ -82,13 +83,16 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       cell(tr, r.payment_status === 'not_required' ? 'free' : `${r.total_cents / 100} € ${r.payment_status}`);
       const note = document.createElement('input');
       note.value = r.note ?? ''; note.placeholder = 'note'; note.setAttribute('aria-label', `Note for ${r.name}`);
-      const checkCell = cell(tr, `${r.review_status} `, `status-${r.review_status}`);
+      const removed = r.review_status === 'rejected';
+      if (removed) tr.className = 'removed';
+      const checkCell = cell(tr, removed ? 'Removed ' : 'Accepted ', removed ? 'status-rejected' : 'status-accepted');
       checkCell.append(note);
       const actions = cell(tr, '');
-      for (const [status, label] of [['verified', 'Verify'], ['rejected', 'Reject'], [r.review_status, 'Save']] as const) {
+      for (const [status, label] of removed ? [['accepted', 'Restore'], ['rejected', 'Save']] as const : [['rejected', 'Remove'], ['accepted', 'Save']] as const) {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'btn btn-ghost btn-sm'; b.textContent = label;
         b.addEventListener('click', async () => {
+          if (label === 'Remove' && !confirm(`Remove ${r.name} from the entry list? This does not refund the payment: refund in Stripe if needed.`)) return;
           b.disabled = true;
           await api(`/api/admin/registrations/${encodeURIComponent(r.id)}`, { method: 'POST', body: JSON.stringify({ review_status: status, note: note.value, name: nameInput.value }) });
           await load().catch(() => {});

@@ -105,7 +105,7 @@ test('a grandmaster registers for free, with no Stripe call, awaiting verificati
   assert.equal(stripeCalls.length, 0);
   const [row] = rows();
   assert.equal(row.payment_status, 'not_required');
-  assert.equal(row.review_status, 'unverified');
+  assert.equal(row.review_status, 'accepted');
   assert.equal(row.entry_cents, 0);
 });
 
@@ -181,11 +181,11 @@ test('organiser endpoints need the token, list registrations, export CSV safely 
   assert.match(csv, /,\+358401234567,/); // phone numbers stay clean
 
   const id = list.registrations[0].id;
-  const upd = await handleAdmin(post(`/api/admin/registrations/${id}`, { review_status: 'verified', note: 'Checked on FIDE' }, { authorization: 'Bearer organiser-token-with-at-least-32-characters' }), env);
+  const upd = await handleAdmin(post(`/api/admin/registrations/${id}`, { review_status: 'accepted', note: 'Checked on FIDE' }, { authorization: 'Bearer organiser-token-with-at-least-32-characters' }), env);
   assert.equal(upd.status, 200);
-  assert.equal(rows()[0].review_status, 'verified');
+  assert.equal(rows()[0].review_status, 'accepted');
   assert.equal(rows()[0].note, 'Checked on FIDE');
-  const renamed = await handleAdmin(post(`/api/admin/registrations/${id}`, { review_status: 'verified', note: 'Checked', name: 'Preferred Name' }, { authorization: 'Bearer organiser-token-with-at-least-32-characters' }), env);
+  const renamed = await handleAdmin(post(`/api/admin/registrations/${id}`, { review_status: 'accepted', note: 'Checked', name: 'Preferred Name' }, { authorization: 'Bearer organiser-token-with-at-least-32-characters' }), env);
   assert.equal(renamed.status, 200);
   assert.equal(rows()[0].name, 'Preferred Name');
   assert.match(String(rows()[0].note), /Name changed by organiser, was "=HYPERLINK/);
@@ -306,4 +306,16 @@ test('the lookup endpoint answers found, not found, and refuses anything else', 
   clearFideCache();
   const bare = await worker.fetch(new Request('https://nordicchess.fi/api/fide/500410'), { ...env, ASSETS: undefined });
   assert.equal(((await bare.json()) as { status: string }).status, 'unavailable');
+});
+
+test('removed registrations are left out of the CSV unless everything is asked for, and can register again', async () => {
+  const auth = { authorization: 'Bearer organiser-token-with-at-least-32-characters' };
+  const get = (path: string) => new Request(`https://nordicchess.fi${path}`, { headers: auth });
+  await handleRegister(post('/api/register', person()), env, NOW);
+  await webhook('checkout.session.completed', { id: 'cs_test_1', payment_status: 'paid', payment_intent: 'pi_1' });
+  const id = rows()[0].id as string;
+  assert.equal((await handleAdmin(post(`/api/admin/registrations/${id}`, { review_status: 'rejected' }, auth), env)).status, 200);
+  assert.ok(!(await (await handleAdmin(get('/api/admin/registrations?format=csv'), env)).text()).includes('Anna Test'));
+  assert.ok((await (await handleAdmin(get('/api/admin/registrations?format=csv&include=all'), env)).text()).includes('Anna Test'));
+  assert.equal((await handleRegister(post('/api/register', person()), env, NOW)).status, 200);
 });
