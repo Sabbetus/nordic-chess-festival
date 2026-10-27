@@ -11,7 +11,7 @@ MobilePay, Klarna. Nothing is implemented yet. No secret keys belong in this rep
 3. Refunds: 75 % until 2 June 2027 (partial refunds, done in the Stripe dashboard).
 4. Grandmasters (GM, WGM) play free and confirm by email, so they need no payment.
 
-Fee rules live in `src/data/fees.ts` (single source of truth, with tests in the scratchpad history): 8 paying
+Fee rules live in `src/data/fees.ts` (single source of truth, tested in `tests/fees.test.ts`; run `npm test`): 8 paying
 bands, two prices each, early bird until 31 Jan 2027, junior (born 2009 or later) and senior (born 1962 or
 earlier) discount, discounts never stack, IM / WIM exception.
 
