@@ -17,7 +17,7 @@ const footerLinks = footerGroups.flatMap((g) => g.items);
       <p class="muted">{m.common.place} · {m.common.dates}</p>
       <p>{m.footer.questions} <a href={`mailto:${site.email}`}>{site.email}</a></p>
     </div>
-    <nav aria-label={m.nav.tournament}>
+    <nav aria-label={m.nav.mainEvent}>
       <ul>
         {footerLinks.map((item) => <li><a href={localePath(lang, item.path)}>{m.nav[item.key]}</a></li>)}
       </ul>

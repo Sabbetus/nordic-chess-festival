@@ -8,7 +8,7 @@ export interface NavItem {
 
 /** Shown in the header (the entry fees page is the header call to action). */
 export const headerNav: NavItem[] = [
-  { key: 'tournament', path: '/tournament/' },
+  { key: 'mainEvent', path: '/main-event/' },
   { key: 'players', path: '/players/' },
   { key: 'guests', path: '/guests/' },
   { key: 'prizes', path: '/prizes/' },
@@ -20,11 +20,11 @@ export const headerNav: NavItem[] = [
 export const registerItem: NavItem = { key: 'register', path: '/register/' };
 
 /** Footer link groups. */
-export const footerGroups: { title: 'tournament' | 'info'; items: NavItem[] }[] = [
+export const footerGroups: { title: 'mainEvent' | 'info'; items: NavItem[] }[] = [
   {
-    title: 'tournament',
+    title: 'mainEvent',
     items: [
-      { key: 'tournament', path: '/tournament/' },
+      { key: 'mainEvent', path: '/main-event/' },
       { key: 'register', path: '/register/' },
       { key: 'players', path: '/players/' },
       { key: 'guests', path: '/guests/' },

@@ -4,10 +4,10 @@ import { formatDayShort, messages, type Locale } from '../i18n/utils';
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
-const round = messages[lang].tournament.round;
+const round = messages[lang].mainEvent.round;
 ---
 
-<ol class="tiles" aria-label={messages[lang].tournament.scheduleTitle}>
+<ol class="tiles" aria-label={messages[lang].mainEvent.scheduleTitle}>
   {rounds.map((r) => (
     <li>
       <span class="n">{r.round}</span>

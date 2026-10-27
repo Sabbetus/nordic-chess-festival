@@ -26,7 +26,7 @@ We do **not** receive or store your card or MobilePay details. Payments are hand
 
 ## Why we use it and on what basis
 
-- **Running your registration and the tournament** (confirming your entry, pairings, results, contacting you about practical matters). Basis: performance of the contract with you.
+- **Running your registration and the Main Event** (confirming your entry, pairings, results, contacting you about practical matters). Basis: performance of the contract with you.
 - **Taking payments and keeping accounts**. Basis: contract and our legal obligations under Finnish accounting law.
 - **Publishing the player list and results.** Basis: legitimate interest and the nature of an official rated tournament; see below.
 

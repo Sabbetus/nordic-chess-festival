@@ -1,5 +1,5 @@
 // Competition schedule from the preliminary regulations. All times are Finnish local time
-// (EEST, UTC+3 in June). Update here and the tournament page, home page and countdown follow.
+// (EEST, UTC+3 in June). Update here and the Main Event page, home page and countdown follow.
 
 export const venue = {
   name: 'Kangasala Areena',

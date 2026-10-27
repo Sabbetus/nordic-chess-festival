@@ -6,10 +6,10 @@ import { localeStaticPaths, localePath, messages } from "../../../i18n/utils";
 export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
 const t = messages[lang].register.thanks;
-// Items may contain [[key:text]] links; the chess-results link is shown only once the tournament is published there.
+// Items may contain [[key:text]] links; the chess-results link is shown only once the Main Event is published there.
 const links: Record<string, string | null> = {
   players: localePath(lang, '/players/'),
-  regulations: localePath(lang, '/tournament/#regulations'),
+  regulations: localePath(lang, '/main-event/#regulations'),
   results: site.chessResultsUrl,
 };
 const parts = (s: string) =>

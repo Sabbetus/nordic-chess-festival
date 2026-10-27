@@ -4,6 +4,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://nordicchess.fi',
   trailingSlash: 'always',
+  // The page used to be called /tournament/.
+  redirects: { '/tournament/': '/main-event/', '/fi/tournament/': '/fi/main-event/' },
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'fi'],

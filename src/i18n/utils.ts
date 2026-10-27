@@ -15,13 +15,13 @@ export function isLocale(value: unknown): value is Locale {
   return typeof value === 'string' && (locales as readonly string[]).includes(value);
 }
 
-/** Prefix a site path (always starting with "/") with the locale, e.g. /tournament/ -> /fi/tournament/. */
+/** Prefix a site path (always starting with "/") with the locale, e.g. /main-event/ -> /fi/main-event/. */
 export function localePath(lang: Locale, path = '/'): string {
   const p = path.startsWith('/') ? path : `/${path}`;
   return lang === defaultLocale ? p : `/${lang}${p}`;
 }
 
-/** Strip the locale prefix from a pathname: /fi/tournament/ -> /tournament/. */
+/** Strip the locale prefix from a pathname: /fi/main-event/ -> /main-event/. */
 export function stripLocale(pathname: string): string {
   for (const l of locales) {
     if (l === defaultLocale) continue;

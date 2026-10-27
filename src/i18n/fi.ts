@@ -5,7 +5,7 @@ const fi: Messages = {
     siteName: 'Nordic Chess Festival',
     title: 'Nordic Chess Festival 2027',
     description:
-      'Nordic Chess Festival: kansainvälinen avoin shakkiturnaus Kangasalla 12.–20.6.2027. Yhdeksän kierrosta, oheistapahtumia ja vähintään 10 000 euron palkintopotti.',
+      'Nordic Chess Festival: kansainvälinen avoin shakkifestivaali Kangasalla 12.–20.6.2027. Yhdeksän kierroksen Main Event, oheistapahtumia ja vähintään 10 000 euron palkintopotti.',
     ogLocale: 'fi_FI',
   },
   common: {
@@ -27,7 +27,7 @@ const fi: Messages = {
     photoCredit: 'Kuva',
   },
   nav: {
-    tournament: 'Turnaus',
+    mainEvent: 'Main Event',
     register: 'Osallistumismaksut',
     players: 'Pelaajat',
     guests: 'Vieraat',
@@ -77,7 +77,7 @@ const fi: Messages = {
       more: 'Lisää vieraita julkistetaan myöhemmin.',
     },
     glance: {
-      eyebrow: 'Turnaus',
+      eyebrow: 'Main Event',
       title: 'Yhdeksän kierrosta, yhdeksän päivää',
       text: 'Yksi avoin sarja yhdeksällä kierroksella. Pariutukset tehdään FIDEn sveitsiläisellä järjestelmällä Baku-kiihdytyksellä. Titteliosuuksien saavuttaminen on mahdollista, ja tulokset huomioidaan sekä FIDEn että Suomen ratinglistoilla.',
       link: 'Koko aikataulu ja säännöt',
@@ -119,9 +119,9 @@ const fi: Messages = {
     },
     partnersLabel: 'Yhteistyössä',
   },
-  tournament: {
-    title: 'Turnaus',
-    lead: 'Kansainvälinen avoin turnaus yhdeksällä kierroksella, yhdeksän päivän aikana Kangasala Areenalla.',
+  mainEvent: {
+    title: 'Main Event',
+    lead: 'Kansainvälinen avoin Main Event -turnaus yhdeksällä kierroksella, yhdeksän päivän aikana Kangasala Areenalla.',
     detailsTitle: 'Perustiedot',
     eventCard: 'Tapahtuma',
     rulesCard: 'Säännöt ja virkailijat',
@@ -152,7 +152,7 @@ const fi: Messages = {
     prizegiving: 'Palkintojenjako',
     until: 'asti',
     regulationsTitle: 'Kilpailusäännöt',
-    preliminary: 'Nämä ovat alustavat säännöt. Lopullinen versio julkaistaan ennen turnausta, ja muutokset ilmoitetaan täällä.',
+    preliminary: 'Nämä ovat alustavat säännöt. Lopullinen versio julkaistaan ennen Main Event -turnausta, ja muutokset ilmoitetaan täällä.',
   },
   register: {
     title: 'Osallistumismaksut ja ilmoittautuminen',
@@ -183,7 +183,7 @@ const fi: Messages = {
     ],
     refundTitle: 'Palautukset',
     refundText:
-      'Jos peruutat osallistumisesi vähintään 10 päivää ennen turnauksen alkua (2. kesäkuuta 2027 mennessä), palautamme 75 % osallistumismaksusta. Sen jälkeen maksuja ei palauteta.',
+      'Jos peruutat osallistumisesi vähintään 10 päivää ennen Main Event -turnauksen alkua (2. kesäkuuta 2027 mennessä), palautamme 75 % osallistumismaksusta. Sen jälkeen maksuja ei palauteta.',
     howTitle: 'Näin ilmoittaudut',
     how: [
       'Täytä ilmoittautumislomake tiedoillasi ja, jos sinulla on, FIDE-tunnuksellasi.',
@@ -202,7 +202,7 @@ const fi: Messages = {
       emailHelp: 'Maksukuitti lähetetään tähän osoitteeseen.',
       phoneCountry: 'Maatunnus',
       phone: 'Puhelinnumero',
-      phoneHelp: 'Käytetään vain kiireellisissä turnausasioissa.',
+      phoneHelp: 'Käytetään vain kiireellisissä Main Event -asioissa.',
       noFideId: 'Minulla ei vielä ole FIDE-tunnusta',
       noFideIdHelp: 'Ilmoittaudut ratingittomana ja maksat ratingittoman maksun.',
       fideId: 'FIDE-tunnus',
@@ -322,7 +322,7 @@ const fi: Messages = {
   },
   sideEvents: {
     title: 'Oheistapahtumat',
-    lead: 'Festivaalilla on paljon muutakin kuin pääturnaus.',
+    lead: 'Festivaalilla on paljon muutakin kuin Main Event.',
     empty: 'Oheisohjelma julkistetaan myöhemmin.',
     when: 'Ajankohta',
     entryFee: 'Osallistumismaksu',
@@ -353,7 +353,7 @@ const fi: Messages = {
   },
   contact: {
     title: 'Yhteystiedot',
-    lead: 'Kysyttävää turnauksesta, ilmoittautumisesta tai yhteistyöstä? Autamme mielellämme.',
+    lead: 'Kysyttävää Main Event -turnauksesta, ilmoittautumisesta tai yhteistyöstä? Autamme mielellämme.',
     emailTitle: 'Sähköposti',
     organiserTitle: 'Järjestäjä',
     organiserText: 'Nordic Chess Festival ry',
@@ -361,8 +361,8 @@ const fi: Messages = {
   },
   live: {
     title: 'Livenä',
-    lead: 'Pelaajaparit, tulokset ja suorat lähetykset turnauksen aikana.',
-    text: 'Tältä sivulta pääsee pelaajaparien, tulosten ja pelilähetysten luo, kun turnaus alkaa.',
+    lead: 'Pelaajaparit, tulokset ja suorat lähetykset Main Event -turnauksen aikana.',
+    text: 'Tältä sivulta pääsee pelaajaparien, tulosten ja pelilähetysten luo, kun Main Event alkaa.',
   },
   privacy: {
     title: 'Tietosuojaseloste',

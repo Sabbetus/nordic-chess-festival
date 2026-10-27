@@ -3,7 +3,7 @@ const en = {
     siteName: 'Nordic Chess Festival',
     title: 'Nordic Chess Festival 2027',
     description:
-      'Nordic Chess Festival: an international open chess tournament in Kangasala, Finland, 12–20 June 2027. Nine rounds, side events and a prize pool of at least 10 000 €.',
+      'Nordic Chess Festival: an international open chess festival in Kangasala, Finland, 12–20 June 2027. A nine-round Main Event, side events and a prize pool of at least 10 000 €.',
     ogLocale: 'en_US',
   },
   common: {
@@ -25,7 +25,7 @@ const en = {
     photoCredit: 'Photo',
   },
   nav: {
-    tournament: 'Tournament',
+    mainEvent: 'Main Event',
     register: 'Entry fees',
     players: 'Players',
     guests: 'Guests',
@@ -75,7 +75,7 @@ const en = {
       more: 'More guests will be announced.',
     },
     glance: {
-      eyebrow: 'The tournament',
+      eyebrow: 'Main Event',
       title: 'Nine rounds, nine days',
       text: 'A single open group of nine rounds. Pairings use the FIDE Swiss system with Baku acceleration. Title norms are possible, and the results count for both FIDE and the Finnish rating lists.',
       link: 'Full schedule and regulations',
@@ -117,8 +117,8 @@ const en = {
     },
     partnersLabel: 'Partnering with',
   },
-  tournament: {
-    title: 'The tournament',
+  mainEvent: {
+    title: 'Main Event',
     lead: 'An international open in nine rounds, held over nine days at Kangasala Areena, Finland.',
     detailsTitle: 'Key details',
     eventCard: 'The event',
@@ -150,7 +150,7 @@ const en = {
     prizegiving: 'Prize-giving ceremony',
     until: 'until',
     regulationsTitle: 'Competition regulations',
-    preliminary: 'These are the preliminary regulations. The final version will be published before the tournament, and changes will be announced here.',
+    preliminary: 'These are the preliminary regulations. The final version will be published before the Main Event, and changes will be announced here.',
   },
   register: {
     title: 'Entry fees & registration',
@@ -181,7 +181,7 @@ const en = {
     ],
     refundTitle: 'Refunds',
     refundText:
-      'If you withdraw at least 10 days before the start of the tournament (by 2 June 2027), we refund 75% of the entry fee. After that, entry fees are not refundable.',
+      'If you withdraw at least 10 days before the start of the Main Event (by 2 June 2027), we refund 75% of the entry fee. After that, entry fees are not refundable.',
     howTitle: 'How registration works',
     how: [
       'Fill in the registration form with your details and, if you have one, your FIDE ID.',
@@ -200,7 +200,7 @@ const en = {
       emailHelp: 'Your payment receipt is sent here.',
       phoneCountry: 'Country code',
       phone: 'Phone number',
-      phoneHelp: 'Only used for urgent tournament matters.',
+      phoneHelp: 'Only used for urgent Main Event matters.',
       noFideId: "I don't have a FIDE ID yet",
       noFideIdHelp: 'You register as unrated and pay the unrated fee.',
       fideId: 'FIDE ID',
@@ -320,7 +320,7 @@ const en = {
   },
   sideEvents: {
     title: 'Side events',
-    lead: 'There is more to the festival than the main tournament.',
+    lead: 'There is more to the festival than the Main Event.',
     empty: 'The side event programme will be announced later.',
     when: 'When',
     entryFee: 'Entry fee',
@@ -351,7 +351,7 @@ const en = {
   },
   contact: {
     title: 'Contact',
-    lead: 'Questions about the tournament, registration or partnerships? We are happy to help.',
+    lead: 'Questions about the Main Event, registration or partnerships? We are happy to help.',
     emailTitle: 'Email',
     organiserTitle: 'Organiser',
     organiserText: 'Nordic Chess Festival ry',
@@ -359,8 +359,8 @@ const en = {
   },
   live: {
     title: 'Live',
-    lead: 'Pairings, results and live games during the tournament.',
-    text: 'This page will link to the live pairings, results and game broadcasts when the tournament starts.',
+    lead: 'Pairings, results and live games during the Main Event.',
+    text: 'This page will link to the live pairings, results and game broadcasts when the Main Event starts.',
   },
   privacy: {
     title: 'Privacy policy',
