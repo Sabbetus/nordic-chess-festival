@@ -214,16 +214,21 @@ const ui = {
   if (root) init(root);
 
   async function init(root: HTMLElement) {
+    const loading = document.querySelector<HTMLElement>('[data-register-loading]');
+    let open = false;
     try {
       const health = await fetch('/api/health', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null));
-      if (!health?.registration) return;
-      const ui: UI = JSON.parse(document.getElementById('reg-ui')!.textContent!);
-      root.hidden = false;
-      if (openSoon) openSoon.hidden = true;
-      start(root, ui, Boolean(health.turnstile));
+      open = Boolean(health?.registration);
+      if (open) {
+        const ui: UI = JSON.parse(document.getElementById('reg-ui')!.textContent!);
+        root.hidden = false;
+        start(root, ui, Boolean(health.turnstile));
+      }
     } catch {
-      /* API not reachable: the "opens soon" notice stays visible. */
+      /* API not reachable: show the "opens soon" notice. */
     }
+    if (loading) loading.hidden = true;
+    if (!open && openSoon) openSoon.hidden = false;
   }
 
   function start(root: HTMLElement, ui: UI, turnstile: boolean) {

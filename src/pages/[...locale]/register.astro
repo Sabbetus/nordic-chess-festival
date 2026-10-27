@@ -17,7 +17,9 @@ const r = m.register;
   <section class="section">
     <div class="container narrow-wrap">
       <div class="notice warn" data-cancelled hidden><p>{r.form.cancelled}</p></div>
-      <div class="notice" data-register-closed>
+      <noscript><style>[data-register-loading] { display: none !important; } [data-register-closed] { display: grid !important; }</style></noscript>
+      <div class="reg-loading" data-register-loading aria-hidden="true"></div>
+      <div class="notice" data-register-closed hidden>
         <h2>{r.statusTitle}</h2>
         <p>{r.statusText}</p>
         <p class="btn-row"><a class="btn btn-primary" href={site.newsletterUrl} target="_blank" rel="noopener">{r.statusCta} <span class="arrow" aria-hidden="true">→</span></a></p>
@@ -54,6 +56,8 @@ const r = m.register;
 </script>
 
 <style>
+  /* Reserves the form's space while we ask whether registration is open, so the page below does not jump. */
+  .reg-loading { min-height: 70rem; border: 1px dashed var(--line-strong); border-radius: var(--radius); background: linear-gradient(180deg, var(--surface), transparent); }
   .title { margin-bottom: var(--space-5); }
   .gap { margin-top: var(--space-6); }
   .rules { display: grid; gap: var(--space-3); padding-left: 1.25rem; margin-top: var(--space-4); }
