@@ -249,7 +249,7 @@ const en = {
       cancelled: 'Your payment was not completed, so you are not registered yet. You can try again below.',
       lookupChecking: 'Checking the FIDE rating list…',
       lookupFound: 'Found in the FIDE rating list',
-      lookupFoundNote: 'These details come straight from FIDE and are used as they are. If something is wrong, email info@nordicchess.fi.',
+      lookupFoundNote: 'These details come straight from FIDE and are used as they are. If something is wrong, email info@nordicchess.fi after you have registered.',
       lookupNotFound: 'This FIDE ID is not in the FIDE standard rating list, so you register as unrated. Fill in your details below.',
       lookupUnavailable: 'We could not check the FIDE list right now. Fill in your details below; the arbiters verify them.',
       lookupName: 'Name',

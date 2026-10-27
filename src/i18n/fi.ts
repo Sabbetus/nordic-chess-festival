@@ -251,7 +251,7 @@ const fi: Messages = {
       cancelled: 'Maksuasi ei viety loppuun, joten et ole vielä ilmoittautunut. Voit yrittää uudelleen alla.',
       lookupChecking: 'Tarkistetaan FIDE-ratinglistaa…',
       lookupFound: 'Löytyi FIDE-ratinglistalta',
-      lookupFoundNote: 'Nämä tiedot tulevat suoraan FIDEltä, ja niitä käytetään sellaisenaan. Jos jokin on väärin, kirjoita osoitteeseen info@nordicchess.fi.',
+      lookupFoundNote: 'Nämä tiedot tulevat suoraan FIDEltä, ja niitä käytetään sellaisenaan. Jos jokin on väärin, kirjoita ilmoittautumisen jälkeen osoitteeseen info@nordicchess.fi.',
       lookupNotFound: 'Tätä FIDE-tunnusta ei löydy FIDEn klassisen ratinglistalta, joten ilmoittaudut ilman ratingia. Täytä tietosi alle.',
       lookupUnavailable: 'FIDE-listaa ei voitu tarkistaa juuri nyt. Täytä tietosi alle; pääsuorittajat tarkistavat ne.',
       lookupName: 'Nimi',
