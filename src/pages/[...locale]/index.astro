@@ -133,9 +133,10 @@ const jsonLd = [
 
   <!-- PRIZES -->
   <section class="section prize">
-    <div class="container prize-grid">
+    <div class="container">
+      <p class="eyebrow rule prize-eyebrow">{h.prize.eyebrow}</p>
+      <div class="prize-grid">
       <div class="amount">
-        <p class="eyebrow rule">{h.prize.eyebrow}</p>
         <p class="prefix">{m.prizes.amountPrefix}</p>
         <p class="big lining">{m.prizes.amount}</p>
         <p class="note">{m.prizes.amountNote}</p>
@@ -143,6 +144,7 @@ const jsonLd = [
       <div class="prize-copy">
         <p class="lead">{h.prize.text}</p>
         <p class="btn-row"><a class="btn btn-ghost" href={localePath(lang, '/prizes/')}>{h.prize.cta}</a></p>
+      </div>
       </div>
     </div>
   </section>
@@ -171,7 +173,8 @@ const jsonLd = [
 
   <!-- FEES + VENUE -->
   <section class="section surface">
-    <div class="container panels">
+    <div class="container">
+     <div class="panels">
       <article class="panel">
         <p class="eyebrow rule">{h.fees.eyebrow}</p>
         <div data-early-bird>
@@ -195,6 +198,7 @@ const jsonLd = [
           <a class="btn btn-ghost" href={venue.mapUrl} target="_blank" rel="noopener">{h.venue.map}</a>
         </p>
       </article>
+     </div>
     </div>
   </section>
 
@@ -258,21 +262,31 @@ const jsonLd = [
 
   .prize { position: relative; overflow: hidden; }
   .prize::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(45% 80% at 18% 50%, rgba(126, 200, 227, 0.13), transparent 70%); }
+  .prize-eyebrow { margin-bottom: var(--space-4); }
+  /* Both halves are centred on the same line, with a hairline between them. */
   .prize-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-7); align-items: center; }
-  .amount { display: grid; gap: var(--space-2); }
-  .amount .eyebrow { margin-bottom: var(--space-4); }
+  .amount { display: grid; gap: var(--space-2); align-content: start; }
   .amount .prefix { font-size: var(--text-sm); letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
   .amount .big { font-family: var(--font-display); font-weight: 600; font-size: clamp(3rem, 7vw, 5.75rem); line-height: 1; letter-spacing: -0.02em; color: var(--ice); white-space: nowrap; }
   .amount .note { font-size: var(--text-xs); letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
-  .prize-copy { display: grid; gap: var(--space-5); }
+  .prize-copy { display: grid; gap: var(--space-5); border-left: 1px solid var(--line-strong); padding-left: var(--space-7); }
+  .prize-copy .lead { max-width: 34rem; }
 
-  .panels { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
-  .panel {
-    position: relative; overflow: hidden; background: var(--black); border: 1px solid var(--line-strong); border-radius: var(--radius);
-    padding: clamp(1.5rem, 4vw, 3rem); display: grid; gap: var(--space-4); align-content: start;
+  /* One framed band, two halves with a hairline between them; the buttons line up along the bottom. */
+  .panels {
+    display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden;
+    border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--black);
   }
-  .panel::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--ice), transparent); opacity: 0.7; }
-  .panel h2 { font-size: clamp(2rem, 3.4vw, 3rem); }
+  .panels::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--ice), transparent 70%); opacity: 0.7; }
+  .panel {
+    position: relative; padding: clamp(1.5rem, 3.5vw, 2.75rem); display: flex; flex-direction: column; gap: var(--space-4);
+    background: radial-gradient(70% 60% at 0% 0%, rgba(126, 200, 227, 0.07), transparent 70%);
+  }
+  .panel + .panel { border-left: 1px solid var(--line-strong); background: radial-gradient(70% 60% at 100% 0%, rgba(126, 200, 227, 0.05), transparent 70%); }
+  .panel [data-early-bird] { display: grid; gap: var(--space-4); }
+  :global(.early-bird-over) .panel .after-early-bird { display: grid; gap: var(--space-4); }
+  .panel .btn-row { margin-top: auto; padding-top: var(--space-2); }
+  .panel h2 { font-size: clamp(2rem, 3.2vw, 2.75rem); }
   .panel .lead { max-width: none; }
   .panel .free { color: var(--white); font-size: var(--text-sm); letter-spacing: 0.04em; }
   .addr { color: var(--white); font-size: 1.05rem; line-height: 1.6; }
@@ -291,7 +305,9 @@ const jsonLd = [
     .guest-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-grid { grid-template-columns: 1fr; gap: var(--space-6); align-items: start; }
     .panels { grid-template-columns: 1fr; }
+    .panel + .panel { border-left: 0; border-top: 1px solid var(--line-strong); }
     .prize-grid { grid-template-columns: 1fr; gap: var(--space-5); }
+    .prize-copy { border-left: 0; padding-left: 0; border-top: 1px solid var(--line-strong); padding-top: var(--space-5); }
     .news-grid { grid-template-columns: minmax(0, 1fr); }
     .news-grid > :first-child { grid-row: auto; }
   }

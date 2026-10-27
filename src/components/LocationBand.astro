@@ -19,15 +19,15 @@ const l = messages[lang].home.location;
 </section>
 
 <style>
-  .location { position: relative; isolation: isolate; min-height: clamp(24rem, 48vw, 36rem); display: flex; align-items: flex-end; overflow: hidden; border-block: 1px solid var(--line); }
-  .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; z-index: -2; filter: saturate(0.85) brightness(0.8); }
+  .location { position: relative; isolation: isolate; min-height: clamp(20rem, 38vw, 30rem); display: flex; align-items: flex-end; overflow: hidden; border-block: 1px solid var(--line); }
+  .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; z-index: -2; filter: saturate(1) brightness(1); }
   .shade {
     position: absolute; inset: 0; z-index: -1;
     background:
-      linear-gradient(to top, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.55) 40%, rgba(10, 10, 10, 0.1) 75%),
-      linear-gradient(to right, rgba(10, 10, 10, 0.55), transparent 60%);
+      linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.4) 32%, transparent 62%),
+      linear-gradient(to right, rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.25) 45%, transparent 70%);
   }
-  .copy { padding-block: var(--space-8) var(--space-7); display: grid; gap: var(--space-3); }
-  .copy h2 { font-size: clamp(2.5rem, 5.5vw, 5rem); max-width: 30ch; }
-  .copy .lead { color: var(--white); opacity: 0.85; max-width: 34rem; }
+  .copy { padding-block: var(--space-8) var(--space-6); display: grid; gap: var(--space-3); }
+  .copy h2 { font-size: clamp(2.25rem, 5vw, 4.25rem); max-width: 30ch; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55); }
+  .copy .lead { color: var(--white); opacity: 0.92; max-width: 34rem; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6); }
 </style>

@@ -7,6 +7,7 @@ import { localePath, messages, type Locale } from '../i18n/utils';
 interface Props { lang: Locale; path: string }
 const { lang, path } = Astro.props;
 const m = messages[lang];
+const footerLinks = footerGroups.flatMap((g) => g.items);
 ---
 
 <footer class="site-footer">
@@ -16,13 +17,11 @@ const m = messages[lang];
       <p class="muted">{m.common.place} · {m.common.dates}</p>
       <p>{m.footer.questions} <a href={`mailto:${site.email}`}>{site.email}</a></p>
     </div>
-    {footerGroups.map((g) => (
-      <nav aria-label={g.title === 'tournament' ? m.nav.tournament : m.footer.questions}>
-        <ul>
-          {g.items.map((item) => <li><a href={localePath(lang, item.path)}>{m.nav[item.key]}</a></li>)}
-        </ul>
-      </nav>
-    ))}
+    <nav aria-label={m.nav.tournament}>
+      <ul>
+        {footerLinks.map((item) => <li><a href={localePath(lang, item.path)}>{m.nav[item.key]}</a></li>)}
+      </ul>
+    </nav>
   </div>
   <div class="container bottom">
     <p>© 2027 {m.footer.organiser}</p>
@@ -31,12 +30,13 @@ const m = messages[lang];
 </footer>
 
 <style>
-  .site-footer { position: relative; z-index: 1; border-top: 1px solid var(--line); margin-top: var(--space-8); padding-top: var(--space-7); }
-  .top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: var(--space-6); padding-bottom: var(--space-7); }
+  .site-footer { position: relative; z-index: 1; border-top: 1px solid var(--line); margin-top: var(--space-6); padding-top: var(--space-6); }
+  .top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: var(--space-6); padding-bottom: var(--space-6); }
   .brand { display: grid; gap: var(--space-3); align-content: start; font-size: var(--text-sm); }
   .logo { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); }
   .logo span { color: var(--ice); }
-  ul { list-style: none; display: grid; gap: var(--space-2); }
+  /* Three columns of four links, filled column by column. */
+  ul { list-style: none; display: grid; grid-template-rows: repeat(4, auto); grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--space-2) var(--space-6); }
   nav a { color: var(--muted); font-size: var(--text-sm); }
   nav a:hover { color: var(--ice); }
   .bottom {
@@ -45,5 +45,6 @@ const m = messages[lang];
     padding-block: var(--space-5);
     font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-2);
   }
-  @media (max-width: 768px) { .top { grid-template-columns: 1fr 1fr; } .brand { grid-column: 1 / -1; } }
+  @media (max-width: 768px) { .top { grid-template-columns: 1fr; gap: var(--space-5); } }
+  @media (max-width: 420px) { ul { grid-template-rows: repeat(6, auto); gap: var(--space-2) var(--space-5); } }
 </style>
