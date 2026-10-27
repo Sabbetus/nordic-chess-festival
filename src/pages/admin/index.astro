@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout lang="en" path="/admin/" title="Organiser registrations" noindex>
+  <section class="section">
+    <div class="container stack">
+      <h1>Registrations</h1>
+      <form data-login class="login">
+        <label for="tok">Organiser access key</label>
+        <input id="tok" type="password" autocomplete="off" required />
+        <button class="btn btn-primary" type="submit">Open</button>
+        <p class="err" data-login-err></p>
+      </form>
+      <div data-panel hidden>
+        <div class="bar">
+          <label class="check"><input type="checkbox" data-all /> Show unpaid attempts too</label>
+          <button class="btn btn-ghost btn-sm" type="button" data-refresh>Refresh</button>
+          <button class="btn btn-primary btn-sm" type="button" data-csv>Download CSV</button>
+          <span data-count class="muted"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Registered</th><th>Name</th><th>Fed</th><th>FIDE ID</th><th>Title</th><th>Rating</th><th>Born</th><th>Contact</th><th>Bus</th><th>Paid</th><th>Check</th><th></th></tr>
+            </thead>
+            <tbody data-rows></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .login { display: grid; gap: var(--space-3); max-width: 24rem; }
+  input[type='password'] { background: var(--black); color: var(--white); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 0.8rem; font: inherit; }
+  .err { color: var(--danger); }
+  .bar { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; margin-bottom: var(--space-4); }
+  .muted { color: var(--muted); font-size: var(--text-sm); }
+  td, th { font-size: var(--text-sm); white-space: nowrap; }
+  td input { background: var(--black); color: var(--white); border: 1px solid var(--line); border-radius: 4px; padding: 0.3rem; width: 9rem; font: inherit; font-size: var(--text-xs); }
+  .status-verified { color: var(--ice); }
+  .status-rejected { color: var(--danger); }
+</style>
+
+<script>
+  // The key lives only in memory: reloading the page asks for it again, and nothing is written to browser storage.
+  type Row = {
+    id: string; created_at: string; name: string; email: string; phone: string; fide_id: string | null; title: string | null; rating: number | null;
+    birth_year: number; federation: string; bus: number; total_cents: number; payment_status: string; review_status: string; note: string | null;
+  };
+  let key = '';
+  const $ = <T extends HTMLElement>(s: string) => document.querySelector<T>(s)!;
+  const api = (path: string, init: RequestInit = {}) => fetch(path, { ...init, cache: 'no-store', headers: { ...(init.headers ?? {}), authorization: `Bearer ${key}` } });
+  const cell = (tr: HTMLElement, text: string, cls = '') => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.append(td); return td; };
+
+  async function load() {
+    const all = $<HTMLInputElement>('[data-all]').checked;
+    const res = await api(`/api/admin/registrations${all ? '?include=all' : ''}`);
+    if (res.status === 401 || res.status === 503) throw new Error(res.status === 401 ? 'Wrong access key.' : 'The organiser interface is not set up yet.');
+    const { registrations } = (await res.json()) as { registrations: Row[] };
+    const body = $('[data-rows]');
+    body.replaceChildren();
+    for (const r of registrations) {
+      const tr = document.createElement('tr');
+      cell(tr, r.created_at.slice(0, 10));
+      cell(tr, r.name);
+      cell(tr, r.federation);
+      cell(tr, r.fide_id ?? '—');
+      cell(tr, r.title ?? '');
+      cell(tr, r.rating ? String(r.rating) : '');
+      cell(tr, String(r.birth_year));
+      cell(tr, `${r.email} ${r.phone}`);
+      cell(tr, r.bus ? 'yes' : '');
+      cell(tr, r.payment_status === 'not_required' ? 'free' : `${r.total_cents / 100} € ${r.payment_status}`);
+      const note = document.createElement('input');
+      note.value = r.note ?? ''; note.placeholder = 'note'; note.setAttribute('aria-label', `Note for ${r.name}`);
+      const checkCell = cell(tr, `${r.review_status} `, `status-${r.review_status}`);
+      checkCell.append(note);
+      const actions = cell(tr, '');
+      for (const [status, label] of [['verified', 'Verify'], ['rejected', 'Reject']] as const) {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'btn btn-ghost btn-sm'; b.textContent = label;
+        b.addEventListener('click', async () => {
+          b.disabled = true;
+          await api(`/api/admin/registrations/${encodeURIComponent(r.id)}`, { method: 'POST', body: JSON.stringify({ review_status: status, note: note.value }) });
+          await load().catch(() => {});
+        });
+        actions.append(b, ' ');
+      }
+      body.append(tr);
+    }
+    $('[data-count]').textContent = `${registrations.length} shown`;
+  }
+
+  $('[data-login]').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    key = $<HTMLInputElement>('#tok').value.trim();
+    $('[data-login-err]').textContent = '';
+    try {
+      await load();
+      $('[data-login]').hidden = true;
+      $('[data-panel]').hidden = false;
+    } catch (err) {
+      key = '';
+      $('[data-login-err]').textContent = err instanceof Error ? err.message : 'Failed.';
+    }
+  });
+  $('[data-refresh]').addEventListener('click', () => load().catch(() => {}));
+  $('[data-all]').addEventListener('change', () => load().catch(() => {}));
+  $('[data-csv]').addEventListener('click', async () => {
+    const all = $<HTMLInputElement>('[data-all]').checked;
+    const res = await api(`/api/admin/registrations?format=csv${all ? '&include=all' : ''}`);
+    if (!res.ok) return;
+    const url = URL.createObjectURL(await res.blob());
+    const a = Object.assign(document.createElement('a'), { href: url, download: 'registrations.csv' });
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+</script>

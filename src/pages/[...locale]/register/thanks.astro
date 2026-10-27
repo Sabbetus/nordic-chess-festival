@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PageHero from "../../../components/PageHero.astro";
+import { localeStaticPaths, messages } from "../../../i18n/utils";
+export function getStaticPaths() { return localeStaticPaths(); }
+const { lang } = Astro.props;
+const t = messages[lang].register.thanks;
+---
+
+<BaseLayout lang={lang} path="/register/thanks/" title={t.title} description={t.lead} noindex>
+  <PageHero title={t.title} lead={t.lead} />
+  <section class="section">
+    <div class="container narrow stack">
+      <p class="prose" data-paid>{t.paid}</p>
+      <p class="prose" data-free hidden>{t.free}</p>
+      <h2>{t.nextTitle}</h2>
+      <ol class="prose next">{t.next.map((x) => <li>{x}</li>)}</ol>
+      <p class="prose">{t.contact}</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .next { display: grid; gap: var(--space-3); padding-left: 1.25rem; }
+</style>
+
+<script>
+  if (new URLSearchParams(location.search).get('free') === '1') {
+    document.querySelector('[data-paid]')?.setAttribute('hidden', '');
+    document.querySelector('[data-free]')?.removeAttribute('hidden');
+  }
+</script>

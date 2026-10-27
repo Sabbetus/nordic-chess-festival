@@ -76,4 +76,10 @@ const regulations = defineCollection({
   schema: z.object({ title: z.string(), preliminary: z.boolean().default(false) }),
 });
 
-export const collections = { guests, news, faq, sideEvents, regulations };
+// Privacy policy: one Markdown file per language (en.md, fi.md).
+const privacy = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/privacy' }),
+  schema: z.object({ title: z.string(), updated: z.string(), draft: z.boolean().default(true) }),
+});
+
+export const collections = { guests, news, faq, sideEvents, regulations, privacy };

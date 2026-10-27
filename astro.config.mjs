@@ -13,7 +13,7 @@ export default defineConfig({
     sitemap({
       i18n: { defaultLocale: 'en', locales: { en: 'en', fi: 'fi' } },
       // Placeholder content is marked noindex, so keep it out of the sitemap too.
-      filter: (page) => !page.includes('placeholder-'),
+      filter: (page) => !page.includes('placeholder-') && !page.includes('/admin/') && !page.includes('/register/thanks/'),
     }),
   ],
 });

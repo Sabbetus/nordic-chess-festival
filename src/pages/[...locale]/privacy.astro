@@ -1,4 +1,5 @@
 ---
+import { getEntry, render } from 'astro:content';
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import { localeStaticPaths, messages } from "../../i18n/utils";
@@ -6,9 +7,22 @@ export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
 const m = messages[lang];
 const p = m.privacy;
+const doc = await getEntry('privacy', lang);
+const { Content } = await render(doc!);
 ---
 
 <BaseLayout lang={lang} path="/privacy/" title={p.title} description={p.lead}>
   <PageHero title={p.title} lead={p.lead} />
-  <section class="section"><div class="container narrow stack"><p class="prose">{p.text}</p><span class="placeholder-note">{m.common.placeholder}</span></div></section>
+  <section class="section">
+    <div class="container narrow stack">
+      <p class="updated">{p.updatedLabel} {doc!.data.updated}</p>
+      <div class="prose"><Content /></div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .updated { color: var(--muted); font-size: var(--text-sm); }
+  .prose :global(h2) { font-size: 1.6rem; margin-top: var(--space-6); }
+  .prose :global(ul) { padding-left: 1.25rem; display: grid; gap: var(--space-2); margin-block: var(--space-3); }
+</style>

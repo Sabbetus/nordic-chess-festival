@@ -3,3 +3,6 @@ dist
 .astro
 .env
 .DS_Store
+.dev.vars
+.wrangler
+wrangler.local.jsonc

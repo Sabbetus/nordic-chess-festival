@@ -6,6 +6,7 @@ export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
 const m = messages[lang];
 import FeeTable from "../../components/FeeTable.astro";
+import RegistrationForm from "../../components/RegistrationForm.astro";
 import { site } from "../../data/site";
 const r = m.register;
 ---
@@ -15,11 +16,13 @@ const r = m.register;
 
   <section class="section">
     <div class="container narrow-wrap">
-      <div class="notice">
+      <div class="notice warn" data-cancelled hidden><p>{r.form.cancelled}</p></div>
+      <div class="notice" data-register-closed>
         <h2>{r.statusTitle}</h2>
         <p>{r.statusText}</p>
         <p class="btn-row"><a class="btn btn-primary" href={site.newsletterUrl} target="_blank" rel="noopener">{r.statusCta} <span class="arrow" aria-hidden="true">→</span></a></p>
       </div>
+      <RegistrationForm lang={lang} />
     </div>
   </section>
 
@@ -37,7 +40,7 @@ const r = m.register;
         <ul class="prose rules">{r.rules.map((x) => <li>{x}</li>)}</ul>
       </div>
       <div class="stack">
-        <h2>{r.refundTitle}</h2>
+        <h2 id="refunds">{r.refundTitle}</h2>
         <p class="prose">{r.refundText}</p>
         <h2 class="gap">{r.howTitle}</h2>
         <ol class="prose rules">{r.how.map((x) => <li>{x}</li>)}</ol>
@@ -45,6 +48,10 @@ const r = m.register;
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  if (new URLSearchParams(location.search).has('cancelled')) document.querySelector<HTMLElement>('[data-cancelled]')?.removeAttribute('hidden');
+</script>
 
 <style>
   .title { margin-bottom: var(--space-5); }

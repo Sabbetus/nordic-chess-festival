@@ -1,11 +1,20 @@
 {
-  // Cloudflare Workers Builds: serve the static Astro build from ./dist.
-  // "name" must match the project name in the Cloudflare dashboard.
+  // Cloudflare Workers Builds: serves the static Astro build from ./dist and runs the registration API
+  // (worker/) for /api/* requests. "name" must match the project name in the Cloudflare dashboard.
+  //
+  // The registration database (D1) is added here once it exists, see docs/registration-setup.md:
+  //   "d1_databases": [{ "binding": "DB", "database_name": "ncf-registrations", "database_id": "<id>" }]
+  // Secrets (STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, ADMIN_TOKEN) are set in the Cloudflare dashboard only.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nordic-chess-festival",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
+  // Daily clean-up of unpaid registrations (personal data is not kept for nothing).
+  "triggers": { "crons": ["17 3 * * *"] },
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
   }
 }

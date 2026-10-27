@@ -22,6 +22,9 @@ export const rules = {
   refundDeadline: '2027-06-02',
 } as const;
 
+/** Optional daily bus transfer between central Tampere and the venue, return trips included. */
+export const busTransfer = { price: 50 } as const;
+
 export type BandId =
   | 'gm'
   | 'im'
