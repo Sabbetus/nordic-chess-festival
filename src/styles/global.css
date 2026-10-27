@@ -211,3 +211,6 @@ h1, h2, h3, dd, summary, .what, .lining { font-variant-numeric: lining-nums; fon
 /* Long words (Finnish compounds) must never push the page sideways */
 h1, h2, h3, .card { overflow-wrap: break-word; hyphens: auto; }
 .hero h1 { hyphens: none; overflow-wrap: normal; }
+
+/* The hidden attribute must win over component display rules (e.g. .notice { display: grid }). */
+[hidden] { display: none !important; }
