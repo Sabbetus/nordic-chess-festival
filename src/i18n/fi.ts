@@ -259,8 +259,8 @@ const fi: Messages = {
       nextTitle: 'Mitä seuraavaksi',
       next: [
         'Järjestäjät tarkistavat tietosi FIDEn tiedoista.',
-        'He lisäävät sinut viralliseen osallistujaluetteloon chess-results.comissa.',
-        'Vahvista osallistumisesi lauantaina 12. kesäkuuta 2027 sääntöjen mukaisesti.',
+        'He lisäävät sinut sivuston [[players:Pelaajat-sivulle]] ja viralliseen osallistujaluetteloon [[results:chess-results.comissa]].',
+        'Vahvista osallistumisesi lauantaina 12. kesäkuuta 2027 [[regulations:kilpailusääntöjen]] mukaisesti.',
       ],
       contact: 'Kysyttävää tai muutoksia ilmoittautumiseesi? Kirjoita osoitteeseen info@nordicchess.fi.',
       back: 'Takaisin etusivulle',

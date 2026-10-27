@@ -257,8 +257,8 @@ const en = {
       nextTitle: 'What happens next',
       next: [
         'The organisers check your details against FIDE records.',
-        'They add you to the official entry list on chess-results.com.',
-        'Confirm your participation on Saturday 12 June 2027, as described in the regulations.',
+        'They add you to the [[players:Players page]] on this site and to the official entry list on [[results:chess-results.com]].',
+        'Confirm your participation on Saturday 12 June 2027, as described in the [[regulations:competition regulations]].',
       ],
       contact: 'Questions or changes to your registration? Email info@nordicchess.fi.',
       back: 'Back to the front page',

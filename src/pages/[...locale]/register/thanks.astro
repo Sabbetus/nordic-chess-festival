@@ -1,10 +1,22 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageHero from "../../../components/PageHero.astro";
+import { site } from "../../../data/site";
 import { localeStaticPaths, localePath, messages } from "../../../i18n/utils";
 export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
 const t = messages[lang].register.thanks;
+// Items may contain [[key:text]] links; the chess-results link is shown only once the tournament is published there.
+const links: Record<string, string | null> = {
+  players: localePath(lang, '/players/'),
+  regulations: localePath(lang, '/tournament/#regulations'),
+  results: site.chessResultsUrl,
+};
+const parts = (s: string) =>
+  s.split(/(\[\[\w+:[^\]]+\]\])/).map((x) => {
+    const m = /^\[\[(\w+):([^\]]+)\]\]$/.exec(x);
+    return m ? { text: m[2], href: links[m[1]] } : { text: x, href: null };
+  });
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
@@ -24,7 +36,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
         <h2>{t.nextTitle}</h2>
         <ol>
           {t.next.map((x, i) => (
-            <li><span class="n">{pad(i + 1)}</span><span>{x}</span></li>
+            <li><span class="n">{pad(i + 1)}</span><span>{parts(x).map((p) => (p.href ? <a href={p.href} target={p.href.startsWith('http') ? '_blank' : undefined} rel={p.href.startsWith('http') ? 'noopener' : undefined}>{p.text}</a> : p.text))}</span></li>
           ))}
         </ol>
       </div>
@@ -46,6 +58,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .next h2 { font-size: var(--text-h3); margin-bottom: var(--space-4); }
   .next ol { list-style: none; display: grid; border-top: 1px solid var(--line); }
   .next li { display: grid; grid-template-columns: 3.5rem 1fr; align-items: baseline; padding-block: var(--space-4); border-bottom: 1px solid var(--line); color: var(--muted); font-size: var(--text-lg); }
+  .next li a { color: var(--ice); text-decoration: underline; text-underline-offset: 3px; }
   .n { font-family: var(--font-display); font-size: 1.75rem; color: var(--ice); font-variant-numeric: lining-nums; }
   .contact { color: var(--muted); }
   @media (max-width: 520px) {
