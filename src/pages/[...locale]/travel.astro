@@ -95,12 +95,23 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
             <p><a href={venue.mapUrl} target="_blank" rel="noopener">{t.viewOnMap} →</a></p>
           </div>
         </article>
-        <article class="card">
-          <h3>{t.busTitle}</h3>
-          <p>{t.busText}</p>
-          <p class="timetable">{t.busTimetable}</p>
-          <p><a href={localePath(lang, '/register/#register')}>{t.busCta} →</a></p>
-        </article>
+        <div class="col">
+          <article class="card">
+            <h3>{t.busTitle}</h3>
+            <p>{t.busText}</p>
+            <p class="timetable">{t.busTimetable}</p>
+            <p><a href={localePath(lang, '/register/#register')}>{t.busCta} →</a></p>
+          </article>
+          <article class="card">
+            <h3>{t.localTitle}</h3>
+            <p>{t.localText}</p>
+            <p><a href={lang === 'fi' ? 'https://www.nysse.fi' : 'https://www.nysse.fi/en'} target="_blank" rel="noopener">{t.localCta} →</a></p>
+          </article>
+          <article class="card">
+            <h3>{t.parkingTitle}</h3>
+            <p>{t.parkingText}</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -153,6 +164,7 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .phone-box strong { color: var(--white); font-weight: 500; letter-spacing: 0.06em; }
   .contact { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); }
 
+  .col { display: grid; gap: var(--space-5); align-content: start; }
   .two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
   .card { display: grid; gap: var(--space-3); align-content: start; hyphens: manual; overflow-wrap: normal; text-align: left; }
   .card h3 { font-size: 1.35rem; margin: 0; }
@@ -162,8 +174,6 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .visa { max-width: 46rem; }
   .visa-links { list-style: none; display: grid; gap: var(--space-2); }
 
-  /* Wide screens: the bus on the left and the venue on the right (on phones the venue comes first). */
-  @media (min-width: 901px) { .two .has-photo { order: 2; } }
   @media (max-width: 900px) {
     .hotels, .two { grid-template-columns: 1fr; }
   }
