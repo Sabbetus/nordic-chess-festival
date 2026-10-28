@@ -46,5 +46,7 @@ const footerLinks = footerGroups.flatMap((g) => g.items);
     font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-2);
   }
   @media (max-width: 768px) { .top { grid-template-columns: 1fr; gap: var(--space-5); } }
+  /* Phones: the same logo size as in the header. */
+  @media (max-width: 700px) { .logo { font-size: clamp(1.5rem, 7.6vw, 1.9rem); } }
   @media (max-width: 420px) { ul { grid-template-rows: repeat(6, auto); gap: var(--space-2) var(--space-5); } }
 </style>
