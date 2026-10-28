@@ -146,7 +146,7 @@ const fi: Messages = {
     scheduleNote: 'Kaikki ajat ovat Suomen aikaa (EEST, UTC+3).',
     round: 'Kierros',
     confirmation: 'Osallistumisen vahvistaminen',
-    confirmationDetail: 'Verkossa klo 00:00–12:00 (sähköpostilinkki) tai paikan päällä klo 10:00–12:00',
+    confirmationDetail: 'Verkossa klo 00:00–12:00 (sähköpostilinkki) tai paikan päällä klo 10:00\u2060–\u206012:00',
     confirmationWarning: 'Kaikkien pelaajien on vahvistettava osallistumisensa lauantaina. Pelaajia, jotka eivät ole vahvistaneet osallistumistaan, ei pariuteta ensimmäiselle kierrokselle.',
     opening: 'Avajaiset',
     prizegiving: 'Palkintojenjako',

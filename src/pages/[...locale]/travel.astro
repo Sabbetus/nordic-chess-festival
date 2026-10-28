@@ -162,6 +162,8 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .visa { max-width: 46rem; }
   .visa-links { list-style: none; display: grid; gap: var(--space-2); }
 
+  /* Wide screens: the bus on the left and the venue on the right (on phones the venue comes first). */
+  @media (min-width: 901px) { .two .has-photo { order: 2; } }
   @media (max-width: 900px) {
     .hotels, .two { grid-template-columns: 1fr; }
   }

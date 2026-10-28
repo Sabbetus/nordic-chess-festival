@@ -45,24 +45,22 @@ const cards: { title: string; rows: string[][] }[] = [
   <PageHero eyebrow={`${m.common.place} · ${m.common.dates}`} title={t.title} lead={t.lead} />
 
   <section class="section">
-    <div class="container">
-      <h2>{t.detailsTitle}</h2>
-      <div class="info-grid">
-        {cards.map((c) => (
-          <section class="info-card">
-            <h3>{c.title}</h3>
-            <dl>
-              {c.rows.map(([k, v]) => (<div><dt>{k}</dt><dd>{v}</dd></div>))}
-            </dl>
-          </section>
-        ))}
+    <div class="container overview">
+      <div class="details">
+        <h2>{t.detailsTitle}</h2>
+        <div class="info-grid">
+          {cards.map((c) => (
+            <section class="info-card">
+              <h3>{c.title}</h3>
+              <dl>
+                {c.rows.map(([k, v]) => (<div><dt>{k}</dt><dd>{v}</dd></div>))}
+              </dl>
+            </section>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section" id="schedule">
-    <div class="container">
-      <div class="schedule-block">
+      <div class="schedule-block" id="schedule">
         <div class="section-head schedule-head">
           <h2>{t.scheduleTitle}</h2>
           <p class="muted small">{t.scheduleNote}</p>
@@ -93,7 +91,14 @@ const cards: { title: string; rows: string[][] }[] = [
 
 <style>
   /* The schedule does not need the full page width: a narrower block reads better. */
+  /* Wide screens: key details stacked on the left, the schedule beside them on the right. Narrower screens stack them. */
+  .overview { display: grid; gap: var(--space-7); align-items: start; }
   .schedule-block { max-width: 44rem; }
+  @media (min-width: 1000px) {
+    .overview { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--space-6); }
+    .overview .info-grid { grid-template-columns: 1fr; }
+    .schedule-block { max-width: none; }
+  }
   .schedule-head { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
   .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); margin-top: var(--space-5); align-items: stretch; }
   .info-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--box-pad); position: relative; }

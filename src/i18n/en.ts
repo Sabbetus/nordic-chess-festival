@@ -144,7 +144,7 @@ const en = {
     scheduleNote: 'All times are Finnish local time (EEST, UTC+3).',
     round: 'Round',
     confirmation: 'Confirmation of participation',
-    confirmationDetail: 'Online from 00:00 to 12:00 (email link), or on site 10:00–12:00',
+    confirmationDetail: 'Online from 00:00 to 12:00 (email link), or on site 10:00\u2060–\u206012:00',
     confirmationWarning: 'All players must confirm their participation on Saturday. Players who have not confirmed will not be paired for round 1.',
     opening: 'Opening ceremony',
     prizegiving: 'Prize-giving ceremony',
