@@ -125,7 +125,7 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .muted { color: var(--muted); font-size: var(--text-sm); }
 
   .book, .hotel, .card, .phone-box {
-    position: relative; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: var(--space-5) var(--space-6);
+    position: relative; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: var(--box-pad);
   }
   .book { border-color: var(--ice-border); background: linear-gradient(160deg, var(--ice-dim), var(--surface) 70%); display: grid; gap: var(--space-3); align-content: start; margin-bottom: var(--space-5); }
   .book::before, .hotel::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--ice), transparent); opacity: 0.7; }
@@ -141,14 +141,14 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .credit { position: absolute; right: 0.5rem; bottom: 0.5rem; font-size: 0.65rem; letter-spacing: 0.04em; color: var(--white); background: rgba(10, 10, 10, 0.6); padding: 0.15rem 0.5rem; border-radius: 3px; }
   .credit:hover { color: var(--ice); }
   .photo :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .body { padding: var(--space-5) var(--space-6); display: grid; gap: var(--space-3); align-content: start; }
+  .body { padding: var(--box-pad); display: grid; gap: var(--space-3); align-content: start; }
   .has-photo .photo { aspect-ratio: 3 / 2; }
   dl > div { display: flex; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-2); border-top: 1px solid var(--line); }
   dt { color: var(--muted); }
   dd { color: var(--white); font-variant-numeric: lining-nums; white-space: nowrap; }
   .rates { margin-top: var(--space-3); }
 
-  .phone-box { margin-top: var(--space-5); display: grid; gap: var(--space-2); padding-block: var(--space-4); }
+  .phone-box { margin-top: var(--space-5); display: grid; gap: var(--space-2); }
   .phone-box p { color: var(--muted); }
   .phone-box strong { color: var(--white); font-weight: 500; letter-spacing: 0.06em; }
   .contact { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); }
@@ -156,7 +156,6 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
   .card { display: grid; gap: var(--space-3); align-content: start; hyphens: manual; overflow-wrap: normal; text-align: left; }
   .card h3 { font-size: 1.35rem; margin: 0; }
-  .card p { font-size: var(--text-base); color: var(--muted); }
   .card .addr, .card .timetable { color: var(--white); }
   .addr { color: var(--white); }
   .timetable { color: var(--white); }
@@ -165,8 +164,6 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
 
   @media (max-width: 900px) {
     .hotels, .two { grid-template-columns: 1fr; }
-    .book, .phone-box, .card:not(.has-photo) { padding: var(--space-4); }
-    .body { padding: var(--space-4); }
   }
 </style>
 

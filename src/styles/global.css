@@ -50,6 +50,8 @@
   --space-8: 4.5rem;
   --space-9: 7rem;
 
+  /* Inner padding of every box (cards, notices, info cards, form groups, countdown, travel boxes). One value, so they all match. */
+  --box-pad: var(--space-5) var(--space-6);
   --gutter: clamp(1.25rem, 4vw, 3rem);
   --container: 75rem;
   --radius: 4px;
@@ -150,17 +152,17 @@ p { text-wrap: pretty; }
 /* ---------- Cards ---------- */
 .card {
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: var(--space-5); transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  padding: var(--box-pad); transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
 }
 a.card { display: block; color: inherit; }
 a.card:hover { border-color: var(--ice-border); transform: translateY(-2px); color: inherit; }
 .card h3 { font-size: 1.6rem; margin-bottom: var(--space-2); }
-.card p { color: var(--muted); font-size: var(--text-sm); }
+.card p { color: var(--muted); }
 
 /* ---------- Notices & placeholders ---------- */
 .notice {
   border: 1px solid var(--ice-border); background: var(--ice-dim); border-radius: var(--radius);
-  padding: var(--space-5); display: grid; gap: var(--space-3);
+  padding: var(--box-pad); display: grid; gap: var(--space-3);
 }
 .notice h2, .notice h3 { font-size: 1.75rem; }
 .notice p { color: var(--muted); }
@@ -192,6 +194,10 @@ tbody th { font-weight: 400; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
+@media (max-width: 700px) {
+  :root { --box-pad: var(--space-4); }
+}
+
 @media (max-width: 768px) {
   .section { padding-block: 1.75rem; }
   th, td { padding: 0.85rem 0.9rem; }
@@ -210,7 +216,8 @@ tbody th { font-weight: 400; }
 h1, h2, h3, dd, summary, .what, .lining { font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; }
 
 /* Long words (Finnish compounds) must never push the page sideways */
-h1, h2, h3, .card { overflow-wrap: break-word; hyphens: auto; }
+h1, h2, h3 { overflow-wrap: break-word; hyphens: auto; }
+.card { overflow-wrap: break-word; }
 .hero h1 { hyphens: none; overflow-wrap: normal; }
 
 /* The hidden attribute must win over component display rules (e.g. .notice { display: grid }). */

@@ -96,13 +96,13 @@ const cards: { title: string; rows: string[][] }[] = [
   .schedule-block { max-width: 44rem; }
   .schedule-head { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
   .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); margin-top: var(--space-5); align-items: stretch; }
-  .info-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-5) var(--space-6); position: relative; }
+  .info-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--box-pad); position: relative; }
   .info-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--ice), transparent); opacity: 0.6; }
   .info-card h3 { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ice); margin-bottom: var(--space-3); }
   .info-card dl > div { display: grid; grid-template-columns: 9.5rem 1fr; gap: var(--space-4); padding-block: var(--space-3); border-top: 1px solid var(--line); align-items: baseline; }
   dt { font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   dd { font-family: var(--font-body); font-size: 1.05rem; font-weight: 400; line-height: 1.5; color: var(--white); }
-  @media (max-width: 520px) { .info-card dl > div { grid-template-columns: 1fr; gap: 0.2rem; } .info-card { padding: var(--space-4); } }
+  @media (max-width: 520px) { .info-card dl > div { grid-template-columns: 1fr; gap: 0.2rem; } }
   .small { font-size: var(--text-sm); }
   .warn { margin-top: var(--space-5); }
   .notice-line { color: var(--muted); border-left: 2px solid var(--ice); padding-left: var(--space-4); margin-bottom: var(--space-6); max-width: 44rem; }

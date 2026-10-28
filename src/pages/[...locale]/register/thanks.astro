@@ -51,7 +51,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .wrap { display: grid; gap: var(--space-7); max-width: 52rem; margin-inline: 0; }
   .confirm {
     display: grid; grid-template-columns: auto 1fr; gap: var(--space-5); align-items: start;
-    background: var(--ice-dim); border: 1px solid var(--ice-border); border-radius: var(--radius); padding: var(--space-5) var(--space-6);
+    background: var(--ice-dim); border: 1px solid var(--ice-border); border-radius: var(--radius); padding: var(--box-pad);
   }
   .confirm p { color: var(--white); font-size: var(--text-lg); line-height: 1.6; }
   .tick { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--ice); color: var(--ice); }
@@ -62,7 +62,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .n { font-family: var(--font-display); font-size: 1.75rem; color: var(--ice); font-variant-numeric: lining-nums; }
   .contact { color: var(--muted); }
   @media (max-width: 520px) {
-    .confirm { grid-template-columns: 1fr; padding: var(--space-4); }
+    .confirm { grid-template-columns: 1fr; }
     .next li { grid-template-columns: 2.75rem 1fr; }
   }
 </style>
