@@ -91,13 +91,15 @@ const cards: { title: string; rows: string[][] }[] = [
 
 <style>
   /* The schedule does not need the full page width: a narrower block reads better. */
-  /* Wide screens: key details stacked on the left, the schedule beside them on the right. Narrower screens stack them. */
+  /* Wide screens: the schedule on the left, the key details stacked beside it on the right. Narrower screens stack them
+     with the key details first. */
   .overview { display: grid; gap: var(--space-7); align-items: start; }
   .schedule-block { max-width: 44rem; }
   @media (min-width: 1000px) {
-    .overview { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--space-6); }
+    .overview { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--space-6); }
+    .overview .schedule-block { order: 1; max-width: none; }
+    .overview .details { order: 2; }
     .overview .info-grid { grid-template-columns: 1fr; }
-    .schedule-block { max-width: none; }
   }
   .schedule-head { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
   .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); margin-top: var(--space-5); align-items: stretch; }
