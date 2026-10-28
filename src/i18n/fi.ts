@@ -268,12 +268,12 @@ const fi: Messages = {
     },
     thanks: {
       title: 'Kiitos ilmoittautumisesta',
-      lead: 'Ilmoittautumisesi on vastaanotettu.',
-      paid: 'Jos maksoit, ilmoittautumisesi on valmis ja Stripe lähettää kuitin antamaasi osoitteeseen. Jos maksusi on vielä käsiteltävänä, ilmoittautuminen vahvistuu heti kun maksu on valmis.',
-      free: 'Suurmestarit pelaavat ilmaiseksi, joten maksettavaa ei ole. Ilmoittautumisesi on valmis.',
+      lead: 'Ilmoittautumisesi on valmis.',
+      paid: 'Maksu vastaanotettu. Stripe lähettää kuitin antamaasi sähköpostiosoitteeseen.',
+      free: 'Suurmestarit pelaavat ilmaiseksi, joten maksettavaa ei ole.',
       nextTitle: 'Mitä seuraavaksi',
       next: [
-        'He lisäävät sinut sivuston [[players:Pelaajat-sivulle]] ja viralliseen osallistujaluetteloon [[results:chess-results.comissa]].',
+        'Lisäämme sinut [[players:Pelaajat-sivulle]] ja viralliseen osallistujaluetteloon [[results:chess-results.comissa]].',
         'Vahvista osallistumisesi lauantaina 12. kesäkuuta 2027 [[regulations:kilpailusääntöjen]] mukaisesti.',
       ],
       contact: 'Kysyttävää tai muutoksia ilmoittautumiseesi? Kirjoita osoitteeseen info@nordicchess.fi.',

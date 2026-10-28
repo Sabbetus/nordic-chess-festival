@@ -266,12 +266,12 @@ const en = {
     },
     thanks: {
       title: 'Thank you for registering',
-      lead: 'Your registration has been received.',
-      paid: 'If you paid, your registration is complete and Stripe emails the receipt to the address you gave. If your payment is still being processed, your registration is confirmed as soon as it completes.',
-      free: 'Grandmasters play for free, so there is nothing to pay. Your registration is complete.',
+      lead: 'Your registration is complete.',
+      paid: 'Payment received. Stripe emails the receipt to the address you gave.',
+      free: 'Grandmasters play for free, so there is nothing to pay.',
       nextTitle: 'What happens next',
       next: [
-        'They add you to the [[players:Players page]] on this site and to the official entry list on [[results:chess-results.com]].',
+        'We add you to the [[players:Players page]] and to the official entry list on [[results:chess-results.com]].',
         'Confirm your participation on Saturday 12 June 2027, as described in the [[regulations:competition regulations]].',
       ],
       contact: 'Questions or changes to your registration? Email info@nordicchess.fi.',
