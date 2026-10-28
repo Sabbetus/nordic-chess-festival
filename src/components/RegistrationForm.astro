@@ -20,7 +20,7 @@ const [acceptC, acceptD] = acceptB.split('{refunds}');
 const [acceptE, acceptF] = acceptD.split('{privacy}');
 const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '';
 const ui = {
-  lang, bus: busTransfer.price, free: f.free, reasons: f.reasons, hint: f.summaryHint, earlyBirdNote: f.earlyBirdNote,
+  lang, bus: busTransfer.price, free: f.free, reasons: f.reasons, hint: f.summaryHint, hintBirth: f.summaryHintBirth, earlyBirdNote: f.earlyBirdNote,
   gmNote: f.gmNote, unratedNote: f.unratedNote, submitPay: f.submitPay, submitFree: f.submitFree, sending: f.sending,
   errors: {
     name: f.errName, email: f.errEmail, phone: f.errPhone, fideId: f.errFideId, rating: f.errRating, birthYear: f.errBirthYear,
@@ -164,12 +164,12 @@ const ui = {
   .field.invalid input, .field.invalid select { border-color: var(--danger); }
   .phone { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--space-3); }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
-  .help { font-size: var(--text-xs); color: var(--muted-2); }
+  .help { font-size: var(--text-sm); line-height: 1.5; color: var(--muted); }
   .err { font-size: var(--text-sm); color: var(--danger); min-height: 0; }
   .err:empty { display: none; }
   .check { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: start; cursor: pointer; }
   .check input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; accent-color: var(--ice); }
-  .check small { display: block; color: var(--muted-2); font-size: var(--text-xs); margin-top: 0.25rem; line-height: 1.5; }
+  .check small { display: block; color: var(--muted); font-size: var(--text-sm); margin-top: 0.25rem; line-height: 1.5; }
   [data-manual], [data-declared] { display: grid; gap: var(--space-4); }
   .lookup { display: grid; gap: var(--space-3); }
   .lookup-status { font-size: var(--text-sm); color: var(--muted); }
@@ -201,7 +201,7 @@ const ui = {
   import { quote, helsinkiToday } from '../lib/pricing';
 
   type UI = {
-    lang: string; bus: number; free: string; reasons: Record<string, string>; hint: string; earlyBirdNote: string; gmNote: string;
+    lang: string; bus: number; free: string; reasons: Record<string, string>; hint: string; hintBirth: string; earlyBirdNote: string; gmNote: string;
     unratedNote: string; submitPay: string; submitFree: string; sending: string; errors: Record<string, string>;
     category: string; categoryUnrated: string; categoryLowRating: string; blocked: string; errDuplicate: string; errUnavailable: string; errGeneric: string; errorSummary: string; thanks: string;
     lookup: { checking: string; found: string; foundNote: string; notFound: string; unavailable: string; list: string; none: string };
@@ -337,6 +337,8 @@ const ui = {
       const valid = s.ready && s.by >= 1900 && s.by <= 2022;
       const lines = $('[data-lines]');
       $('[data-hint]').hidden = valid;
+      // Ask for the FIDE ID first; the year of birth is only asked for when FIDE does not supply it (or there is no FIDE ID).
+      $('[data-hint]').textContent = $('[data-birth]').hidden ? ui.hint : ui.hintBirth;
       lines.hidden = !valid;
       if (!valid) { $('[data-notes]').textContent = ''; setButton(false); return; }
       const q = quote({ title: s.title || null, rating: s.rating, birthYear: s.by, bus: s.bus }, helsinkiToday());
