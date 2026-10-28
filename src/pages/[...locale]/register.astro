@@ -9,15 +9,15 @@ import FeeTable from "../../components/FeeTable.astro";
 import RegistrationForm from "../../components/RegistrationForm.astro";
 import { site } from "../../data/site";
 const r = m.register;
-const [introBefore, introAfter] = r.feesIntro.split('{link}');
+const [introBefore, introAfter] = r.lead.split('{link}');
+const description = r.lead.replace('{link}', r.feesIntroLink);
 ---
 
-<BaseLayout lang={lang} path="/register/" title={r.title} description={r.lead}>
-  <PageHero eyebrow={m.common.dates} title={r.title} lead={r.lead} />
+<BaseLayout lang={lang} path="/register/" title={r.title} description={description}>
+  <PageHero eyebrow={m.common.dates} title={r.title}>{introBefore}<a href="#fees">{r.feesIntroLink}</a>{introAfter}</PageHero>
 
   <section class="section" id="register">
     <div class="container narrow-wrap">
-      <p class="fees-intro">{introBefore}<a href="#fees">{r.feesIntroLink}</a>{introAfter}</p>
       <div class="notice warn" data-cancelled hidden><p>{r.form.cancelled}</p></div>
       <noscript><style>[data-register-loading] { display: none !important; } [data-register-closed] { display: grid !important; }</style></noscript>
       <div class="reg-loading" data-register-loading aria-hidden="true"></div>
@@ -61,8 +61,6 @@ const [introBefore, introAfter] = r.feesIntro.split('{link}');
 <style>
   /* Reserves the form's space while we ask whether registration is open, so the page below does not jump. */
   .reg-loading { min-height: 70rem; border: 1px dashed var(--line-strong); border-radius: var(--radius); background: linear-gradient(180deg, var(--surface), transparent); }
-  .fees-intro { font-size: var(--text-lg); margin-bottom: var(--space-5); color: var(--white); }
-  .fees-intro a { color: var(--ice); text-decoration: underline; text-underline-offset: 4px; }
   .fees-cta { margin-top: var(--space-5); }
   .title { margin-bottom: var(--space-5); }
   .gap { margin-top: var(--space-6); }

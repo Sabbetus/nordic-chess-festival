@@ -153,9 +153,8 @@ const en = {
     preliminary: 'These are the preliminary regulations. The final version will be published before the Main Event, and changes will be announced here.',
   },
   register: {
-    title: 'Entry fees & registration',
-    lead: 'One open section. The fee depends on your FIDE rating on the day you pay. Early bird pricing is available until 31 January 2027.',
-    feesIntro: 'The entry fees can be seen {link}.',
+    title: 'Registration',
+    lead: 'The entry fees can be seen {link}. The fee depends on your FIDE rating on the day you pay, and early bird pricing is available until 31 January 2027.',
     feesIntroLink: 'here',
     statusTitle: 'Registration opens soon',
     statusText: 'Online registration and payment will open shortly. Sign up for updates and we will let you know the moment it does.',

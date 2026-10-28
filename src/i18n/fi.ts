@@ -155,9 +155,8 @@ const fi: Messages = {
     preliminary: 'Nämä ovat alustavat säännöt. Lopullinen versio julkaistaan ennen pääturnausta, ja muutokset ilmoitetaan täällä.',
   },
   register: {
-    title: 'Osallistumismaksut ja ilmoittautuminen',
-    lead: 'Yksi avoin sarja. Maksu riippuu FIDE-ratingistasi maksupäivänä. Early bird -hinnat ovat voimassa 31. tammikuuta 2027 asti.',
-    feesIntro: 'Osallistumismaksut näet {link}.',
+    title: 'Ilmoittautuminen',
+    lead: 'Osallistumismaksut näet {link}. Maksu riippuu FIDE-ratingistasi maksupäivänä, ja early bird -hinnat ovat voimassa 31. tammikuuta 2027 asti.',
     feesIntroLink: 'täältä',
     statusTitle: 'Ilmoittautuminen aukeaa pian',
     statusText: 'Verkkoilmoittautuminen ja maksu aukeavat lähiaikoina. Tilaa tiedotteet, niin kerromme heti kun se aukeaa.',

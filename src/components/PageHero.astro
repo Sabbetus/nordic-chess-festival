@@ -7,7 +7,7 @@ const { eyebrow, title, lead } = Astro.props;
   <div class="container">
     {eyebrow && <p class="eyebrow reveal">{eyebrow}</p>}
     <h1 class="reveal reveal-1">{title}</h1>
-    {lead && <p class="lead reveal reveal-2">{lead}</p>}
+    {Astro.slots.has('default') ? <p class="lead reveal reveal-2"><slot /></p> : lead && <p class="lead reveal reveal-2">{lead}</p>}
   </div>
 </section>
 
@@ -16,4 +16,5 @@ const { eyebrow, title, lead } = Astro.props;
   .page-hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); margin-block: var(--space-4); max-width: none; }
   .page-hero .eyebrow { margin-bottom: 0; }
   .page-hero .lead { max-width: 60rem; }
+  .page-hero .lead :global(a) { text-decoration: underline; text-underline-offset: 4px; }
 </style>
