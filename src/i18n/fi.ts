@@ -120,7 +120,8 @@ const fi: Messages = {
   },
   mainEvent: {
     title: 'Pääturnaus',
-    lead: 'Kansainvälinen avoin pääturnaus yhdeksällä kierroksella, yhdeksän päivän aikana Kangasala Areenalla.',
+    lead: 'Kansainvälinen avoin pääturnaus yhdeksällä kierroksella, yhdeksän päivän aikana Kangasala Areenalla. Ilmoittaudu {link}.',
+    leadLink: 'täällä',
     detailsTitle: 'Perustiedot',
     eventCard: 'Tapahtuma',
     rulesCard: 'Säännöt ja virkailijat',

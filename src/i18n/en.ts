@@ -118,7 +118,8 @@ const en = {
   },
   mainEvent: {
     title: 'Main Event',
-    lead: 'An international open in nine rounds, held over nine days at Kangasala Areena, Finland.',
+    lead: 'An international open in nine rounds, held over nine days at Kangasala Areena, Finland. Register {link}.',
+    leadLink: 'here',
     detailsTitle: 'Key details',
     eventCard: 'The event',
     rulesCard: 'Rules and officials',

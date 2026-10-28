@@ -3,7 +3,7 @@ import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import Schedule from '../../components/Schedule.astro';
-import { localeStaticPaths, messages } from '../../i18n/utils';
+import { localePath, localeStaticPaths, messages } from '../../i18n/utils';
 import { venue } from '../../data/schedule';
 
 export function getStaticPaths() {
@@ -13,6 +13,8 @@ export function getStaticPaths() {
 const { lang } = Astro.props;
 const m = messages[lang];
 const t = m.mainEvent;
+const [leadBefore, leadAfter] = t.lead.split('{link}');
+const description = t.lead.replace('{link}', t.leadLink);
 
 const regs = await getEntry('regulations', lang);
 const { Content, headings } = await render(regs!);
@@ -41,8 +43,8 @@ const cards: { title: string; rows: string[][] }[] = [
 ];
 ---
 
-<BaseLayout lang={lang} path="/main-event/" title={t.title} description={t.lead}>
-  <PageHero eyebrow={`${m.common.place} · ${m.common.dates}`} title={t.title} lead={t.lead} />
+<BaseLayout lang={lang} path="/main-event/" title={t.title} description={description}>
+  <PageHero eyebrow={`${m.common.place} · ${m.common.dates}`} title={t.title}>{leadBefore}<a href={localePath(lang, '/register/')}>{t.leadLink}</a>{leadAfter}</PageHero>
 
   <section class="section">
     <div class="container overview">
