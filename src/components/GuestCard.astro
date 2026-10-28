@@ -14,7 +14,7 @@ const spread = photo ? Math.max(1, photo.width / photo.height / 0.75) : 1;
 const widths = photo
   ? [...new Set([480, 800, 1200, 1600, 2000].filter((w) => w < photo.width).concat(photo.width))].sort((a, b) => a - b)
   : [];
-const sizes = `(min-width: 1100px) ${Math.round(400 * spread)}px, ${Math.round(50 * spread)}vw`;
+const sizes = `(min-width: 1100px) ${Math.round(400 * spread)}px, (min-width: 701px) ${Math.round(50 * spread)}vw, ${Math.round(100 * spread)}vw`;
 const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
 ---
 

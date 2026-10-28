@@ -26,6 +26,9 @@ const news = (await getCollection('news'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
+// Phones show one guest per row and only the first few; "view all" leads to the rest.
+const MOBILE_GUESTS = 5;
+
 // When the last row of the three-column grid is not full, a placeholder card fills it.
 const fillsRow = guests.length % 3 === 0;
 const opening = schedule.find((i) => i.kind === 'opening')!;
@@ -102,13 +105,14 @@ const jsonLd = [
           <h2>{h.guests.title}</h2>
           <p class="lead">{h.guests.text}</p>
         </div>
-        <a class="btn btn-ghost btn-sm" href={localePath(lang, '/guests/')}>{m.common.viewAll}</a>
+        <a class="btn btn-ghost btn-sm head-link" href={localePath(lang, '/guests/')}>{m.common.viewAll}</a>
       </div>
       <div class="guest-grid">
-        {guests.map((g) => <GuestCard guest={g} lang={lang} />)}
+        {guests.map((g, i) => <div class="guest-item" data-extra={i >= MOBILE_GUESTS ? '' : undefined}><GuestCard guest={g} lang={lang} /></div>)}
         {!fillsRow && <div class="guest-more"><p>{h.guests.more}</p></div>}
       </div>
-      {fillsRow && <p class="more">{h.guests.more}</p>}
+      <p class={fillsRow ? 'more' : 'more mobile-more'}>{h.guests.more}</p>
+      <p class="btn-row guests-all"><a class="btn btn-ghost" href={localePath(lang, '/guests/')}>{m.common.viewAll} <span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
@@ -255,6 +259,9 @@ const jsonLd = [
   .head-text { max-width: 62rem; display: grid; gap: var(--space-3); }
   .head-text .lead { margin-top: var(--space-2); max-width: 52rem; }
   .guest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); --guest-aspect: 4 / 5; }
+  .guest-item { display: contents; }
+  .guests-all { display: none; margin-top: var(--space-5); }
+  .mobile-more { display: none; }
   .guest-more { aspect-ratio: var(--guest-aspect, 3 / 4); border: 1px dashed var(--line-strong); border-radius: var(--radius); display: grid; place-items: center; padding: var(--space-5); text-align: center; color: var(--muted); font-size: var(--text-sm); letter-spacing: 0.04em; }
   .more { margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted-2); letter-spacing: 0.04em; }
   .ceremonies { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted); }
@@ -312,7 +319,11 @@ const jsonLd = [
     .news-grid > :first-child { grid-row: auto; }
   }
   @media (max-width: 700px) {
-    .guest-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); --guest-aspect: 3 / 4; }
+    /* One guest per row, like the guests page, and the dashed placeholder gives way to the text line below. */
+    .guest-grid { grid-template-columns: 1fr; gap: var(--space-5); --guest-aspect: 4 / 5; }
+    .guest-item[data-extra], .guest-more, .head-link { display: none; }
+    .guests-all { display: flex; }
+    .mobile-more { display: block; }
     .facts { grid-template-columns: 1fr 1fr; gap: var(--space-5) var(--space-4); margin-top: var(--space-7); }
     .floor { height: 40%; }
   }

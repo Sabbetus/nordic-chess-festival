@@ -96,6 +96,15 @@ const here = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? '
     };
     btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
-    nav.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
+    // Going to another page: leave the menu open until the new page replaces it. Closing it first fades the
+    // menu out and shows the old page for a moment. Links to the page we are already on (or to an anchor) close it.
+    nav.addEventListener('click', (e) => {
+      const a = (e.target as HTMLElement).closest('a');
+      if (!a) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin === location.origin && url.pathname === location.pathname) set(false);
+    });
+    // Coming back with the browser's back button can restore the page with the menu still open.
+    window.addEventListener('pageshow', () => set(false));
   }
 </script>
