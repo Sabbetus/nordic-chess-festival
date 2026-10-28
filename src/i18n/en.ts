@@ -65,7 +65,7 @@ const en = {
       { value: '9', label: 'Rounds' },
       { value: '9', label: 'Days' },
       { value: 'Open', label: 'One group' },
-      { value: '10 000 €', label: 'Minimum prize pool' },
+      { value: '10 000 €', label: 'Prize pool' },
     ],
     guests: {
       eyebrow: 'Confirmed guests',

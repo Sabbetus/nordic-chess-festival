@@ -67,7 +67,7 @@ const fi: Messages = {
       { value: '9', label: 'Kierrosta' },
       { value: '9', label: 'Päivää' },
       { value: 'Avoin', label: 'Yksi sarja' },
-      { value: '10 000 €', label: 'Vähimmäispalkintopotti' },
+      { value: '10 000 €', label: 'Palkintopotti' },
     ],
     guests: {
       eyebrow: 'Vahvistetut vieraat',

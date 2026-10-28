@@ -322,11 +322,17 @@ const jsonLd = [
     .guest-item[data-extra], .guest-more, .head-link { display: none; }
     .guests-all { display: flex; }
     .mobile-more { display: block; }
-    /* A compact strip of four on phones instead of a tall two-by-two block. */
-    .facts { grid-template-columns: repeat(4, auto); justify-content: space-between; gap: var(--space-3); margin-top: var(--space-5); padding-top: var(--space-3); }
-    .facts div { align-items: flex-start; gap: 0.25rem; }
-    .facts dd { font-size: clamp(1.25rem, 5.4vw, 1.6rem); }
-    .facts dt { font-size: 0.58rem; letter-spacing: 0.1em; line-height: 1.3; max-width: 5.5rem; }
+    /* Phones: three short facts in equal columns, and the prize pool (the widest, and its label is long in Finnish)
+       on its own full-width row below. */
+    .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 0; margin-top: var(--space-5); padding-top: var(--space-4); }
+    .facts div { align-items: center; text-align: center; gap: 0.35rem; padding-inline: 0.25rem; }
+    .facts div + div { border-left: 1px solid var(--line); }
+    .facts dd { font-size: clamp(1.35rem, 6vw, 1.7rem); }
+    .facts dt { font-size: 0.6rem; letter-spacing: 0.1em; line-height: 1.35; text-wrap: balance; }
+    .facts div:nth-child(4) {
+      grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); margin-top: var(--space-4); padding-top: var(--space-4);
+    }
+    .facts div:nth-child(4) dd { font-size: clamp(1.5rem, 6.5vw, 1.9rem); }
     .floor { height: 40%; }
   }
 </style>
