@@ -23,7 +23,14 @@ const hotel = {
 };
 const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
 // Photos, in the same order as the hotels in the translations. The Torni photo is a portrait, so it is cropped from the top.
-const hotelPhotos = [{ src: ilves, position: '50% 30%' }, { src: torni, position: '50% 4%' }];
+const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: string; url: string } }[] = [
+  { src: ilves, position: '50% 30%' },
+  {
+    src: torni,
+    position: '50% 2%',
+    credit: { text: 'Cryonic07, CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Hotel_Tampere_Torni_2016_03_14_cropped.jpg' },
+  },
+];
 ---
 
 <BaseLayout lang={lang} path="/travel/" title={t.title} description={t.lead}>
@@ -52,6 +59,7 @@ const hotelPhotos = [{ src: ilves, position: '50% 30%' }, { src: torni, position
           <article class="hotel">
             <div class="photo">
               <Image src={hotelPhotos[i].src} alt={h.name} widths={[500, 800, 1100]} sizes="(min-width: 900px) 580px, 100vw" quality={85} style={`object-position: ${hotelPhotos[i].position}`} />
+              {hotelPhotos[i].credit && <a class="credit" href={hotelPhotos[i].credit!.url} target="_blank" rel="noopener">{m.common.photoCredit}: {hotelPhotos[i].credit!.text}</a>}
             </div>
             <div class="body">
               <h3>{h.name}</h3>
@@ -129,7 +137,9 @@ const hotelPhotos = [{ src: ilves, position: '50% 30%' }, { src: torni, position
 
   .hotels { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
   .hotel, .card.has-photo { padding: 0; overflow: hidden; display: flex; flex-direction: column; gap: 0; }
-  .photo { aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-2); }
+  .photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-2); }
+  .credit { position: absolute; right: 0.5rem; bottom: 0.5rem; font-size: 0.65rem; letter-spacing: 0.04em; color: var(--white); background: rgba(10, 10, 10, 0.6); padding: 0.15rem 0.5rem; border-radius: 3px; }
+  .credit:hover { color: var(--ice); }
   .photo :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
   .body { padding: var(--space-5) var(--space-6); display: grid; gap: var(--space-3); align-content: start; }
   .has-photo .photo { aspect-ratio: 3 / 2; }
