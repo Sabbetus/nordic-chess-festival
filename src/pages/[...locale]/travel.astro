@@ -88,6 +88,10 @@ const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
       <article class="card visa">
         <h3>{t.visaTitle}</h3>
         <p>{t.visaText}</p>
+        <ul class="visa-links">
+          {t.visaLinks.map(([label, href]) => <li><a href={href} target="_blank" rel="noopener">{label} →</a></li>)}
+        </ul>
+        <p>{t.visaInvitation}</p>
       </article>
     </div>
   </section>
@@ -127,6 +131,7 @@ const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
   .addr { color: var(--white); }
   .timetable { color: var(--white); }
   .visa { max-width: 46rem; }
+  .visa-links { list-style: none; display: grid; gap: var(--space-2); }
 
   @media (max-width: 900px) {
     .stay-grid, .two { grid-template-columns: 1fr; }

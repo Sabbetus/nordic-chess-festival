@@ -357,7 +357,9 @@ const fi: Messages = {
     busTimetable: 'Aikataulua ei julkaista verkkosivuilla. Se lähetetään sähköpostitse ilmoittautuneille pelaajille, jotka ovat ostaneet bussikuljetuksen.',
     busCta: 'Lisää bussi ilmoittautuessasi',
     visaTitle: 'Viisumit',
-    visaText: 'Viisumitiedot ja kutsukirjeet lisätään pian.',
+    visaText: 'Viisumin tarve Suomeen vierailua varten riippuu kansalaisuudestasi. Tarkista viralliset tiedot:',
+    visaLinks: [['Maahanmuuttovirasto (Migri): Suomessa vierailu', 'https://migri.fi/en/visiting-finland'], ['Ulkoministeriö: Suomeen saapuminen', 'https://um.fi/entering-finland']],
+    visaInvitation: 'Tarvitsetko kutsukirjeen viisumihakemusta varten? Kirjoita osoitteeseen info@nordicchess.fi.',
   },
   news: {
     title: 'Uutiset',

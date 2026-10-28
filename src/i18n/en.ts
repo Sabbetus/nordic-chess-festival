@@ -355,7 +355,9 @@ const en = {
     busTimetable: 'The timetable is not published on the website. It is emailed to registered players who have bought the bus transfer.',
     busCta: 'Add the bus when you register',
     visaTitle: 'Visas',
-    visaText: 'Visa information and invitation letters will be added soon.',
+    visaText: 'Whether you need a visa to visit Finland depends on your nationality. Check the official information:',
+    visaLinks: [['Finnish Immigration Service (Migri): visiting Finland', 'https://migri.fi/en/visiting-finland'], ['Ministry for Foreign Affairs of Finland: entering Finland', 'https://um.fi/entering-finland']],
+    visaInvitation: 'Need an invitation letter for your visa application? Email info@nordicchess.fi.',
   },
   news: {
     title: 'News',
