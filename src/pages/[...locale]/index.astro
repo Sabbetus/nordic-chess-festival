@@ -324,12 +324,15 @@ const jsonLd = [
     .guest-item[data-extra], .guest-more, .head-link { display: none; }
     .guests-all { display: flex; }
     .mobile-more { display: block; }
-    /* Phones: one compact row of four equal, centred columns. The labels are kept short so they never need more room. */
+    /* Phones: one compact row of four equal columns, left-aligned so the first one lines up with the page margin.
+       The labels are kept short so they never need more room. */
     .facts { grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 0; margin-top: var(--space-5); padding-top: var(--space-3); }
-    .facts div { align-items: center; text-align: center; gap: 0.3rem; padding-inline: 0.2rem; }
+    .facts div { align-items: flex-start; text-align: left; gap: 0.3rem; padding-left: 0.65rem; }
+    .facts div:first-child { padding-left: 0; }
     .facts div + div { border-left: 1px solid var(--line); }
-    .facts dd { font-size: clamp(1.1rem, 5vw, 1.5rem); }
-    .facts dt { font-size: 0.56rem; letter-spacing: 0.06em; line-height: 1.3; text-wrap: balance; }
+    /* As large as fits: the widest value (10 000 €) has to stay inside its column at every phone width. */
+    .facts dd { font-size: min(1.75rem, calc((100vw - 40px) / 14.5 - 3px)); }
+    .facts dt { font-size: 0.58rem; letter-spacing: 0.06em; line-height: 1.3; }
     .floor { height: 40%; }
   }
 </style>

@@ -154,7 +154,10 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .contact { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); }
 
   .two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
-  .card { display: grid; gap: var(--space-3); align-content: start; }
+  .card { display: grid; gap: var(--space-3); align-content: start; hyphens: manual; overflow-wrap: normal; text-align: left; }
+  .card h3 { font-size: 1.35rem; margin: 0; }
+  .card p { font-size: var(--text-base); color: var(--muted); }
+  .card .addr, .card .timetable { color: var(--white); }
   .addr { color: var(--white); }
   .timetable { color: var(--white); }
   .visa { max-width: 46rem; }
@@ -162,7 +165,7 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
 
   @media (max-width: 900px) {
     .hotels, .two { grid-template-columns: 1fr; }
-    .book, .phone-box { padding: var(--space-4); }
+    .book, .phone-box, .card:not(.has-photo) { padding: var(--space-4); }
     .body { padding: var(--space-4); }
   }
 </style>

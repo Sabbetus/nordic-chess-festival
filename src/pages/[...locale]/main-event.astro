@@ -62,12 +62,14 @@ const cards: { title: string; rows: string[][] }[] = [
 
   <section class="section" id="schedule">
     <div class="container">
-      <div class="section-head">
-        <h2>{t.scheduleTitle}</h2>
-        <p class="muted small">{t.scheduleNote}</p>
+      <div class="schedule-block">
+        <div class="section-head schedule-head">
+          <h2>{t.scheduleTitle}</h2>
+          <p class="muted small">{t.scheduleNote}</p>
+        </div>
+        <Schedule lang={lang} />
+        <div class="notice warn"><p>{t.confirmationWarning}</p></div>
       </div>
-      <Schedule lang={lang} />
-      <div class="notice warn"><p>{t.confirmationWarning}</p></div>
     </div>
   </section>
 
@@ -90,6 +92,9 @@ const cards: { title: string; rows: string[][] }[] = [
 </BaseLayout>
 
 <style>
+  /* The schedule does not need the full page width: a narrower block reads better. */
+  .schedule-block { max-width: 44rem; }
+  .schedule-head { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
   .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); margin-top: var(--space-5); align-items: stretch; }
   .info-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-5) var(--space-6); position: relative; }
   .info-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--ice), transparent); opacity: 0.6; }
