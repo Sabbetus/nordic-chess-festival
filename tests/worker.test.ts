@@ -333,7 +333,7 @@ test('players from Russia and Belarus cannot register, whether found in FIDE or 
     const res = await handleRegister(post('/api/register', person({ noFideId: true, fideId: '', federation: fed })), e, NOW);
     assert.equal(res.status, 403);
   }
-  assert.equal(e.DB.raw.prepare('SELECT COUNT(*) AS n FROM registrations').get().n, 0);
+  assert.equal(e.DB.raw.prepare('SELECT COUNT(*) AS n FROM registrations').get()?.n, 0);
   const lookup = (await (await worker.fetch(new Request('https://nordicchess.fi/api/fide/700002'), e)).json()) as { blocked: boolean };
   assert.equal(lookup.blocked, true);
 });

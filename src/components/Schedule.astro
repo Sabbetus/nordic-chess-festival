@@ -21,7 +21,7 @@ const label = (i: (typeof schedule)[number]) =>
       <ul>
         {day.items.map((i) => (
           <li class:list={['item', i.kind]}>
-            <span class="time num">{i.kind === 'confirmation' ? `${t.until} ${i.time}` : i.time}</span>
+            <span class="time num">{i.kind === 'confirmation' ? '' : i.time}</span>
             <span class="what">
               {label(i)}
               {i.kind === 'confirmation' && <small>{t.confirmationDetail}</small>}

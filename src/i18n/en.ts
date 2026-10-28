@@ -46,9 +46,8 @@ const en = {
       'Multiple Nordic champions.',
       'One of the biggest names in chess content creation.',
       'And you, across the board.',
-      'This\u00A0is\u00A0Nordic\u00A0Chess\u00A0Festival.',
     ],
-    ctaPrimary: 'Entry fees & registration',
+    ctaPrimary: 'Registration',
     ctaSecondary: 'Schedule & regulations',
     countdown: {
       earlyLabel: 'Early bird ends in',
@@ -126,8 +125,8 @@ const en = {
     details: {
       dates: 'Dates',
       venue: 'Venue',
-      rounds: 'Rounds',
       format: 'Format',
+      prizePool: 'Prize pool',
       timeControl: 'Time control',
       pairings: 'Pairings',
       rating: 'Rating and norms',
@@ -136,6 +135,7 @@ const en = {
     },
     values: {
       format: 'Nine rounds in a single open group',
+      prizePool: '10 000 € guaranteed',
       timeControl: '90 min for 40 moves + 30 min, with 30 s added per move from move 1',
       pairings: 'FIDE Swiss system with Baku acceleration (from 140 players)',
       rating: 'FIDE and Finnish (selo) rated. GM, IM, WGM and WIM norms are possible',
@@ -144,7 +144,7 @@ const en = {
     scheduleNote: 'All times are Finnish local time (EEST, UTC+3).',
     round: 'Round',
     confirmation: 'Confirmation of participation',
-    confirmationDetail: 'Online until 12:00, or on site 10:00–12:00',
+    confirmationDetail: 'Online from 00:00 to 12:00 (email link), or on site 10:00–12:00',
     confirmationWarning: 'All players must confirm their participation on Saturday. Players who have not confirmed will not be paired for round 1.',
     opening: 'Opening ceremony',
     prizegiving: 'Prize-giving ceremony',
@@ -155,6 +155,8 @@ const en = {
   register: {
     title: 'Entry fees & registration',
     lead: 'One open section. The fee depends on your FIDE rating on the day you pay. Early bird pricing is available until 31 January 2027.',
+    feesIntro: 'The entry fees can be seen {link}.',
+    feesIntroLink: 'here',
     statusTitle: 'Registration opens soon',
     statusText: 'Online registration and payment will open shortly. Sign up for updates and we will let you know the moment it does.',
     statusCta: 'Sign up for updates',
@@ -169,15 +171,11 @@ const en = {
     unrated: 'Unrated',
     rulesTitle: 'Good to know',
     rules: [
-      'Discounted fees are 25% off the regular fee, rounded up to the nearest 5 € (IM / WIM: fixed 50 €).',
-      'Each player gets one discount at most. Discounts do not stack.',
       'Early bird: the entry fee must be paid by 31 January 2027.',
       'Juniors: born 2009 or later. Seniors: born 1962 or earlier.',
       'The fee is based on your FIDE rating on the day of payment.',
-      'Grandmasters (GM) and women grandmasters (WGM) play for free.',
       'Registration is valid once the registration form is completed and the entry fee is paid.',
       'No FIDE ID yet? Register without one and pay the unrated fee.',
-      'The optional daily bus transfer from Tampere costs 50 € extra and is added in the registration form.',
     ],
     refundTitle: 'Refunds',
     refundText:
@@ -311,7 +309,7 @@ const en = {
     amountPrefix: 'At least',
     amount: '10 000 €',
     amountNote: 'Guaranteed prize pool',
-    detailsTitle: 'What we know so far',
+    detailsTitle: 'Prize structure',
     items: [
       'The best prizes are reserved for the top players',
       'A prize for the best women player',

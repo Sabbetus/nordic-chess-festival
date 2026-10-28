@@ -1,113 +1,121 @@
 ---
-title: 'Nordic Chess Festival 2027, pääturnaus: kilpailusäännöt'
+title: 'Nordic Chess Festival 2027, Main Event: Kilpailumääräykset'
 preliminary: true
 ---
 
 ## 1 § Aikataulu
 
-**Osallistumisen vahvistaminen:** lauantaina 12. kesäkuuta
+**Osallistumisen varmistus:** la 12.6.
 
-- Sähköisesti: klo 00:00–12:00 (sähköpostilinkki)
-- Paikan päällä: klo 10:00–12:00
+- Sähköisesti: klo 00.00–12.00 (sähköpostilinkki)
+- Pelipaikalla: klo 10.00–12.00
 
-**Kaikkien pelaajien on vahvistettava osallistumisensa lauantaina. Pelaajia, jotka eivät ole vahvistaneet osallistumistaan, ei pariuteta ensimmäiselle kierrokselle.**
+**Jokaisen pelaajan tulee varmistaa osallistumisensa lauantaina. Pelaajia, jotka eivät ole varmistaneet osallistumistaan, ei oteta mukaan 1. kierroksen paritukseen.**
 
-Koko aikataulu on esitetty yllä.
+Avajaiset: la 12.6. klo 13.30  
+Kierros 1: la 12.6. klo 14.00  
+Kierros 2: su 13.6. klo 14.00  
+Kierros 3: ma 14.6. klo 14.00  
+Kierros 4: ti 15.6. klo 14.00  
+Kierros 5: ke 16.6. klo 14.00  
+Kierros 6: to 17.6. klo 14.00  
+Kierros 7: pe 18.6. klo 14.00  
+Kierros 8: la 19.6. klo 14.00  
+Kierros 9: su 20.6. klo 11.00  
+Palkintojen jako: su 20.6. klo 17.00
 
-## 2 § Yleiset määräykset
+## 2 § Yleiset kilpailumääräykset
 
-Turnauksessa noudatetaan FIDEn shakkisääntöjä, FIDEn Fair Play -määräyksiä, muita soveltuvia FIDEn määräyksiä sekä Suomen Shakkiliiton kilpailusääntöjä.
+Kilpailussa noudatetaan FIDEn shakkisääntöjä, FIDEn vilpin ehkäisyä koskevia määräyksiä ja muita soveltuvia FIDEn määräyksiä sekä Suomen Shakkiliiton kilpailumääräyksiä.
 
-Tulokset lähetetään kansalliseen ratinglaskentaan (selo) ja FIDEn ratinglaskentaan (elo).
+Kilpailun tulokset lähetetään kansainväliseen vahvuuslukulaskentaan (elo) sekä kansalliseen vahvuuslukulaskentaan (selo).
 
-**Pelaaja saa ottaa yhden puolen pisteen (½) vapaakierroksen viiden (5) ensimmäisen kierroksen aikana. Pääerotuomarille on ilmoitettava vapaakierroksen käytöstä ennen kyseisen kierroksen pariutusten julkaisemista.**
+**Pelaajilla on mahdollisuus pitää yksi vapaakierros kierroksien 1–5 aikana. Tästä vapaakierroksesta pelaaja saa puoli (½) pistettä. Vapaakierroksen käytöstä on ilmoitettava päätuomarille ennen kuin kierroksen parit on julkaistu.**
 
-Pelilaudalla ei saa syödä. Alkoholittomat juomat ovat sallittuja pelilaudalla.
+Pelaajat eivät saa syödä laudan ääressä. Alkoholittomien virvokkeiden nauttiminen laudan ääressä on sallittu.
 
-**Pelaajat eivät saa tarjota tai sopia tasapeliä ennen kuin molemmat pelaajat ovat tehneet vähintään kaksikymmentä (20) siirtoa.**
+**Pelaajat eivät saa ehdottaa tai sopia tasapeliä ennen kuin molemmat pelaajat ovat tehneet vähintään kaksikymmentä (20) siirtoa.**
 
-Odotusaika on kolmekymmentä (30) minuuttia.
+Myöhästymisaika kierrokselta on kolmekymmentä (30) minuuttia.
 
-Turnauksessa on mahdollista saavuttaa FIDEn titteliolosuhteet (GM-, IM-, WGM- ja WIM-normit).
+Kilpailussa on mahdollista saavuttaa FIDEn arvonimikiinnityksiä (SM, KvM, NSM ja NKvM).
 
-## 3 § Virkailijat
+## 3 § Kilpailun toimihenkilöt
 
-- **Pääjärjestäjä:** Henry Brade
-- **Apulaispääjärjestäjä:** NA Aleksi Oldén
-- **Pääerotuomari ja pariutuserotuomari:** IA Eetu Tiiva
-- **Apulaispääerotuomari:** FA Panu Laine
+- **Kilpailun johtaja:** Henry Brade
+- **Kilpailun varajohtaja:** KT Aleksi Oldén
+- **Päätuomari ja parien määrääjä:** KvT Eetu Tiiva
+- **Apulaispäätuomari:** FT Panu Laine
 
-Muut erotuomarit ja virkailijat nimetään lähempänä tapahtumaa.
+Kilpailun toimihenkilöitä täydennetään lähempänä kilpailun ajankohtaa.
 
-## 4 § Pelijärjestelmä
+## 4 § Parien määrääminen
 
-Yhdeksän (9) kierrosta yhdessä sarjassa. Pariutukset tehdään FIDEn sveitsiläisen järjestelmän mukaan. Pariutuksiin käytetään Swiss-Manager-ohjelmaa.
+Kilpailussa pelataan yhdeksän (9) kierrosta yhdessä ryhmässä. Parit määrätään sveitsiläisellä järjestelmällä. Parien määräämisessä käytetään Swiss-Manager-ohjelmistoa.
 
-Jos turnauksessa on vähintään 140 osallistujaa, pariutukset tehdään FIDEn hyväksymän kiihdytetyn järjestelmän mukaan (Baku Acceleration, FIDE Handbook C.04.7).
+Jos kilpailuun osallistuu vähintään 140 pelaajaa, parien määräämisessä käytetään FIDEn hyväksymää kiihdytettyä järjestelmää (Baku Acceleration, FIDE Handbook C.04.7).
 
-## 5 § Peliaika
+## 5 § Miettimisaika
 
-Peliaika on 90 minuuttia 40 siirrolle + 30 minuuttia + 30 sekunnin lisäaika siirtoa kohden ensimmäisestä siirrosta alkaen. Siirtolaskuria ei käytetä.
+Miettimisaika on 90 minuuttia / 40 siirtoa + 30 minuuttia + 30 sekuntia / siirto alkaen siirrosta 1. Kelloissa ei käytetä painalluslaskuria.
 
-## 6 § Fair Play -määräykset
+## 6 § Reilun kilpailun käytänteet
 
-Elektronisten laitteiden ja muiden shakkisääntöjen kohdassa 11.3 määriteltyjen tietolähteiden tuominen pelialueelle on kielletty. Ne on jätettävä osoitettuun paikkaan ennen pelialueelle siirtymistä. Esimerkiksi seuraavat ovat kiellettyjä:
+Elektronisten laitteiden ja muiden sääntöjen kohdan 11.3. mukaisten tietolähteiden tuominen pelitilaan on kielletty ja ne tulee luovuttaa niille osoitettuun paikkaan ennen pelitilaan saapumista. Kiellettyjä ovat esimerkiksi:
 
-- Matkapuhelimet, kannettavat tietokoneet, tabletit (ja muut vastaavat laitteet)
+- Matkapuhelimet, tietokoneet, tabletit (sekä muut vastaavat laitteet)
 - Älykellot ja älysormukset
-- Kuulokkeet ja korvatulpat (järjestäjällä on tarvittaessa korvatulppia saatavilla)
-- Kynät
+- Kuulokkeet ja korvatulpat (järjestäjällä on saatavilla korvatulppia tarvittaessa)
+- Omat kynät
 - Shakkikirjallisuus
 
-**Määräyksen rikkominen johtaa käynnissä olevan pelin häviöön.**
+**Tämän määräyksen rikkomisesta seuraamuksena on kesken olevan pelin häviö.**
 
-Jos pelaaja tarvitsee sähköistä laitetta pelin aikana terveydellisistä syistä, lupa on pyydettävä pääerotuomarilta ennen kilpailun alkua.
+Mikäli pelaajalla on terveydellisestä syystä tarve pitää hallussaan tai käsitellä elektronista laitetta pelin kestäessä, on tähän pyydettävä päätuomarin lupa ennen kilpailun alkua.
 
-Pelaajat voidaan tarkastaa ennen pelialueelle siirtymistä. Pelaajat vastaavat itse saapumisestaan, ja tarkastuksia voidaan tehdä myös myöhästyneille pelaajille.
+Pelaajia voidaan tarkastaa ennen kulkua pelitilaan. Pelaaja on itse vastuussa saapumisestaan, ja tarkastuksia voidaan tehdä myös myöhässä saapuville pelaajille. Pelaajia, jotka ovat voittaneet tai pelanneet tasan kierroksella, voidaan pyytää pelin jälkeiseen tarkastukseen välittömästi pelin päätyttyä.
 
-Pelinsä voittaneet tai tasapeliin päättäneet pelaajat voidaan valita pelin jälkeiseen tarkastukseen heti pelin päätyttyä.
+Pelit voivat olla tilastollisen tarkastuksen kohteena. Pelaajat eivät saa keskustella yleisön tai muiden kolmansien osapuolten kanssa pelien kestäessä.
 
-Pelejä voidaan tarkastella tilastollisin menetelmin. Pelaajat eivät saa puhua yleisölle tai muille ulkopuolisille pelinsä aikana.
+Katsojat voivat olla pelitilassa ensimmäisen kymmenen (10) minuutin ajan kierroksen alkamisesta. Katsojien tulee jättää elektroniset laitteensa kilpailun järjestäjän osoittamaan paikkaan ennen kulkua pelitilaan.
 
-Katsojat saavat oleskella pelialueella kierroksen ensimmäisten kymmenen (10) minuutin ajan. Katsojien on jätettävä elektroniset laitteensa järjestäjän osoittamaan paikkaan ennen pelialueelle siirtymistä.
+Valokuvaaminen pelitilassa on sallittua ensimmäisen kymmenen (10) minuutin ajan kierroksen alkamisesta. Rajoitus ei koske järjestäjältä erillisen luvan saaneita kuvaajia. Valokuvaaminen matkapuhelimella ei ole sallittua.
 
-Valokuvaus pelialueella on sallittu kierroksen ensimmäisten kymmenen (10) minuutin ajan. Rajoitus ei koske valokuvaajia, jotka ovat saaneet järjestäjältä erillisen luvan. Kuvaaminen matkapuhelimilla ei ole sallittua.
+## 7 § Pelaajien käyttäytyminen
 
-## 7 § Pelaajien käytös
+Kierroksen aikana pelitilassa on noudatettava hiljaisuutta. Pelaajat eivät saa kommentoida tai analysoida käynnissä olevia pelejä. Pelien analysointi pelitilassa tai sen välittömässä läheisyydessä on kielletty. Analysointi tapahtuu siihen osoitetussa tilassa.
 
-Pelialueella on pidettävä hiljaisuutta kierroksen aikana. Pelaajat eivät saa kommentoida tai analysoida käynnissä olevia pelejä. Analysointi pelialueella tai sen välittömässä läheisyydessä on kielletty. Analysointi tapahtuu sille osoitetulla alueella.
+## 8 § Vertailut ja palkintojenjakomääräykset
 
-## 8 § Tasapisteratkaisut ja palkintomääräykset
-
-Samalle pistemäärälle päätyneiden pelaajien keskinäinen järjestys ratkaistaan seuraavilla tasapisteratkaisuilla:
+Samassa pistemäärässä olevien pelaajien järjestys määritetään seuraavien vertailuperusteiden mukaisesti:
 
 1. Median-Buchholz
 2. Buchholz – 1
-3. Buchholz ilman poistoa (no cut)
+3. Buchholz, no cut
 4. Sonneborn-Berger
-5. Keskinäinen kohtaaminen
+5. Keskinäinen peli
 
-Pelaamattomien pelien osalta tasapisteratkaisujen laskennassa noudatetaan voimassa olevia FIDEn kilpailusääntöjä.
+Pelaamattomien pelien tapauksessa sovelletaan voimassa olevien FIDEn kilpailumääräysten mukaista menettelyä.
 
-Palkinnot jaetaan samalla pistemäärällä olevien pelaajien kesken. **Yksi pelaaja voi saada vain yhden rahapalkinnon.**
+Rahapalkinnot jaetaan samassa pistemäärässä olevien kesken. **Yksi pelaaja voi saada ainoastaan yhden rahapalkinnon.**
 
 ## 9 § Tietosuoja
 
-EU:n yleisen tietosuoja-asetuksen (GDPR, 2016/679) vuoksi järjestäjä ilmoittaa seuraavaa:
+Yleisen tietosuoja-asetuksen (GDPR, 2016/679) mukaisesti järjestäjä ilmoittaa seuraavaa:
 
-Järjestäjä käsittelee pelaajien henkilötietoja ja tuottaa kilpailun tulokset. Tulokset julkaistaan. Järjestäjä käyttää Swiss-Manager-ohjelmaa, ja tulokset julkaistaan verkossa chess-results.com-sivustolla ja ratinglaskentasivustoilla. Tulokset voidaan julkaista myös muilla verkkosivuilla tai yleisesti mediassa.
+Järjestäjä käsittelee pelaajien henkilötietoja ja laatii kilpailun tulokset. Tulokset julkaistaan. Järjestäjä käyttää Swiss-Manager-ohjelmaa, ja tulokset julkaistaan verkossa osoitteessa chess-results.com sekä vahvuuslukulaskennassa. Tulokset voidaan myös julkaista muilla verkkosivustoilla tai yleisesti tiedotusvälineissä.
 
-Pelaajia voidaan valokuvata turnauksen aikana, ja materiaali voidaan julkaista.
+Pelaajia voidaan valokuvata turnauksen aikana ja kuvamateriaalia voidaan julkaista.
 
 ## 10 § Muuta
 
-Tulokset ja pariutukset julkaistaan Chess-Results.com-sivustolla ja pelipaikalla.
+Tulokset ja parit julkaistaan pelipaikalla sekä Chess-Resultsissa.
 
-Osa peleistä lähetetään suorana lähetyksenä live-lautojen avulla. Lähetyksessä on 15 minuutin viive.
+Kilpailussa on käytössä livelautoja. Livelähetyksessä on 15 minuutin viive.
 
-Pääerotuomarin päätöksistä voi valittaa Suomen shakkituomarilautakunnalle. Valitus on lähetettävä sähköpostitse lautakunnan sihteerille Mika Hakalalle (mika.hakala@mikahakala.fi) 30 minuutin kuluessa päätöksestä. Lisäksi on maksettava 100 euron valitusmaksu. Valitusmaksu maksetaan järjestäjälle. Valitusmaksu palautetaan, jos valitus hyväksytään.
+Päätuomarin päätöksistä voi valittaa shakkituomaritoimikuntaan. Valitus on toimitettava sähköpostitse toimikunnan sihteeri Mika Hakalalle (mika.hakala@mikahakala.fi) 30 minuutin kuluessa päätöksestä. Valituksen jättämisestä on maksettava 100 euron vetoraha. Vetoraha maksetaan järjestäjälle. Vetoraha palautetaan, mikäli valitus hyväksytään.
 
-## 11 § Yhteyshenkilöt turnauksen aikana
+## 11 § Yhteyshenkilöt kilpailun aikana
 
-- **Pääjärjestäjä:** Henry Brade, henry@nordicchess.fi
-- **Pääerotuomari:** IA Eetu Tiiva, eetu.tiiva@outlook.com
+- **Kilpailun johtaja:** Henry Brade, henry@nordicchess.fi
+- **Päätuomari:** KvT Eetu Tiiva, eetu.tiiva@outlook.com

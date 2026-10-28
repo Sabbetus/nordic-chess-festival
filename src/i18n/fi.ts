@@ -48,9 +48,8 @@ const fi: Messages = {
       'Useita Pohjoismaiden mestareita.',
       'Yksi shakkisisällöntuotannon suurimmista nimistä.',
       'Ja sinä, laudan toisella puolella.',
-      'Tämä\u00A0on\u00A0Nordic\u00A0Chess\u00A0Festival.',
     ],
-    ctaPrimary: 'Maksut ja ilmoittautuminen',
+    ctaPrimary: 'Ilmoittautuminen',
     ctaSecondary: 'Aikataulu ja säännöt',
     countdown: {
       earlyLabel: 'Early bird päättyy',
@@ -128,8 +127,8 @@ const fi: Messages = {
     details: {
       dates: 'Ajankohta',
       venue: 'Pelipaikka',
-      rounds: 'Kierroksia',
       format: 'Pelimuoto',
+      prizePool: 'Palkintopotti',
       timeControl: 'Peliaika',
       pairings: 'Pariutus',
       rating: 'Rating ja normit',
@@ -138,6 +137,7 @@ const fi: Messages = {
     },
     values: {
       format: 'Yhdeksän kierrosta yhdessä avoimessa sarjassa',
+      prizePool: '10 000 € taattu',
       timeControl: '90 min 40 siirrolle + 30 min, lisäksi 30 s siirtoa kohden ensimmäisestä siirrosta alkaen',
       pairings: 'FIDEn sveitsiläinen järjestelmä Baku-kiihdytyksellä (140 pelaajasta alkaen)',
       rating: 'FIDE- ja Suomen (selo) ratinglaskennassa. GM-, IM-, WGM- ja WIM-normit ovat mahdollisia',
@@ -146,7 +146,7 @@ const fi: Messages = {
     scheduleNote: 'Kaikki ajat ovat Suomen aikaa (EEST, UTC+3).',
     round: 'Kierros',
     confirmation: 'Osallistumisen vahvistaminen',
-    confirmationDetail: 'Verkossa klo 12:00 asti tai paikan päällä klo 10:00–12:00',
+    confirmationDetail: 'Verkossa klo 00:00–12:00 (sähköpostilinkki) tai paikan päällä klo 10:00–12:00',
     confirmationWarning: 'Kaikkien pelaajien on vahvistettava osallistumisensa lauantaina. Pelaajia, jotka eivät ole vahvistaneet osallistumistaan, ei pariuteta ensimmäiselle kierrokselle.',
     opening: 'Avajaiset',
     prizegiving: 'Palkintojenjako',
@@ -157,6 +157,8 @@ const fi: Messages = {
   register: {
     title: 'Osallistumismaksut ja ilmoittautuminen',
     lead: 'Yksi avoin sarja. Maksu riippuu FIDE-ratingistasi maksupäivänä. Early bird -hinnat ovat voimassa 31. tammikuuta 2027 asti.',
+    feesIntro: 'Osallistumismaksut näet {link}.',
+    feesIntroLink: 'täältä',
     statusTitle: 'Ilmoittautuminen aukeaa pian',
     statusText: 'Verkkoilmoittautuminen ja maksu aukeavat lähiaikoina. Tilaa tiedotteet, niin kerromme heti kun se aukeaa.',
     statusCta: 'Tilaa tiedotteet',
@@ -171,15 +173,11 @@ const fi: Messages = {
     unrated: 'Ei ratingia',
     rulesTitle: 'Hyvä tietää',
     rules: [
-      'Alennetut maksut ovat 25 % normaalimaksua edullisempia, pyöristettynä ylöspäin lähimpään 5 euroon (IM / WIM: kiinteä 50 €).',
-      'Kukin pelaaja saa enintään yhden alennuksen. Alennukset eivät kumuloidu.',
       'Early bird: osallistumismaksu on maksettava 31. tammikuuta 2027 mennessä.',
       'Juniorit: syntyneet vuonna 2009 tai myöhemmin. Seniorit: syntyneet vuonna 1962 tai aiemmin.',
       'Maksu perustuu FIDE-ratingiisi maksupäivänä.',
-      'Suurmestarit (GM) ja naissuurmestarit (WGM) pelaavat ilmaiseksi.',
       'Ilmoittautuminen on voimassa, kun ilmoittautumislomake on täytetty ja osallistumismaksu maksettu.',
       'Ei vielä FIDE-tunnusta? Ilmoittaudu ilman sitä ja maksa ratingittoman maksu.',
-      'Valinnainen päivittäinen bussikuljetus Tampereelta maksaa 50 € lisää, ja se lisätään ilmoittautumislomakkeella.',
     ],
     refundTitle: 'Palautukset',
     refundText:
@@ -313,7 +311,7 @@ const fi: Messages = {
     amountPrefix: 'Vähintään',
     amount: '10 000 €',
     amountNote: 'Taattu palkintopotti',
-    detailsTitle: 'Tiedossa tähän mennessä',
+    detailsTitle: 'Palkintorakenne',
     items: [
       'Parhaat palkinnot on varattu kärkipelaajille',
       'Palkinto parhaalle naispelaajalle',

@@ -25,7 +25,7 @@ export const footerGroups: { title: 'mainEvent' | 'info'; items: NavItem[] }[] =
     title: 'mainEvent',
     items: [
       { key: 'mainEvent', path: '/main-event/' },
-      { key: 'register', path: '/register/' },
+      { key: 'register', path: '/register/#fees' },
       { key: 'players', path: '/players/' },
       { key: 'guests', path: '/guests/' },
       { key: 'prizes', path: '/prizes/' },

@@ -47,7 +47,8 @@ const here = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? '
   }
   .bar { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); }
   .logo {
-    font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.08em; text-transform: uppercase;
+    /* Heavier and larger than before: the thin serif looked soft on desktop monitors without high-DPI screens. */
+    font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--white); white-space: nowrap; position: relative; z-index: 2;
   }
   .logo span { color: var(--ice); }
@@ -59,7 +60,7 @@ const here = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? '
   .nav-extras { display: flex; align-items: center; gap: var(--space-4); }
   .menu-btn { display: none; }
 
-  @media (max-width: 1320px) {
+  @media (max-width: 1400px) {
     .menu-btn {
       display: grid; place-items: center; width: 2.75rem; height: 2.75rem; position: relative; z-index: 2;
       background: none; border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--white); cursor: pointer;
