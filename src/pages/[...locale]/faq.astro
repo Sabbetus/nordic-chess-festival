@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import { localeStaticPaths, messages } from "../../i18n/utils";
+import { linkParts, plainText } from "../../lib/links";
 export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
 const m = messages[lang];
@@ -14,7 +15,7 @@ const jsonLd = {
   mainEntity: items.map((i) => ({
     "@type": "Question",
     name: i.data.question[lang],
-    acceptedAnswer: { "@type": "Answer", text: i.data.answer[lang] },
+    acceptedAnswer: { "@type": "Answer", text: plainText(i.data.answer[lang]) },
   })),
 };
 ---
@@ -26,7 +27,7 @@ const jsonLd = {
       {items.map((i) => (
         <details>
           <summary>{i.data.question[lang]}</summary>
-          <p>{i.data.answer[lang]}</p>
+          <p>{linkParts(i.data.answer[lang], lang).map((p) => (p.href ? <a href={p.href}>{p.text}</a> : p.text))}</p>
         </details>
       ))}
     </div>
@@ -41,4 +42,5 @@ const jsonLd = {
   summary::after { content: '+'; color: var(--ice); font-family: var(--font-body); font-weight: 300; font-size: 1.6rem; transition: transform 0.25s var(--ease); }
   details[open] summary::after { transform: rotate(45deg); }
   details p { color: var(--muted); padding-bottom: var(--space-5); max-width: 40rem; }
+  details p a { color: var(--ice); text-decoration: underline; text-underline-offset: 3px; }
 </style>
