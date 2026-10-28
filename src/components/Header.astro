@@ -85,11 +85,10 @@ const here = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? '
     .nav-extras { justify-content: space-between; }
   }
 
-  /* Phones keep the original small uppercase logo (it was already clear there); it may shrink a little on the narrowest
-     screens so the menu button never gets squeezed. */
+  /* Phones: the same logo style, sized to take about the room the old one did, and shrinking a little on the narrowest
+     screens so the menu button is never squeezed. */
   @media (max-width: 700px) {
-    .logo { font-size: clamp(1rem, 5vw, 1.2rem); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
-    .logo span { font-style: normal; font-weight: 400; }
+    .logo { font-size: clamp(1.5rem, 7.6vw, 1.9rem); }
   }
 </style>
 
