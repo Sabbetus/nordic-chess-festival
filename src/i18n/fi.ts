@@ -352,6 +352,7 @@ const fi: Messages = {
     venueTitle: 'Pelipaikka',
     venueText: 'Festivaali pelataan Kangasala Areenalla Kangasalla, aivan Tampereen vieressä. Matka Tampereen keskustasta on noin 25 minuuttia autolla.',
     viewOnMap: 'Näytä kartalla',
+    venueAlt: 'Kangasala Areena, festivaalin pelipaikka',
     busTitle: 'Festivaalibussi',
     busText: 'Päivittäinen bussi kulkee Tampereen keskustan ja Kangasala Areenan välillä paluumatkat mukaan lukien hintaan 50 €. Matka kestää noin 25 minuuttia. Bussi pysähtyy hotelleilla Sokos Hotel Ilves ja Sokos Hotel Torni, joten se sopii hyvin myös muualla Tampereella yöpyville.',
     busTimetable: 'Aikataulua ei julkaista verkkosivuilla. Se lähetetään sähköpostitse ilmoittautuneille pelaajille, jotka ovat ostaneet bussikuljetuksen.',

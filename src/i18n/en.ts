@@ -350,6 +350,7 @@ const en = {
     venueTitle: 'The venue',
     venueText: 'The festival is played at Kangasala Areena in Kangasala, right next to the city of Tampere. It is about a 25-minute drive from central Tampere.',
     viewOnMap: 'View on map',
+    venueAlt: 'Kangasala Areena, the festival venue',
     busTitle: 'Festival bus',
     busText: 'A daily bus runs between central Tampere and Kangasala Areena, return trips included, for 50 €. The ride takes about 25 minutes. It stops at Sokos Hotel Ilves and Sokos Hotel Torni, so it works well if you stay elsewhere in Tampere too.',
     busTimetable: 'The timetable is not published on the website. It is emailed to registered players who have bought the bus transfer.',

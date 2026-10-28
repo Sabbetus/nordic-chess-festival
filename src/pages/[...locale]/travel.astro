@@ -2,7 +2,11 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import { localePath, localeStaticPaths, messages } from "../../i18n/utils";
+import { Image } from "astro:assets";
 import { venue } from "../../data/schedule";
+import ilves from "../../assets/hotel-ilves.webp";
+import torni from "../../assets/hotel-torni.jpg";
+import areena from "../../assets/kangasala-areena.webp";
 export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
 const m = messages[lang];
@@ -18,6 +22,8 @@ const hotel = {
   email: 'sokos.hotels@sok.fi',
 };
 const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
+// Photos, in the same order as the hotels in the translations. The Torni photo is a portrait, so it is cropped from the top.
+const hotelPhotos = [{ src: ilves, position: '50% 30%' }, { src: torni, position: '50% 4%' }];
 ---
 
 <BaseLayout lang={lang} path="/travel/" title={t.title} description={t.lead}>
@@ -30,8 +36,7 @@ const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
         <p class="lead">{t.stayLead}</p>
       </div>
 
-      <div class="stay-grid">
-        <article class="book">
+      <article class="book">
           <h3>{t.onlineTitle}</h3>
           <p class="label">{t.codeLabel}</p>
           <div class="code-row">
@@ -40,20 +45,24 @@ const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
           </div>
           <p class="muted">{t.onlineText}</p>
           <p class="btn-row"><a class="btn btn-primary" href={hotel.site} target="_blank" rel="noopener">{t.onlineCta} <span class="arrow" aria-hidden="true">→</span></a></p>
-        </article>
+      </article>
 
-        <div class="hotels">
-          {t.hotels.map((h) => (
-            <article class="hotel">
+      <div class="hotels">
+        {t.hotels.map((h, i) => (
+          <article class="hotel">
+            <div class="photo">
+              <Image src={hotelPhotos[i].src} alt={h.name} widths={[500, 800, 1100]} sizes="(min-width: 900px) 580px, 100vw" quality={85} style={`object-position: ${hotelPhotos[i].position}`} />
+            </div>
+            <div class="body">
               <h3>{h.name}</h3>
               <dl>
                 {h.rooms.map(([room, price]) => <div><dt>{room}</dt><dd>{price}</dd></div>)}
               </dl>
-            </article>
-          ))}
-          <p class="muted rates">{t.ratesNote}</p>
-        </div>
+            </div>
+          </article>
+        ))}
       </div>
+      <p class="muted rates">{t.ratesNote}</p>
 
       <div class="phone-box">
         <h3>{t.phoneTitle}</h3>
@@ -67,11 +76,16 @@ const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
     <div class="container">
       <div class="head"><h2>{t.gettingThereTitle}</h2></div>
       <div class="two">
-        <article class="card">
-          <h3>{t.venueTitle}</h3>
-          <p>{t.venueText}</p>
-          <p class="addr">{venue.name}<br />{venue.street}, {venue.city}, {venue.country}</p>
-          <p><a href={venue.mapUrl} target="_blank" rel="noopener">{t.viewOnMap} →</a></p>
+        <article class="card has-photo">
+          <div class="photo">
+            <Image src={areena} alt={t.venueAlt} widths={[500, 800, 1000]} sizes="(min-width: 900px) 580px, 100vw" quality={85} />
+          </div>
+          <div class="body">
+            <h3>{t.venueTitle}</h3>
+            <p>{t.venueText}</p>
+            <p class="addr">{venue.name}<br />{venue.street}, {venue.city}, {venue.country}</p>
+            <p><a href={venue.mapUrl} target="_blank" rel="noopener">{t.viewOnMap} →</a></p>
+          </div>
         </article>
         <article class="card">
           <h3>{t.busTitle}</h3>
@@ -102,11 +116,10 @@ const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
   .head .lead { max-width: 46rem; }
   .muted { color: var(--muted); font-size: var(--text-sm); }
 
-  .stay-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-5); align-items: stretch; }
   .book, .hotel, .card, .phone-box {
     position: relative; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: var(--space-5) var(--space-6);
   }
-  .book { border-color: var(--ice-border); background: linear-gradient(160deg, var(--ice-dim), var(--surface) 70%); display: grid; gap: var(--space-3); align-content: start; }
+  .book { border-color: var(--ice-border); background: linear-gradient(160deg, var(--ice-dim), var(--surface) 70%); display: grid; gap: var(--space-3); align-content: start; margin-bottom: var(--space-5); }
   .book::before, .hotel::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--ice), transparent); opacity: 0.7; }
   h3 { font-size: 1.35rem; }
   .label { font-size: var(--text-xs); letter-spacing: 0.24em; text-transform: uppercase; color: var(--ice); }
@@ -114,19 +127,23 @@ const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
   .code { font-family: var(--font-body); font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 500; letter-spacing: 0.12em; color: var(--white); user-select: all; }
   .book .btn-row { margin-top: var(--space-2); }
 
-  .hotels { display: grid; gap: var(--space-4); align-content: start; }
-  .hotel { display: grid; gap: var(--space-3); padding-block: var(--space-4); }
+  .hotels { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  .hotel, .card.has-photo { padding: 0; overflow: hidden; display: flex; flex-direction: column; gap: 0; }
+  .photo { aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-2); }
+  .photo :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .body { padding: var(--space-5) var(--space-6); display: grid; gap: var(--space-3); align-content: start; }
+  .has-photo .photo { aspect-ratio: 3 / 2; }
   dl > div { display: flex; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-2); border-top: 1px solid var(--line); }
   dt { color: var(--muted); }
   dd { color: var(--white); font-variant-numeric: lining-nums; white-space: nowrap; }
-  .rates { margin-top: calc(var(--space-2) * -1); }
+  .rates { margin-top: var(--space-3); }
 
   .phone-box { margin-top: var(--space-5); display: grid; gap: var(--space-2); padding-block: var(--space-4); }
   .phone-box p { color: var(--muted); }
   .phone-box strong { color: var(--white); font-weight: 500; letter-spacing: 0.06em; }
   .contact { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); }
 
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
   .card { display: grid; gap: var(--space-3); align-content: start; }
   .addr { color: var(--white); }
   .timetable { color: var(--white); }
@@ -134,8 +151,9 @@ const [phoneBefore, phoneAfter] = t.phoneText.split('{code}');
   .visa-links { list-style: none; display: grid; gap: var(--space-2); }
 
   @media (max-width: 900px) {
-    .stay-grid, .two { grid-template-columns: 1fr; }
-    .book, .hotel, .card, .phone-box { padding: var(--space-4); }
+    .hotels, .two { grid-template-columns: 1fr; }
+    .book, .phone-box { padding: var(--space-4); }
+    .body { padding: var(--space-4); }
   }
 </style>
 
