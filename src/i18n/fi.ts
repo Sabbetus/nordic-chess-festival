@@ -66,7 +66,7 @@ const fi: Messages = {
     facts: [
       { value: '9', label: 'Kierrosta' },
       { value: '9', label: 'Päivää' },
-      { value: 'Avoin', label: 'Yksi sarja' },
+      { value: 'Avoin', label: 'Yksi ryhmä' },
       { value: '10 000 €', label: 'Palkinnot' },
     ],
     guests: {
@@ -78,7 +78,7 @@ const fi: Messages = {
     glance: {
       eyebrow: 'Pääturnaus',
       title: 'Yhdeksän kierrosta, yhdeksän päivää',
-      text: 'Yksi avoin sarja yhdeksällä kierroksella. Pariutukset tehdään FIDEn sveitsiläisellä järjestelmällä Baku-kiihdytyksellä. Titteliosuuksien saavuttaminen on mahdollista, ja tulokset huomioidaan sekä FIDEn että Suomen ratinglistoilla.',
+      text: 'Yksi avoin ryhmä yhdeksällä kierroksella. Pariutukset tehdään FIDEn sveitsiläisellä järjestelmällä Baku-kiihdytyksellä. Titteliosuuksien saavuttaminen on mahdollista, ja tulokset huomioidaan sekä FIDEn että Suomen ratinglistoilla.',
       link: 'Koko aikataulu ja säännöt',
       opening: 'Avajaiset',
       prizegiving: 'Palkintojenjako',
@@ -136,7 +136,7 @@ const fi: Messages = {
       organiser: 'Pääjärjestäjä',
     },
     values: {
-      format: 'Yhdeksän kierrosta yhdessä avoimessa sarjassa',
+      format: 'Yhdeksän kierrosta yhdessä avoimessa ryhmässä',
       prizePool: '10 000 € taattu',
       timeControl: '90 min 40 siirrolle + 30 min, lisäksi 30 s siirtoa kohden ensimmäisestä siirrosta alkaen',
       pairings: 'FIDEn sveitsiläinen järjestelmä Baku-kiihdytyksellä (140 pelaajasta alkaen)',
