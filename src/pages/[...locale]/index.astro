@@ -69,7 +69,8 @@ const jsonLd = [
     <div class="floor" aria-hidden="true"></div>
     <div class="container">
       <p class="eyebrow reveal">♛ {h.eyebrow}</p>
-      <h1 class="reveal reveal-1">Nordic <em>Chess</em> Festival</h1>
+      <!-- The logo in the header names the site; the page still needs its h1. -->
+      <h1 class="sr-only">Nordic Chess Festival</h1>
 
       <div class="hero-grid">
         <div class="hero-copy">
@@ -240,14 +241,11 @@ const jsonLd = [
     -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.35) 55%, transparent 92%);
     mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.35) 55%, transparent 92%);
   }
-  /* One line, scaled to the container width */
-  .hero h1 {
-    font-size: clamp(1.75rem, 6.4vw, 5.6rem); line-height: 1.02; letter-spacing: -0.02em; white-space: nowrap;
-    margin-block: var(--space-4) var(--space-6);
-  }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--space-7); align-items: end; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--space-7); align-items: center; }
   .hero-copy { display: grid; gap: var(--space-6); align-content: end; }
-  .hero .lead { font-size: var(--text-lg); max-width: 42rem; }
+  /* Without a big title the introduction carries the hero, so it is set larger. */
+  .hero .lead { font-size: clamp(1.3rem, 0.8vw + 1.1rem, 1.7rem); line-height: 1.5; max-width: 40rem; }
+  .hero .eyebrow { margin-bottom: var(--space-5); }
   .hero .lead .accent { color: var(--ice); }
   .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--line-strong); }
   .facts div { display: flex; flex-direction: column-reverse; gap: 0.3rem; }
