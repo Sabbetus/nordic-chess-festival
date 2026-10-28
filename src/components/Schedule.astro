@@ -21,7 +21,7 @@ const label = (i: (typeof schedule)[number]) =>
       <ul>
         {day.items.map((i) => (
           <li class:list={['item', i.kind]}>
-            <span class="time num">{i.kind === 'confirmation' ? '' : i.time}</span>
+            {i.kind !== 'confirmation' && <span class="time num">{i.time}</span>}
             <span class="what">
               {label(i)}
               {i.kind === 'confirmation' && <small>{t.confirmationDetail}</small>}
@@ -35,15 +35,22 @@ const label = (i: (typeof schedule)[number]) =>
 
 <style>
   .timeline { list-style: none; border-top: 1px solid var(--line); }
-  .day { display: grid; grid-template-columns: 17rem 1fr; gap: var(--space-5); padding-block: var(--space-4); border-bottom: 1px solid var(--line); align-items: baseline; }
-  .day h3 { font-size: 1.5rem; line-height: 1.3; color: var(--white); text-transform: capitalize; }
-  .day ul { list-style: none; display: grid; gap: var(--space-2); }
-  .item { display: grid; grid-template-columns: 8.5rem 1fr; align-items: baseline; gap: var(--space-4); min-height: 2.25rem; }
-  .time { font-weight: 500; color: var(--muted); font-size: var(--text-sm); letter-spacing: 0.04em; }
-  .what { color: var(--muted); }
-  .what small { display: block; font-size: var(--text-sm); color: var(--muted-2); }
+  .day { display: grid; grid-template-columns: 13rem 1fr; gap: var(--space-4); padding-block: 0.85rem; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .day h3 { font-size: 1.25rem; line-height: 1.3; color: var(--white); }
+  /* Only the first letter: Finnish month names are not capitalised. */
+  .day h3::first-letter { text-transform: uppercase; }
+  .day ul { list-style: none; display: grid; gap: 0.3rem; }
+  .item { display: grid; grid-template-columns: 4.5rem 1fr; align-items: baseline; gap: var(--space-3); }
+  .time { font-weight: 500; color: var(--muted); font-size: var(--text-sm); letter-spacing: 0.04em; font-variant-numeric: tabular-nums lining-nums; }
+  .what { color: var(--muted); line-height: 1.5; }
+  .what small { display: block; font-size: var(--text-sm); color: var(--muted-2); line-height: 1.5; }
   .round .time { color: var(--ice); }
-  .round .what { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; color: var(--white); font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
-  .opening .what, .prizegiving .what, .confirmation .what { font-size: var(--text-base); line-height: 1.6; }
-  @media (max-width: 700px) { .day { grid-template-columns: 1fr; gap: var(--space-3); } .item { grid-template-columns: 7rem 1fr; } }
+  .round .what { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; color: var(--white); font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+  /* Confirmation has a time window rather than a time, so its text uses the full row. */
+  .item.confirmation { grid-template-columns: 1fr; }
+  @media (max-width: 700px) {
+    .day { grid-template-columns: 1fr; gap: 0.25rem; padding-block: 0.7rem; }
+    .day h3 { font-size: 1.1rem; }
+    .item { grid-template-columns: 3.6rem 1fr; gap: var(--space-3); }
+  }
 </style>
