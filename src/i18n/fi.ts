@@ -358,7 +358,7 @@ const fi: Messages = {
     busTimetable: 'Aikataulua ei julkaista verkkosivuilla. Se lähetetään sähköpostitse ilmoittautuneille pelaajille, jotka ovat ostaneet bussikuljetuksen.',
     busCta: 'Lisää bussi ilmoittautuessasi',
     localTitle: 'Paikallisbussi',
-    localText: 'Paikallisbussit kulkevat Tampereen keskustan ja Kangasalan välillä. Jää pois Kangasalan linja-autoasemalla: sieltä Kangasala Areenalle on noin 20 minuutin kävelymatka. Festivaalibussi vie suoraan pelipaikalle, mutta se voi maksaa enemmän kuin paikallisbussin lippu. Valinta on sinun.',
+    localText: 'Paikallisbussit kulkevat Tampereen keskustan ja Kangasalan välillä. Jää pois Kangasalan linja-autoasemalla: sieltä Kangasala Areenalle on noin 20 minuutin kävelymatka.',
     localCta: 'Suunnittele matka Nyssen reittioppaalla',
     parkingTitle: 'Pysäköinti',
     parkingText: 'Kangasala Areenalla on iso parkkialue. Läheisyydessä on myös muita yleisiä pysäköintialueita.',

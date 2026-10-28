@@ -356,7 +356,7 @@ const en = {
     busTimetable: 'The timetable is not published on the website. It is emailed to registered players who have bought the bus transfer.',
     busCta: 'Add the bus when you register',
     localTitle: 'Local bus',
-    localText: 'Local buses run between central Tampere and Kangasala. Get off at the Kangasala bus station: Kangasala Areena is about a 20-minute walk from there. The festival bus goes straight to the venue but may cost more than a local bus ticket. It is up to you which you choose.',
+    localText: 'Local buses run between central Tampere and Kangasala. Get off at the Kangasala bus station: Kangasala Areena is about a 20-minute walk from there.',
     localCta: 'Plan your trip with Nysse',
     parkingTitle: 'Parking',
     parkingText: 'There is a large parking lot at Kangasala Areena. There are also other public parking lots nearby.',
