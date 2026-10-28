@@ -223,7 +223,7 @@ const jsonLd = [
 
 <style>
   /* ---------- Hero ---------- */
-  .hero { position: relative; isolation: isolate; overflow: hidden; padding-block: clamp(3.5rem, 8vw, 6.5rem) var(--space-7); }
+  .hero { position: relative; isolation: isolate; overflow: hidden; padding-block: clamp(2rem, 4vw, 3.5rem) var(--space-6); }
   .hero::before {
     content: ''; position: absolute; inset: 0; z-index: -2; pointer-events: none;
     background:
@@ -243,11 +243,10 @@ const jsonLd = [
   }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--space-7); align-items: center; }
   .hero-copy { display: grid; gap: var(--space-6); align-content: end; }
-  /* Without a big title the introduction carries the hero, so it is set larger. */
-  .hero .lead { font-size: clamp(1.3rem, 0.8vw + 1.1rem, 1.7rem); line-height: 1.5; max-width: 40rem; }
-  .hero .eyebrow { margin-bottom: var(--space-5); }
+  .hero .lead { font-size: var(--text-lg); max-width: 42rem; }
+  .hero .eyebrow { margin-bottom: var(--space-4); }
   .hero .lead .accent { color: var(--ice); }
-  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--line-strong); }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--line-strong); }
   .facts div { display: flex; flex-direction: column-reverse; gap: 0.3rem; }
   .facts dd { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1; white-space: nowrap; }
   .facts dt { font-size: var(--text-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
