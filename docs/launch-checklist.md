@@ -18,6 +18,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 ## Registration and payments
 
 - [ ] Replace the Stripe sandbox keys with live ones: `STRIPE_SECRET_KEY` (restricted key, Checkout Sessions: Write only) and a new webhook endpoint for the final domain with its `STRIPE_WEBHOOK_SECRET`.
+- [ ] Turn on Stripe's receipt emails for live payments (Settings, Customer emails, successful payments). Sandbox payments never send emails, so this can only be checked with a real payment.
 - [ ] Enable the payment methods in live mode (cards, Apple Pay, Google Pay, MobilePay, Klarna).
 - [ ] Delete the test registrations: `DELETE FROM registrations;` in the D1 console.
 - [ ] Put `/admin/*` and `/api/admin/*` behind Cloudflare Access (named organiser emails only).
