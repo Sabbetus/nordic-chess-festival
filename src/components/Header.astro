@@ -62,7 +62,7 @@ const here = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? '
 
   @media (max-width: 1400px) {
     .menu-btn {
-      display: grid; place-items: center; width: 2.75rem; height: 2.75rem; position: relative; z-index: 2;
+      display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex: 0 0 2.75rem; position: relative; z-index: 2;
       background: none; border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--white); cursor: pointer;
     }
     .bars { position: relative; width: 1.1rem; height: 0.7rem; }
@@ -83,6 +83,13 @@ const here = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? '
     .nav ul li { border-bottom: 1px solid var(--line); }
     .nav ul a { display: block; font-family: var(--font-display); font-size: 1.9rem; font-weight: 600; color: var(--white); padding-block: var(--space-3); border: 0; }
     .nav-extras { justify-content: space-between; }
+  }
+
+  /* Phones keep the original small uppercase logo (it was already clear there); it may shrink a little on the narrowest
+     screens so the menu button never gets squeezed. */
+  @media (max-width: 700px) {
+    .logo { font-size: clamp(1rem, 5vw, 1.2rem); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+    .logo span { font-style: normal; font-weight: 400; }
   }
 </style>
 
