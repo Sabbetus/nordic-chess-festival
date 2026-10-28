@@ -243,8 +243,9 @@ const jsonLd = [
   }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--space-7); align-items: center; }
   .hero-copy { display: grid; gap: var(--space-6); align-content: end; }
-  /* Nudged up a little; only the text moves, the dates above and the buttons below stay put. */
-  .hero .lead { font-size: var(--text-lg); max-width: 42rem; position: relative; top: -0.6rem; }
+  .hero .lead { font-size: var(--text-lg); max-width: 42rem; }
+  /* Desktop layout only: nudge the text up a little; the dates above and the buttons below stay put. */
+  @media (min-width: 1101px) { .hero .lead { position: relative; top: -0.6rem; } }
   .hero .eyebrow { margin-bottom: var(--space-4); }
   .hero .lead .accent { color: var(--ice); }
   .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--line-strong); }
