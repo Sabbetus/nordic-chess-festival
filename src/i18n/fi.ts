@@ -313,9 +313,7 @@ const fi: Messages = {
     detailsTitle: 'Palkintorakenne',
     items: [
       'Parhaat palkinnot on varattu kärkipelaajille',
-      'Palkinto parhaalle naispelaajalle',
-      'Palkinto parhaalle juniorille',
-      'Palkinto parhaalle seniorille',
+      'Palkinnot parhaalle naispelaajalle, parhaalle juniorille ja parhaalle seniorille',
       'Ratingluokkapalkinnot, joten jokaisella tasolla on tavoiteltavaa',
     ],
     sharing: 'Palkinnot jaetaan samalla pistemäärällä olevien pelaajien kesken, ja yksi pelaaja voi saada vain yhden rahapalkinnon. Katso kilpailumääräysten 8 §.',

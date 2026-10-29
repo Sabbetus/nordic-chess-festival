@@ -311,9 +311,7 @@ const en = {
     detailsTitle: 'Prize structure',
     items: [
       'The best prizes are reserved for the top players',
-      'A prize for the best women player',
-      'A prize for the best junior player',
-      'A prize for the best senior player',
+      'Prizes for the best women player, the best junior and the best senior',
       'Rating tier prizes, so there is something to play for at every level',
     ],
     sharing: 'Prizes are shared among players on the same score, and one player can receive only one cash prize. See § 8 of the competition regulations.',
