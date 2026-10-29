@@ -71,7 +71,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
   :global(.early-bird-over) .when.cd-round { display: grid; }
   .is-started .digits, .is-started .cd-round, .is-started .cd-early { display: none !important; }
 
-  @media (max-width: 480px) { .digits { gap: var(--space-2); } }
+  /* Small screens: the longest label (Finnish "MINUUTTIA") must fit its column, or it widens the whole hero. */
+  @media (max-width: 480px) { .digits { gap: var(--space-2); } .digits small { font-size: 0.56rem; letter-spacing: 0.08em; padding-left: 0.08em; } .digits > div { padding-inline: 0.1rem; } }
 </style>
 
 <script>

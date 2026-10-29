@@ -241,7 +241,8 @@ const jsonLd = [
   .hero .eyebrow { margin-bottom: var(--space-4); }
   /* Phones: the place and dates stay on one line, scaling with the screen width. */
   @media (max-width: 700px) { .hero .eyebrow { white-space: nowrap; font-size: min(0.75rem, 3.4vw); letter-spacing: 0.1em; } }
-  .hero .lead .accent { color: var(--ice); }
+  /* The highlighted closing line moves as a whole to the next line instead of being split. */
+  .hero .lead .accent { color: var(--ice); white-space: nowrap; }
   .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--line-strong); }
   .facts div { display: flex; flex-direction: column-reverse; gap: 0.3rem; }
   .facts dd { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1; white-space: nowrap; }
@@ -302,7 +303,7 @@ const jsonLd = [
 
   @media (max-width: 1100px) {
     .guest-grid { grid-template-columns: repeat(2, 1fr); }
-    .hero-grid { grid-template-columns: 1fr; gap: var(--space-6); align-items: start; }
+    .hero-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: start; }
     .panels { grid-template-columns: 1fr; }
     .panel + .panel { border-left: 0; border-top: 1px solid var(--line-strong); }
     .prize-grid { grid-template-columns: 1fr; gap: var(--space-5); }
