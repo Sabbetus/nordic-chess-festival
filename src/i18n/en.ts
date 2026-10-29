@@ -58,7 +58,7 @@ const en = {
       hours: 'hours',
       minutes: 'minutes',
       seconds: 'seconds',
-      when: 'Saturday 12 June 2027 at 14:00',
+      when: 'Saturday 12 June 2027 at 16:00',
       started: 'The festival has begun',
     },
     facts: [
@@ -76,10 +76,8 @@ const en = {
     glance: {
       eyebrow: 'Main Event',
       title: 'Nine rounds, nine days',
-      text: 'A single open group of nine rounds. Pairings use the FIDE Swiss system with Baku acceleration. Title norms are possible, and the results count for both FIDE and the Finnish rating lists.',
+      text: 'A single open group of nine rounds. Pairings use the FIDE Swiss system with Baku acceleration. Title norms are possible, and the results count for both FIDE and the Finnish rating lists. The first round is played on 12 June and the last on 20 June.',
       link: 'Full schedule and regulations',
-      opening: 'Opening ceremony',
-      prizegiving: 'Prize-giving ceremony',
     },
     location: {
       eyebrow: 'Kangasala, Finland',
@@ -145,7 +143,7 @@ const en = {
     scheduleNote: 'All times are Finnish local time (EEST, UTC+3).',
     round: 'Round',
     confirmation: 'Confirmation of participation',
-    confirmationDetail: 'Online from 00:00 to 12:00 (email link), or on site 10:00\u2060–\u206012:00',
+    confirmationDetail: 'Online from 00:00 to 12:00 (email link), or on site 12:00\u2060–\u206014:00',
     confirmationWarning: 'All players must confirm their participation on Saturday. Players who have not confirmed will not be paired for round 1.',
     opening: 'Opening ceremony',
     prizegiving: 'Prize-giving ceremony',

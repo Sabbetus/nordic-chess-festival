@@ -3,13 +3,12 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import GuestCard from '../../components/GuestCard.astro';
 import Countdown from '../../components/Countdown.astro';
-import RoundTiles from '../../components/RoundTiles.astro';
 import NewsCard from '../../components/NewsCard.astro';
 import Newsletter from '../../components/Newsletter.astro';
 import LocationBand from '../../components/LocationBand.astro';
-import { localeStaticPaths, localePath, messages, formatDayShort } from '../../i18n/utils';
+import { localeStaticPaths, localePath, messages } from '../../i18n/utils';
 import { festival } from '../../data/fees';
-import { schedule, venue } from '../../data/schedule';
+import { venue } from '../../data/schedule';
 import { site } from '../../data/site';
 
 export function getStaticPaths() {
@@ -31,8 +30,6 @@ const MOBILE_GUESTS = 5;
 
 // When the last row of the three-column grid is not full, a placeholder card fills it.
 const fillsRow = guests.length % 3 === 0;
-const opening = schedule.find((i) => i.kind === 'opening')!;
-const prizegiving = schedule.find((i) => i.kind === 'prizegiving')!;
 
 const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'WebSite', name: festival.name, url: site.url },
@@ -128,11 +125,6 @@ const jsonLd = [
         </div>
         <a class="btn btn-ghost btn-sm" href={localePath(lang, '/main-event/')}>{h.glance.link}</a>
       </div>
-      <RoundTiles lang={lang} />
-      <ul class="ceremonies">
-        <li><span>{h.glance.opening}</span> <strong class="num">{formatDayShort(lang, opening.date)} · {opening.time}</strong></li>
-        <li><span>{h.glance.prizegiving}</span> <strong class="num">{formatDayShort(lang, prizegiving.date)} · {prizegiving.time}</strong></li>
-      </ul>
     </div>
   </section>
 
@@ -247,6 +239,8 @@ const jsonLd = [
   /* Desktop layout only: nudge the text up a little; the dates above and the buttons below stay put. */
   @media (min-width: 1101px) { .hero .lead { position: relative; top: -0.6rem; } }
   .hero .eyebrow { margin-bottom: var(--space-4); }
+  /* Phones: the place and dates stay on one line, scaling with the screen width. */
+  @media (max-width: 700px) { .hero .eyebrow { white-space: nowrap; font-size: min(0.75rem, 3.4vw); letter-spacing: 0.1em; } }
   .hero .lead .accent { color: var(--ice); }
   .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--line-strong); }
   .facts div { display: flex; flex-direction: column-reverse; gap: 0.3rem; }
@@ -264,8 +258,6 @@ const jsonLd = [
   .mobile-more { display: none; }
   .guest-more { aspect-ratio: var(--guest-aspect, 3 / 4); border: 1px dashed var(--line-strong); border-radius: var(--radius); display: grid; place-items: center; padding: var(--space-5); text-align: center; color: var(--muted); font-size: var(--text-sm); letter-spacing: 0.04em; }
   .more { margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted-2); letter-spacing: 0.04em; }
-  .ceremonies { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted); }
-  .ceremonies strong { color: var(--white); font-weight: 500; margin-left: var(--space-2); }
 
   .prize { position: relative; overflow: hidden; }
   .prize::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(45% 80% at 18% 50%, rgba(126, 200, 227, 0.13), transparent 70%); }

@@ -8,7 +8,7 @@ preliminary: true
 **Confirmation of participation:** Saturday 12 June
 
 - Electronically: 00:00–12:00 (email link)
-- On site: 10:00–12:00
+- On site: 12:00–14:00
 
 **All players must confirm their participation on Saturday. Players who have not confirmed their participation will not be paired for round 1.**
 

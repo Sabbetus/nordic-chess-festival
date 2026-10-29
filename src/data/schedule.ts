@@ -23,9 +23,9 @@ export interface ScheduleItem {
 }
 
 export const schedule: readonly ScheduleItem[] = [
-  { kind: 'confirmation', date: '2027-06-12', time: '12:00' },
-  { kind: 'opening', date: '2027-06-12', time: '13:30' },
-  { kind: 'round', round: 1, date: '2027-06-12', time: '14:00' },
+  { kind: 'confirmation', date: '2027-06-12', time: '14:00' },
+  { kind: 'opening', date: '2027-06-12', time: '15:30' },
+  { kind: 'round', round: 1, date: '2027-06-12', time: '16:00' },
   { kind: 'round', round: 2, date: '2027-06-13', time: '14:00' },
   { kind: 'round', round: 3, date: '2027-06-14', time: '14:00' },
   { kind: 'round', round: 4, date: '2027-06-15', time: '14:00' },

@@ -60,7 +60,7 @@ const fi: Messages = {
       hours: 'tuntia',
       minutes: 'minuuttia',
       seconds: 'sekuntia',
-      when: 'lauantaina 12. kesäkuuta 2027 klo 14:00',
+      when: 'lauantaina 12. kesäkuuta 2027 klo 16:00',
       started: 'Festivaali on alkanut',
     },
     facts: [
@@ -78,10 +78,8 @@ const fi: Messages = {
     glance: {
       eyebrow: 'Pääturnaus',
       title: 'Yhdeksän kierrosta, yhdeksän päivää',
-      text: 'Yksi avoin ryhmä yhdeksällä kierroksella. Pariutukset tehdään FIDEn sveitsiläisellä järjestelmällä Baku-kiihdytyksellä. Titteliosuuksien saavuttaminen on mahdollista, ja tulokset huomioidaan sekä FIDEn että Suomen ratinglistoilla.',
+      text: 'Yksi avoin ryhmä yhdeksällä kierroksella. Pariutukset tehdään FIDEn sveitsiläisellä järjestelmällä Baku-kiihdytyksellä. Titteliosuuksien saavuttaminen on mahdollista, ja tulokset huomioidaan sekä FIDEn että Suomen ratinglistoilla. Ensimmäinen kierros pelataan 12. kesäkuuta ja viimeinen 20. kesäkuuta.',
       link: 'Koko aikataulu ja säännöt',
-      opening: 'Avajaiset',
-      prizegiving: 'Palkintojenjako',
     },
     location: {
       eyebrow: 'Kangasala',
@@ -147,7 +145,7 @@ const fi: Messages = {
     scheduleNote: 'Kaikki ajat ovat Suomen aikaa (EEST, UTC+3).',
     round: 'Kierros',
     confirmation: 'Osallistumisen vahvistaminen',
-    confirmationDetail: 'Verkossa klo 00:00–12:00 (sähköpostilinkki) tai paikan päällä klo 10:00\u2060–\u206012:00',
+    confirmationDetail: 'Verkossa klo 00:00–12:00 (sähköpostilinkki) tai paikan päällä klo 12:00\u2060–\u206014:00',
     confirmationWarning: 'Kaikkien pelaajien on vahvistettava osallistumisensa lauantaina. Pelaajia, jotka eivät ole vahvistaneet osallistumistaan, ei pariuteta ensimmäiselle kierrokselle.',
     opening: 'Avajaiset',
     prizegiving: 'Palkintojenjako',
