@@ -44,7 +44,7 @@ const en = {
       'A former World Championship challenger.',
       'Strongest Finnish player of\u00A0all\u00A0time.',
       'Multiple Nordic champions.',
-      'One of the biggest names in chess content creation.',
+      'Your favorite chess streamers.',
       'And you, across the board.',
     ],
     ctaPrimary: 'Registration',

@@ -46,7 +46,7 @@ const fi: Messages = {
       'Entinen maailmanmestaruushaastaja.',
       'Suomen kaikkien aikojen vahvin pelaaja.',
       'Useita Pohjoismaiden mestareita.',
-      'Yksi shakkisisällöntuotannon suurimmista nimistä.',
+      'Suosikkisi shakkistriimaajat.',
       'Ja sinä, laudan toisella puolella.',
     ],
     ctaPrimary: 'Ilmoittautuminen',
