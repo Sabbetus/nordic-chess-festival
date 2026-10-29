@@ -1,6 +1,6 @@
 ---
 title: Tietosuojaseloste
-updated: '2026-10-27'
+updated: '2026-10-29'
 draft: true
 ---
 
@@ -22,7 +22,7 @@ Ilmoittautumisessa keräämme:
 
 Järjestäjät voivat pyynnöstä korjata nimen, esimerkiksi osallistujaluetteloa tai nimikylttiä varten.
 
-Emme vastaanota emmekä tallenna kortti- tai MobilePay-tietojasi. Maksut käsittelee kokonaisuudessaan Stripe, joka antaa meille maksun tilan ja summan.
+Emme vastaanota emmekä tallenna korttitietojasi. Maksut käsittelee ulkopuolinen maksupalvelun tarjoaja, joka antaa meille vain maksun tilan ja summan.
 
 ## Miksi käsittelemme tietoja ja millä perusteella
 
@@ -38,13 +38,15 @@ Ilmoittautuneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa c
 
 ## Kuka käsittelee tietoja
 
-- **Stripe** (maksut).
-- **Cloudflare** (tämän sivuston ja ilmoittautumistietokannan hosting).
-- **Turnausohjelmisto ja chess-results.com** (Swiss-Manager ja Chess-Results), järjestäjien ja pääsuorittajien käytössä.
-- **FIDE ja Suomen Shakkiliitto** rating- ja tulosraportointia varten.
-- **Google**, vain jos tilaat uutiskirjeen sivuston lomakkeella.
+Käytämme seuraavia palveluntarjoajia ja tietojen vastaanottajia:
 
-Osa palveluntarjoajista sijaitsee EU:n/ETA:n ulkopuolella, erityisesti Yhdysvalloissa. Tällöin siirrot perustuvat GDPR:n edellyttämiin suojatoimiin, kuten EU–USA-tietosuojakehykseen (Data Privacy Framework) tai vakiosopimuslausekkeisiin.
+- **Maksupalvelun tarjoaja** verkossa tehtäviä kortti- ja mobiilimaksuja varten.
+- **IT-palveluntarjoajat** tämän sivuston ylläpitoa ja ilmoittautumistietojen tallennusta varten.
+- **Turnauksenhallintaohjelmisto**, jota järjestäjät ja pääsuorittajat käyttävät, sekä **verkossa toimiva tulospalvelu**, jossa tulokset julkaistaan (chess-results.com).
+- **FIDE ja Suomen Shakkiliitto** rating- ja tulosraportointia varten.
+- **Uutiskirjepalvelun tarjoaja**, vain jos tilaat uutiskirjeen.
+
+Osa palveluntarjoajista käsittelee tietoja puolestamme. Osa, kuten maksupalvelun tarjoaja, vastaa itse maksutietojesi käsittelystä. Osa palveluntarjoajista sijaitsee EU:n/ETA:n ulkopuolella, erityisesti Yhdysvalloissa. Tällöin siirrot perustuvat GDPR:n edellyttämiin suojatoimiin, kuten EU–USA-tietosuojakehykseen (Data Privacy Framework) tai vakiosopimuslausekkeisiin. Pyynnöstä kerromme, mitkä tietyt palveluntarjoajat käsittelevät tietojasi.
 
 ## Kuinka kauan tietoja säilytetään
 
@@ -54,7 +56,7 @@ Osa palveluntarjoajista sijaitsee EU:n/ETA:n ulkopuolella, erityisesti Yhdysvall
 
 ## Miten suojaamme tiedot
 
-Ilmoittautumistiedot tallennetaan pääsynhallittuun tietokantaan. Järjestäjänäkymä on suojattu salaisella pääsyavaimella, ja se on vain muutaman nimetyn järjestäjän ja pääsuorittajan käytössä. Kaikki liikenne kulkee HTTPS-yhteydellä, maksut vahvistetaan Stripen allekirjoitetuilla viesteillä, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä.
+Ilmoittautumistiedot tallennetaan pääsynhallittuun järjestelmään, ja niihin on pääsy vain muutamalla nimetyllä järjestäjällä ja pääsuorittajalla. Yhteydet on salattu, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä.
 
 ## Oikeutesi
 

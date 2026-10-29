@@ -7,7 +7,7 @@ preliminary: true
 
 **Osallistumisen varmistus:** la 12.6.
 
-- Sähköisesti: klo 00.00–12.00 (sähköpostilinkki)
+- Sähköisesti: klo 00.00–14.00 (sähköpostilinkki)
 - Pelipaikalla: klo 12.00–14.00
 
 **Jokaisen pelaajan tulee varmistaa osallistumisensa lauantaina. Pelaajia, jotka eivät ole varmistaneet osallistumistaan, ei oteta mukaan 1. kierroksen paritukseen.**

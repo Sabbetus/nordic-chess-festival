@@ -1,6 +1,6 @@
 ---
 title: Privacy policy
-updated: '2026-10-27'
+updated: '2026-10-29'
 draft: true
 ---
 
@@ -22,7 +22,7 @@ When you register we collect:
 
 The organisers can correct a name on request, for example for the entry list or your badge.
 
-We do **not** receive or store your card or MobilePay details. Payments are handled entirely by Stripe, which gives us the payment status and the amount.
+We do **not** receive or store your card details. Payments are handled by an external payment service provider, which gives us only the payment status and the amount.
 
 ## Why we use it and on what basis
 
@@ -38,13 +38,15 @@ Registered players appear in the public player list and results on chess-results
 
 ## Who processes your data
 
-- **Stripe** (payments).
-- **Cloudflare** (hosting of this website and of the registration database).
-- **Tournament software and chess-results.com** (Swiss-Manager and Chess-Results), used by the organisers and arbiters.
-- **FIDE and the Finnish Chess Federation**, for rating and result reporting.
-- **Google**, only if you subscribe to the newsletter through the newsletter form.
+We use the following kinds of service providers and recipients:
 
-Some of these providers are located outside the EU/EEA, in particular in the United States. In that case the transfer relies on safeguards required by the GDPR, such as the EU–US Data Privacy Framework or standard contractual clauses.
+- **A payment service provider** for online card and mobile payments.
+- **IT service providers** for hosting this website and storing the registration data.
+- **Tournament management software**, used by the organisers and arbiters, and **an online results service** where results are published (chess-results.com).
+- **FIDE and the Finnish Chess Federation**, for rating and result reporting.
+- **A newsletter service provider**, only if you subscribe to the newsletter.
+
+Some of them process data on our behalf. Others, such as the payment provider, are responsible for their own processing of your payment data. Some providers are located outside the EU/EEA, in particular in the United States. In that case the transfer relies on safeguards required by the GDPR, such as the EU–US Data Privacy Framework or standard contractual clauses. On request we tell you which specific providers hold your data.
 
 ## How long we keep it
 
@@ -54,7 +56,7 @@ Some of these providers are located outside the EU/EEA, in particular in the Uni
 
 ## How we protect it
 
-Registration data is stored in an access-controlled database. The organiser view is protected by a secret access key and is available only to a small number of named organisers and arbiters. All traffic uses HTTPS, payments are confirmed through signed messages from Stripe, and no card data passes through our systems. We do not use advertising or tracking cookies on this website.
+Registration data is stored in an access-controlled system and is available only to a small number of named organisers and arbiters. Connections are encrypted, and card details never pass through our systems. We do not use advertising or tracking cookies on this website.
 
 ## Your rights
 
