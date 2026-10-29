@@ -89,7 +89,7 @@ const fi: Messages = {
     },
     prize: {
       eyebrow: 'Palkinnot',
-      text: 'Taattu palkintopotti koko kentälle. Parhaalle naispelaajalle on oma palkintonsa, ja ratingluokille jaetaan palkintoja, joten jokaisella tasolla on tavoiteltavaa.',
+      text: 'Taattu palkintopotti koko kentälle. Parhaalle naispelaajalle, parhaalle juniorille ja parhaalle seniorille on omat palkintonsa, ja ratingluokille jaetaan palkintoja, joten jokaisella tasolla on tavoiteltavaa.',
       cta: 'Tietoa palkinnoista',
     },
     fees: {
@@ -314,6 +314,8 @@ const fi: Messages = {
     items: [
       'Parhaat palkinnot on varattu kärkipelaajille',
       'Palkinto parhaalle naispelaajalle',
+      'Palkinto parhaalle juniorille',
+      'Palkinto parhaalle seniorille',
       'Ratingluokkapalkinnot, joten jokaisella tasolla on tavoiteltavaa',
     ],
     sharing: 'Palkinnot jaetaan samalla pistemäärällä olevien pelaajien kesken, ja yksi pelaaja voi saada vain yhden rahapalkinnon. Katso kilpailumääräysten 8 §.',

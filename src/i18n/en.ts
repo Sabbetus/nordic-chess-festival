@@ -87,7 +87,7 @@ const en = {
     },
     prize: {
       eyebrow: 'Prizes',
-      text: 'A guaranteed prize pool for the whole field. There is a prize for the best women player, and there are rating tier prizes, so there is something to play for at every level.',
+      text: 'A guaranteed prize pool for the whole field. There are prizes for the best women player, the best junior and the best senior, and there are rating tier prizes, so there is something to play for at every level.',
       cta: 'About the prizes',
     },
     fees: {
@@ -312,6 +312,8 @@ const en = {
     items: [
       'The best prizes are reserved for the top players',
       'A prize for the best women player',
+      'A prize for the best junior player',
+      'A prize for the best senior player',
       'Rating tier prizes, so there is something to play for at every level',
     ],
     sharing: 'Prizes are shared among players on the same score, and one player can receive only one cash prize. See § 8 of the competition regulations.',
