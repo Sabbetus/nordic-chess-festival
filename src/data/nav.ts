@@ -38,7 +38,7 @@ export const footerGroups: { title: 'mainEvent' | 'info'; items: NavItem[] }[] =
       { key: 'travel', path: '/travel/' },
       { key: 'news', path: '/news/' },
       { key: 'faq', path: '/faq/' },
-      { key: 'live', path: '/live/' },
+      { key: 'broadcast', path: '/broadcast/' },
       { key: 'contact', path: '/contact/' },
       { key: 'privacy', path: '/privacy/' },
     ],

@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { locales, defaultLocale, localePath, messages, formatMonthYear } from "../../../i18n/utils";
+import { titleLabel } from "../../../lib/titles";
 
 export async function getStaticPaths() {
   const guests = await getCollection("guests");
@@ -17,7 +18,7 @@ export async function getStaticPaths() {
 const { lang, guest } = Astro.props;
 const m = messages[lang];
 const d = guest.data;
-const fullName = `${d.title ? d.title + " " : ""}${d.name}`;
+const fullName = `${d.title ? titleLabel(lang, d.title) + " " : ""}${d.name}`;
 const paragraphs = d.bio[lang].trim().split(/\n\s*\n/);
 const spread = d.photo ? Math.max(1, d.photo.width / d.photo.height / 0.8) : 1;
 const widths = d.photo

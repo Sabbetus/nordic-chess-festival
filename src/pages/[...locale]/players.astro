@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import { localeStaticPaths, messages } from "../../i18n/utils";
+import { titleLabel } from "../../lib/titles";
 export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
 const m = messages[lang];
@@ -36,7 +37,7 @@ const updated = registered.updatedAt ? formatDate(lang, new Date(registered.upda
               {list.map((pl, i) => (
                 <tr>
                   <td class="col-num">{i + 1}</td>
-                  <td>{pl.title ?? ''}</td>
+                  <td>{pl.title ? titleLabel(lang, pl.title) : ''}</td>
                   <th scope="row">{pl.name}</th>
                   <td>{pl.fed}</td>
                   <td class="col-num">{pl.rating ?? ''}</td>

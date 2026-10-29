@@ -37,7 +37,7 @@ const fi: Messages = {
     news: 'Uutiset',
     faq: 'UKK',
     contact: 'Yhteystiedot',
-    live: 'Livenä',
+    broadcast: 'Suora lähetys',
     privacy: 'Tietosuojaseloste',
   },
   home: {
@@ -97,7 +97,7 @@ const fi: Messages = {
       title: 'Early bird: säästä jopa 25 %',
       text: 'Maksa osallistumismaksu 31. tammikuuta 2027 mennessä ja saat early bird -hinnan. Juniorit ja seniorit maksavat aina alennetun hinnan.',
       textAfter: 'Osallistumismaksu riippuu FIDE-ratingistasi maksupäivänä. Juniorit ja seniorit maksavat alennetun hinnan.',
-      free: 'Suurmestarit (GM ja WGM) pelaavat ilmaiseksi.',
+      free: 'Suurmestarit (SM ja NSM) pelaavat ilmaiseksi.',
       cta: 'Katso kaikki maksut',
     },
     venue: {
@@ -188,7 +188,7 @@ const fi: Messages = {
     ],
     form: {
       heading: 'Ilmoittaudu',
-      intro: 'Täytä tietosi, tarkista hinta ja siirry turvalliseen maksuun. Suurmestarit (GM, WGM) ilmoittautuvat myös tässä, maksutta.',
+      intro: 'Täytä tietosi, tarkista hinta ja siirry turvalliseen maksuun. Suurmestarit (SM, NSM) ilmoittautuvat myös tässä, maksutta.',
       sectionAbout: 'Tietosi',
       sectionChess: 'Shakkitiedot',
       sectionExtras: 'Lisäpalvelut',
@@ -386,8 +386,8 @@ const fi: Messages = {
     organiserText: 'Nordic Chess Festival ry',
     businessId: 'Y-tunnus',
   },
-  live: {
-    title: 'Livenä',
+  broadcast: {
+    title: 'Suora lähetys',
     lead: 'Parit, tulokset ja suorat lähetykset pääturnauksen aikana.',
     text: 'Tältä sivulta pääsee parien, tulosten ja pelilähetysten luo, kun pääturnaus alkaa.',
   },

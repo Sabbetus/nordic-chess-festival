@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { localePath, messages, type Locale } from '../i18n/utils';
+import { titleLabel } from '../lib/titles';
 
 interface Props { guest: CollectionEntry<'guests'>; lang: Locale }
 const { guest, lang } = Astro.props;
@@ -28,7 +29,7 @@ const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
     {d.placeholder && <span class="badge">{m.guests.placeholderBadge}</span>}
   </div>
   <div class="info">
-    <p class="eyebrow">{[d.title, d.federation, d.kind === 'streamer' ? m.guests.streamerLabel : null].filter(Boolean).join(' · ')}</p>
+    <p class="eyebrow">{[d.title ? titleLabel(lang, d.title) : null, d.federation, d.kind === 'streamer' ? m.guests.streamerLabel : null].filter(Boolean).join(' · ')}</p>
     <h3>{d.name}</h3>
     {d.tagline && <p class="tagline">{d.tagline[lang]}</p>}
   </div>

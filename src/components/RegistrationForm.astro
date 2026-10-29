@@ -3,6 +3,7 @@ import { getCountries, getCountryCallingCode } from 'libphonenumber-js/min';
 import { federationOptions } from '../data/federations';
 import { busTransfer, formatEuro } from '../data/fees';
 import { titles } from '../lib/registration';
+import { titleLabel, titlesFi } from '../lib/titles';
 import { localePath, messages, type Locale } from '../i18n/utils';
 
 interface Props { lang: Locale }
@@ -20,7 +21,7 @@ const [acceptC, acceptD] = acceptB.split('{refunds}');
 const [acceptE, acceptF] = acceptD.split('{privacy}');
 const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '';
 const ui = {
-  lang, bus: busTransfer.price, free: f.free, reasons: f.reasons, hint: f.summaryHint, hintBirth: f.summaryHintBirth, earlyBirdNote: f.earlyBirdNote,
+  lang, titleMap: lang === 'fi' ? titlesFi : {}, bus: busTransfer.price, free: f.free, reasons: f.reasons, hint: f.summaryHint, hintBirth: f.summaryHintBirth, earlyBirdNote: f.earlyBirdNote,
   gmNote: f.gmNote, unratedNote: f.unratedNote, submitPay: f.submitPay, submitFree: f.submitFree, sending: f.sending,
   errors: {
     name: f.errName, email: f.errEmail, phone: f.errPhone, fideId: f.errFideId, rating: f.errRating, birthYear: f.errBirthYear,
@@ -87,7 +88,7 @@ const ui = {
             <label for="f-title">{f.fideTitle}</label>
             <select id="f-title" name="title">
               <option value="">{f.fideTitleNone}</option>
-              {titles.map((t) => <option value={t}>{t}</option>)}
+              {titles.map((t) => <option value={t}>{titleLabel(lang, t)}</option>)}
             </select>
           </div>
           <div class="field">
@@ -201,7 +202,7 @@ const ui = {
   import { quote, helsinkiToday } from '../lib/pricing';
 
   type UI = {
-    lang: string; bus: number; free: string; reasons: Record<string, string>; hint: string; hintBirth: string; earlyBirdNote: string; gmNote: string;
+    lang: string; titleMap: Record<string, string>; bus: number; free: string; reasons: Record<string, string>; hint: string; hintBirth: string; earlyBirdNote: string; gmNote: string;
     unratedNote: string; submitPay: string; submitFree: string; sending: string; errors: Record<string, string>;
     category: string; categoryUnrated: string; categoryLowRating: string; blocked: string; errDuplicate: string; errUnavailable: string; errGeneric: string; errorSummary: string; thanks: string;
     lookup: { checking: string; found: string; foundNote: string; notFound: string; unavailable: string; list: string; none: string };
@@ -284,7 +285,7 @@ const ui = {
           $('[data-l-fed]').textContent = fedLabel(L.federation);
           $('[data-l-born]').textContent = L.birthYear ? String(L.birthYear) : '';
           $<HTMLElement>('[data-l-born-row]').hidden = !L.birthYear;
-          $('[data-l-title]').textContent = L.title || ui.lookup.none;
+          $('[data-l-title]').textContent = L.title ? (ui.titleMap[L.title] ?? L.title) : ui.lookup.none;
           $('[data-l-rating]').textContent = String(L.rating);
           note.textContent = ui.lookup.foundNote;
         } else status.textContent = L.status === 'not_found' ? ui.lookup.notFound : ui.lookup.unavailable;
@@ -344,7 +345,7 @@ const ui = {
       const q = quote({ title: s.title || null, rating: s.rating, birthYear: s.by, bus: s.bus }, helsinkiToday());
       $('[data-entry]').textContent = q.entryCents === 0 ? ui.free : euro(q.entryCents);
       // Which fee category was applied, so the player can see the right price was used.
-      const category = q.fee.band.id === 'unrated' ? (s.rating && s.rating < 1400 ? ui.categoryLowRating : ui.categoryUnrated) : ui.category.replace('{label}', q.fee.band.label);
+      const category = q.fee.band.id === 'unrated' ? (s.rating && s.rating < 1400 ? ui.categoryLowRating : ui.categoryUnrated) : ui.category.replace('{label}', q.fee.band.label.replace(/\b(WGM|WIM|WFM|WCM|GM|IM|FM|CM)\b/g, (t) => ui.titleMap[t] ?? t));
       $('[data-reason]').textContent = [category, q.entryCents === 0 ? '' : (ui.reasons[q.fee.discount] ?? '')].filter(Boolean).join(' · ');
       $('[data-bus-line]').hidden = !s.bus;
       $('[data-bus]').textContent = euro(q.busCents);

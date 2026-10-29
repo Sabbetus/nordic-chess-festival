@@ -35,7 +35,7 @@ const en = {
     news: 'News',
     faq: 'FAQ',
     contact: 'Contact',
-    live: 'Live',
+    broadcast: 'Broadcast',
     privacy: 'Privacy policy',
   },
   home: {
@@ -384,8 +384,8 @@ const en = {
     organiserText: 'Nordic Chess Festival ry',
     businessId: 'Business ID',
   },
-  live: {
-    title: 'Live',
+  broadcast: {
+    title: 'Broadcast',
     lead: 'Pairings, results and live games during the Main Event.',
     text: 'This page will link to the live pairings, results and game broadcasts when the Main Event starts.',
   },
