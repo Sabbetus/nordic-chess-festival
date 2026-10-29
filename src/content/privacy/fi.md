@@ -15,8 +15,8 @@ Rekisterinpitäjä on **Nordic Chess Festival ry** (Kangasala). Kaikissa tietosu
 Ilmoittautumisessa keräämme:
 
 - nimen, sähköpostiosoitteen ja puhelinnumeron
-- FIDE ID:n (jos sinulla on)
-- nimen, liiton, FIDE-tittelin, FIDE-ratingin ja syntymävuoden: jos sinulla on FIDE ID, haemme nämä FIDEn julkiselta ratinglistalta, joten et kirjoita niitä itse; jos sinulla ei ole FIDE ID:tä, ilmoitat nimesi, liittosi ja syntymävuotesi itse (syntymävuotta käytetään juniori- ja seniorihintojen soveltamiseen)
+- FIDE-tunnuksen (jos sinulla on)
+- nimen, liiton, FIDE-tittelin, FIDE-ratingin ja syntymävuoden: jos sinulla on FIDE-tunnus, haemme nämä FIDEn julkiselta ratinglistalta, joten et kirjoita niitä itse; jos sinulla ei ole FIDE-tunnusta, ilmoitat nimesi, liittosi ja syntymävuotesi itse (syntymävuotta käytetään juniori- ja seniorihintojen soveltamiseen)
 - tiedon siitä, tilasitko bussikuljetuksen
 - maksetun summan ja tiedon maksun onnistumisesta
 
@@ -26,7 +26,7 @@ Emme vastaanota emmekä tallenna korttitietojasi. Maksut käsittelee ulkopuoline
 
 ## Miksi käsittelemme tietoja ja millä perusteella
 
-- **Ilmoittautumisesi ja pääturnauksen toteutus** (osallistumisen vahvistus, arvonnat, tulokset, käytännön viestintä). Peruste: sopimuksen täyttäminen.
+- **Ilmoittautumisesi ja pääturnauksen toteutus** (osallistumisen varmistus, parit, tulokset, käytännön viestintä). Peruste: sopimuksen täyttäminen.
 - **Maksujen vastaanotto ja kirjanpito.** Peruste: sopimus ja kirjanpitolain mukaiset velvoitteemme.
 - **Pelaajaluettelon ja tulosten julkaiseminen.** Peruste: oikeutettu etu ja ratingturnauksen luonne; katso alla.
 
@@ -42,7 +42,7 @@ Käytämme seuraavia palveluntarjoajia ja tietojen vastaanottajia:
 
 - **Maksupalvelun tarjoaja** verkossa tehtäviä kortti- ja mobiilimaksuja varten.
 - **IT-palveluntarjoajat** tämän sivuston ylläpitoa ja ilmoittautumistietojen tallennusta varten.
-- **Turnauksenhallintaohjelmisto**, jota järjestäjät ja pääsuorittajat käyttävät, sekä **verkossa toimiva tulospalvelu**, jossa tulokset julkaistaan (chess-results.com).
+- **Turnauksenhallintaohjelmisto**, jota järjestäjät ja tuomarit käyttävät, sekä **verkossa toimiva tulospalvelu**, jossa tulokset julkaistaan (chess-results.com).
 - **FIDE ja Suomen Shakkiliitto** rating- ja tulosraportointia varten.
 - **Uutiskirjepalvelun tarjoaja**, vain jos tilaat uutiskirjeen.
 
@@ -56,7 +56,7 @@ Osa palveluntarjoajista käsittelee tietoja puolestamme. Osa, kuten maksupalvelu
 
 ## Miten suojaamme tiedot
 
-Ilmoittautumistiedot tallennetaan pääsynhallittuun järjestelmään, ja niihin on pääsy vain muutamalla nimetyllä järjestäjällä ja pääsuorittajalla. Yhteydet on salattu, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä.
+Ilmoittautumistiedot tallennetaan pääsynhallittuun järjestelmään, ja niihin on pääsy vain muutamalla nimetyllä järjestäjällä ja tuomarilla. Yhteydet on salattu, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä.
 
 ## Oikeutesi
 
