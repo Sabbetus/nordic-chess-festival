@@ -1,11 +1,16 @@
 ---
-interface Props { eyebrow?: string; title: string; lead?: string }
-const { eyebrow, title, lead } = Astro.props;
+import { localeFromPath, messages } from '../i18n/utils';
+
+// Every page shows the same place and dates above its title.
+interface Props { title: string; lead?: string }
+const { title, lead } = Astro.props;
+const { place, dates } = messages[localeFromPath(Astro.url.pathname)].common;
+const eyebrow = `${place} · ${dates}`;
 ---
 
 <section class="page-hero">
   <div class="container">
-    {eyebrow && <p class="eyebrow reveal">{eyebrow}</p>}
+    <p class="eyebrow reveal">{eyebrow}</p>
     <h1 class="reveal reveal-1">{title}</h1>
     {Astro.slots.has('default') ? <p class="lead reveal reveal-2"><slot /></p> : lead && <p class="lead reveal reveal-2">{lead}</p>}
   </div>

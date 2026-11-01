@@ -14,7 +14,7 @@ const description = r.lead.replace('{link}', r.feesIntroLink);
 ---
 
 <BaseLayout lang={lang} path="/register/" title={r.title} description={description}>
-  <PageHero eyebrow={m.common.dates} title={r.title}>{introBefore}<a href="#fees">{r.feesIntroLink}</a>{introAfter}</PageHero>
+  <PageHero title={r.title}>{introBefore}<a href="#fees">{r.feesIntroLink}</a>{introAfter}</PageHero>
 
   <section class="section" id="register">
     <div class="container narrow-wrap">

@@ -16,7 +16,7 @@ const groups = [
 ---
 
 <BaseLayout lang={lang} path="/guests/" title={g.title} description={g.lead}>
-  <PageHero eyebrow={m.common.place} title={g.title} lead={g.lead} />
+  <PageHero title={g.title} lead={g.lead} />
   {groups.length === 0 ? (
     <section class="section"><div class="container"><div class="notice"><p>{g.empty}</p></div></div></section>
   ) : groups.map((grp) => (

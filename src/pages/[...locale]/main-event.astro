@@ -44,7 +44,7 @@ const cards: { title: string; rows: string[][] }[] = [
 ---
 
 <BaseLayout lang={lang} path="/main-event/" title={t.title} description={description}>
-  <PageHero eyebrow={`${m.common.place} · ${m.common.dates}`} title={t.title}>{leadBefore}<a href={localePath(lang, '/register/')}>{t.leadLink}</a>{leadAfter}</PageHero>
+  <PageHero title={t.title}>{leadBefore}<a href={localePath(lang, '/register/')}>{t.leadLink}</a>{leadAfter}</PageHero>
 
   <section class="section">
     <div class="container overview">
