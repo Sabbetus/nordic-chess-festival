@@ -6,7 +6,9 @@
 #   - on the 1st this job checks every 30 minutes, and on the 2nd and 3rd every hour;
 #   - each check is cheap: if the live site already has this month's list, or FIDE has not published it yet, it stops;
 #   - as soon as FIDE has published it, the job downloads it once, builds the files and uploads them to R2;
-#   - if FIDE still has not published by the 3rd, the job fails on purpose, so GitHub emails the repository owner.
+#   - after the 3rd it keeps trying every 6 hours for the rest of the month. A refused connection (GitHub's runners are
+#     often blocked by FIDE) or a list that is not published yet is only a warning, never a failed run: the monthly
+#     scheduled task (or a manual `npm run fide:build && npm run fide:upload`) uploads the list when CI cannot.
 # It can also be started by hand (Actions tab, "Refresh FIDE rating list", Run workflow), and it runs when the scripts
 # change on the deploy branch.
 #
@@ -22,6 +24,7 @@ on:
   schedule:
     - cron: '7,37 * 1 * *'
     - cron: '7 * 2-3 * *'
+    - cron: '17 */6 4-31 * *'
   push:
     branches: [claude/stoic-franklin-e6jw9t]
     paths: [scripts/fide-list.mjs, scripts/build-fide.mjs, scripts/upload-fide.mjs, scripts/sigv4.mjs, .github/workflows/fide-refresh.yml]
@@ -77,11 +80,17 @@ jobs:
           if [ "${{ inputs.force }}" = "true" ] || [ "${{ github.event_name }}" = "push" ]; then echo "refresh=true" >> "$GITHUB_OUTPUT"; else node scripts/fide-status.mjs; fi
 
       - name: Download and build the FIDE list
+        id: build
+        continue-on-error: true
         if: env.HAS_SECRETS == 'true' && steps.status.outputs.refresh == 'true'
         run: node scripts/build-fide.mjs --require --min-month "$(TZ=Europe/Helsinki date +%Y-%m)"
 
+      - name: FIDE list not built
+        if: steps.build.outcome == 'failure'
+        run: echo "::warning::The FIDE list could not be downloaded (connection refused or not published yet). Trying again at the next scheduled run."
+
       - name: Upload the FIDE list to R2
-        if: env.HAS_SECRETS == 'true' && steps.status.outputs.refresh == 'true'
+        if: env.HAS_SECRETS == 'true' && steps.build.outcome == 'success'
         run: node scripts/upload-fide.mjs
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}

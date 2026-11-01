@@ -3,7 +3,7 @@
 //   refresh=true   FIDE has published this month's list and the live site does not have it yet
 //   refresh=false  the live site is already up to date, or FIDE has not published yet
 //
-// If FIDE still has not published by the 3rd of the month the job fails on purpose, so that GitHub emails the owner.
+// If FIDE still has not published by the 3rd of the month this only warns; the job keeps trying (see the workflow).
 // Usage: SITE_URL=https://example.com node scripts/fide-status.mjs
 
 import { appendFileSync } from 'node:fs';
@@ -35,8 +35,8 @@ if (live && live >= current) {
   refresh = true;
   console.log('FIDE has published this month\'s list: refreshing.');
 } else if (now.getUTCDate() >= 3) {
-  console.error('FIDE has not published this month\'s list by the 3rd. Check https://ratings.fide.com/download_lists.phtml');
-  process.exit(1);
+  refresh = true;
+  console.warn('::warning::FIDE has not been seen publishing this month\'s list yet (past the 3rd). Trying anyway; check https://ratings.fide.com/download_lists.phtml');
 } else {
   console.log('FIDE has not published this month\'s list yet. Trying again later.');
 }
