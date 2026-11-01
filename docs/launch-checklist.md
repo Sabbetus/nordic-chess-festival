@@ -19,6 +19,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 - [ ] Replace the Stripe sandbox keys with live ones: `STRIPE_SECRET_KEY` (restricted key, Checkout Sessions: Write only) and a new webhook endpoint for the final domain with its `STRIPE_WEBHOOK_SECRET`.
 - [ ] Turn on Stripe's receipt emails for live payments (Settings, Customer emails, successful payments). Sandbox payments never send emails, so this can only be checked with a real payment.
 - [ ] Enable the payment methods in live mode (cards, Apple Pay, Google Pay, MobilePay, Klarna).
+- [ ] Check the order of the payment methods in the live Stripe Checkout (the sandbox list is different, so this can only be judged in live mode). Klarna is the most expensive method (about 2.99 % + €0.40, against about 1.5 % + €0.25–0.36 for cards and MobilePay, see Stripe's Finland pricing), so keep it as the last option. The code does not set the methods or their order: they come from the Stripe dashboard (Settings, Payment methods). If the dashboard cannot make Klarna last, the order has to be set in the Checkout Session code instead.
 - [ ] Delete the test registrations: `DELETE FROM registrations;` in the D1 console.
 - [ ] Put `/admin/*` and `/api/admin/*` behind Cloudflare Access (named organiser emails only).
 - [ ] Turn on the Turnstile bot check (`TURNSTILE_SECRET` secret and `PUBLIC_TURNSTILE_SITEKEY` build variable) and add the rate-limit rule for `/api/fide/*`.
