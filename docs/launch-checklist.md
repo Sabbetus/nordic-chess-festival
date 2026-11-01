@@ -24,7 +24,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 - [ ] Turn on the Turnstile bot check (`TURNSTILE_SECRET` secret and `PUBLIC_TURNSTILE_SITEKEY` build variable) and add the rate-limit rule for `/api/fide/*`.
 - [ ] Set `ADMIN_TOKEN` to a fresh long random value and keep it in the organisers' password manager.
 - [ ] FIDE list in R2 (list 2026-11 uploaded by hand, `/api/health` shows `registration: true`; still open: GitHub secrets, `SITE_URL`, merge to `main`)
-  Original item: (docs/registration-setup.md, "FIDE list"): bucket `ncf-fide`, GitHub secrets `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, variable `SITE_URL`, and `fide-refresh.yml` merged to `main` (the monthly schedule only runs from there). Check that `/api/health` shows `registration: true` and the current `fideMonth`.
+  Setup details (docs/registration-setup.md, "FIDE list"): bucket `ncf-fide`, GitHub secrets `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, variable `SITE_URL`, and `fide-refresh.yml` merged to `main` (the monthly schedule only runs from there). Check that `/api/health` shows `registration: true` and the current `fideMonth`.
 - [ ] Privacy policy: confirm the retention periods (12 months, 6 years for accounting) and the note about minors, then set `draft: false` in `src/content/privacy/*.md`.
 - [ ] Accountant: confirm the non-VAT assumption and the refund and receipt handling.
 - [ ] Russia and Belarus block (decision of the Finnish Chess Federation): confirm the wording with the Federation. Players with the neutral FIDE federation code (`FID`) are allowed to play (decided). Test with a Russian or Belarusian FIDE ID on the live site.
@@ -35,4 +35,4 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 
 - [ ] chess-results: add the link (`chessResultsUrl` in `src/data/site.ts`).
 - [ ] Watch the `/admin/` FIDE-list banner each month (it turns red after 40 days).
-  `fideMonth` on the live site should be the current month; the monthly job keeps it so, and keeps trying after the 3rd without failing; a scheduled task on the 3rd checks `/api/health` and uploads the list by hand if it is old.
+  `fideMonth` on the live site should be the current month; the monthly job keeps it so, and keeps trying after the 3rd without failing; FIDE usually blocks GitHub's runners, so a scheduled task in the Claude session checks `/api/health` every hour on the 1st and uploads the list from there if it is old. The list must be live on the 1st.
