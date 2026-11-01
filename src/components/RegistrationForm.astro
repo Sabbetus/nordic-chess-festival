@@ -25,7 +25,7 @@ const ui = {
   errors: { email: f.errEmail, phone: f.errPhone, fideId: f.errFideId, birthYear: f.errBirthYear, accept: f.errAccept, required: f.errRequired },
   category: f.categoryLabel, categoryUnrated: f.categoryUnrated, categoryLowRating: f.categoryLowRating, blocked: f.blockedFederation, errDuplicate: f.errDuplicate, errUnavailable: f.errUnavailable, errGeneric: f.errGeneric, errorSummary: f.errorSummary,
   thanks: localePath(lang, '/register/thanks/'),
-  lookup: { checking: f.lookupChecking, found: f.lookupFound, foundNote: f.lookupFoundNote, notFound: f.lookupNotFound, unavailable: f.lookupUnavailable, list: f.lookupList, none: f.lookupNoTitle, unrated: f.lookupUnrated },
+  lookup: { checking: f.lookupChecking, foundNote: f.lookupFoundNote, notFound: f.lookupNotFound, unavailable: f.lookupUnavailable, none: f.lookupNoTitle, unrated: f.lookupUnrated },
 };
 ---
 
@@ -136,7 +136,6 @@ const ui = {
   .check small { display: block; color: var(--muted); font-size: var(--text-sm); margin-top: 0.25rem; line-height: 1.5; }
   .lookup { display: grid; gap: var(--space-3); }
   .lookup-status { font-size: var(--text-sm); color: var(--muted); }
-  .lookup.found .lookup-status { color: var(--ice); }
   .lookup .lookup-status.error { color: var(--danger); border: 1px solid var(--danger); border-radius: var(--radius); padding: var(--space-4); font-size: 1rem; }
   .reg.blocked fieldset:not(:first-of-type), .reg.blocked .summary, .reg.blocked .accept, .reg.blocked [data-submit] { display: none; }
   .lookup dl { border: 1px solid var(--ice-border); background: var(--ice-dim); border-radius: var(--radius); padding: var(--space-3) var(--space-5); }
@@ -169,7 +168,7 @@ const ui = {
     submitPay: string; submitFree: string; sending: string; errors: Record<string, string>;
     category: string; categoryUnrated: string; categoryLowRating: string; blocked: string; errDuplicate: string; errUnavailable: string;
     errGeneric: string; errorSummary: string; thanks: string;
-    lookup: { checking: string; found: string; foundNote: string; notFound: string; unavailable: string; list: string; none: string; unrated: string };
+    lookup: { checking: string; foundNote: string; notFound: string; unavailable: string; none: string; unrated: string };
   };
   type Lookup =
     | { status: 'found'; fideId: string; name: string; federation: string; title: string; rating: number; birthYear: number; updated: string; month: string; nextUpdate: string; blocked: boolean }
@@ -247,7 +246,7 @@ const ui = {
         else if (L.blocked) status.textContent = ui.blocked;
         else {
           card.hidden = false;
-          status.textContent = `${ui.lookup.found} · ${ui.lookup.list.replace('{date}', fmtDate(L.updated))}`;
+          status.textContent = '';
           $('[data-l-name]').textContent = L.name;
           $('[data-l-fed]').textContent = ui.federationNames[L.federation] ? `${ui.federationNames[L.federation]} (${L.federation})` : L.federation;
           $('[data-l-born]').textContent = L.birthYear ? String(L.birthYear) : '';

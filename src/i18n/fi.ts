@@ -236,7 +236,6 @@ const fi: Messages = {
       cancelled: 'Maksuasi ei viety loppuun, joten et ole vielä ilmoittautunut. Voit yrittää uudelleen alla.',
       blockedFederation: 'Suomen Shakkiliiton päätöksen perusteella Venäjää tai Valko-Venäjää edustavat pelaajat eivät voi osallistua Suomessa järjestettäviin turnauksiin.',
       lookupChecking: 'Tarkistetaan FIDE-ratinglistaa…',
-      lookupFound: 'Löytyi FIDE-ratinglistalta',
       lookupFoundNote: 'Nämä tiedot tulevat suoraan FIDEltä.',
       lookupNotFound: 'Tätä FIDE-tunnusta ei löydy listaltamme. Tarkista numero. Listamme on FIDEn lista ({month}), ja se päivitetään joka kuukauden 1. päivä (seuraava päivitys: {next}). Uusi FIDE-tunnus ilmestyy listallemme seuraavan päivityksen jälkeen.',
       lookupUnavailable: 'FIDE-listaa ei voitu tarkistaa juuri nyt. Yritä hetken kuluttua uudelleen.',
@@ -247,7 +246,6 @@ const fi: Messages = {
       lookupRating: 'Rating',
       lookupNoTitle: 'Ei titteliä',
       lookupUnrated: 'Ei ratingia',
-      lookupList: 'FIDEn lista {date}',
       noscript: 'Ilmoittautumislomake vaatii JavaScriptin. Ota se käyttöön tai kirjoita osoitteeseen info@nordicchess.fi.',
     },
     thanks: {

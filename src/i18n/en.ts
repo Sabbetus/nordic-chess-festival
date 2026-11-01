@@ -234,7 +234,6 @@ const en = {
       cancelled: 'Your payment was not completed, so you are not registered yet. You can try again below.',
       blockedFederation: 'Based on the decision of the Finnish Chess Federation, players representing Russia or Belarus cannot play in tournaments organised in Finland.',
       lookupChecking: 'Checking the FIDE rating list…',
-      lookupFound: 'Found in the FIDE rating list',
       lookupFoundNote: 'These details come straight from FIDE.',
       lookupNotFound: 'We could not find this FIDE ID in our list. Please check the number. Our list is the FIDE list of {month}, and it is updated on the 1st of every month (next update: {next}). A new FIDE ID shows up in our list after the next update.',
       lookupUnavailable: 'We could not check the FIDE list right now. Please try again in a moment.',
@@ -245,7 +244,6 @@ const en = {
       lookupRating: 'Rating',
       lookupNoTitle: 'No title',
       lookupUnrated: 'Unrated',
-      lookupList: 'FIDE list of {date}',
       noscript: 'The registration form needs JavaScript. Please enable it, or email info@nordicchess.fi.',
     },
     thanks: {
