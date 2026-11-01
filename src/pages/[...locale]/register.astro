@@ -55,7 +55,7 @@ const description = r.lead.replace('{link}', r.feesIntroLink);
   <section class="section">
     <div class="container">
       <h2 id="refunds">{r.refundTitle}</h2>
-      <p class="prose">{r.refundText}</p>
+      <p class="prose refund-text">{r.refundText}</p>
     </div>
   </section>
 </BaseLayout>
@@ -72,4 +72,5 @@ const description = r.lead.replace('{link}', r.feesIntroLink);
   .gap { margin-top: var(--space-6); }
   .rules { display: grid; gap: var(--space-3); padding-left: 1.25rem; margin-top: var(--space-4); }
   .rules li + li { margin-top: 0; }
+  .refund-text { margin-top: var(--space-4); }
 </style>
