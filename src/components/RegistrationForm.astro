@@ -1,6 +1,6 @@
 ---
 import { getCountries, getCountryCallingCode } from 'libphonenumber-js/min';
-import { federationOptions } from '../data/federations';
+import { federationOptions, federations } from '../data/federations';
 import { busTransfer, formatEuro } from '../data/fees';
 import { titlesFi } from '../lib/titles';
 import { localePath, messages, type Locale } from '../i18n/utils';
@@ -10,8 +10,10 @@ const { lang } = Astro.props;
 const f = messages[lang].register.form;
 
 const regionNames = new Intl.DisplayNames([lang], { type: 'region' });
+// The closed country box shows a short label (FIDE federation code where there is one, else the ISO code), the open list the full names.
+const fideCodeByRegion = new Map(federations.filter((x) => x.region).map((x) => [x.region as string, x.code]));
 const phoneCodes = getCountries()
-  .map((c) => ({ code: c, label: `${regionNames.of(c) ?? c} (+${getCountryCallingCode(c)})` }))
+  .map((c) => ({ code: c, label: `${regionNames.of(c) ?? c} (+${getCountryCallingCode(c)})`, short: `${fideCodeByRegion.get(c) ?? c} (+${getCountryCallingCode(c)})` }))
   .sort((a, b) => a.label.localeCompare(b.label, lang));
 const federationNames = Object.fromEntries(federationOptions(lang).map((x) => [x.code, x.label]));
 const busHelp = f.busHelp.replace('{price}', formatEuro(busTransfer.price));
@@ -71,9 +73,12 @@ const ui = {
       <div class="field">
         <label for="f-phone">{f.phone}</label>
         <div class="phone">
-          <select name="phoneCountry" aria-label={f.phoneCountry} autocomplete="tel-country-code">
-            {phoneCodes.map((c) => <option value={c.code} selected={c.code === 'FI'}>{c.label}</option>)}
-          </select>
+          <div class="cc">
+            <span class="cc-shown" aria-hidden="true" data-cc-shown>{phoneCodes.find((c) => c.code === 'FI')?.short}</span>
+            <select name="phoneCountry" aria-label={f.phoneCountry} autocomplete="tel-country-code">
+              {phoneCodes.map((c) => <option value={c.code} data-short={c.short} selected={c.code === 'FI'}>{c.label}</option>)}
+            </select>
+          </div>
           <input id="f-phone" name="phoneNumber" type="tel" autocomplete="tel-national" required maxlength="30" />
         </div>
         <p class="help">{f.phoneHelp}</p><p class="err" data-err="phone"></p>
@@ -127,7 +132,13 @@ const ui = {
   input.short { max-width: 10rem; }
   input:focus-visible, select:focus-visible { outline: 2px solid var(--ice); outline-offset: 1px; border-color: var(--ice); }
   .field.invalid input, .field.invalid select { border-color: var(--danger); }
-  .phone { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--space-3); }
+  .phone { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-3); }
+  /* Country box: shows the short label; the real select sits invisibly on top and opens the full list. */
+  .cc { position: relative; display: flex; align-items: center; gap: var(--space-3); background: var(--black); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 0.8rem 0.9rem; min-height: 3rem; white-space: nowrap; }
+  .cc::after { content: ''; width: 0.45rem; height: 0.45rem; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg) translateY(-0.1rem); }
+  .cc select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 1rem; }
+  .cc:focus-within { outline: 2px solid var(--ice); outline-offset: 1px; border-color: var(--ice); }
+  .field.invalid .cc { border-color: var(--danger); }
   .help { font-size: var(--text-sm); line-height: 1.5; color: var(--muted); }
   .err { font-size: var(--text-sm); color: var(--danger); min-height: 0; }
   .err:empty { display: none; }
@@ -155,7 +166,7 @@ const ui = {
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .accept a { color: var(--ice); text-decoration: underline; }
   [data-submit][disabled] { opacity: 0.6; cursor: wait; }
-  @media (max-width: 520px) { .phone { grid-template-columns: 1fr; } input.short { max-width: none; } }
+  @media (max-width: 520px) { input.short { max-width: none; } }
 </style>
 
 <script>
@@ -201,6 +212,13 @@ const ui = {
     const form = root.querySelector<HTMLFormElement>('form')!;
     const $ = <T extends HTMLElement>(s: string) => form.querySelector<T>(s)!;
     const el = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
+
+    // The country box shows the short label of the selected country.
+    const country = form.querySelector<HTMLSelectElement>('select[name="phoneCountry"]');
+    const shown = form.querySelector<HTMLElement>('[data-cc-shown]');
+    const showCountry = () => { if (country && shown) shown.textContent = country.selectedOptions[0]?.dataset.short ?? ''; };
+    country?.addEventListener('change', showCountry);
+    showCountry();
     const euro = (cents: number) => `${cents / 100} €`;
     let token = '';
 
