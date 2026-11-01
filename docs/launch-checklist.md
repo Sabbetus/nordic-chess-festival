@@ -35,3 +35,4 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 
 - [ ] chess-results: add the link (`chessResultsUrl` in `src/data/site.ts`).
 - [ ] Watch the `/admin/` FIDE-list banner each month (it turns red after 40 days).
+  Until the automatic refresh is set up, the list only updates when the site is deployed (FIDE publishes a new list at the end of each month; 1 November 2026 was the first time this showed). Check `/api/health` on the live site: `fideMonth` should be the current month.
