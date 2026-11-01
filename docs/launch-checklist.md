@@ -4,10 +4,9 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 
 ## Site
 
-- [ ] **Remove `noindex`.** The test site hides itself from search engines through `PUBLIC_NOINDEX=true`. Remove it (or set it to `false`) in all three places:
+- [ ] **Remove `noindex`.** The test site hides itself from search engines through `PUBLIC_NOINDEX=true`. Remove it (or set it to `false`) in both places:
   - Cloudflare build variables (Worker settings, Build)
   - `.github/workflows/deploy.yml` (the `PUBLIC_NOINDEX: 'true'` line)
-  - `.github/workflows/fide-refresh.yml` (the `PUBLIC_NOINDEX` variable default; also the repository variable if one was set)
   Then check a live page: its source must not contain `<meta name="robots" content="noindex">`, and PageSpeed's "Page is blocked from indexing" warning is gone.
 - [ ] Merge to `main`, switch Cloudflare's production branch back to `main`, and point nordicchess.fi at Cloudflare (see `README.md`).
 - [ ] Replace or remove all `placeholder: true` content (news, guests, side events). Placeholders are already `noindex` and out of the sitemap, but should not be public.
@@ -24,7 +23,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 - [ ] Put `/admin/*` and `/api/admin/*` behind Cloudflare Access (named organiser emails only).
 - [ ] Turn on the Turnstile bot check (`TURNSTILE_SECRET` secret and `PUBLIC_TURNSTILE_SITEKEY` build variable) and add the rate-limit rule for `/api/fide/*`.
 - [ ] Set `ADMIN_TOKEN` to a fresh long random value and keep it in the organisers' password manager.
-- [ ] Automatic FIDE list refresh: GitHub secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`, variables `SITE_URL` and `DEPLOY_BRANCH`, and `fide-refresh.yml` merged to `main`. Run it once by hand (Actions, "Refresh FIDE rating list", Run workflow) and check that `/admin/` shows a fresh list date.
+- [ ] FIDE list in R2 (docs/registration-setup.md, "FIDE list"): bucket `ncf-fide`, GitHub secrets `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, variable `SITE_URL`, and `fide-refresh.yml` merged to `main` (the monthly schedule only runs from there). Check that `/api/health` shows `registration: true` and the current `fideMonth`.
 - [ ] Privacy policy: confirm the retention periods (12 months, 6 years for accounting) and the note about minors, then set `draft: false` in `src/content/privacy/*.md`.
 - [ ] Accountant: confirm the non-VAT assumption and the refund and receipt handling.
 - [ ] Russia and Belarus block (decision of the Finnish Chess Federation): confirm the wording with the Federation. Players with the neutral FIDE federation code (`FID`) are allowed to play (decided). Test with a Russian or Belarusian FIDE ID on the live site.
@@ -35,4 +34,4 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 
 - [ ] chess-results: add the link (`chessResultsUrl` in `src/data/site.ts`).
 - [ ] Watch the `/admin/` FIDE-list banner each month (it turns red after 40 days).
-  Until the automatic refresh is set up, the list only updates when the site is deployed (FIDE publishes a new list at the end of each month; 1 November 2026 was the first time this showed). Check `/api/health` on the live site: `fideMonth` should be the current month.
+  `fideMonth` on the live site should be the current month; the monthly job keeps it so, and fails (GitHub emails you) if FIDE has not published by the 3rd.

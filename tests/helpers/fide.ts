@@ -1,4 +1,4 @@
-// A small stand-in for FIDE's combined player list, served the way the deployed site serves its shards.
+// A small stand-in for FIDE's combined player list, stored the way the uploader stores it in R2.
 import { buildShards } from '../../scripts/fide-list.mjs';
 import { clearFideCache } from '../../worker/fide.ts';
 
@@ -21,14 +21,16 @@ ${player('700002', 'Ivanov, Ivan', 'RUS', '', 2100, 1990)}
 ${player('700003', 'Petrov, Petr', 'BLR', 'IM', 2400, 1985)}
 </playerslist>`;
 
-/** The ASSETS binding with the fixture list: file dated 2027-02-28, which FIDE labels the March 2027 list. */
-export function fideAssets() {
+/** The FIDE_LIST bucket with the fixture list: file dated 2027-02-28, which FIDE labels the March 2027 list. */
+export function fideBucket() {
   clearFideCache();
   const { shards } = buildShards(XML, '2027-02-28', '2027-03');
+  const object = (value: unknown) => ({ json: async () => value });
   return {
-    fetch: async (r: Request) => {
-      const n = Number(/\/api\/fide\/(\d+)\.json/.exec(r.url)?.[1]);
-      return Number.isInteger(n) && shards[n] ? new Response(JSON.stringify(shards[n])) : new Response('no', { status: 404 });
+    get: async (key: string) => {
+      if (key === 'current.json') return object({ prefix: '2027-03', month: '2027-03', updated: '2027-02-28' });
+      const n = Number(/^2027-03\/(\d+)\.json$/.exec(key)?.[1]);
+      return Number.isInteger(n) && shards[n] ? object(shards[n]) : null;
     },
   };
 }

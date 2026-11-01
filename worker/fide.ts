@@ -1,7 +1,7 @@
-// Looks players up in the FIDE rating list shards that the build writes next to the site (dist/api/fide/).
+// Looks players up in FIDE's player list, kept as small JSON shards in an R2 bucket (written monthly by scripts/upload-fide.mjs).
 import { isBlockedFederation } from '../src/data/federations.ts';
 import { helsinkiToday } from '../src/lib/pricing.ts';
-import { shardOf, shardPath, type FideRecord, type FideShard } from '../src/lib/fide.ts';
+import { shardOf, type FideRecord, type FideShard } from '../src/lib/fide.ts';
 import type { Env } from './types.ts';
 
 export type FideLookup =
@@ -37,19 +37,41 @@ export function nextUpdateOf(month: string, today: string): string {
   return next;
 }
 
-// Shards are static for a deployment, so keep the few that were asked for in memory.
-const cache = new Map<number, FideShard>();
+// The bucket holds one folder per list ("2026-11/<shard>.json") and current.json, which names the folder in use. The
+// uploader writes current.json last, so a lookup never sees a half-uploaded list. Both are kept in memory for a while:
+// shards of a folder never change, and the pointer is re-read every few minutes so a new month is picked up quickly.
+const POINTER_TTL_MS = 5 * 60_000;
+const cache = new Map<string, FideShard>();
+type Pointer = { prefix: string; month: string; updated: string };
+let pointer: { at: number; value: Pointer } | null = null;
+
+async function currentList(env: Env): Promise<Pointer | null> {
+  if (!env.FIDE_LIST) return null;
+  if (pointer && Date.now() - pointer.at < POINTER_TTL_MS) return pointer.value;
+  try {
+    const obj = await env.FIDE_LIST.get('current.json');
+    const p = obj ? await obj.json<Partial<Pointer>>() : null;
+    if (!p || typeof p.prefix !== 'string' || !/^[\w-]{1,32}$/.test(p.prefix) || typeof p.month !== 'string' || typeof p.updated !== 'string') return null;
+    pointer = { at: Date.now(), value: { prefix: p.prefix, month: p.month, updated: p.updated } };
+    return pointer.value;
+  } catch {
+    return null;
+  }
+}
 
 async function loadShard(env: Env, n: number): Promise<FideShard | null> {
-  const hit = cache.get(n);
-  if (hit) return hit;
-  if (!env.ASSETS) return null;
+  if (!env.FIDE_LIST) return null;
   try {
-    const res = await env.ASSETS.fetch(new Request(`https://assets.local${shardPath(n)}`));
-    if (!res.ok) return null;
-    const shard = (await res.json()) as FideShard;
+    const list = await currentList(env);
+    if (!list) return null;
+    const key = `${list.prefix}/${n}.json`;
+    const hit = cache.get(key);
+    if (hit) return hit;
+    const obj = await env.FIDE_LIST.get(key);
+    if (!obj) return null;
+    const shard = await obj.json<FideShard>();
     if (cache.size > 64) cache.clear();
-    cache.set(n, shard);
+    cache.set(key, shard);
     return shard;
   } catch {
     return null;
@@ -68,12 +90,14 @@ export async function lookupFide(env: Env, fideId: string, now: Date = new Date(
   return { status: 'found', fideId, name, federation, title, rating, birthYear, updated: shard.u, month, nextUpdate, blocked: isBlockedFederation(federation) };
 }
 
-/** Date, month (YYYY-MM, as FIDE labels it) and next refresh of the list in this deployment, or null if there is none. */
+/** Date, month (YYYY-MM, as FIDE labels it) and next refresh of the list in use, or null if there is none. */
 export async function fideListInfo(env: Env, now: Date = new Date()): Promise<{ updated: string; month: string; nextUpdate: string } | null> {
-  // Any ID works to reach a shard; an ID that is not in the list still reports the list's dates.
-  const l = await lookupFide(env, '0', now);
-  return l.status === 'unavailable' ? null : { updated: l.updated, month: l.month, nextUpdate: l.nextUpdate };
+  const list = await currentList(env);
+  return list ? { updated: list.updated, month: list.month, nextUpdate: nextUpdateOf(list.month, helsinkiToday(now)) } : null;
 }
 
 /** Test helper: forget cached shards. */
-export const clearFideCache = () => cache.clear();
+export const clearFideCache = () => {
+  cache.clear();
+  pointer = null;
+};

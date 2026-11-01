@@ -1,17 +1,20 @@
-# Keeps the FIDE rating list on the site current, automatically, every month.
+# Keeps the FIDE player list current, automatically, every month.
 #
-# The registration form looks players up in a copy of FIDE's list that is built into each deployment
-# (scripts/build-fide.mjs). FIDE publishes a new list around the start of each month at an unknown time, so:
+# The registration form looks players up in FIDE's combined player list, which lives as small JSON files in the R2
+# bucket "ncf-fide" (scripts/build-fide.mjs builds them, scripts/upload-fide.mjs uploads them). The site itself is not
+# redeployed for a new list. FIDE publishes a new list around the start of each month at an unknown time, so:
 #   - on the 1st this job checks every 30 minutes, and on the 2nd and 3rd every hour;
 #   - each check is cheap: if the live site already has this month's list, or FIDE has not published it yet, it stops;
-#   - as soon as FIDE has published it, the job rebuilds and redeploys the site with the new list;
+#   - as soon as FIDE has published it, the job downloads it once, builds the files and uploads them to R2;
 #   - if FIDE still has not published by the 3rd, the job fails on purpose, so GitHub emails the repository owner.
-# It can also be started by hand (Actions tab, "Refresh FIDE rating list", Run workflow).
+# It can also be started by hand (Actions tab, "Refresh FIDE rating list", Run workflow), and it runs when the scripts
+# change on the deploy branch.
 #
-# Needs the same repository secrets as deploy.yml: CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID.
-# Repository variables (Settings, Secrets and variables, Actions, Variables):
+# Repository secrets (Settings, Secrets and variables, Actions):
+#   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY   see docs/registration-setup.md ("FIDE list")
+# Repository variables:
 #   SITE_URL        address of the live site, e.g. https://nordicchess.fi (default: the test site)
-#   DEPLOY_BRANCH   branch that Cloudflare deploys (default: the repository's default branch)
+#   R2_BUCKET       bucket name (default ncf-fide)
 # Scheduled workflows only run from the default branch, so this file must be merged there to run by itself.
 name: Refresh FIDE rating list
 
@@ -19,39 +22,39 @@ on:
   schedule:
     - cron: '7,37 * 1 * *'
     - cron: '7 * 2-3 * *'
+  push:
+    branches: [claude/stoic-franklin-e6jw9t]
+    paths: [scripts/fide-list.mjs, scripts/build-fide.mjs, scripts/upload-fide.mjs, scripts/sigv4.mjs, .github/workflows/fide-refresh.yml]
   workflow_dispatch:
     inputs:
       force:
-        description: 'Rebuild and redeploy even if the site already has this month''s list'
+        description: 'Rebuild and upload even if the site already has this month''s list'
         type: boolean
         default: false
 
 concurrency:
-  group: deploy
+  group: fide-refresh
   cancel-in-progress: false
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
-      HAS_SECRETS: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
+      HAS_SECRETS: ${{ secrets.R2_ACCOUNT_ID != '' && secrets.R2_ACCESS_KEY_ID != '' && secrets.R2_SECRET_ACCESS_KEY != '' }}
       SITE_URL: ${{ vars.SITE_URL || 'https://nordic-chess-festival.henry-b55.workers.dev' }}
     steps:
-      - name: Check for Cloudflare secrets
+      - name: Check for R2 secrets
         if: env.HAS_SECRETS != 'true'
-        run: echo "::warning::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID are not set, so the FIDE list cannot be refreshed automatically."
+        run: echo "::warning::R2_ACCOUNT_ID / R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY are not set, so the FIDE list cannot be uploaded."
 
       - uses: actions/checkout@v4
         if: env.HAS_SECRETS == 'true'
-        with:
-          ref: ${{ vars.DEPLOY_BRANCH || github.event.repository.default_branch }}
 
       - uses: actions/setup-node@v4
         if: env.HAS_SECRETS == 'true'
         with:
           node-version: 22
-          cache: npm
 
       # FIDE's list is big, so it is kept between runs for the whole month (see scripts/build-fide.mjs): a run downloads it
       # only when there is no cached list for the current month.
@@ -70,21 +73,18 @@ jobs:
         id: status
         if: env.HAS_SECRETS == 'true'
         run: |
-          if [ "${{ inputs.force }}" = "true" ]; then echo "refresh=true" >> "$GITHUB_OUTPUT"; else node scripts/fide-status.mjs; fi
+          # A push (new scripts) always goes on: the upload itself does nothing if R2 already holds this list.
+          if [ "${{ inputs.force }}" = "true" ] || [ "${{ github.event_name }}" = "push" ]; then echo "refresh=true" >> "$GITHUB_OUTPUT"; else node scripts/fide-status.mjs; fi
 
-      - name: Build the site with the current FIDE list
+      - name: Download and build the FIDE list
         if: env.HAS_SECRETS == 'true' && steps.status.outputs.refresh == 'true'
-        run: |
-          npm ci
-          npx astro build
-          node scripts/build-fide.mjs --require --min-month "$(date -u +%Y-%m)"
-        env:
-          # Same as deploy.yml: keep the test site out of search engines. Remove when the site goes live.
-          PUBLIC_NOINDEX: ${{ vars.PUBLIC_NOINDEX || 'true' }}
+        run: node scripts/build-fide.mjs --require --min-month "$(TZ=Europe/Helsinki date +%Y-%m)"
 
-      - name: Deploy
+      - name: Upload the FIDE list to R2
         if: env.HAS_SECRETS == 'true' && steps.status.outputs.refresh == 'true'
-        run: npx --yes wrangler@4.152.0 deploy
+        run: node scripts/upload-fide.mjs
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ vars.R2_BUCKET || 'ncf-fide' }}

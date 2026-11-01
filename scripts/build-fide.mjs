@@ -1,25 +1,23 @@
-// Downloads FIDE's combined player list (every FIDE ID, rated or not) and writes it to dist/api/fide/ as JSON shards.
-// Runs after "astro build" (see package.json). The Worker serves the shards only through /api/fide/<id>.
+// Downloads FIDE's combined player list (every FIDE ID, rated or not) and turns it into 1024 small JSON shards in
+// .cache/fide/. scripts/upload-fide.mjs then puts them in the R2 bucket that the Worker reads. The site build
+// ("astro build") does not need the list at all.
 //
-//   node scripts/build-fide.mjs            warn and continue if FIDE cannot be reached (registration then stays
-//                                          closed on that deployment, because IDs cannot be checked)
+//   node scripts/build-fide.mjs            warn and exit normally if FIDE cannot be reached
 //   node scripts/build-fide.mjs --require  fail instead (used by the monthly refresh job)
 //   --min-month 2026-11                    fail unless FIDE's download page offers that month's list or a later one
 //
-// The list is big (51 MB to download, 863 MB to read), so it is downloaded only when it is needed: the finished
-// shards are kept in .cache/fide/, and as long as the cached list is for the current month or later, a build copies
-// them and does not touch the network at all. A new download happens only when the cache is missing or its month is
-// older than the current month (FIDE publishes each month's list at the end of the month before). In CI the cache
-// folder is kept between runs (see the workflows). --refresh forces a download.
+// The list is big (51 MB to download, 863 MB to read), so it is downloaded only when it is needed: as long as
+// .cache/fide/ holds a list for the current month or later, nothing is downloaded. A new download happens only when the
+// cache is missing or its month is older than the current month (FIDE publishes each month's list at the end of the
+// month before). In CI the cache folder is kept between runs (see the workflows). --refresh forces a download.
 //
 // FIDE_ZIP_PATH can point at a local copy of the zip (tests and offline work); it bypasses the cache.
 
-import { access, cp, mkdir, readFile, writeFile, rm, stat } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile, rm, stat } from 'node:fs/promises';
 import { buildShardFiles, listMonth, unzipFirstStream } from './fide-list.mjs';
 
 const URL_ZIP = 'https://ratings.fide.com/download/players_list_xml.zip';
-const OUT = new URL('../dist/api/fide/', import.meta.url);
-const CACHE = new URL('../.cache/fide/', import.meta.url);
+const CACHE = new URL(process.env.FIDE_OUT_DIR ? `file://${process.env.FIDE_OUT_DIR.replace(/\/?$/, '/')}` : '../.cache/fide/', import.meta.url);
 const required = process.argv.includes('--require');
 const refresh = process.argv.includes('--refresh');
 const MIN_PLAYERS = 1_500_000;
@@ -74,10 +72,7 @@ try {
   // 1. A cached list for this month (or later) is used as it is: no download, no request to FIDE.
   const cached = process.env.FIDE_ZIP_PATH || refresh ? null : await readCache();
   if (cached && cached.month >= thisMonth() && (!minMonth || cached.month >= minMonth)) {
-    await rm(OUT, { recursive: true, force: true });
-    await mkdir(new URL('../dist/api/', import.meta.url), { recursive: true });
-    await cp(CACHE, OUT, { recursive: true });
-    console.log(`FIDE list ${cached.month} (file of ${cached.updated}): ${cached.players} players, from the local cache, nothing downloaded`);
+    console.log(`FIDE list ${cached.month} (file of ${cached.updated}): ${cached.players} players, already in the local cache, nothing downloaded`);
     process.exit(0);
   }
 
@@ -88,22 +83,16 @@ try {
   const listMonthLabel = month ?? monthFromFileDate(updated);
   const { files, count } = await buildShardFiles(unzipFirstStream(buf), updated, listMonthLabel);
   if (count < MIN_PLAYERS) throw new Error(`Only ${count} players in the list, expected more than ${MIN_PLAYERS}`);
-  await rm(OUT, { recursive: true, force: true });
-  await mkdir(OUT, { recursive: true });
-  await Promise.all(files.map((content, n) => writeFile(new URL(`${n}.json`, OUT), content)));
-  await writeFile(new URL('meta.json', OUT), JSON.stringify({ updated, month: listMonthLabel, players: count }));
+  await rm(CACHE, { recursive: true, force: true });
+  await mkdir(CACHE, { recursive: true });
+  await Promise.all(files.map((content, n) => writeFile(new URL(`${n}.json`, CACHE), content)));
+  await writeFile(new URL('meta.json', CACHE), JSON.stringify({ updated, month: listMonthLabel, players: count }));
   console.log(`FIDE list ${listMonthLabel} (file of ${updated}): ${count} players in ${files.length} shards`);
-  // Keep the finished list so the next build does not download it again.
-  if (!process.env.FIDE_ZIP_PATH) {
-    await rm(CACHE, { recursive: true, force: true });
-    await mkdir(new URL('../.cache/', import.meta.url), { recursive: true });
-    await cp(OUT, CACHE, { recursive: true });
-  }
 } catch (err) {
   const msg = `FIDE rating list not built: ${err instanceof Error ? err.message : err}`;
   if (required) {
     console.error(msg);
     process.exit(1);
   }
-  console.warn(`::warning::${msg}. Registration stays closed on this deployment until the list is available.`);
+  console.warn(`::warning::${msg}. Registration stays closed until a list has been uploaded.`);
 }

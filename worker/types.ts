@@ -11,8 +11,15 @@ export interface D1Like {
   prepare(sql: string): D1Statement;
 }
 
+/** The part of an R2 bucket we use: read an object as JSON. */
+export interface R2Like {
+  get(key: string): Promise<{ json<T = unknown>(): Promise<T> } | null>;
+}
+
 export interface Env {
   ASSETS?: { fetch(request: Request): Promise<Response> };
+  /** R2 bucket holding FIDE's player list as JSON shards (see scripts/upload-fide.mjs). */
+  FIDE_LIST?: R2Like;
   /** D1 database with the registrations table (see migrations/). */
   DB?: D1Like;
   /** Secrets: set in the Cloudflare dashboard, never in the repository. */

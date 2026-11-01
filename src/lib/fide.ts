@@ -17,7 +17,6 @@ export interface FideShard {
 }
 
 export const shardOf = (fideId: string | number) => Number(fideId) % SHARDS;
-export const shardPath = (n: number) => `/api/fide/${n}.json`;
 
 /** FIDE writes "Surname, Given names". We use "Given names Surname". */
 export function displayName(fideName: string): string {

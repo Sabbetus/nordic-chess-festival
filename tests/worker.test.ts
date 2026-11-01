@@ -5,7 +5,7 @@ import worker from '../worker/index.ts';
 import { handleAdmin, handleRegister, handleStripeWebhook } from '../worker/handlers.ts';
 import type { Env } from '../worker/types.ts';
 import { makeDb } from './helpers/d1.ts';
-import { fideAssets } from './helpers/fide.ts';
+import { fideBucket } from './helpers/fide.ts';
 import { clearFideCache, nextUpdateOf } from '../worker/fide.ts';
 
 const NOW = new Date('2027-03-01T10:00:00Z');
@@ -25,7 +25,7 @@ let env: Env & { DB: ReturnType<typeof makeDb> };
 
 beforeEach(() => {
   stripeCalls = [];
-  env = { DB: makeDb(), ...SECRETS, ASSETS: fideAssets() };
+  env = { DB: makeDb(), ...SECRETS, FIDE_LIST: fideBucket() };
   globalThis.fetch = (async (url: string, init?: RequestInit) => {
     stripeCalls.push({ url: String(url), auth: new Headers(init?.headers).get('authorization'), body: new URLSearchParams(String(init?.body ?? '')) });
     const n = stripeCalls.length;
@@ -177,7 +177,7 @@ test('without database or secrets the API reports that it is not available', asy
   assert.deepEqual(await ready.json(), { ok: true, registration: true, turnstile: false, fideList: '2027-02-28', fideMonth: '2027-03', fideNextUpdate: '2027-04-01' });
   // Without the FIDE list IDs cannot be checked, so registration stays closed.
   clearFideCache();
-  const noList = await worker.fetch(new Request('https://nordicchess.fi/api/health'), { ...env, ASSETS: undefined });
+  const noList = await worker.fetch(new Request('https://nordicchess.fi/api/health'), { ...env, FIDE_LIST: undefined });
   assert.equal(((await noList.json()) as { registration: boolean }).registration, false);
 });
 
@@ -298,7 +298,7 @@ test('when FIDE has no birth year the player supplies it', async () => {
 });
 
 test('without the FIDE list nobody can register', async () => {
-  const res = await handleRegister(post('/api/register', person()), { ...env, ASSETS: undefined }, NOW);
+  const res = await handleRegister(post('/api/register', person()), { ...env, FIDE_LIST: undefined }, NOW);
   assert.equal(res.status, 503);
   assert.equal(((await res.json()) as { error: string }).error, 'fide_unavailable');
   assert.equal(rows().length, 0);
@@ -319,7 +319,7 @@ test('the lookup endpoint answers found (unrated included), not found, and refus
   assert.equal((await get('/api/fide/12.json')).status, 400);
   assert.equal((await get('/api/fide/meta.json')).status, 400);
   clearFideCache();
-  const bare = await worker.fetch(new Request('https://nordicchess.fi/api/fide/100001'), { ...env, ASSETS: undefined });
+  const bare = await worker.fetch(new Request('https://nordicchess.fi/api/fide/100001'), { ...env, FIDE_LIST: undefined });
   assert.equal(((await bare.json()) as { status: string }).status, 'unavailable');
 });
 

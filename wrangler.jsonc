@@ -10,6 +10,8 @@
   "compatibility_date": "2026-10-01",
   // Daily clean-up of unpaid registrations (personal data is not kept for nothing).
   "d1_databases": [{ "binding": "DB", "database_name": "ncf-registrations", "database_id": "5f2de8da-5b45-4891-a122-dab54da915f7" }],
+  // FIDE's player list (see scripts/upload-fide.mjs). Create the bucket first: wrangler deploy fails if it does not exist.
+  "r2_buckets": [{ "binding": "FIDE_LIST", "bucket_name": "ncf-fide" }],
   "triggers": { "crons": ["17 3 * * *"] },
   "assets": {
     "directory": "./dist",
