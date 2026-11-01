@@ -44,7 +44,9 @@ Every registrant needs a FIDE ID, unrated players too (the head arbiter requires
 - The year of birth is asked for only when FIDE does not have it (about 1.7 % of players).
 - Organisers can change a name afterwards in `/admin/` (the FIDE name is kept in the note).
 
-Every build downloads the current list (about 3 minutes, mostly waiting for FIDE), so every normal deploy also refreshes it. In addition, `.github/workflows/fide-refresh.yml` makes sure each new month's list is picked up by itself:
+The list is big, so it is downloaded only when it is needed (about 3 minutes, mostly waiting for FIDE): the finished list is kept in `.cache/fide/`, and while the cached list is for the current month or later, a build just copies it and does not touch the network (1 second). A new download happens only when there is no cache or its month is older than the current month, which in practice means once, on or after the 1st of each month. `node scripts/build-fide.mjs --refresh` forces a download. The GitHub workflows keep the cache between runs with `actions/cache`, keyed by the month.
+
+Cloudflare's own git builds start from an empty container each time, so on those every deploy downloads the list. Deploying through GitHub Actions (`deploy.yml`, needs the two Cloudflare secrets) avoids that; if the repeated download on Cloudflare builds becomes a nuisance, Cloudflare's build cache or an R2 bucket holding the finished list are the options to look at. In addition, `.github/workflows/fide-refresh.yml` makes sure each new month's list is picked up by itself:
 
 - On the 1st it checks every 30 minutes, on the 2nd and 3rd every hour. If FIDE has published the new month and the live site does not have it yet, it rebuilds and redeploys. Otherwise it stops after a few seconds.
 - If FIDE has not published by the 3rd, the job fails so GitHub emails you.

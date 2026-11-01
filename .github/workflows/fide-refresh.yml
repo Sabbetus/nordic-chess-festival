@@ -53,6 +53,19 @@ jobs:
           node-version: 22
           cache: npm
 
+      # FIDE's list is big, so it is kept between runs for the whole month (see scripts/build-fide.mjs): a run downloads it
+      # only when there is no cached list for the current month.
+      - name: Month for the FIDE list cache
+        id: month
+        if: env.HAS_SECRETS == 'true'
+        run: echo "month=$(TZ=Europe/Helsinki date +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        if: env.HAS_SECRETS == 'true'
+        with:
+          path: .cache/fide
+          key: fide-${{ steps.month.outputs.month }}
+
       - name: Does the site need this month's list?
         id: status
         if: env.HAS_SECRETS == 'true'

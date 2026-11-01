@@ -6,14 +6,22 @@
 //   node scripts/build-fide.mjs --require  fail instead (used by the monthly refresh job)
 //   --min-month 2026-11                    fail unless FIDE's download page offers that month's list or a later one
 //
-// FIDE_ZIP_PATH can point at a local copy of the zip (tests and offline work).
+// The list is big (51 MB to download, 863 MB to read), so it is downloaded only when it is needed: the finished
+// shards are kept in .cache/fide/, and as long as the cached list is for the current month or later, a build copies
+// them and does not touch the network at all. A new download happens only when the cache is missing or its month is
+// older than the current month (FIDE publishes each month's list at the end of the month before). In CI the cache
+// folder is kept between runs (see the workflows). --refresh forces a download.
+//
+// FIDE_ZIP_PATH can point at a local copy of the zip (tests and offline work); it bypasses the cache.
 
-import { mkdir, readFile, writeFile, rm, stat } from 'node:fs/promises';
+import { access, cp, mkdir, readFile, writeFile, rm, stat } from 'node:fs/promises';
 import { buildShardFiles, listMonth, unzipFirstStream } from './fide-list.mjs';
 
 const URL_ZIP = 'https://ratings.fide.com/download/players_list_xml.zip';
 const OUT = new URL('../dist/api/fide/', import.meta.url);
+const CACHE = new URL('../.cache/fide/', import.meta.url);
 const required = process.argv.includes('--require');
+const refresh = process.argv.includes('--refresh');
 const MIN_PLAYERS = 1_500_000;
 const minMonth = process.argv.includes('--min-month') ? process.argv[process.argv.indexOf('--min-month') + 1] : null;
 
@@ -25,6 +33,21 @@ function monthFromFileDate(iso) {
   const d = new Date(`${iso}T12:00:00Z`);
   if (d.getUTCDate() >= 28) d.setUTCMonth(d.getUTCMonth() + 1, 1);
   return d.toISOString().slice(0, 7);
+}
+
+/** This month in Finland, as YYYY-MM. */
+const thisMonth = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Helsinki', year: 'numeric', month: '2-digit' }).format(new Date());
+
+/** The cached list's meta (month, file date, player count), or null if there is no complete cache. */
+async function readCache() {
+  try {
+    const meta = JSON.parse(await readFile(new URL('meta.json', CACHE), 'utf8'));
+    await access(new URL('0.json', CACHE));
+    await access(new URL('1023.json', CACHE));
+    return typeof meta.month === 'string' && meta.players >= MIN_PLAYERS ? meta : null;
+  } catch {
+    return null;
+  }
 }
 
 async function download() {
@@ -48,6 +71,17 @@ async function download() {
 }
 
 try {
+  // 1. A cached list for this month (or later) is used as it is: no download, no request to FIDE.
+  const cached = process.env.FIDE_ZIP_PATH || refresh ? null : await readCache();
+  if (cached && cached.month >= thisMonth() && (!minMonth || cached.month >= minMonth)) {
+    await rm(OUT, { recursive: true, force: true });
+    await mkdir(new URL('../dist/api/', import.meta.url), { recursive: true });
+    await cp(CACHE, OUT, { recursive: true });
+    console.log(`FIDE list ${cached.month} (file of ${cached.updated}): ${cached.players} players, from the local cache, nothing downloaded`);
+    process.exit(0);
+  }
+
+  // 2. Otherwise download it, once.
   const month = process.env.FIDE_ZIP_PATH ? null : await listMonth();
   if (minMonth && (!month || month < minMonth)) throw new Error(`FIDE has not published the ${minMonth} list yet (its page offers ${month ?? 'an unknown month'})`);
   const { buf, updated } = await download();
@@ -59,6 +93,12 @@ try {
   await Promise.all(files.map((content, n) => writeFile(new URL(`${n}.json`, OUT), content)));
   await writeFile(new URL('meta.json', OUT), JSON.stringify({ updated, month: listMonthLabel, players: count }));
   console.log(`FIDE list ${listMonthLabel} (file of ${updated}): ${count} players in ${files.length} shards`);
+  // Keep the finished list so the next build does not download it again.
+  if (!process.env.FIDE_ZIP_PATH) {
+    await rm(CACHE, { recursive: true, force: true });
+    await mkdir(new URL('../.cache/', import.meta.url), { recursive: true });
+    await cp(OUT, CACHE, { recursive: true });
+  }
 } catch (err) {
   const msg = `FIDE rating list not built: ${err instanceof Error ? err.message : err}`;
   if (required) {
