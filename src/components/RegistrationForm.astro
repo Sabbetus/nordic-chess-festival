@@ -21,7 +21,7 @@ const [acceptE, acceptF] = acceptD.split('{privacy}');
 const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '';
 const ui = {
   lang, titleMap: lang === 'fi' ? titlesFi : {}, federationNames, bus: busTransfer.price, free: f.free, reasons: f.reasons, hint: f.summaryHint, hintBirth: f.summaryHintBirth, earlyBirdNote: f.earlyBirdNote,
-  gmNote: f.gmNote, unratedNote: f.unratedNote, submitPay: f.submitPay, submitFree: f.submitFree, sending: f.sending,
+  gmNote: f.gmNote, submitPay: f.submitPay, submitFree: f.submitFree, sending: f.sending,
   errors: { email: f.errEmail, phone: f.errPhone, fideId: f.errFideId, birthYear: f.errBirthYear, accept: f.errAccept, required: f.errRequired },
   category: f.categoryLabel, categoryUnrated: f.categoryUnrated, categoryLowRating: f.categoryLowRating, blocked: f.blockedFederation, errDuplicate: f.errDuplicate, errUnavailable: f.errUnavailable, errGeneric: f.errGeneric, errorSummary: f.errorSummary,
   thanks: localePath(lang, '/register/thanks/'),
@@ -40,7 +40,6 @@ const ui = {
       <div class="field" data-fide-id>
         <label for="f-fide">{f.fideId}</label>
         <input id="f-fide" name="fideId" inputmode="numeric" maxlength="10" autocomplete="off" class="short" />
-        <p class="help">{f.fideIdHelp}</p>
         <p class="help">{f.fideIdGet}</p>
         <p class="err" data-err="fideId"></p>
       </div>
@@ -166,7 +165,7 @@ const ui = {
 
   type UI = {
     lang: string; titleMap: Record<string, string>; federationNames: Record<string, string>; bus: number; free: string;
-    reasons: Record<string, string>; hint: string; hintBirth: string; earlyBirdNote: string; gmNote: string; unratedNote: string;
+    reasons: Record<string, string>; hint: string; hintBirth: string; earlyBirdNote: string; gmNote: string;
     submitPay: string; submitFree: string; sending: string; errors: Record<string, string>;
     category: string; categoryUnrated: string; categoryLowRating: string; blocked: string; errDuplicate: string; errUnavailable: string;
     errGeneric: string; errorSummary: string; thanks: string;
@@ -309,7 +308,6 @@ const ui = {
       $('[data-total]').textContent = q.totalCents === 0 ? ui.free : euro(q.totalCents);
       const notes: string[] = [];
       if (q.entryCents === 0) notes.push(ui.gmNote);
-      if (q.fee.band.id === 'unrated') notes.push(ui.unratedNote);
       if (q.fee.discount === 'early-bird') notes.push(ui.earlyBirdNote);
       $('[data-notes]').textContent = notes.join(' ');
       setButton(q.totalCents === 0);
