@@ -38,6 +38,13 @@ const description = r.lead.replace('{link}', r.feesIntroLink);
     </div>
   </section>
 
+  <section class="section" id="how">
+    <div class="container narrow-wrap">
+      <h2>{r.howTitle}</h2>
+      <ol class="prose rules">{r.how.map((x) => <li>{x}</li>)}</ol>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container grid grid-2">
       <div>
@@ -47,8 +54,6 @@ const description = r.lead.replace('{link}', r.feesIntroLink);
       <div class="stack">
         <h2 id="refunds">{r.refundTitle}</h2>
         <p class="prose">{r.refundText}</p>
-        <h2 class="gap">{r.howTitle}</h2>
-        <ol class="prose rules">{r.how.map((x) => <li>{x}</li>)}</ol>
       </div>
     </div>
   </section>
