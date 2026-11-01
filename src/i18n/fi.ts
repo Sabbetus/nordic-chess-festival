@@ -240,7 +240,7 @@ const fi: Messages = {
       lookupChecking: 'Tarkistetaan FIDE-ratinglistaa…',
       lookupFound: 'Löytyi FIDE-ratinglistalta',
       lookupFoundNote: 'Nämä tiedot tulevat suoraan FIDEltä, ja niitä käytetään sellaisenaan. Jos jokin on väärin, kirjoita ilmoittautumisen jälkeen osoitteeseen info@nordicchess.fi.',
-      lookupNotFound: 'Tätä FIDE-tunnusta ei löydy listaltamme. Tarkista numero. Listamme on FIDEn {month} lista, ja se päivitetään joka kuukauden 1. päivä (seuraava päivitys: {next}). Uusi FIDE-tunnus ilmestyy listallemme seuraavan päivityksen jälkeen.',
+      lookupNotFound: 'Tätä FIDE-tunnusta ei löydy listaltamme. Tarkista numero. Listamme on FIDEn lista ({month}), ja se päivitetään joka kuukauden 1. päivä (seuraava päivitys: {next}). Uusi FIDE-tunnus ilmestyy listallemme seuraavan päivityksen jälkeen.',
       lookupUnavailable: 'FIDE-listaa ei voitu tarkistaa juuri nyt. Yritä hetken kuluttua uudelleen.',
       lookupName: 'Nimi',
       lookupFederation: 'Liitto',

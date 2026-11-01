@@ -215,8 +215,9 @@ const ui = {
     }
 
     const tl = (text: string) => text.replace(/\b(WGM|WIM|WFM|WCM|GM|IM|FM|CM)\b/g, (t) => ui.titleMap[t] ?? t);
-    const fmtMonth = (month: string) => new Intl.DateTimeFormat(ui.lang, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T12:00:00Z`));
-    const fmtDate = (iso: string) => new Intl.DateTimeFormat(ui.lang, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+    const loc = ui.lang === 'en' ? 'en-GB' : ui.lang;
+    const fmtMonth = (month: string) => new Intl.DateTimeFormat(loc, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T12:00:00Z`));
+    const fmtDate = (iso: string) => new Intl.DateTimeFormat(loc, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
     const notFoundText = (month: string, next: string) => ui.lookup.notFound.replace('{month}', fmtMonth(month)).replace('{next}', fmtDate(next));
 
     // --- FIDE lookup: the only thing a player types about chess is the ID; the rest comes from FIDE's list ---
