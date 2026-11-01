@@ -46,15 +46,16 @@ const description = r.lead.replace('{link}', r.feesIntroLink);
   </section>
 
   <section class="section">
-    <div class="container grid grid-2">
-      <div>
-        <h2>{r.rulesTitle}</h2>
-        <ul class="prose rules">{r.rules.map((x) => <li>{x}</li>)}</ul>
-      </div>
-      <div class="stack">
-        <h2 id="refunds">{r.refundTitle}</h2>
-        <p class="prose">{r.refundText}</p>
-      </div>
+    <div class="container narrow-wrap">
+      <h2>{r.rulesTitle}</h2>
+      <ul class="prose rules">{r.rules.map((x) => <li>{x}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow-wrap">
+      <h2 id="refunds">{r.refundTitle}</h2>
+      <p class="prose">{r.refundText}</p>
     </div>
   </section>
 </BaseLayout>
