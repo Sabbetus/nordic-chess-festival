@@ -40,16 +40,10 @@ export async function insertRegistration(db: D1Like, row: RegistrationRow): Prom
   await db.prepare(sql).bind(...COLUMNS.map((c) => row[c])).run();
 }
 
-/** Someone already registered (paid, or free and not rejected) with the same FIDE ID, or the same email and name. */
-export async function findDuplicate(db: D1Like, who: { fideId: string | null; email: string; name: string }): Promise<{ id: string } | null> {
+/** Someone already registered (paid, or free and not rejected) with the same FIDE ID. */
+export async function findDuplicate(db: D1Like, who: { fideId: string }): Promise<{ id: string } | null> {
   const live = `payment_status IN ('paid', 'not_required', 'partially_refunded') AND review_status != 'rejected'`;
-  if (who.fideId) {
-    return db.prepare(`SELECT id FROM registrations WHERE fide_id = ? AND ${live} LIMIT 1`).bind(who.fideId).first<{ id: string }>();
-  }
-  return db
-    .prepare(`SELECT id FROM registrations WHERE fide_id IS NULL AND email = ? AND lower(name) = lower(?) AND ${live} LIMIT 1`)
-    .bind(who.email, who.name)
-    .first<{ id: string }>();
+  return db.prepare(`SELECT id FROM registrations WHERE fide_id = ? AND ${live} LIMIT 1`).bind(who.fideId).first<{ id: string }>();
 }
 
 export async function attachSession(db: D1Like, id: string, sessionId: string): Promise<void> {

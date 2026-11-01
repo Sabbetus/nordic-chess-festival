@@ -2,8 +2,7 @@
 import { getCountries, getCountryCallingCode } from 'libphonenumber-js/min';
 import { federationOptions } from '../data/federations';
 import { busTransfer, formatEuro } from '../data/fees';
-import { titles } from '../lib/registration';
-import { titleLabel, titlesFi } from '../lib/titles';
+import { titlesFi } from '../lib/titles';
 import { localePath, messages, type Locale } from '../i18n/utils';
 
 interface Props { lang: Locale }
@@ -14,22 +13,19 @@ const regionNames = new Intl.DisplayNames([lang], { type: 'region' });
 const phoneCodes = getCountries()
   .map((c) => ({ code: c, label: `${regionNames.of(c) ?? c} (+${getCountryCallingCode(c)})` }))
   .sort((a, b) => a.label.localeCompare(b.label, lang));
-const federations = federationOptions(lang);
+const federationNames = Object.fromEntries(federationOptions(lang).map((x) => [x.code, x.label]));
 const busHelp = f.busHelp.replace('{price}', formatEuro(busTransfer.price));
 const [acceptA, acceptB] = f.accept.split('{regulations}');
 const [acceptC, acceptD] = acceptB.split('{refunds}');
 const [acceptE, acceptF] = acceptD.split('{privacy}');
 const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '';
 const ui = {
-  lang, titleMap: lang === 'fi' ? titlesFi : {}, bus: busTransfer.price, free: f.free, reasons: f.reasons, hint: f.summaryHint, hintBirth: f.summaryHintBirth, earlyBirdNote: f.earlyBirdNote,
+  lang, titleMap: lang === 'fi' ? titlesFi : {}, federationNames, bus: busTransfer.price, free: f.free, reasons: f.reasons, hint: f.summaryHint, hintBirth: f.summaryHintBirth, earlyBirdNote: f.earlyBirdNote,
   gmNote: f.gmNote, unratedNote: f.unratedNote, submitPay: f.submitPay, submitFree: f.submitFree, sending: f.sending,
-  errors: {
-    name: f.errName, email: f.errEmail, phone: f.errPhone, fideId: f.errFideId, rating: f.errRating, birthYear: f.errBirthYear,
-    federation: f.errFederation, accept: f.errAccept, required: f.errRequired,
-  },
+  errors: { email: f.errEmail, phone: f.errPhone, fideId: f.errFideId, birthYear: f.errBirthYear, accept: f.errAccept, required: f.errRequired },
   category: f.categoryLabel, categoryUnrated: f.categoryUnrated, categoryLowRating: f.categoryLowRating, blocked: f.blockedFederation, errDuplicate: f.errDuplicate, errUnavailable: f.errUnavailable, errGeneric: f.errGeneric, errorSummary: f.errorSummary,
   thanks: localePath(lang, '/register/thanks/'),
-  lookup: { checking: f.lookupChecking, found: f.lookupFound, foundNote: f.lookupFoundNote, notFound: f.lookupNotFound, unavailable: f.lookupUnavailable, list: f.lookupList, none: f.fideTitleNone },
+  lookup: { checking: f.lookupChecking, found: f.lookupFound, foundNote: f.lookupFoundNote, notFound: f.lookupNotFound, unavailable: f.lookupUnavailable, list: f.lookupList, none: f.lookupNoTitle, unrated: f.lookupUnrated },
 };
 ---
 
@@ -44,7 +40,9 @@ const ui = {
       <div class="field" data-fide-id>
         <label for="f-fide">{f.fideId}</label>
         <input id="f-fide" name="fideId" inputmode="numeric" maxlength="10" autocomplete="off" class="short" />
-        <p class="help">{f.fideIdHelp}</p><p class="err" data-err="fideId"></p>
+        <p class="help">{f.fideIdHelp}</p>
+        <p class="help">{f.fideIdGet}</p>
+        <p class="err" data-err="fideId"></p>
       </div>
       <div class="lookup" data-lookup hidden aria-live="polite">
         <p class="lookup-status" data-lookup-status></p>
@@ -57,47 +55,14 @@ const ui = {
         </dl>
         <p class="help" data-lookup-note></p>
       </div>
-      <label class="check"><input type="checkbox" name="noFideId" /> <span>{f.noFideId}<small>{f.noFideIdHelp}</small></span></label>
     </fieldset>
 
     <fieldset>
       <legend>{f.sectionAbout}</legend>
-      <div data-manual hidden>
-        <div class="field">
-          <label for="f-name">{f.nameManual}</label>
-          <input id="f-name" name="name" autocomplete="name" maxlength="100" />
-          <p class="help">{f.nameHelp}</p><p class="err" data-err="name"></p>
-        </div>
-        <div class="field">
-          <label for="f-fed">{f.federation}</label>
-          <select id="f-fed" name="federation">
-            <option value="">{f.federationPlaceholder}</option>
-            {federations.map((x) => <option value={x.code}>{x.label} ({x.code})</option>)}
-          </select>
-          <p class="err" data-err="federation"></p>
-        </div>
-      </div>
       <div class="field" data-birth hidden>
         <label for="f-birth">{f.birthYear}</label>
         <input id="f-birth" name="birthYear" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" class="short" />
         <p class="help">{f.birthYearHelp}</p><p class="err" data-err="birthYear"></p>
-      </div>
-      <div data-declared hidden>
-        <div class="row">
-          <div class="field">
-            <label for="f-title">{f.fideTitle}</label>
-            <select id="f-title" name="title">
-              <option value="">{f.fideTitleNone}</option>
-              {titles.map((t) => <option value={t}>{titleLabel(lang, t)}</option>)}
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-rating">{f.rating}</label>
-            <input id="f-rating" name="rating" inputmode="numeric" maxlength="4" class="short" />
-            <p class="err" data-err="rating"></p>
-          </div>
-        </div>
-        <p class="help">{f.ratingHelp}</p>
       </div>
       <div class="field">
         <label for="f-email">{f.email}</label>
@@ -164,14 +129,12 @@ const ui = {
   input:focus-visible, select:focus-visible { outline: 2px solid var(--ice); outline-offset: 1px; border-color: var(--ice); }
   .field.invalid input, .field.invalid select { border-color: var(--danger); }
   .phone { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--space-3); }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
   .help { font-size: var(--text-sm); line-height: 1.5; color: var(--muted); }
   .err { font-size: var(--text-sm); color: var(--danger); min-height: 0; }
   .err:empty { display: none; }
   .check { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: start; cursor: pointer; }
   .check input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; accent-color: var(--ice); }
   .check small { display: block; color: var(--muted); font-size: var(--text-sm); margin-top: 0.25rem; line-height: 1.5; }
-  [data-manual], [data-declared] { display: grid; gap: var(--space-4); }
   .lookup { display: grid; gap: var(--space-3); }
   .lookup-status { font-size: var(--text-sm); color: var(--muted); }
   .lookup.found .lookup-status { color: var(--ice); }
@@ -194,7 +157,7 @@ const ui = {
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .accept a { color: var(--ice); text-decoration: underline; }
   [data-submit][disabled] { opacity: 0.6; cursor: wait; }
-  @media (max-width: 520px) { .phone, .row { grid-template-columns: 1fr; } input.short { max-width: none; } }
+  @media (max-width: 520px) { .phone { grid-template-columns: 1fr; } input.short { max-width: none; } }
 </style>
 
 <script>
@@ -202,14 +165,16 @@ const ui = {
   import { quote, helsinkiToday } from '../lib/pricing';
 
   type UI = {
-    lang: string; titleMap: Record<string, string>; bus: number; free: string; reasons: Record<string, string>; hint: string; hintBirth: string; earlyBirdNote: string; gmNote: string;
-    unratedNote: string; submitPay: string; submitFree: string; sending: string; errors: Record<string, string>;
-    category: string; categoryUnrated: string; categoryLowRating: string; blocked: string; errDuplicate: string; errUnavailable: string; errGeneric: string; errorSummary: string; thanks: string;
-    lookup: { checking: string; found: string; foundNote: string; notFound: string; unavailable: string; list: string; none: string };
+    lang: string; titleMap: Record<string, string>; federationNames: Record<string, string>; bus: number; free: string;
+    reasons: Record<string, string>; hint: string; hintBirth: string; earlyBirdNote: string; gmNote: string; unratedNote: string;
+    submitPay: string; submitFree: string; sending: string; errors: Record<string, string>;
+    category: string; categoryUnrated: string; categoryLowRating: string; blocked: string; errDuplicate: string; errUnavailable: string;
+    errGeneric: string; errorSummary: string; thanks: string;
+    lookup: { checking: string; found: string; foundNote: string; notFound: string; unavailable: string; list: string; none: string; unrated: string };
   };
   type Lookup =
-    | { status: 'found'; fideId: string; name: string; federation: string; title: string; rating: number; birthYear: number; updated: string; blocked: boolean }
-    | { status: 'not_found'; updated: string }
+    | { status: 'found'; fideId: string; name: string; federation: string; title: string; rating: number; birthYear: number; updated: string; month: string; nextUpdate: string; blocked: boolean }
+    | { status: 'not_found'; updated: string; month: string; nextUpdate: string }
     | { status: 'unavailable' };
 
   const root = document.querySelector<HTMLElement>('[data-register]');
@@ -249,60 +214,58 @@ const ui = {
       document.head.append(s);
     }
 
-    // --- FIDE lookup: the only thing a player with a FIDE ID types is the ID itself ---
+    const tl = (text: string) => text.replace(/\b(WGM|WIM|WFM|WCM|GM|IM|FM|CM)\b/g, (t) => ui.titleMap[t] ?? t);
+    const fmtMonth = (month: string) => new Intl.DateTimeFormat(ui.lang, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T12:00:00Z`));
+    const fmtDate = (iso: string) => new Intl.DateTimeFormat(ui.lang, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+    const notFoundText = (month: string, next: string) => ui.lookup.notFound.replace('{month}', fmtMonth(month)).replace('{next}', fmtDate(next));
+
+    // --- FIDE lookup: the only thing a player types about chess is the ID; the rest comes from FIDE's list ---
     let lookup: Lookup | null = null;
     let checking: Promise<void> = Promise.resolve();
     let seq = 0;
 
-    const fedLabel = (code: string) => form.querySelector<HTMLOptionElement>(`select[name=federation] option[value="${code}"]`)?.textContent ?? code;
-
     function renderLookup() {
-      const noFide = el('noFideId').checked;
       const L = lookup as Lookup | null;
       const box = $('[data-lookup]');
       const status = $('[data-lookup-status]');
       const card = $('[data-lookup-card]');
       const note = $('[data-lookup-note]');
-      $('[data-fide-id]').hidden = noFide;
       const typed = el('fideId').value.trim();
-      const showBox = !noFide && typed.length >= 3;
+      const showBox = typed.length >= 3;
       box.hidden = !showBox;
-      box.classList.toggle('found', L?.status === 'found');
-      card.hidden = L?.status !== 'found';
+      box.classList.toggle('found', L?.status === 'found' && !L.blocked);
+      card.hidden = true;
       note.textContent = '';
-      // Players from blocked federations cannot register: say why and hide the rest of the form.
-      const blocked = !noFide && L?.status === 'found' && L.blocked;
-      form.classList.toggle('blocked', blocked);
-      status.classList.toggle('error', blocked);
+      // No usable ID record (not in our list, blocked federation, list unavailable): say why and hide the rest of the form.
+      const stop = !!L && (L.status !== 'found' || L.blocked);
+      form.classList.toggle('blocked', stop);
+      status.classList.toggle('error', stop);
       if (showBox) {
         if (!L) status.textContent = ui.lookup.checking;
-        else if (L.status === 'found' && L.blocked) {
-          status.textContent = ui.blocked;
-          card.hidden = true;
-        } else if (L.status === 'found') {
-          status.textContent = `${ui.lookup.found} · ${ui.lookup.list.replace('{date}', L.updated)}`;
+        else if (L.status === 'unavailable') status.textContent = ui.lookup.unavailable;
+        else if (L.status === 'not_found') status.textContent = notFoundText(L.month, L.nextUpdate);
+        else if (L.blocked) status.textContent = ui.blocked;
+        else {
+          card.hidden = false;
+          status.textContent = `${ui.lookup.found} · ${ui.lookup.list.replace('{date}', fmtDate(L.updated))}`;
           $('[data-l-name]').textContent = L.name;
-          $('[data-l-fed]').textContent = fedLabel(L.federation);
+          $('[data-l-fed]').textContent = ui.federationNames[L.federation] ? `${ui.federationNames[L.federation]} (${L.federation})` : L.federation;
           $('[data-l-born]').textContent = L.birthYear ? String(L.birthYear) : '';
           $<HTMLElement>('[data-l-born-row]').hidden = !L.birthYear;
           $('[data-l-title]').textContent = L.title ? (ui.titleMap[L.title] ?? L.title) : ui.lookup.none;
-          $('[data-l-rating]').textContent = String(L.rating);
+          $('[data-l-rating]').textContent = L.rating > 0 ? String(L.rating) : ui.lookup.unrated;
           note.textContent = ui.lookup.foundNote;
-        } else status.textContent = L.status === 'not_found' ? ui.lookup.notFound : ui.lookup.unavailable;
+        }
       }
-      // Fields the player must fill in only when FIDE does not supply them.
-      const found = !noFide && L?.status === 'found';
-      const manual = noFide || (showBox && !!L && !found);
-      $('[data-manual]').hidden = !manual;
-      $('[data-birth]').hidden = !(manual || (L?.status === 'found' && !noFide && !L.birthYear));
-      $('[data-declared]').hidden = !(!noFide && L?.status === 'unavailable');
+      // The year of birth is asked for only when FIDE does not have it.
+      $('[data-birth]').hidden = !(L?.status === 'found' && !L.blocked && !L.birthYear);
     }
 
     function onFideInput() {
       lookup = null;
       const id = el('fideId').value.trim();
       const mine = ++seq;
-      if (el('noFideId').checked || !/^\d{3,10}$/.test(id)) { checking = Promise.resolve(); renderAll(); return; }
+      if (!/^\d{3,10}$/.test(id)) { checking = Promise.resolve(); renderAll(); return; }
       checking = new Promise<void>((resolve) => {
         setTimeout(async () => {
           if (mine !== seq) return resolve();
@@ -322,30 +285,23 @@ const ui = {
 
     // --- price ---
     const state = () => {
-      const noFide = el('noFideId').checked;
       const L = lookup as Lookup | null;
-      if (!noFide && L?.status === 'found') {
-        return { by: L.birthYear || Number(el('birthYear').value.trim()), title: L.title as Title | '', rating: L.rating, bus: el('bus').checked, ready: true };
-      }
-      const declared = !noFide && L?.status === 'unavailable';
-      const r = declared ? el('rating').value.trim() : '';
-      const ready = noFide || L?.status === 'not_found' || declared;
-      return { by: Number(el('birthYear').value.trim()), title: (declared ? el('title').value : '') as Title | '', rating: /^\d{3,4}$/.test(r) ? Number(r) : null, bus: el('bus').checked, ready };
+      if (L?.status !== 'found' || L.blocked) return { ready: false, by: 0, title: '' as Title | '', rating: null as number | null, bus: false };
+      return { ready: true, by: L.birthYear || Number(el('birthYear').value.trim()), title: L.title as Title | '', rating: L.rating > 0 ? L.rating : null, bus: el('bus').checked };
     };
 
     function renderSummary() {
       const s = state();
       const valid = s.ready && s.by >= 1900 && s.by <= 2022;
-      const lines = $('[data-lines]');
       $('[data-hint]').hidden = valid;
-      // Ask for the FIDE ID first; the year of birth is only asked for when FIDE does not supply it (or there is no FIDE ID).
+      $('[data-lines]').hidden = !valid;
+      // Ask for the FIDE ID first; the year of birth is only asked for when FIDE does not have it.
       $('[data-hint]').textContent = $('[data-birth]').hidden ? ui.hint : ui.hintBirth;
-      lines.hidden = !valid;
       if (!valid) { $('[data-notes]').textContent = ''; setButton(false); return; }
       const q = quote({ title: s.title || null, rating: s.rating, birthYear: s.by, bus: s.bus }, helsinkiToday());
-      $('[data-entry]').textContent = q.entryCents === 0 ? ui.free : euro(q.entryCents);
       // Which fee category was applied, so the player can see the right price was used.
-      const category = q.fee.band.id === 'unrated' ? (s.rating && s.rating < 1400 ? ui.categoryLowRating : ui.categoryUnrated) : ui.category.replace('{label}', q.fee.band.label.replace(/\b(WGM|WIM|WFM|WCM|GM|IM|FM|CM)\b/g, (t) => ui.titleMap[t] ?? t));
+      const category = q.fee.band.id === 'unrated' ? (s.rating && s.rating < 1400 ? ui.categoryLowRating : ui.categoryUnrated) : ui.category.replace('{label}', tl(q.fee.band.label));
+      $('[data-entry]').textContent = q.entryCents === 0 ? ui.free : euro(q.entryCents);
       $('[data-reason]').textContent = [category, q.entryCents === 0 ? '' : (ui.reasons[q.fee.discount] ?? '')].filter(Boolean).join(' · ');
       $('[data-bus-line]').hidden = !s.bus;
       $('[data-bus]').textContent = euro(q.busCents);
@@ -365,7 +321,6 @@ const ui = {
     const renderAll = () => { renderLookup(); renderSummary(); };
 
     el('fideId').addEventListener('input', onFideInput);
-    el('noFideId').addEventListener('change', onFideInput);
     form.addEventListener('input', renderSummary);
     form.addEventListener('change', renderSummary);
     renderAll();
@@ -396,17 +351,17 @@ const ui = {
       e.preventDefault();
       clearErrors();
       await checking;
-      const noFide = el('noFideId').checked;
       const L = lookup as Lookup | null;
-      const found = !noFide && L?.status === 'found';
-      const declared = !noFide && L?.status === 'unavailable';
-      // With a FIDE record the server takes everything from FIDE; the browser sends only the ID and contact details.
+      if (L?.status !== 'found' || L.blocked) {
+        // No usable FIDE record: the message under the ID field already says why.
+        if (!L) showErrors({ fideId: el('fideId').value.trim() ? 'invalid' : 'required' });
+        el('fideId').focus();
+        return;
+      }
+      // The server takes everything FIDE knows from the list; the browser sends the ID, the contact details and the choices.
       const data = {
         email: el('email').value, phoneCountry: el('phoneCountry').value, phoneNumber: el('phoneNumber').value,
-        noFideId: noFide, fideId: noFide ? '' : el('fideId').value,
-        name: found ? '' : el('name').value, federation: found ? '' : el('federation').value,
-        birthYear: found && L?.status === 'found' && L.birthYear ? '' : el('birthYear').value,
-        title: declared ? el('title').value : '', rating: declared ? el('rating').value : '',
+        fideId: el('fideId').value.trim(), birthYear: L.birthYear ? '' : el('birthYear').value,
         bus: el('bus').checked, accept: el('accept').checked, locale: ui.lang, website: el('website').value, turnstile: token,
       };
       const button = $<HTMLButtonElement>('[data-submit]');
@@ -419,7 +374,8 @@ const ui = {
         const body = await res.json().catch(() => ({}));
         if (res.ok && body.url) { window.location.assign(body.url); return; }
         if (res.ok && body.ok) { window.location.assign(`${ui.thanks}?r=${encodeURIComponent(body.id ?? '')}&free=1`); return; }
-        if (res.status === 422 && body.errors) showErrors(body.errors);
+        if (res.status === 422 && body.error === 'fide_not_found') fail(notFoundText(body.month, body.nextUpdate));
+        else if (res.status === 422 && body.errors) showErrors(body.errors);
         else if (res.status === 403 && body.error === 'federation_blocked') fail(ui.blocked);
         else if (res.status === 409) fail(ui.errDuplicate);
         else if (res.status === 503) fail(ui.errUnavailable);

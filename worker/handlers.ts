@@ -15,10 +15,12 @@ export async function handleHealth(env: Env): Promise<Response> {
   const list = await fideListInfo(env);
   return json({
     ok: true,
-    registration: Boolean(env.DB && env.STRIPE_SECRET_KEY && env.STRIPE_WEBHOOK_SECRET),
+    // Registration needs the FIDE list: without it IDs cannot be checked.
+    registration: Boolean(env.DB && env.STRIPE_SECRET_KEY && env.STRIPE_WEBHOOK_SECRET && list),
     turnstile: Boolean(env.TURNSTILE_SECRET),
-    fideList: list.updated,
-    fideMonth: list.month,
+    fideList: list?.updated ?? null,
+    fideMonth: list?.month ?? null,
+    fideNextUpdate: list?.nextUpdate ?? null,
   });
 }
 
@@ -77,25 +79,21 @@ export async function handleRegister(request: Request, env: Env, now: Date = new
     }
   }
 
-  // Everything FIDE knows comes from FIDE's list, never from the browser.
+  // A FIDE ID is required and has to be in our copy of FIDE's list. Everything FIDE knows (name, federation, title,
+  // rating, birth year) comes from the list, never from the browser.
   const input = (body && typeof body === 'object' ? { ...(body as Record<string, unknown>) } : {}) as RegistrationInput;
-  let fideNote: string | null = null;
-  if (input.noFideId !== true && typeof input.fideId === 'string' && /^\d{3,10}$/.test(input.fideId.trim())) {
-    const found = await lookupFide(env, input.fideId.trim());
-    if (found.status === 'found') {
-      Object.assign(input, {
-        fideId: found.fideId, name: found.name, federation: found.federation, title: found.title, rating: String(found.rating),
-        birthYear: found.birthYear || input.birthYear,
-      });
-      fideNote = `FIDE list ${found.updated}`;
-    } else if (found.status === 'not_found') {
-      // Not in the standard rating list: unrated, whatever the browser claims. The player supplies name, federation and birth year.
-      Object.assign(input, { title: '', rating: '' });
-      fideNote = `FIDE ID not in the standard rating list ${found.updated}: registered as unrated`;
-    } else {
-      fideNote = 'FIDE list unavailable: title and rating are as declared, check them';
-    }
-  }
+  const fideId = typeof input.fideId === 'string' ? input.fideId.trim() : '';
+  if (!/^\d{3,10}$/.test(fideId)) return json({ error: 'validation', errors: { fideId: fideId ? 'invalid' : 'required' } }, 422);
+  const found = await lookupFide(env, fideId, now);
+  if (found.status === 'unavailable') return json({ error: 'fide_unavailable' }, 503);
+  if (found.status === 'not_found') return json({ error: 'fide_not_found', month: found.month, nextUpdate: found.nextUpdate }, 422);
+  Object.assign(input, {
+    fideId: found.fideId, name: found.name, federation: found.federation, title: found.title,
+    // A rating of 0 means a FIDE ID without a standard rating: the unrated price applies.
+    rating: found.rating > 0 ? String(found.rating) : '',
+    birthYear: found.birthYear || input.birthYear,
+  });
+  const fideNote = `FIDE list ${found.month}${found.rating > 0 ? '' : ', unrated'}`;
 
   // Decision of the Finnish Chess Federation: no players representing Russia or Belarus, whichever way the federation was found.
   if (isBlockedFederation(typeof input.federation === 'string' ? input.federation.trim() : '')) return json({ error: 'federation_blocked' }, 403);
@@ -104,7 +102,7 @@ export async function handleRegister(request: Request, env: Env, now: Date = new
   if (!v.ok) return json({ error: 'validation', errors: v.errors }, 422);
   const reg = v.value;
 
-  if (await findDuplicate(env.DB, { fideId: reg.fideId, email: reg.email, name: reg.name })) return json({ error: 'duplicate' }, 409);
+  if (await findDuplicate(env.DB, { fideId: reg.fideId })) return json({ error: 'duplicate' }, 409);
 
   const paidOn = helsinkiToday(now);
   const q = quote(reg, paidOn);

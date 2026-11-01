@@ -33,13 +33,18 @@ Besides the access key, put `/admin/*` behind **Cloudflare Access** (Zero Trust 
 
 ## 5. Go live
 
-Repeat step 2–3 with live-mode keys and a webhook for the final domain. Test in test mode first (card 4242 4242 4242 4242): every price band, early bird (before/after 31 Jan), junior/senior, no FIDE ID, bus, GM free, MobilePay, cancelled payment, a partial refund.
+Repeat step 2–3 with live-mode keys and a webhook for the final domain. Test in test mode first (card 4242 4242 4242 4242): every price band, early bird (before/after 31 Jan), junior/senior, an ID without a rating, an ID that is not in the list, bus, GM free, MobilePay, cancelled payment, a partial refund.
 
-## FIDE rating list (automatic)
+## FIDE list (automatic)
 
-Players type only their FIDE ID. Name, federation, title, rating and birth year come from FIDE's official monthly rating list, which is built into every deployment as small data files (`scripts/build-fide.mjs`, written to `dist/api/fide/`). The Worker looks players up there; nothing is typed in or trusted from the browser for those fields. IDs that are not in the list register as unrated (name, federation and birth year are then typed). Organisers can change a name afterwards in `/admin/` (the FIDE name is kept in the note).
+Every registrant needs a FIDE ID, unrated players too (the head arbiter requires it; a player without one asks their national chess federation). Players type only the ID. Name, federation, title, rating and birth year come from FIDE's official **combined player list** (`players_list_xml`, about 51 MB zipped, 863 MB unzipped, roughly 1.95 million players). Unlike FIDE's standard rating list, it also contains players with an ID but no standard rating (rating 0): they are unrated and pay the unrated fee. The list is built into every deployment as small data files (`scripts/build-fide.mjs`, written to `dist/api/fide/`, 1024 files of about 100 KB). The Worker looks players up there; nothing is typed in or trusted from the browser for those fields.
 
-Every build downloads the current list, so every normal deploy also refreshes it. In addition, `.github/workflows/fide-refresh.yml` makes sure each new month's list is picked up by itself:
+- An ID that is not in our list (a typo, or an ID created after the list was published) is refused. The message gives the month of our list and the date of the next update.
+- Registration is closed on a deployment that has no list (the build could not download it), because IDs cannot be checked. `/api/health` shows `registration: false` then.
+- The year of birth is asked for only when FIDE does not have it (about 1.7 % of players).
+- Organisers can change a name afterwards in `/admin/` (the FIDE name is kept in the note).
+
+Every build downloads the current list (about 3 minutes, mostly waiting for FIDE), so every normal deploy also refreshes it. In addition, `.github/workflows/fide-refresh.yml` makes sure each new month's list is picked up by itself:
 
 - On the 1st it checks every 30 minutes, on the 2nd and 3rd every hour. If FIDE has published the new month and the live site does not have it yet, it rebuilds and redeploys. Otherwise it stops after a few seconds.
 - If FIDE has not published by the 3rd, the job fails so GitHub emails you.

@@ -15,7 +15,6 @@ export interface RegistrationInput {
   email?: string;
   phoneCountry?: string;
   phoneNumber?: string;
-  noFideId?: boolean;
   fideId?: string;
   title?: string;
   rating?: string | number | null;
@@ -34,7 +33,7 @@ export interface Registration {
   email: string;
   /** E.164, e.g. +358401234567 */
   phone: string;
-  fideId: string | null;
+  fideId: string;
   title: Title | null;
   rating: number | null;
   birthYear: number;
@@ -74,28 +73,27 @@ export function validateRegistration(input: unknown):
     else errors.phone = 'invalid';
   }
 
-  const noFideId = i.noFideId === true;
-  let fideId: string | null = null;
+  // Every registrant needs a FIDE ID (unrated players too).
+  let fideId = '';
+  const id = text(i.fideId);
+  if (!id) errors.fideId = 'required';
+  else if (!/^\d{3,10}$/.test(id)) errors.fideId = 'invalid';
+  else fideId = id;
+
   let title: Title | null = null;
+  const t = text(i.title);
+  if (t) {
+    if ((titles as readonly string[]).includes(t)) title = t as Title;
+    else errors.title = 'invalid';
+  }
+
+  // The rating comes from FIDE's list; empty means no standard rating (unrated).
   let rating: number | null = null;
-  if (!noFideId) {
-    const id = text(i.fideId);
-    if (!id) errors.fideId = 'required';
-    else if (!/^\d{3,10}$/.test(id)) errors.fideId = 'invalid';
-    else fideId = id;
-
-    const t = text(i.title);
-    if (t) {
-      if ((titles as readonly string[]).includes(t)) title = t as Title;
-      else errors.title = 'invalid';
-    }
-
-    const r = typeof i.rating === 'number' ? String(i.rating) : text(i.rating);
-    if (r) {
-      const n = Number(r);
-      if (!/^\d{3,4}$/.test(r) || n < 1000 || n > 3000) errors.rating = 'invalid';
-      else rating = n;
-    }
+  const r = typeof i.rating === 'number' ? String(i.rating) : text(i.rating);
+  if (r) {
+    const n = Number(r);
+    if (!/^\d{3,4}$/.test(r) || n < 100 || n > 3000) errors.rating = 'invalid';
+    else rating = n;
   }
 
   const by = text(String(i.birthYear ?? ''));

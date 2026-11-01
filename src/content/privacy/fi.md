@@ -15,8 +15,8 @@ Rekisterinpitäjä on **Nordic Chess Festival ry** (Kangasala). Kaikissa tietosu
 Ilmoittautumisessa keräämme:
 
 - nimen, sähköpostiosoitteen ja puhelinnumeron
-- FIDE-tunnuksen (jos sinulla on)
-- nimen, liiton, FIDE-tittelin, FIDE-ratingin ja syntymävuoden: jos sinulla on FIDE-tunnus, haemme nämä FIDEn julkiselta ratinglistalta, joten et kirjoita niitä itse; jos sinulla ei ole FIDE-tunnusta, ilmoitat nimesi, liittosi ja syntymävuotesi itse (syntymävuotta käytetään juniori- ja seniorihintojen soveltamiseen)
+- FIDE-tunnuksen (jokaisella ilmoittautujalla on oltava)
+- nimen, liiton, FIDE-tittelin, FIDE-ratingin ja syntymävuoden: haemme nämä FIDE-tunnuksesi perusteella FIDEn julkiselta listalta, joten et kirjoita niitä itse (vain syntymävuoden, jos FIDEllä sitä ei ole; sitä käytetään juniori- ja seniorihintojen soveltamiseen)
 - tiedon siitä, tilasitko bussikuljetuksen
 - maksetun summan ja tiedon maksun onnistumisesta
 

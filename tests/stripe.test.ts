@@ -38,7 +38,7 @@ test('checkout session: entry fee and bus as separate line items, amounts in cen
 });
 
 test('Finnish players return to the Finnish pages', () => {
-  const v = validateRegistration({ name: 'Anna Test', email: 'a@example.com', phoneCountry: 'FI', phoneNumber: '0401234567', noFideId: true, birthYear: '1990', federation: 'FIN', accept: true, locale: 'fi' });
+  const v = validateRegistration({ name: 'Anna Test', email: 'a@example.com', phoneCountry: 'FI', phoneNumber: '0401234567', fideId: '100014', birthYear: '1990', federation: 'FIN', accept: true, locale: 'fi' });
   assert.ok(v.ok);
   if (!v.ok) return;
   const params = buildSessionParams(v.value, quote(v.value, '2027-03-01'), 'reg-2', 'https://example.org', 0) as Record<string, string>;

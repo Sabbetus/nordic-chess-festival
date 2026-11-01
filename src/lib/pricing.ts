@@ -11,7 +11,7 @@ export interface Quote {
   free: boolean;
 }
 
-/** Price of a registration on a given day (YYYY-MM-DD, Finnish time). Players without a FIDE ID are unrated. */
+/** Price of a registration on a given day (YYYY-MM-DD, Finnish time). Players with no standard rating (rating 0 in FIDE's list) are unrated. */
 export function quote(reg: { title: Title | null; rating: number | null; birthYear: number; bus: boolean }, paidOn: string): Quote {
   const fee = calculateFee({ title: reg.title, rating: reg.rating, birthYear: reg.birthYear, paidOn });
   const entryCents = fee.amount * 100;

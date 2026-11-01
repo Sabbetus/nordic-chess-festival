@@ -1,11 +1,13 @@
-// Turns the official FIDE standard rating list (XML) into the shards served by the Worker.
-import { inflateRawSync } from 'node:zlib';
+// Turns FIDE's combined player list (XML: every FIDE ID, rated or not) into the shards served by the Worker.
+import { createInflateRaw, inflateRawSync } from 'node:zlib';
+import { Readable } from 'node:stream';
 
-const SHARDS = 256;
+/** Keep in sync with SHARDS in src/lib/fide.ts. */
+export const SHARDS = 1024;
 const order = ['GM', 'WGM', 'IM', 'WIM', 'FM', 'WFM', 'CM', 'WCM'];
 
-/** Extracts the first file of a zip archive (deflate or stored). The FIDE download holds exactly one file. */
-export function unzipFirst(buf) {
+/** Finds the first file of a zip archive. The FIDE download holds exactly one file. */
+function zipEntry(buf) {
   // Find the end-of-central-directory record, then the first central directory entry.
   let eocd = buf.length - 22;
   while (eocd >= 0 && buf.readUInt32LE(eocd) !== 0x06054b50) eocd--;
@@ -16,17 +18,37 @@ export function unzipFirst(buf) {
   const compSize = buf.readUInt32LE(cd + 20);
   const local = buf.readUInt32LE(cd + 42);
   const start = local + 30 + buf.readUInt16LE(local + 26) + buf.readUInt16LE(local + 28);
-  const data = buf.subarray(start, start + compSize);
+  return { method, data: buf.subarray(start, start + compSize) };
+}
+
+/** The first file of a zip archive as one buffer (fine for small files). */
+export function unzipFirst(buf) {
+  const { method, data } = zipEntry(buf);
   if (method === 0) return data;
   if (method === 8) return inflateRawSync(data);
   throw new Error(`Unsupported zip method ${method}`);
 }
 
-const tag = (block, name) => {
-  const m = block.match(new RegExp(`<${name}>([^<]*)</${name}>`));
-  return m ? m[1].trim() : '';
-};
-const unescapeXml = (s) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
+/** The first file of a zip archive as a text stream: the combined list is far too large to hold as one string. */
+export function unzipFirstStream(buf) {
+  const { method, data } = zipEntry(buf);
+  const source = Readable.from([data]);
+  const out = method === 0 ? source : method === 8 ? source.pipe(createInflateRaw()) : null;
+  if (!out) throw new Error(`Unsupported zip method ${method}`);
+  out.setEncoding('utf8');
+  return out;
+}
+
+const unescapeXml = (s) => (s.includes('&') ? s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&') : s);
+
+/** The text of one tag inside a player block ('' when absent). */
+function field(block, name) {
+  const open = `<${name}>`;
+  const i = block.indexOf(open);
+  if (i < 0) return '';
+  const j = block.indexOf(`</${name}>`, i);
+  return j < 0 ? '' : block.slice(i + open.length, j).trim();
+}
 
 /** "Surname, Given" becomes "Given Surname". */
 function displayName(fideName) {
@@ -35,21 +57,63 @@ function displayName(fideName) {
   return n.replace(/\s+/g, ' ').trim();
 }
 
-/** Parses the XML into an array of shards: shards[n] = { u, p: { fideId: [name, fed, title, rating, birthYear] } }. */
-export function buildShards(xml, updated) {
-  const shards = Array.from({ length: SHARDS }, () => ({ u: updated, p: {} }));
-  let count = 0;
-  for (const m of xml.matchAll(/<player>([\s\S]*?)<\/player>/g)) {
-    const b = m[1];
-    const id = tag(b, 'fideid');
-    const rating = Number(tag(b, 'rating'));
-    if (!/^\d{1,10}$/.test(id) || !(rating >= 100 && rating <= 3000)) continue;
-    const t = [tag(b, 'title'), tag(b, 'w_title')];
-    const title = order.find((x) => t.includes(x)) ?? '';
-    shards[Number(id) % SHARDS].p[id] = [displayName(unescapeXml(tag(b, 'name'))), tag(b, 'country'), title, rating, Number(tag(b, 'birthday')) || 0];
-    count++;
+/**
+ * One player block to [id, record], or null. The record is [name, federation, title, standard rating, birth year].
+ * The standard rating is 0 for players who have a FIDE ID but no standard rating (new players, or rapid/blitz only).
+ */
+function parsePlayer(block) {
+  const id = field(block, 'fideid');
+  const name = displayName(unescapeXml(field(block, 'name')));
+  const rating = Number(field(block, 'rating') || 0);
+  if (!/^\d{1,10}$/.test(id) || !name || !(rating === 0 || (rating >= 100 && rating <= 3000))) return null;
+  const titles = [field(block, 'title'), field(block, 'w_title')];
+  const title = order.find((x) => titles.includes(x)) ?? '';
+  return [id, [name, field(block, 'country'), title, rating, Number(field(block, 'birthday')) || 0]];
+}
+
+/** Calls onPlayer(id, record) for every <player> block in the text from position 0; returns the unprocessed rest. */
+function eachPlayer(text, onPlayer) {
+  let pos = 0;
+  for (;;) {
+    const end = text.indexOf('</player>', pos);
+    if (end < 0) break;
+    const start = text.lastIndexOf('<player>', end);
+    if (start >= pos) {
+      const parsed = parsePlayer(text.slice(start + 8, end));
+      if (parsed) onPlayer(parsed[0], parsed[1]);
+    }
+    pos = end + 9;
   }
+  return text.slice(pos);
+}
+
+/** Small inputs (tests): shards[n] = { u, m, p: { fideId: record } }. */
+export function buildShards(xml, updated, month = null) {
+  const shards = Array.from({ length: SHARDS }, () => ({ u: updated, m: month, p: {} }));
+  let count = 0;
+  eachPlayer(xml, (id, record) => {
+    shards[Number(id) % SHARDS].p[id] = record;
+    count++;
+  });
   return { shards, count };
+}
+
+/**
+ * The real list: reads the text stream chunk by chunk and keeps each player as a ready-made JSON fragment, so memory
+ * stays modest for about two million players. Returns the file contents of every shard.
+ */
+export async function buildShardFiles(stream, updated, month) {
+  const parts = Array.from({ length: SHARDS }, () => []);
+  let count = 0;
+  let rest = '';
+  for await (const chunk of stream) {
+    rest = eachPlayer(rest + chunk, (id, record) => {
+      parts[Number(id) % SHARDS].push(`${JSON.stringify(id)}:${JSON.stringify(record)}`);
+      count++;
+    });
+  }
+  const head = `{"u":${JSON.stringify(updated)},"m":${JSON.stringify(month)},"p":{`;
+  return { files: parts.map((p) => `${head}${p.join(',')}}}`), count };
 }
 
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];

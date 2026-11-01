@@ -5,13 +5,16 @@ import worker from '../worker/index.ts';
 import { handleAdmin, handleRegister, handleStripeWebhook } from '../worker/handlers.ts';
 import type { Env } from '../worker/types.ts';
 import { makeDb } from './helpers/d1.ts';
+import { fideAssets } from './helpers/fide.ts';
+import { clearFideCache, nextUpdateOf } from '../worker/fide.ts';
 
 const NOW = new Date('2027-03-01T10:00:00Z');
 const SECRETS = { STRIPE_SECRET_KEY: 'sk_test_x', STRIPE_WEBHOOK_SECRET: 'whsec_test', ADMIN_TOKEN: 'organiser-token-with-at-least-32-characters' };
 
+// What the registration form sends: the FIDE ID and the contact details. Everything else comes from FIDE's list
+// (100010 is Anna Test, FIN, rating 1850, born 1990: 215 € at the regular price).
 const person = (over: Record<string, unknown> = {}) => ({
-  name: 'Anna Test', email: 'anna@example.com', phoneCountry: 'FI', phoneNumber: '040 123 4567', fideId: '100001', title: '', rating: '1850',
-  birthYear: '1990', federation: 'FIN', bus: false, accept: true, locale: 'en', ...over,
+  email: 'anna@example.com', phoneCountry: 'FI', phoneNumber: '040 123 4567', fideId: '100010', bus: false, accept: true, locale: 'en', ...over,
 });
 const post = (path: string, body: unknown, headers: Record<string, string> = {}) =>
   new Request(`https://nordicchess.fi${path}`, { method: 'POST', body: typeof body === 'string' ? body : JSON.stringify(body), headers });
@@ -22,7 +25,7 @@ let env: Env & { DB: ReturnType<typeof makeDb> };
 
 beforeEach(() => {
   stripeCalls = [];
-  env = { DB: makeDb(), ...SECRETS };
+  env = { DB: makeDb(), ...SECRETS, ASSETS: fideAssets() };
   globalThis.fetch = (async (url: string, init?: RequestInit) => {
     stripeCalls.push({ url: String(url), auth: new Headers(init?.headers).get('authorization'), body: new URLSearchParams(String(init?.body ?? '')) });
     const n = stripeCalls.length;
@@ -100,7 +103,7 @@ test('webhooks with a bad signature are rejected', async () => {
 });
 
 test('a grandmaster registers for free, with no Stripe call, awaiting verification', async () => {
-  const res = await handleRegister(post('/api/register', person({ title: 'GM', rating: '2600', fideId: '1503014' })), env, NOW);
+  const res = await handleRegister(post('/api/register', person({ fideId: '100011' })), env, NOW);
   assert.deepEqual(await res.json().then((b: { free: boolean }) => b.free), true);
   assert.equal(stripeCalls.length, 0);
   const [row] = rows();
@@ -110,16 +113,26 @@ test('a grandmaster registers for free, with no Stripe call, awaiting verificati
 });
 
 test('a grandmaster who wants the bus pays only for the bus', async () => {
-  await handleRegister(post('/api/register', person({ title: 'GM', rating: '2600', fideId: '1503014', bus: true })), env, NOW);
+  await handleRegister(post('/api/register', person({ fideId: '100011', bus: true })), env, NOW);
   assert.equal(stripeCalls.length, 1);
   assert.equal(stripeCalls[0].body.get('line_items[0][price_data][unit_amount]'), '5000');
   assert.equal(stripeCalls[0].body.get('line_items[1][price_data][unit_amount]'), null);
 });
 
-test('a player without a FIDE ID pays the unrated price', async () => {
-  await handleRegister(post('/api/register', person({ noFideId: true, fideId: '', title: '', rating: '' })), env, NOW);
+test('a player with a FIDE ID but no rating pays the unrated price', async () => {
+  await handleRegister(post('/api/register', person({ fideId: '100014' })), env, NOW);
   assert.equal(stripeCalls[0].body.get('line_items[0][price_data][unit_amount]'), '30000');
-  assert.equal(rows()[0].fide_id, null);
+  assert.equal(rows()[0].fide_id, '100014');
+  assert.equal(rows()[0].rating, null);
+  assert.equal(rows()[0].band, 'unrated');
+  assert.match(String(rows()[0].note), /unrated/);
+});
+
+test('juniors and seniors get their discount from the birth year in FIDE\'s list', async () => {
+  await handleRegister(post('/api/register', person({ fideId: '100012' })), env, NOW);
+  await handleRegister(post('/api/register', person({ fideId: '100013' })), env, NOW);
+  assert.equal(stripeCalls[0].body.get('line_items[0][price_data][unit_amount]'), '16500');
+  assert.equal(stripeCalls[1].body.get('line_items[0][price_data][unit_amount]'), '16500');
 });
 
 test('the same FIDE ID cannot register twice once the first registration is live', async () => {
@@ -159,13 +172,17 @@ test('without database or secrets the API reports that it is not available', asy
   const res = await handleRegister(post('/api/register', person()), {} as Env, NOW);
   assert.equal(res.status, 503);
   const health = await worker.fetch(new Request('https://nordicchess.fi/api/health'), {});
-  assert.deepEqual(await health.json(), { ok: true, registration: false, turnstile: false, fideList: null, fideMonth: null });
+  assert.deepEqual(await health.json(), { ok: true, registration: false, turnstile: false, fideList: null, fideMonth: null, fideNextUpdate: null });
   const ready = await worker.fetch(new Request('https://nordicchess.fi/api/health'), env);
-  assert.deepEqual(await ready.json(), { ok: true, registration: true, turnstile: false, fideList: null, fideMonth: null });
+  assert.deepEqual(await ready.json(), { ok: true, registration: true, turnstile: false, fideList: '2027-02-28', fideMonth: '2027-03', fideNextUpdate: '2027-04-01' });
+  // Without the FIDE list IDs cannot be checked, so registration stays closed.
+  clearFideCache();
+  const noList = await worker.fetch(new Request('https://nordicchess.fi/api/health'), { ...env, ASSETS: undefined });
+  assert.equal(((await noList.json()) as { registration: boolean }).registration, false);
 });
 
 test('organiser endpoints need the token, list registrations, export CSV safely and record verification', async () => {
-  await handleRegister(post('/api/register', person({ name: '=HYPERLINK("x")' })), env, NOW);
+  await handleRegister(post('/api/register', person({ fideId: '100020' })), env, NOW);
   await webhook('checkout.session.completed', { id: 'cs_test_1', payment_status: 'paid', payment_intent: 'pi_1' });
   const get = (path: string, token?: string) => new Request(`https://nordicchess.fi${path}`, { headers: token ? { authorization: `Bearer ${token}` } : {} });
 
@@ -229,85 +246,87 @@ test('Turnstile is enforced once its secret is set', async () => {
 test('stale unpaid registrations are purged, paid ones stay', async () => {
   const { purgeStalePending } = await import('../worker/handlers.ts');
   await handleRegister(post('/api/register', person()), env, NOW);
-  await handleRegister(post('/api/register', person({ fideId: '', noFideId: true, email: 'b@example.com', name: 'Bo Test' })), env, NOW);
+  await handleRegister(post('/api/register', person({ fideId: '100014', email: 'b@example.com' })), env, NOW);
   env.DB.raw.prepare(`UPDATE registrations SET payment_status = 'paid' WHERE email = 'b@example.com'`).run();
   await purgeStalePending(env, new Date(NOW.getTime() + 49 * 3_600_000));
   assert.deepEqual(rows().map((r) => r.email), ['b@example.com']);
 });
 
-// --- FIDE rating list ---
-import { clearFideCache } from '../worker/fide.ts';
-import { buildShards } from '../scripts/fide-list.mjs';
-
-const XML = `<playerslist>
-<player><fideid>100001</fideid><name>Example, Testi</name><country>FIN</country><title>FM</title><w_title></w_title><rating>2216</rating><birthday>1964</birthday></player>
-<player><fideid>100002</fideid><name>Sample, Anna</name><country>FIN</country><title></title><w_title></w_title><rating>1722</rating><birthday>1985</birthday></player>
-<player><fideid>700001</fideid><name>Doe, Jane</name><country>ENG</country><title>GM</title><w_title>WGM</w_title><rating>2500</rating><birthday>2012</birthday></player>
-<player><fideid>700002</fideid><name>Ivanov, Ivan</name><country>RUS</country><title></title><w_title></w_title><rating>2100</rating><birthday>1990</birthday></player>
-<player><fideid>700003</fideid><name>Petrov, Petr</name><country>BLR</country><title>IM</title><w_title></w_title><rating>2400</rating><birthday>1985</birthday></player>
-</playerslist>`;
-
-function withFide(): Env & { DB: ReturnType<typeof makeDb> } {
-  clearFideCache();
-  const { shards } = buildShards(XML, '2027-03-01');
-  const assets = { fetch: async (r: Request) => {
-    const n = Number(/\/api\/fide\/(\d+)\.json/.exec(r.url)?.[1]);
-    return Number.isInteger(n) && shards[n] ? new Response(JSON.stringify(shards[n])) : new Response('no', { status: 404 });
-  } };
-  return { ...env, ASSETS: assets };
-}
+// --- FIDE list: IDs are required and checked against it ---
 
 test('the FIDE list gives name, federation, title, rating and birth year; the browser values are ignored', async () => {
-  const e = withFide();
-  const res = await handleRegister(post('/api/register', person({ fideId: '100001', name: 'Not My Name', federation: 'SWE', title: 'GM', rating: '2800', birthYear: '2015' })), e, NOW);
+  const res = await handleRegister(post('/api/register', person({ fideId: '100001', name: 'Not My Name', federation: 'SWE', title: 'GM', rating: '2800', birthYear: '2015' })), env, NOW);
   assert.equal(res.status, 200);
-  const [row] = e.DB.raw.prepare('SELECT * FROM registrations').all() as Record<string, unknown>[];
+  const [row] = rows();
   assert.equal(row.name, 'Testi Example');
   assert.equal(row.federation, 'FIN');
   assert.equal(row.title, 'FM');
   assert.equal(row.rating, 2216);
   assert.equal(row.birth_year, 1964);
-  assert.equal(row.band, 'fm'.length ? row.band : '');
-  assert.match(String(row.note), /FIDE list 2027-03-01/);
-});
-
-test('name, federation and birth year need not be sent when the FIDE ID is found', async () => {
-  const e = withFide();
-  const res = await handleRegister(post('/api/register', person({ fideId: '100002', name: '', federation: '', birthYear: '', title: '', rating: '' })), e, NOW);
-  assert.equal(res.status, 200);
-  const [row] = e.DB.raw.prepare('SELECT name, rating, birth_year FROM registrations').all() as Record<string, unknown>[];
-  assert.deepEqual({ ...row }, { name: 'Anna Sample', rating: 1722, birth_year: 1985 });
+  assert.equal(row.band, 'fm');
+  assert.match(String(row.note), /FIDE list 2027-03/);
 });
 
 test('a GM from the list registers for free', async () => {
-  const e = withFide();
-  const res = (await (await handleRegister(post('/api/register', person({ fideId: '700001', title: '', rating: '' })), e, NOW)).json()) as { free?: boolean };
+  const res = (await (await handleRegister(post('/api/register', person({ fideId: '700001' })), env, NOW)).json()) as { free?: boolean };
   assert.equal(res.free, true);
 });
 
-test('an ID missing from the list is registered unrated, whatever the browser claims', async () => {
-  const e = withFide();
-  const res = await handleRegister(post('/api/register', person({ fideId: '123456', title: 'GM', rating: '2700' })), e, NOW);
-  assert.equal(res.status, 200);
-  const [row] = e.DB.raw.prepare('SELECT title, rating, band, note FROM registrations').all() as Record<string, unknown>[];
-  assert.equal(row.title, null);
-  assert.equal(row.rating, null);
-  assert.equal(row.band, 'unrated');
-  assert.match(String(row.note), /not in the standard rating list/);
+test('a FIDE ID is required', async () => {
+  for (const fideId of ['', undefined, 'abc']) {
+    const res = await handleRegister(post('/api/register', person({ fideId })), env, NOW);
+    assert.equal(res.status, 422);
+  }
+  assert.equal(rows().length, 0);
 });
 
-test('the lookup endpoint answers found, not found, and refuses anything else', async () => {
-  const e = withFide();
-  const get = (p: string) => worker.fetch(new Request(`https://nordicchess.fi${p}`), e);
+test('an ID that is not in our list is refused, with the list month and the next update', async () => {
+  const res = await handleRegister(post('/api/register', person({ fideId: '123456', title: 'GM', rating: '2700' })), env, NOW);
+  assert.equal(res.status, 422);
+  assert.deepEqual(await res.json(), { error: 'fide_not_found', month: '2027-03', nextUpdate: '2027-04-01' });
+  assert.equal(rows().length, 0);
+  assert.equal(stripeCalls.length, 0);
+});
+
+test('when FIDE has no birth year the player supplies it', async () => {
+  const missing = await handleRegister(post('/api/register', person({ fideId: '100015' })), env, NOW);
+  assert.equal(missing.status, 422);
+  assert.equal(((await missing.json()) as { errors: Record<string, string> }).errors.birthYear, 'required');
+  const ok = await handleRegister(post('/api/register', person({ fideId: '100015', birthYear: '1985' })), env, NOW);
+  assert.equal(ok.status, 200);
+  assert.equal(rows()[0].birth_year, 1985);
+});
+
+test('without the FIDE list nobody can register', async () => {
+  const res = await handleRegister(post('/api/register', person()), { ...env, ASSETS: undefined }, NOW);
+  assert.equal(res.status, 503);
+  assert.equal(((await res.json()) as { error: string }).error, 'fide_unavailable');
+  assert.equal(rows().length, 0);
+});
+
+test('the lookup endpoint answers found (unrated included), not found, and refuses anything else', async () => {
+  const get = (p: string) => worker.fetch(new Request(`https://nordicchess.fi${p}`), env);
   const found = (await (await get('/api/fide/100001')).json()) as Record<string, unknown>;
   assert.equal(found.status, 'found');
   assert.equal(found.name, 'Testi Example');
-  assert.equal(((await (await get('/api/fide/123456')).json()) as { status: string }).status, 'not_found');
+  assert.equal(found.month, '2027-03');
+  const unrated = (await (await get('/api/fide/100014')).json()) as Record<string, unknown>;
+  assert.equal(unrated.status, 'found');
+  assert.equal(unrated.rating, 0);
+  const missing = (await (await get('/api/fide/123456')).json()) as Record<string, unknown>;
+  assert.equal(missing.status, 'not_found');
+  assert.equal(missing.nextUpdate, '2027-04-01');
   assert.equal((await get('/api/fide/12.json')).status, 400);
   assert.equal((await get('/api/fide/meta.json')).status, 400);
   clearFideCache();
   const bare = await worker.fetch(new Request('https://nordicchess.fi/api/fide/100001'), { ...env, ASSETS: undefined });
   assert.equal(((await bare.json()) as { status: string }).status, 'unavailable');
+});
+
+test('the next update is the 1st after the list month, or the 1st of next month when the list is late', () => {
+  assert.equal(nextUpdateOf('2026-11', '2026-11-02'), '2026-12-01');
+  assert.equal(nextUpdateOf('2026-12', '2026-12-15'), '2027-01-01');
+  assert.equal(nextUpdateOf('2026-10', '2026-11-05'), '2026-12-01'); // stale list: the 1st of November has passed
 });
 
 test('removed registrations are left out of the CSV unless everything is asked for, and can register again', async () => {
@@ -322,19 +341,14 @@ test('removed registrations are left out of the CSV unless everything is asked f
   assert.equal((await handleRegister(post('/api/register', person()), env, NOW)).status, 200);
 });
 
-test('players from Russia and Belarus cannot register, whether found in FIDE or typed in', async () => {
-  const e = withFide();
+test('players from Russia and Belarus cannot register', async () => {
   for (const id of ['700002', '700003']) {
-    const res = await handleRegister(post('/api/register', person({ fideId: id, name: '', federation: 'FIN' })), e, NOW);
+    const res = await handleRegister(post('/api/register', person({ fideId: id })), env, NOW);
     assert.equal(res.status, 403);
     assert.equal(((await res.json()) as { error: string }).error, 'federation_blocked');
   }
-  for (const fed of ['RUS', 'BLR', 'rus']) {
-    const res = await handleRegister(post('/api/register', person({ noFideId: true, fideId: '', federation: fed })), e, NOW);
-    assert.equal(res.status, 403);
-  }
-  assert.equal(e.DB.raw.prepare('SELECT COUNT(*) AS n FROM registrations').get()?.n, 0);
-  const lookup = (await (await worker.fetch(new Request('https://nordicchess.fi/api/fide/700002'), e)).json()) as { blocked: boolean };
+  assert.equal(rows().length, 0);
+  const lookup = (await (await worker.fetch(new Request('https://nordicchess.fi/api/fide/700002'), env)).json()) as { blocked: boolean };
   assert.equal(lookup.blocked, true);
 });
 

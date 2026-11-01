@@ -1,16 +1,18 @@
-// The FIDE rating list as we store it: 256 small JSON shards, one per (FIDE ID mod 256), served by the Worker.
+// FIDE's combined player list as we store it: 1024 small JSON shards, one per (FIDE ID mod 1024), served by the Worker.
 // Shared by the build script (writes the shards) and the Worker (reads them).
 
 import type { Title } from '../data/fees.ts';
 
-export const SHARDS = 256;
+export const SHARDS = 1024;
 
-/** One player, as stored: [name, federation, title, rating, birth year]. Title is '' and birth year 0 when unknown. */
+/** One player, as stored: [name, federation, title, standard rating, birth year]. Rating is 0 for players without a standard rating, title is '' and birth year 0 when unknown. */
 export type FideRecord = [name: string, federation: string, title: string, rating: number, birthYear: number];
 
 export interface FideShard {
-  /** Date of the rating list file (YYYY-MM-DD). */
+  /** Date of the list file (YYYY-MM-DD). */
   u: string;
+  /** The month FIDE labels the list with (YYYY-MM). */
+  m?: string | null;
   p: Record<string, FideRecord>;
 }
 

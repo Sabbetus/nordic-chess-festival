@@ -1,0 +1,7 @@
+order: 9
+question:
+  en: I do not have a FIDE ID. Can I still register?
+  fi: Minulla ei ole FIDE-tunnusta. Voinko silti ilmoittautua?
+answer:
+  en: You need a FIDE ID to register, also if you have no rating yet. Your national chess federation can request one for you and send it to you. Players without a FIDE rating pay the unrated fee. The player list we check your ID against is FIDE's, and we update it on the 1st of every month, so a brand-new ID appears in it after the next update.
+  fi: Ilmoittautumiseen tarvitaan FIDE-tunnus, myös silloin kun sinulla ei vielä ole ratingia. Kansallinen shakkiliittosi voi hankkia tunnuksen puolestasi ja lähettää sen sinulle. Ilman FIDE-ratingia olevat pelaajat maksavat ratingittoman maksun. Pelaajalista, josta tunnuksesi tarkistetaan, on FIDEn lista, jonka päivitämme joka kuukauden 1. päivä, joten aivan uusi tunnus ilmestyy listalle seuraavan päivityksen jälkeen.

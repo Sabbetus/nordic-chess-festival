@@ -26,20 +26,21 @@ test('missing and invalid fields are reported per field', () => {
   assert.deepEqual(r.errors, { name: 'required', email: 'invalid', phone: 'invalid', fideId: 'invalid', birthYear: 'invalid', federation: 'invalid', accept: 'required' });
 });
 
-test('no FIDE ID: title and rating are ignored and the player is unrated', () => {
-  const r = validateRegistration({ ...good, noFideId: true, fideId: '', title: 'GM', rating: '2600' });
+test('a FIDE ID without a rating is unrated and pays the unrated fee', () => {
+  const r = validateRegistration({ ...good, fideId: '100014', title: '', rating: '' });
   assert.ok(r.ok);
   if (!r.ok) return;
-  assert.equal(r.value.fideId, null);
+  assert.equal(r.value.fideId, '100014');
   assert.equal(r.value.title, null);
   assert.equal(r.value.rating, null);
   assert.equal(quote(r.value, '2027-03-01').entryCents, 30000);
 });
 
-test('FIDE ID is required unless the player says they have none', () => {
+test('a FIDE ID is required', () => {
   const r = validateRegistration({ ...good, fideId: '' });
   assert.ok(!r.ok);
-  if (!r.ok) assert.equal(r.errors.fideId, 'required');
+  if (r.ok) return;
+  assert.equal(r.errors.fideId, 'required');
 });
 
 test('titles and ratings are checked', () => {

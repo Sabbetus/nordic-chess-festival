@@ -15,8 +15,8 @@ The controller is **Nordic Chess Festival ry** (Kangasala, Finland). Contact for
 When you register we collect:
 
 - name, email address and phone number
-- FIDE ID (if you have one)
-- name, federation, FIDE title, FIDE rating and year of birth: if you have a FIDE ID we take these from FIDE's public rating list, so you do not type them; if you have no FIDE ID you give your name, federation and year of birth yourself (the year of birth is used to apply junior and senior prices)
+- FIDE ID (every registrant needs one)
+- name, federation, FIDE title, FIDE rating and year of birth: we take these from FIDE's public list based on your FIDE ID, so you do not type them (only the year of birth, if FIDE does not have it; it is used to apply junior and senior prices)
 - whether you ordered the bus transfer
 - the amount you paid and whether the payment succeeded
 
