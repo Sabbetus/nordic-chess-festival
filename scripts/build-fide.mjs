@@ -78,9 +78,13 @@ try {
 
   // 2. Otherwise download it, once.
   const month = process.env.FIDE_ZIP_PATH ? null : await listMonth();
-  if (minMonth && (!month || month < minMonth)) throw new Error(`FIDE has not published the ${minMonth} list yet (its page offers ${month ?? 'an unknown month'})`);
+  // FIDE's page names the newest month. If it cannot be read (it sometimes blocks or fails for CI machines), carry on and
+  // judge the month from the file's own date after the download.
+  if (minMonth && month && month < minMonth) throw new Error(`FIDE has not published the ${minMonth} list yet (its page offers ${month})`);
+  if (!month) console.warn("FIDE's download page could not be read; the month of the list is worked out from the file's date.");
   const { buf, updated } = await download();
   const listMonthLabel = month ?? monthFromFileDate(updated);
+  if (minMonth && listMonthLabel < minMonth) throw new Error(`FIDE has not published the ${minMonth} list yet (the file offered is the ${listMonthLabel} list)`);
   const { files, count } = await buildShardFiles(unzipFirstStream(buf), updated, listMonthLabel);
   if (count < MIN_PLAYERS) throw new Error(`Only ${count} players in the list, expected more than ${MIN_PLAYERS}`);
   await rm(CACHE, { recursive: true, force: true });
