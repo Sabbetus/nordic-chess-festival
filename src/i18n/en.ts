@@ -47,7 +47,7 @@ const en = {
       'Your favorite chess streamers.',
       'And you, across the board.',
     ],
-    ctaPrimary: 'Registration',
+    ctaPrimary: 'Registration & Fees',
     ctaSecondary: 'Schedule & regulations',
     countdown: {
       earlyLabel: 'Early bird ends in',

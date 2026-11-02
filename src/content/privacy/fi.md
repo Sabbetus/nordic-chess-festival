@@ -4,7 +4,7 @@ updated: '2026-10-29'
 draft: true
 ---
 
-Tässä selosteessa kerrotaan, mitä henkilötietoja Nordic Chess Festival kerää ilmoittautumisen yhteydessä, miksi, kuka niitä käsittelee ja kuinka kauan niitä säilytetään.
+Tässä selosteessa kerrotaan, mitä henkilötietoja Nordic Chess Festival kerää rekisteröitymisen yhteydessä, miksi, kuka niitä käsittelee ja kuinka kauan niitä säilytetään.
 
 ## Rekisterinpitäjä
 
@@ -12,10 +12,10 @@ Rekisterinpitäjä on **Nordic Chess Festival ry** (Kangasala). Kaikissa tietosu
 
 ## Mitä tietoja keräämme
 
-Ilmoittautumisessa keräämme:
+Rekisteröitymisessä keräämme:
 
 - nimen, sähköpostiosoitteen ja puhelinnumeron
-- FIDE-tunnuksen (jokaisella ilmoittautujalla on oltava)
+- FIDE-tunnuksen (jokaisella rekisteröityjällä on oltava)
 - nimen, liiton, FIDE-tittelin, FIDE-vahvuusluvun ja syntymävuoden: haemme nämä FIDE-tunnuksesi perusteella FIDEn julkiselta listalta, joten et kirjoita niitä itse (vain syntymävuoden, jos FIDEllä sitä ei ole; sitä käytetään juniori- ja seniorihintojen soveltamiseen)
 - tiedon siitä, tilasitko bussikuljetuksen
 - maksetun summan ja tiedon maksun onnistumisesta
@@ -26,7 +26,7 @@ Emme vastaanota emmekä tallenna korttitietojasi. Maksut käsittelee ulkopuoline
 
 ## Miksi käsittelemme tietoja ja millä perusteella
 
-- **Ilmoittautumisesi ja pääturnauksen toteutus** (osallistumisen varmistus, parit, tulokset, käytännön viestintä). Peruste: sopimuksen täyttäminen.
+- **Rekisteröitymisesi ja pääturnauksen toteutus** (osallistumisen varmistus, parit, tulokset, käytännön viestintä). Peruste: sopimuksen täyttäminen.
 - **Maksujen vastaanotto ja kirjanpito.** Peruste: sopimus ja kirjanpitolain mukaiset velvoitteemme.
 - **Pelaajaluettelon ja tulosten julkaiseminen.** Peruste: oikeutettu etu ja vahvuuslukuun vaikuttavan turnauksen luonne; katso alla.
 
@@ -34,14 +34,14 @@ Emme käytä tietojasi markkinointiin, ellet erikseen tilaa uutiskirjettä, emme
 
 ## Mitä julkaistaan
 
-Ilmoittautuneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa chess-results.com-palvelussa ja tällä sivustolla. Tavallisesti näkyvät nimi, liitto, titteli ja vahvuusluku. Sähköpostiosoitettasi, puhelinnumeroasi tai syntymävuottasi emme julkaise. Vahvuuslukuun vaikuttavien turnausten tulokset toimitetaan FIDElle ja Suomen Shakkiliitolle, jotka julkaisevat ne omien käytäntöjensä mukaan.
+Rekisteröityneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa chess-results.com-palvelussa ja tällä sivustolla. Tavallisesti näkyvät nimi, liitto, titteli ja vahvuusluku. Sähköpostiosoitettasi, puhelinnumeroasi tai syntymävuottasi emme julkaise. Vahvuuslukuun vaikuttavien turnausten tulokset toimitetaan FIDElle ja Suomen Shakkiliitolle, jotka julkaisevat ne omien käytäntöjensä mukaan.
 
 ## Kuka käsittelee tietoja
 
 Käytämme seuraavia palveluntarjoajia ja tietojen vastaanottajia:
 
 - **Maksupalvelun tarjoaja** verkossa tehtäviä kortti- ja mobiilimaksuja varten.
-- **IT-palveluntarjoajat** tämän sivuston ylläpitoa ja ilmoittautumistietojen tallennusta varten.
+- **IT-palveluntarjoajat** tämän sivuston ylläpitoa ja rekisteröitymistietojen tallennusta varten.
 - **Turnauksenhallintaohjelmisto**, jota järjestäjät ja tuomarit käyttävät, sekä **verkossa toimiva tulospalvelu**, jossa tulokset julkaistaan (chess-results.com).
 - **FIDE ja Suomen Shakkiliitto** vahvuuslukujen ja tulosten raportointia varten.
 - **Uutiskirjepalvelun tarjoaja**, vain jos tilaat uutiskirjeen.
@@ -50,13 +50,13 @@ Osa palveluntarjoajista käsittelee tietoja puolestamme. Osa, kuten maksupalvelu
 
 ## Kuinka kauan tietoja säilytetään
 
-- Ilmoittautumistiedot: 12 kuukautta festivaalin jälkeen, minkä jälkeen ne poistetaan tai anonymisoidaan.
+- Rekisteröitymistiedot: 12 kuukautta festivaalin jälkeen, minkä jälkeen ne poistetaan tai anonymisoidaan.
 - Kirjanpitoaineisto (maksusummat ja tositteet): 6 vuotta tilikauden päättymisestä lain edellyttämällä tavalla.
 - Julkaistut tulokset ja vahvuusluvut säilyvät julkisina chess-results.comin, FIDEn ja Suomen Shakkiliiton arkistoissa.
 
 ## Miten suojaamme tiedot
 
-Ilmoittautumistiedot tallennetaan pääsynhallittuun järjestelmään, ja niihin on pääsy vain muutamalla nimetyllä järjestäjällä ja tuomarilla. Yhteydet on salattu, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä.
+Rekisteröitymistiedot tallennetaan pääsynhallittuun järjestelmään, ja niihin on pääsy vain muutamalla nimetyllä järjestäjällä ja tuomarilla. Yhteydet on salattu, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä.
 
 ## Oikeutesi
 
@@ -64,7 +64,7 @@ Voit pyytää nähdäksesi sinusta tallennetut tiedot sekä oikaista, poistaa (k
 
 ## Lapset
 
-Alle 18-vuotiaat voivat ilmoittautua. Suosittelemme, että vanhempi tai huoltaja tekee ilmoittautumisen ja antaa oman sähköpostiosoitteensa ja puhelinnumeronsa.
+Alle 18-vuotiaat voivat rekisteröityä. Suosittelemme, että vanhempi tai huoltaja tekee rekisteröitymisen ja antaa oman sähköpostiosoitteensa ja puhelinnumeronsa.
 
 ## Muutokset
 
