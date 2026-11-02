@@ -56,7 +56,7 @@ Osa palveluntarjoajista käsittelee tietoja puolestamme. Osa, kuten maksupalvelu
 
 ## Miten suojaamme tiedot
 
-Rekisteröitymistiedot tallennetaan pääsynhallittuun järjestelmään, ja niihin on pääsy vain muutamalla nimetyllä järjestäjällä ja tuomarilla. Yhteydet on salattu, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä.
+Rekisteröitymistiedot tallennetaan pääsynhallittuun järjestelmään, ja niihin on pääsy vain muutamalla nimetyllä järjestäjällä ja tuomarilla. Yhteydet on salattu, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä. Ainoa asetettava eväste on toiminnallinen `lang`, joka muistaa valintasi, jos käytät kielenvaihtoa (säilyy enintään vuoden). Ilman sitä sivusto valitsee suomen tai englannin selaimesi kieliasetuksen perusteella.
 
 ## Oikeutesi
 

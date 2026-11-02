@@ -56,7 +56,7 @@ Some of them process data on our behalf. Others, such as the payment provider, a
 
 ## How we protect it
 
-Registration data is stored in an access-controlled system and is available only to a small number of named organisers and arbiters. Connections are encrypted, and card details never pass through our systems. We do not use advertising or tracking cookies on this website.
+Registration data is stored in an access-controlled system and is available only to a small number of named organisers and arbiters. Connections are encrypted, and card details never pass through our systems. We do not use advertising or tracking cookies on this website. The only cookie it sets is a functional one, `lang`, which remembers your choice if you use the language switch (kept for up to a year). Without it, the site picks Finnish or English from your browser's language setting.
 
 ## Your rights
 

@@ -17,6 +17,17 @@ const { lang, path } = Astro.props;
   ))}
 </nav>
 
+<script>
+  // Remember the chosen language, so that the automatic redirect to Finnish (worker/lang.ts) leaves this visitor alone.
+  document.querySelectorAll<HTMLAnchorElement>('nav.lang a[hreflang]').forEach((a) => {
+    const remember = () => {
+      document.cookie = `lang=${a.hreflang}; path=/; max-age=31536000; SameSite=Lax; Secure`;
+    };
+    a.addEventListener('click', remember);
+    a.addEventListener('auxclick', remember);
+  });
+</script>
+
 <style>
   .lang { display: inline-flex; gap: 0.25rem; font-size: var(--text-xs); letter-spacing: 0.14em; font-weight: 500; }
   .lang a { color: var(--muted-2); padding: 0.35rem 0.5rem; border-radius: 2px; }
