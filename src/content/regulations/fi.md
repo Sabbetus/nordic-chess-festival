@@ -1,5 +1,5 @@
 ---
-title: 'Nordic Chess Festival 2027, Main Event: Kilpailumääräykset'
+title: 'Nordic Chess Festival 2027, pääturnaus: Kilpailumääräykset'
 preliminary: true
 ---
 
@@ -22,7 +22,7 @@ Kierros 6: to 17.6. klo 14.00
 Kierros 7: pe 18.6. klo 14.00  
 Kierros 8: la 19.6. klo 14.00  
 Kierros 9: su 20.6. klo 11.00  
-Palkintojen jako: su 20.6. klo 17.00
+Palkintojenjako: su 20.6. klo 17.00
 
 ## 2 § Yleiset kilpailumääräykset
 
@@ -30,7 +30,7 @@ Kilpailussa noudatetaan FIDEn shakkisääntöjä, FIDEn vilpin ehkäisyä koskev
 
 Kilpailun tulokset lähetetään kansainväliseen vahvuuslukulaskentaan (elo) sekä kansalliseen vahvuuslukulaskentaan (selo).
 
-**Pelaajilla on mahdollisuus pitää yksi vapaakierros kierroksien 1–5 aikana. Tästä vapaakierroksesta pelaaja saa puoli (½) pistettä. Vapaakierroksen käytöstä on ilmoitettava päätuomarille ennen kuin kierroksen parit on julkaistu.**
+**Pelaajilla on mahdollisuus pitää yksi vapaakierros kierrosten 1–5 aikana. Tästä vapaakierroksesta pelaaja saa puoli (½) pistettä. Vapaakierroksen käytöstä on ilmoitettava päätuomarille ennen kuin kierroksen parit on julkaistu.**
 
 Pelaajat eivät saa syödä laudan ääressä. Alkoholittomien virvokkeiden nauttiminen laudan ääressä on sallittu.
 
@@ -38,7 +38,7 @@ Pelaajat eivät saa syödä laudan ääressä. Alkoholittomien virvokkeiden naut
 
 Myöhästymisaika kierrokselta on kolmekymmentä (30) minuuttia.
 
-Kilpailussa on mahdollista saavuttaa FIDEn arvonimikiinnityksiä (SM, KvM, NSM ja NKvM).
+Kilpailussa voi saavuttaa FIDE-arvonimien normeja (SM, KvM, NSM ja NKvM).
 
 ## 3 § Kilpailun toimihenkilöt
 

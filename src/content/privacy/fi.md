@@ -28,13 +28,13 @@ Emme vastaanota emmekä tallenna korttitietojasi. Maksut käsittelee ulkopuoline
 
 - **Ilmoittautumisesi ja pääturnauksen toteutus** (osallistumisen varmistus, parit, tulokset, käytännön viestintä). Peruste: sopimuksen täyttäminen.
 - **Maksujen vastaanotto ja kirjanpito.** Peruste: sopimus ja kirjanpitolain mukaiset velvoitteemme.
-- **Pelaajaluettelon ja tulosten julkaiseminen.** Peruste: oikeutettu etu ja ratingturnauksen luonne; katso alla.
+- **Pelaajaluettelon ja tulosten julkaiseminen.** Peruste: oikeutettu etu ja rating-turnauksen luonne; katso alla.
 
 Emme käytä tietojasi markkinointiin, ellet erikseen tilaa uutiskirjettä, emmekä myy tietoja eteenpäin.
 
 ## Mitä julkaistaan
 
-Ilmoittautuneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa chess-results.com-palvelussa ja tällä sivustolla. Tavallisesti näkyvät nimi, liitto, titteli ja rating. Sähköpostiosoitettasi, puhelinnumeroasi tai syntymävuottasi emme julkaise. Ratingturnausten tulokset toimitetaan FIDElle ja Suomen Shakkiliitolle, jotka julkaisevat ne omien käytäntöjensä mukaan.
+Ilmoittautuneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa chess-results.com-palvelussa ja tällä sivustolla. Tavallisesti näkyvät nimi, liitto, titteli ja rating. Sähköpostiosoitettasi, puhelinnumeroasi tai syntymävuottasi emme julkaise. Rating-turnausten tulokset toimitetaan FIDElle ja Suomen Shakkiliitolle, jotka julkaisevat ne omien käytäntöjensä mukaan.
 
 ## Kuka käsittelee tietoja
 
