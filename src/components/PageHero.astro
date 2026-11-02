@@ -22,6 +22,6 @@ const eyebrow = `${place} · ${dates}`;
   .page-hero .eyebrow { margin-bottom: 0; }
   /* Phones: the place and dates stay on one line, scaling with the screen width (same as the front page). */
   @media (max-width: 700px) { .page-hero .eyebrow { white-space: nowrap; font-size: min(0.75rem, 3.4vw); letter-spacing: 0.1em; } }
-  .page-hero .lead { max-width: 60rem; }
+  .page-hero .lead { max-width: none; }
   .page-hero .lead :global(a) { text-decoration: underline; text-underline-offset: 4px; }
 </style>

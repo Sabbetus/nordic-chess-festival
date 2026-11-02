@@ -89,7 +89,7 @@ const fi: Messages = {
     },
     prize: {
       eyebrow: 'Palkinnot',
-      text: 'Taattu palkintopotti koko kentälle. Parhaalle naispelaajalle, parhaalle juniorille ja parhaalle seniorille on omat palkintonsa, ja vahvuusluokille jaetaan palkintoja, joten jokaisella tasolla on tavoiteltavaa.',
+      text: 'Taattu palkintopotti, ja palkintoja jaetaan muillekin kuin kärkipelaajille. Parhaalle naispelaajalle, parhaalle juniorille ja parhaalle seniorille on omat palkintonsa, ja vahvuusluokille jaetaan palkintoja, joten jokaisella tasolla on tavoiteltavaa.',
       cta: 'Tietoa palkinnoista',
     },
     fees: {
@@ -291,7 +291,7 @@ const fi: Messages = {
   },
   prizes: {
     title: 'Palkinnot',
-    lead: 'Taattu vähintään 10 000 euron palkintopotti, ja palkintoja koko kentälle.',
+    lead: 'Taattu vähintään 10 000 euron palkintopotti, ja palkintoja jaetaan muillekin kuin kärkipelaajille.',
     amountPrefix: 'Vähintään',
     amount: '10 000 €',
     amountNote: 'Taattu palkintopotti',

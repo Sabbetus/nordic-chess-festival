@@ -184,7 +184,7 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
 
 <style>
   .head { display: grid; gap: var(--space-3); margin-bottom: var(--space-5); }
-  .head .lead { max-width: 46rem; }
+  .head .lead { max-width: none; }
   .muted { color: var(--muted); font-size: var(--text-sm); }
 
   .book, .hotel, .card, .phone-box {
@@ -212,7 +212,7 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .rates { margin-top: var(--space-3); }
   .group { font-size: 1.6rem; margin-bottom: var(--space-2); }
   .group.sokos { margin-top: var(--space-8, 4rem); }
-  .group-lead { max-width: 46rem; margin-bottom: var(--space-5); font-size: var(--text-base, 1rem); }
+  .group-lead { max-width: none; margin-bottom: var(--space-5); font-size: var(--text-base, 1rem); }
   .partner-notice { margin-bottom: var(--space-5); padding: var(--box-pad); display: grid; gap: var(--space-2); }
   .partner-notice h3 { font-size: 1.25rem; margin: 0; }
   .hotel .addr { color: var(--white); }
@@ -238,7 +238,7 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .card .addr, .card .timetable { color: var(--white); }
   .addr { color: var(--white); }
   .timetable { color: var(--white); }
-  .visa { max-width: 46rem; }
+  .visa { max-width: none; }
   .visa-links { list-style: none; display: grid; gap: var(--space-2); }
 
   @media (max-width: 900px) {
