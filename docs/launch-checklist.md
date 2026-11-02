@@ -11,6 +11,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 - [ ] Merge to `main`, switch Cloudflare's production branch back to `main`, and point nordicchess.fi at Cloudflare (see `README.md`).
 - [ ] Replace or remove all `placeholder: true` content (news, guests, side events). Placeholders are already `noindex` and out of the sitemap, but should not be public.
 - [ ] Travel & stay: final content, hotel details and bus times.
+- [ ] December: add the online booking code of Hotel H28 and Hotelli Kuohu to the Travel & stay page (it currently says the code is coming in December and that booking is by email or phone) and remove the "coming in December" notice. Also revisit the bus pick-up wording once the stops are known.
 - [ ] Intro text and the guest list (replacement for the removed streamer, "more guests" slot).
 - [ ] Check `sitemap-index.xml` and the hreflang links on the live domain, and submit the sitemap in Google Search Console.
 
