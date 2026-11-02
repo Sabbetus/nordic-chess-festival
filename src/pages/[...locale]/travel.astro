@@ -67,24 +67,24 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
             </div>
             <div class="body">
               <h3>{h.name}</h3>
-              <p class="addr">{h.address}</p>
-              <div class="rate-table" role="table">
-                <div class="rate-row head-row" role="row">{t.rateHeaders.map((x) => <span role="columnheader">{x}</span>)}</div>
-                {h.rooms.map(([room, full, short]) => <div class="rate-row" role="row"><span role="cell">{room}</span><strong role="cell">{full}</strong><span role="cell">{short}</span></div>)}
-              </div>
-              <ul class="features">{h.features.map((x) => <li>{x}</li>)}</ul>
+              <p class="addr">{h.address}{h.walk && <><br />{h.walk}</>}</p>
+              <dl>
+                {h.rooms.map(([room, price]) => <div><dt>{room}</dt><dd>{price}</dd></div>)}
+              </dl>
+              <details class="more">
+                <summary>{t.detailsLabel}</summary>
+                <ul class="features">{h.details.map((x) => <li>{x}</li>)}</ul>
+              </details>
             </div>
           </article>
         ))}
       </div>
-      <p class="muted rates">{t.partnerRatesNote}</p>
+      <p class="muted rates">{t.ratesNote}</p>
 
       <div class="phone-box how-book">
         <h3>{t.howTitle}</h3>
-        <p>{t.howIntro}</p>
-        <ol class="steps">{t.howSteps.map(([title, text]) => <li><strong>{title}</strong><span>{text}</span></li>)}</ol>
+        <p>{t.howText}</p>
         <p class="contact"><span>{t.emailLabel}: <a href={`mailto:${partner.email}`}>{partner.email}</a></span> <span>{t.phoneLabel}: <a href={partner.phoneHref}>{partner.phone}</a></span></p>
-        <p class="muted">{t.howContact}. {t.payLabel}: {t.payText}</p>
       </div>
 
       <h3 class="group sokos">{t.sokosTitle}</h3>
@@ -113,6 +113,10 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
               <dl>
                 {h.rooms.map(([room, price]) => <div><dt>{room}</dt><dd>{price}</dd></div>)}
               </dl>
+              <details class="more">
+                <summary>{t.detailsLabel}</summary>
+                <ul class="features">{h.details.map((x) => <li>{x}</li>)}</ul>
+              </details>
             </div>
           </article>
         ))}
@@ -211,20 +215,15 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
   .partner-notice { margin-bottom: var(--space-5); padding: var(--box-pad); display: grid; gap: var(--space-2); }
   .partner-notice h3 { font-size: 1.25rem; margin: 0; }
   .hotel .addr { color: var(--white); }
-  .rate-table { display: grid; }
-  .rate-row { display: grid; grid-template-columns: 1fr auto auto; gap: var(--space-4); padding-block: var(--space-2); border-top: 1px solid var(--line); font-variant-numeric: lining-nums; }
-  .rate-row span:not(:first-child), .rate-row strong { text-align: right; min-width: 4.5rem; }
-  .rate-row span:first-child { color: var(--muted); }
-  .rate-row strong { color: var(--white); font-weight: 500; }
-  .rate-row span:last-child { color: var(--muted); }
-  .head-row { border-top: 0; font-size: var(--text-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ice); }
-  .head-row span, .head-row span:first-child { color: var(--ice); }
   .features { list-style: none; display: grid; gap: var(--space-2); padding: 0; color: var(--muted); font-size: var(--text-sm); }
   .features li::before { content: '✓'; color: var(--ice); margin-right: 0.6rem; }
-  .steps { display: grid; gap: var(--space-3); padding-left: 1.25rem; list-style: decimal; color: var(--muted); }
-  .steps li::marker { color: var(--ice); }
-  .steps li { display: grid; gap: 0.15rem; }
-  .steps strong { color: var(--white); font-weight: 500; }
+  .more { border-top: 1px solid var(--line); padding-top: var(--space-3); }
+  .more summary { cursor: pointer; color: var(--ice); font-size: var(--text-sm); letter-spacing: 0.08em; list-style: none; display: flex; align-items: center; gap: 0.6rem; }
+  .more summary::-webkit-details-marker { display: none; }
+  .more summary::before { content: '+'; display: inline-grid; place-items: center; width: 1.3rem; height: 1.3rem; border: 1px solid var(--ice-border); border-radius: 50%; line-height: 1; }
+  .more[open] summary::before { content: '−'; }
+  .more summary:focus-visible { outline: 2px solid var(--ice); outline-offset: 3px; }
+  .more .features { margin-top: var(--space-3); }
 
   .phone-box { margin-top: var(--space-5); display: grid; gap: var(--space-2); }
   .phone-box p { color: var(--muted); }
