@@ -398,7 +398,7 @@ const fi: Messages = {
     businessId: 'Y-tunnus',
     chairmanText: 'Yhdistyksen hallituksen puheenjohtaja on Henry Brade, joka toimii myös Nordic Chess Festivalin pääjärjestäjänä.',
     aboutTitle: 'Yhdistyksen tarkoitus',
-    aboutText: 'Yhdistyksen tarkoituksena on kehittää shakkia kilpaurheiluna Suomessa ja vahvistaa suomalaisen shakkiurheilun kansainvälistä asemaa. Tätä varten se suunnittelee, markkinoi ja järjestää kansainvälisen Nordic Chess Festival -tapahtuman kilpailuineen, sekä toimii kansainvälisen kilpashakin verkostoitumisalustana, joka tuo yhteen huippupelaajia, striimaajia ja harrastajia.',
+    aboutText: 'Yhdistyksen tarkoituksena on kehittää shakkia kilpaurheiluna Suomessa ja vahvistaa suomalaisen shakkiurheilun kansainvälistä asemaa. Tätä varten se suunnittelee, markkinoi ja järjestää kansainvälisen Nordic Chess Festival -tapahtuman kilpailuineen, sekä toimii verkostoitumisalustana, joka tuo yhteen huippupelaajia, striimaajia ja harrastajia.',
   },
   broadcast: {
     title: 'Suora lähetys',
