@@ -394,7 +394,7 @@ const en = {
     organiserTitle: 'Organiser',
     organiserText: 'Nordic Chess Festival ry is a non-profit association registered in Finland.',
     businessId: 'Business ID',
-    chairmanText: 'The chairman of the board is Henry Brade, who is also the main organiser of Nordic Chess Festival.',
+    chairmanText: 'The chairman of the board is Henry Brade, who is also the person in charge of organizing Nordic Chess Festival.',
     aboutTitle: 'Purpose of the association',
     aboutText: 'The association exists to develop chess as a competitive sport in Finland and to strengthen the international standing of Finnish chess. It does this by planning, marketing and organising the international Nordic Chess Festival and its competitions, and by serving as a networking platform that brings together top players, streamers and enthusiasts.',
   },
