@@ -394,11 +394,11 @@ const fi: Messages = {
     lead: 'Kysyttävää pääturnauksesta, ilmoittautumisesta tai yhteistyöstä? Autamme mielellämme.',
     emailTitle: 'Sähköposti',
     organiserTitle: 'Järjestäjä',
-    organiserText: 'Nordic Chess Festival ry on Suomeen rekisteröity voittoa tavoittelematon yhdistys.',
+    organiserText: 'Nordic Chess Festival ry on Suomeen rekisteröity aatteellinen yhdistys.',
     businessId: 'Y-tunnus',
     chairmanText: 'Yhdistyksen hallituksen puheenjohtaja on Henry Brade, joka toimii myös Nordic Chess Festivalin pääjärjestäjänä.',
     aboutTitle: 'Yhdistyksen tarkoitus',
-    aboutText: 'Yhdistyksen tarkoituksena on kehittää shakkia kilpaurheiluna Suomessa ja vahvistaa suomalaisen shakkiurheilun kansainvälistä asemaa. Tätä varten se suunnittelee, markkinoi ja järjestää kansainvälisen Nordic Chess Festival -tapahtuman kilpailuineen, toimii kansainvälisen kilpashakin verkostoitumisalustana, joka tuo yhteen huippupelaajia, striimaajia ja harrastajia, sekä tiedottaa ja viestii nostaakseen shakkiurheilun arvostusta.',
+    aboutText: 'Yhdistyksen tarkoituksena on kehittää shakkia kilpaurheiluna Suomessa ja vahvistaa suomalaisen shakkiurheilun kansainvälistä asemaa. Tätä varten se suunnittelee, markkinoi ja järjestää kansainvälisen Nordic Chess Festival -tapahtuman kilpailuineen, sekä toimii kansainvälisen kilpashakin verkostoitumisalustana, joka tuo yhteen huippupelaajia, striimaajia ja harrastajia.',
   },
   broadcast: {
     title: 'Suora lähetys',
