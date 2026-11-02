@@ -14,7 +14,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 - [ ] December: add the online booking code of Hotel H28 and Hotelli Kuohu to the Travel & stay page (it currently says the code is coming in December and that booking is by email or phone) and remove the "coming in December" notice. Also revisit the bus pick-up wording once the stops are known.
 - [ ] Intro text and the guest list (replacement for the removed streamer, "more guests" slot).
 - [ ] Check `sitemap-index.xml` and the hreflang links on the live domain, and submit the sitemap in Google Search Console.
-- [ ] Language redirect (`worker/lang.ts`): with a Finnish browser and no `lang` cookie, an English page (e.g. `/travel/`) must redirect to `/fi/travel/`; with an English browser, or after choosing EN in the language switch, it must not. Check that Google can still fetch English pages (no redirect without a Finnish `Accept-Language`).
+- [x] Language redirect (`worker/lang.ts`): with a Finnish browser and no `lang` cookie, an English page (e.g. `/travel/`) must redirect to `/fi/travel/`; with an English browser, or after choosing EN in the language switch, it must not. Check that Google can still fetch English pages (no redirect without a Finnish `Accept-Language`).
 
 ## Registration and payments
 
