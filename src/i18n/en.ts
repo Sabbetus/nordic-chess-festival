@@ -314,6 +314,7 @@ const en = {
   travel: {
     title: 'Travel & stay',
     lead: 'Partner hotels with special rates in Tampere and Kangasala, and a daily bus to the venue in Kangasala.',
+    leadLink: 'daily bus to the venue',
     stayTitle: 'Where to stay',
     stayLead: 'Four partner hotels offer special rates for festival players: Hotel H28 in central Tampere and Hotelli Kuohu in Kangasala (the lowest rates), and two Sokos hotels in central Tampere.',
     partnerTitle: 'Hotel H28 and Hotelli Kuohu',
@@ -391,8 +392,11 @@ const en = {
     lead: 'Questions about the Main Event, registration or partnerships? We are happy to help.',
     emailTitle: 'Email',
     organiserTitle: 'Organiser',
-    organiserText: 'Nordic Chess Festival ry',
+    organiserText: 'Nordic Chess Festival ry is a non-profit association registered in Finland.',
     businessId: 'Business ID',
+    chairmanText: 'The chairman of the board is Henry Brade, who is also the main organiser of Nordic Chess Festival.',
+    aboutTitle: 'Purpose of the association',
+    aboutText: 'The association exists to develop chess as a competitive sport in Finland and to strengthen the international standing of Finnish chess. It does this by planning, marketing and organising the international Nordic Chess Festival and its competitions, by serving as a networking platform for international competitive chess that brings together top players, streamers and enthusiasts, and by informing and communicating to raise the profile of chess as a sport.',
   },
   broadcast: {
     title: 'Broadcast',

@@ -316,6 +316,7 @@ const fi: Messages = {
   travel: {
     title: 'Matkustus ja majoitus',
     lead: 'Yhteistyöhotellit erityishintaan Tampereella ja Kangasalla sekä päivittäinen bussi pelipaikalle Kangasalle.',
+    leadLink: 'päivittäinen bussi pelipaikalle',
     stayTitle: 'Majoitus',
     stayLead: 'Neljä yhteistyöhotellia tarjoaa festivaalin pelaajille erityishinnat: Hotel H28 Tampereen keskustassa ja Hotelli Kuohu Kangasalla (edullisimmat hinnat) sekä kaksi Sokos-hotellia Tampereen keskustassa.',
     partnerTitle: 'Hotel H28 ja Hotelli Kuohu',
@@ -393,8 +394,11 @@ const fi: Messages = {
     lead: 'Kysyttävää pääturnauksesta, ilmoittautumisesta tai yhteistyöstä? Autamme mielellämme.',
     emailTitle: 'Sähköposti',
     organiserTitle: 'Järjestäjä',
-    organiserText: 'Nordic Chess Festival ry',
+    organiserText: 'Nordic Chess Festival ry on Suomeen rekisteröity voittoa tavoittelematon yhdistys.',
     businessId: 'Y-tunnus',
+    chairmanText: 'Yhdistyksen hallituksen puheenjohtaja on Henry Brade, joka toimii myös Nordic Chess Festivalin pääjärjestäjänä.',
+    aboutTitle: 'Yhdistyksen tarkoitus',
+    aboutText: 'Yhdistyksen tarkoituksena on kehittää shakkia kilpaurheiluna Suomessa ja vahvistaa suomalaisen shakkiurheilun kansainvälistä asemaa. Tätä varten se suunnittelee, markkinoi ja järjestää kansainvälisen Nordic Chess Festival -tapahtuman kilpailuineen, toimii kansainvälisen kilpashakin verkostoitumisalustana, joka tuo yhteen huippupelaajia, striimaajia ja harrastajia, sekä tiedottaa ja viestii nostaakseen shakkiurheilun arvostusta.',
   },
   broadcast: {
     title: 'Suora lähetys',

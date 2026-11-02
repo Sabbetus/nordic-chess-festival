@@ -17,8 +17,18 @@ const c = m.contact;
       <div class="card">
         <h3>{c.organiserTitle}</h3>
         <p>{c.organiserText}</p>
-        <p>{c.businessId}: {m.common.tba}</p>
+        <p>{c.businessId}: {site.businessId}</p>
+        <p>{c.chairmanText}</p>
       </div>
+    </div>
+    <div class="container about">
+      <div class="card"><h3>{c.aboutTitle}</h3><p>{c.aboutText}</p></div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .about { margin-top: var(--space-5); }
+  .card p + p { margin-top: var(--space-3); }
+  .about .card p { max-width: 60rem; }
+</style>

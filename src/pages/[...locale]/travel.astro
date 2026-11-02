@@ -13,6 +13,7 @@ export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
 const m = messages[lang];
 const t = m.travel;
+const [leadBefore, leadAfter] = t.lead.split(t.leadLink);
 
 // Hotel booking details. The online code (with the B) is the main way to book; the quota code is for phone and email.
 const hotel = {
@@ -42,7 +43,7 @@ const hotelPhotos: { src: ImageMetadata; position: string; credit?: { text: stri
 ---
 
 <BaseLayout lang={lang} path="/travel/" title={t.title} description={t.lead}>
-  <PageHero title={t.title} lead={t.lead} />
+  <PageHero title={t.title}>{leadBefore}<a href="#getting-there">{t.leadLink}</a>{leadAfter}</PageHero>
 
   <section class="section" id="stay">
     <div class="container">

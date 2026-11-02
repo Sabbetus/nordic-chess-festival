@@ -2,6 +2,7 @@ export const site = {
   url: 'https://nordicchess.fi',
   email: 'info@nordicchess.fi',
   organiser: 'Nordic Chess Festival ry',
+  businessId: '3610201-7',
   // Interim newsletter signup. Replace when a proper mailing list provider is chosen.
   newsletterUrl:
     'https://docs.google.com/forms/d/e/1FAIpQLSc2lMLuaor4bIIDlV-7nadU3bqa1wGkDUoC3rNvhu9o2xZ1Gg/viewform',
