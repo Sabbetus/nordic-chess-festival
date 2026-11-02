@@ -1,7 +1,7 @@
 order: 6
 question:
   en: Which rating counts for the entry fee?
-  fi: Mikä rating vaikuttaa osallistumismaksuun?
+  fi: Mikä vahvuusluku vaikuttaa osallistumismaksuun?
 answer:
   en: Your FIDE rating on the day you pay your entry fee. See the [entry fee table](/register/#fees).
-  fi: FIDE-ratingisi osallistumismaksun maksupäivänä. Katso [maksutaulukko](/register/#fees).
+  fi: FIDE-vahvuuslukusi osallistumismaksun maksupäivänä. Katso [maksutaulukko](/register/#fees).

@@ -16,7 +16,7 @@ Ilmoittautumisessa keräämme:
 
 - nimen, sähköpostiosoitteen ja puhelinnumeron
 - FIDE-tunnuksen (jokaisella ilmoittautujalla on oltava)
-- nimen, liiton, FIDE-tittelin, FIDE-ratingin ja syntymävuoden: haemme nämä FIDE-tunnuksesi perusteella FIDEn julkiselta listalta, joten et kirjoita niitä itse (vain syntymävuoden, jos FIDEllä sitä ei ole; sitä käytetään juniori- ja seniorihintojen soveltamiseen)
+- nimen, liiton, FIDE-tittelin, FIDE-vahvuusluvun ja syntymävuoden: haemme nämä FIDE-tunnuksesi perusteella FIDEn julkiselta listalta, joten et kirjoita niitä itse (vain syntymävuoden, jos FIDEllä sitä ei ole; sitä käytetään juniori- ja seniorihintojen soveltamiseen)
 - tiedon siitä, tilasitko bussikuljetuksen
 - maksetun summan ja tiedon maksun onnistumisesta
 
@@ -28,13 +28,13 @@ Emme vastaanota emmekä tallenna korttitietojasi. Maksut käsittelee ulkopuoline
 
 - **Ilmoittautumisesi ja pääturnauksen toteutus** (osallistumisen varmistus, parit, tulokset, käytännön viestintä). Peruste: sopimuksen täyttäminen.
 - **Maksujen vastaanotto ja kirjanpito.** Peruste: sopimus ja kirjanpitolain mukaiset velvoitteemme.
-- **Pelaajaluettelon ja tulosten julkaiseminen.** Peruste: oikeutettu etu ja rating-turnauksen luonne; katso alla.
+- **Pelaajaluettelon ja tulosten julkaiseminen.** Peruste: oikeutettu etu ja vahvuuslukuun vaikuttavan turnauksen luonne; katso alla.
 
 Emme käytä tietojasi markkinointiin, ellet erikseen tilaa uutiskirjettä, emmekä myy tietoja eteenpäin.
 
 ## Mitä julkaistaan
 
-Ilmoittautuneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa chess-results.com-palvelussa ja tällä sivustolla. Tavallisesti näkyvät nimi, liitto, titteli ja rating. Sähköpostiosoitettasi, puhelinnumeroasi tai syntymävuottasi emme julkaise. Rating-turnausten tulokset toimitetaan FIDElle ja Suomen Shakkiliitolle, jotka julkaisevat ne omien käytäntöjensä mukaan.
+Ilmoittautuneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa chess-results.com-palvelussa ja tällä sivustolla. Tavallisesti näkyvät nimi, liitto, titteli ja vahvuusluku. Sähköpostiosoitettasi, puhelinnumeroasi tai syntymävuottasi emme julkaise. Vahvuuslukuun vaikuttavien turnausten tulokset toimitetaan FIDElle ja Suomen Shakkiliitolle, jotka julkaisevat ne omien käytäntöjensä mukaan.
 
 ## Kuka käsittelee tietoja
 
@@ -43,7 +43,7 @@ Käytämme seuraavia palveluntarjoajia ja tietojen vastaanottajia:
 - **Maksupalvelun tarjoaja** verkossa tehtäviä kortti- ja mobiilimaksuja varten.
 - **IT-palveluntarjoajat** tämän sivuston ylläpitoa ja ilmoittautumistietojen tallennusta varten.
 - **Turnauksenhallintaohjelmisto**, jota järjestäjät ja tuomarit käyttävät, sekä **verkossa toimiva tulospalvelu**, jossa tulokset julkaistaan (chess-results.com).
-- **FIDE ja Suomen Shakkiliitto** rating- ja tulosraportointia varten.
+- **FIDE ja Suomen Shakkiliitto** vahvuuslukujen ja tulosten raportointia varten.
 - **Uutiskirjepalvelun tarjoaja**, vain jos tilaat uutiskirjeen.
 
 Osa palveluntarjoajista käsittelee tietoja puolestamme. Osa, kuten maksupalvelun tarjoaja, vastaa itse maksutietojesi käsittelystä. Osa palveluntarjoajista sijaitsee EU:n/ETA:n ulkopuolella, erityisesti Yhdysvalloissa. Tällöin siirrot perustuvat GDPR:n edellyttämiin suojatoimiin, kuten EU–USA-tietosuojakehykseen (Data Privacy Framework) tai vakiosopimuslausekkeisiin. Pyynnöstä kerromme, mitkä tietyt palveluntarjoajat käsittelevät tietojasi.
@@ -52,7 +52,7 @@ Osa palveluntarjoajista käsittelee tietoja puolestamme. Osa, kuten maksupalvelu
 
 - Ilmoittautumistiedot: 12 kuukautta festivaalin jälkeen, minkä jälkeen ne poistetaan tai anonymisoidaan.
 - Kirjanpitoaineisto (maksusummat ja tositteet): 6 vuotta tilikauden päättymisestä lain edellyttämällä tavalla.
-- Julkaistut tulokset ja ratingit säilyvät julkisina chess-results.comin, FIDEn ja Suomen Shakkiliiton arkistoissa.
+- Julkaistut tulokset ja vahvuusluvut säilyvät julkisina chess-results.comin, FIDEn ja Suomen Shakkiliiton arkistoissa.
 
 ## Miten suojaamme tiedot
 
