@@ -313,7 +313,7 @@ const en = {
   },
   travel: {
     title: 'Travel & stay',
-    lead: 'Partner hotels with special rates in Tampere and Kangasala, and a daily bus to the venue in Kangasala.',
+    lead: 'Partner hotels with special rates in Tampere and Kangasala, and a daily bus to the venue.',
     leadLink: 'daily bus to the venue',
     stayTitle: 'Where to stay',
     stayLead: 'Four partner hotels offer special rates for festival players: Hotel H28 in central Tampere and Hotelli Kuohu in Kangasala (the lowest rates), and two Sokos hotels in central Tampere.',
