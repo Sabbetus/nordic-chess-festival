@@ -255,8 +255,8 @@ const fi: Messages = {
       free: 'Suurmestarit pelaavat ilmaiseksi, joten maksettavaa ei ole.',
       nextTitle: 'Mitä seuraavaksi',
       next: [
-        'Lisäämme sinut [[players:Pelaajat-sivulle]] ja viralliseen osallistujaluetteloon [[results:chess-results.comissa]].',
-        'Varmista osallistumisesi lauantaina 12. kesäkuuta 2027 [[regulations:kilpailumääräysten]] mukaisesti.',
+        'Lisäämme sinut [[players:Pelaajat-sivulle]] ja viralliseen osallistujaluetteloon [[results:chess-results.comissa]]. Tämä tehdään yleensä alle 24 tunnissa.',
+        'Varmista osallistumisesi joko verkossa tai paikan päällä lauantaina 12. kesäkuuta 2027 [[regulations:kilpailumääräysten]] mukaisesti.',
       ],
       contact: 'Kysyttävää tai muutoksia ilmoittautumiseesi? Kirjoita osoitteeseen info@nordicchess.fi.',
       back: 'Takaisin etusivulle',

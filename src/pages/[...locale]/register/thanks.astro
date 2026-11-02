@@ -48,7 +48,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
 </BaseLayout>
 
 <style>
-  .wrap { display: grid; gap: var(--space-7); max-width: 52rem; margin-inline: 0; }
+  .wrap { display: grid; gap: var(--space-7); }
+  .wrap > * { max-width: 52rem; }
   .confirm {
     display: grid; grid-template-columns: auto 1fr; gap: var(--space-5); align-items: start;
     background: var(--ice-dim); border: 1px solid var(--ice-border); border-radius: var(--radius); padding: var(--box-pad);
