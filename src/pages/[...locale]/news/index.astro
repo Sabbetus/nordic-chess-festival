@@ -9,6 +9,7 @@ const m = messages[lang];
 import { getCollection } from "astro:content";
 import { formatDate } from "../../../i18n/utils";
 const n = m.news;
+const PAGE = 9; // the first three rows; "Show more" reveals the next nine
 const items = (await getCollection("news"))
   .filter((x) => x.id.startsWith(`${lang}/`))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -21,17 +22,47 @@ const items = (await getCollection("news"))
       {items.length === 0 ? (
         <div class="notice"><p>{n.empty}</p></div>
       ) : (
-        <div class="grid grid-3">
-          {items.map((i) => (
-            <a class="card" href={localePath(lang, `/news/${i.id.split("/")[1]}/`)}>
+        <>
+        <noscript set:html={'<style>[data-more][hidden]{display:block !important}</style>'} />
+        <div class="news-grid" data-news-grid>
+          {items.map((i, idx) => (
+            <a class="card" href={localePath(lang, `/news/${i.id.split("/")[1]}/`)} data-more={idx >= PAGE ? "" : undefined} hidden={idx >= PAGE ? true : undefined}>
               <p class="eyebrow">{formatDate(lang, i.data.date)}</p>
               <h3>{i.data.title}</h3>
               <p>{i.data.summary}</p>
             </a>
           ))}
         </div>
+        {items.length > PAGE && (
+          <p class="btn-row more-row" data-more-row hidden><button class="btn btn-ghost" type="button" data-show-more>{n.showMore}</button></p>
+        )}
+        </>
       )}
     </div>
   </section>
   <Newsletter lang={lang} text={n.newsletterText} />
 </BaseLayout>
+
+<style>
+  /* Three columns on desktop (3 x 3 first), fewer on narrower screens. */
+  .news-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
+  .more-row { justify-content: center; margin-top: var(--space-6); }
+  @media (max-width: 900px) { .news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .news-grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  // Articles beyond the first nine are hidden until "Show more" is used. Without script (see the noscript style) they all show.
+  const PAGE = 9;
+  const grid = document.querySelector<HTMLElement>('[data-news-grid]');
+  const row = document.querySelector<HTMLElement>('[data-more-row]');
+  const button = document.querySelector<HTMLButtonElement>('[data-show-more]');
+  if (grid && row && button) {
+    row.hidden = false;
+    button.addEventListener('click', () => {
+      const hidden = [...grid.querySelectorAll<HTMLElement>('[data-more][hidden]')];
+      hidden.slice(0, PAGE).forEach((el) => el.removeAttribute('hidden'));
+      if (hidden.length <= PAGE) row.hidden = true;
+    });
+  }
+</script>
