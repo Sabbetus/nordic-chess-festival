@@ -45,7 +45,7 @@ test('the language cookie turns the automatic redirect off', async () => {
 });
 
 test('English-speaking visitors, and visitors without a language, get the English page', async () => {
-  for (const headers of [{ 'accept-language': 'en-US,en;q=0.9' }, { 'accept-language': 'de,fi;q=0.5,en;q=0.9' }, {}]) {
+  for (const headers of [{ 'accept-language': 'en-US,en;q=0.9' }, { 'accept-language': 'de,fi;q=0.5,en;q=0.9' }, {}] as Record<string, string>[]) {
     const res = await worker.fetch(req('/', headers), env);
     assert.equal(res.status, 200);
     assert.match(res.headers.get('vary') ?? '', /Accept-Language/);

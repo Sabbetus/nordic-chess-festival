@@ -384,6 +384,8 @@ const fi: Messages = {
     empty: 'Ei vielä uutisia. Palaa pian takaisin.',
     published: 'Julkaistu',
     allNews: 'Kaikki uutiset',
+    subscribeLink: 'Tilaa uutiset sähköpostiisi.',
+    newsletterText: 'Jokainen uutinen lähetetään myös tiedotteen tilaajille. Tilaa tiedotteet, niin saat ne suoraan sähköpostiisi.',
   },
   faq: {
     title: 'Usein kysytyt kysymykset',

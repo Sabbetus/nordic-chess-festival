@@ -1,6 +1,5 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-// @ts-expect-error plain .mjs helper without type declarations
 import { applyRating, readGuest } from '../scripts/guest-ratings.mjs';
 
 const FILE = `name: Test Guest

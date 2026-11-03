@@ -382,6 +382,8 @@ const en = {
     empty: 'No news yet. Check back soon.',
     published: 'Published',
     allNews: 'All news',
+    subscribeLink: 'Get the news by email.',
+    newsletterText: 'Every news item is also sent to our newsletter subscribers. Sign up to get them straight to your inbox.',
   },
   faq: {
     title: 'Frequently asked questions',

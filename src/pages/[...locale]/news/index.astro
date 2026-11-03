@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PageHero from "../../../components/PageHero.astro";
+import Newsletter from "../../../components/Newsletter.astro";
 import { localeStaticPaths, localePath, messages } from "../../../i18n/utils";
 export function getStaticPaths() { return localeStaticPaths(); }
 const { lang } = Astro.props;
@@ -14,7 +15,7 @@ const items = (await getCollection("news"))
 ---
 
 <BaseLayout lang={lang} path="/news/" title={n.title} description={n.lead}>
-  <PageHero title={n.title} lead={n.lead} />
+  <PageHero title={n.title}>{n.lead}{' '}<a href="#newsletter">{n.subscribeLink}</a></PageHero>
   <section class="section">
     <div class="container">
       {items.length === 0 ? (
@@ -32,4 +33,5 @@ const items = (await getCollection("news"))
       )}
     </div>
   </section>
+  <Newsletter lang={lang} text={n.newsletterText} />
 </BaseLayout>
