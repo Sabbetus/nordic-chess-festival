@@ -25,8 +25,12 @@ const news = (await getCollection('news'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-// Phones show one guest per row and only the first few; "view all" leads to the rest.
-const MOBILE_GUESTS = 5;
+// How many guests show before "Show more" (which reveals all the rest on the page): 3 x 3 on desktop, 4 x 2 with two
+// columns on tablets, and 6 on phones, one per row.
+const DESKTOP_GUESTS = 9;
+const TABLET_GUESTS = 8;
+const MOBILE_GUESTS = 6;
+const hideClasses = (i: number) => [i >= DESKTOP_GUESTS && 'hide-d', i >= TABLET_GUESTS && 'hide-t', i >= MOBILE_GUESTS && 'hide-m'].filter(Boolean).join(' ');
 
 // When the last row of the three-column grid is not full, a placeholder card fills it.
 const fillsRow = guests.length % 3 === 0;
@@ -103,14 +107,18 @@ const jsonLd = [
           <h2>{h.guests.title}</h2>
           <p class="lead">{h.guests.text}</p>
         </div>
-        <a class="btn btn-ghost btn-sm head-link" href={localePath(lang, '/guests/')}>{m.common.viewAll}</a>
       </div>
-      <div class="guest-grid">
-        {guests.map((g, i) => <div class="guest-item" data-extra={i >= MOBILE_GUESTS ? '' : undefined}><GuestCard guest={g} lang={lang} /></div>)}
-        {!fillsRow && <div class="guest-more"><p>{h.guests.more}</p></div>}
+      <div class="guest-grid" data-guest-grid>
+        <noscript set:html={'<style>.guest-item{display:contents !important}</style>'} />
+        {guests.map((g, i) => <div class={`guest-item ${hideClasses(i)}`.trim()}><GuestCard guest={g} lang={lang} /></div>)}
+        {!fillsRow && guests.length <= DESKTOP_GUESTS && <div class="guest-more"><p>{h.guests.more}</p></div>}
       </div>
-      <p class={fillsRow ? 'more' : 'more mobile-more'}>{h.guests.more}</p>
-      <p class="btn-row guests-all"><a class="btn btn-ghost" href={localePath(lang, '/guests/')}>{m.common.viewAll} <span class="arrow" aria-hidden="true">→</span></a></p>
+      {guests.length > MOBILE_GUESTS && (
+        <p class="btn-row guests-more-row" data-guests-more-row>
+          <button type="button" class={`btn btn-ghost show-more ${guests.length > DESKTOP_GUESTS ? 'sm-d' : ''} ${guests.length > TABLET_GUESTS ? 'sm-t' : ''} sm-m`} data-guests-more>{m.common.showMore}</button>
+        </p>
+      )}
+      <p class={fillsRow || guests.length > DESKTOP_GUESTS ? 'more' : 'more mobile-more'}>{h.guests.more}</p>
     </div>
   </section>
 
@@ -243,7 +251,7 @@ const jsonLd = [
   @media (max-width: 700px) { .hero .eyebrow { white-space: nowrap; font-size: min(0.75rem, 3.4vw); letter-spacing: 0.1em; } }
   /* Phones: both hero buttons stay on one line and share one text size, which shrinks with the screen width (the Finnish
      "Rekisteröityminen ja maksut" is the longest label). */
-  @media (max-width: 520px) { .hero .btn-row { display: grid; } .hero .btn-row .btn { justify-content: center; white-space: nowrap; font-size: min(var(--text-sm), 3.1vw); letter-spacing: 0.08em; padding-inline: 1rem; gap: 0.4rem; } }
+  @media (max-width: 520px) { .hero .btn-row { display: grid; } .hero .btn-row .btn { justify-content: center; white-space: nowrap; font-size: min(var(--text-sm), 3.9vw); letter-spacing: 0.1em; padding-inline: 1rem; gap: 0.4rem; } }
   /* The highlighted closing line moves as a whole to the next line instead of being split. */
   .hero .lead .accent { color: var(--ice); white-space: nowrap; }
   .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--line-strong); }
@@ -258,7 +266,21 @@ const jsonLd = [
   .head-text .lead { margin-top: var(--space-2); max-width: 52rem; }
   .guest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); --guest-aspect: 4 / 5; }
   .guest-item { display: contents; }
-  .guests-all { display: none; margin-top: var(--space-5); }
+  /* "Show more" reveals the guests beyond the first 9 (desktop), 8 (tablet) or 6 (phone). */
+  .guests-more-row { justify-content: center; margin-top: var(--space-5); }
+  .show-more { display: none; }
+  @media (min-width: 1101px) {
+    .guest-grid:not([data-open]) .guest-item.hide-d { display: none; }
+    .show-more.sm-d { display: inline-flex; }
+  }
+  @media (min-width: 701px) and (max-width: 1100px) {
+    .guest-grid:not([data-open]) .guest-item.hide-t { display: none; }
+    .show-more.sm-t { display: inline-flex; }
+  }
+  @media (max-width: 700px) {
+    .guest-grid:not([data-open]) .guest-item.hide-m { display: none; }
+    .show-more.sm-m { display: inline-flex; }
+  }
   .mobile-more { display: none; }
   .guest-more { aspect-ratio: var(--guest-aspect, 3 / 4); border: 1px dashed var(--line-strong); border-radius: var(--radius); display: grid; place-items: center; padding: var(--space-5); text-align: center; color: var(--muted); font-size: var(--text-sm); letter-spacing: 0.04em; }
   .more { margin-top: var(--space-5); font-size: var(--text-sm); color: var(--muted-2); letter-spacing: 0.04em; }
@@ -317,8 +339,7 @@ const jsonLd = [
   @media (max-width: 700px) {
     /* One guest per row, like the guests page, and the dashed placeholder gives way to the text line below. */
     .guest-grid { grid-template-columns: 1fr; gap: var(--space-5); --guest-aspect: 4 / 5; }
-    .guest-item[data-extra], .guest-more, .head-link { display: none; }
-    .guests-all { display: flex; }
+    .guest-more { display: none; }
     .mobile-more { display: block; }
     /* Phones: one compact row of four equal columns, left-aligned so the first one lines up with the page margin.
        The labels are kept short so they never need more room. */
@@ -332,3 +353,13 @@ const jsonLd = [
     .floor { height: 40%; }
   }
 </style>
+
+<script>
+  // "Show more" reveals every guest right on the front page, without a page load.
+  const grid = document.querySelector<HTMLElement>('[data-guest-grid]');
+  const row = document.querySelector<HTMLElement>('[data-guests-more-row]');
+  document.querySelector<HTMLButtonElement>('[data-guests-more]')?.addEventListener('click', () => {
+    grid?.setAttribute('data-open', '');
+    if (row) row.hidden = true;
+  });
+</script>

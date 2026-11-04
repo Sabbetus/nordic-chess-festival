@@ -13,6 +13,7 @@ const en = {
     learnMore: 'Learn more',
     readMore: 'Read more',
     viewAll: 'View all',
+    showMore: 'Show more',
     back: 'Back',
     tba: 'To be announced',
     placeholder: 'Placeholder: the final content will be added before launch.',

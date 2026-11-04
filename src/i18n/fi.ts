@@ -15,6 +15,7 @@ const fi: Messages = {
     learnMore: 'Lue lisää',
     readMore: 'Lue lisää',
     viewAll: 'Näytä kaikki',
+    showMore: 'Näytä lisää',
     back: 'Takaisin',
     tba: 'Julkistetaan myöhemmin',
     placeholder: 'Väliaikainen sisältö: lopullinen sisältö lisätään ennen julkaisua.',
