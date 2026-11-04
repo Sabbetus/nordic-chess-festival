@@ -111,7 +111,7 @@ const fi: Messages = {
     newsletter: {
       title: 'Pysy mukana.',
       text: 'Uudet kutsuvieraat, käytännön tietoa pelaajille ja festivaalin uutiset suoraan sähköpostiisi aina, kun on jotain kerrottavaa.',
-      cta: 'Tilaa tiedotteet',
+      cta: 'Tilaa uutiskirje',
       note: 'Ei roskapostia. Voit perua tilauksen milloin tahansa.',
     },
     partnersLabel: 'Yhteistyössä',
@@ -158,8 +158,8 @@ const fi: Messages = {
     lead: 'Osallistumismaksut näet {link}. Maksu riippuu FIDE-vahvuusluvustasi maksupäivänä, ja early bird -hinnat ovat voimassa 31. tammikuuta 2027 asti.',
     feesIntroLink: 'täältä',
     statusTitle: 'Rekisteröityminen aukeaa pian',
-    statusText: 'Verkkorekisteröityminen ja maksu aukeavat lähiaikoina. Tilaa tiedotteet, niin kerromme heti kun se aukeaa.',
-    statusCta: 'Tilaa tiedotteet',
+    statusText: 'Verkkorekisteröityminen ja maksu aukeavat lähiaikoina. Tilaa uutiskirje, niin kerromme heti kun se aukeaa.',
+    statusCta: 'Tilaa uutiskirje',
     feesTitle: 'Osallistumismaksut',
     colRating: 'FIDE-vahvuusluku',
     colRegular: 'Normaalimaksu',
@@ -386,7 +386,7 @@ const fi: Messages = {
     allNews: 'Kaikki uutiset',
     showMore: 'Näytä lisää',
     subscribeLink: 'Tilaa uutiset sähköpostiisi.',
-    newsletterText: 'Jokainen uutinen lähetetään myös tiedotteen tilaajille. Tilaa tiedotteet, niin saat ne suoraan sähköpostiisi.',
+    newsletterText: 'Jokainen uutinen lähetetään myös uutiskirjeen tilaajille. Tilaa uutiskirje, niin saat ne suoraan sähköpostiisi.',
   },
   faq: {
     title: 'Usein kysytyt kysymykset',
