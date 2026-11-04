@@ -1,0 +1,9 @@
+order: 12
+question:
+  en: What is the format and time control?
+  fi: Mikä on pelimuoto ja miettimisaika?
+answer:
+  en: |-
+    Nine rounds in one open section, paired with the FIDE Swiss system (with Baku acceleration if there are at least 140 players). The time control is 90 minutes for 40 moves, then 30 minutes for the rest of the game, with a 30-second increment per move from move 1. Results count for both the FIDE and the Finnish rating lists, and FIDE title norms (GM, IM, WGM, WIM) can be achieved. See the [Main Event](/main-event/) page.
+  fi: |-
+    Yhdeksän kierrosta yhdessä avoimessa ryhmässä, parit määrätään FIDEn sveitsiläisellä järjestelmällä (Baku-kiihdytyksellä, jos pelaajia on vähintään 140). Miettimisaika on 90 minuuttia 40 siirtoon, minkä jälkeen 30 minuuttia loppupeliin, ja lisäksi 30 sekuntia per siirto alkaen ensimmäisestä siirrosta. Tulokset lasketaan sekä FIDEn että Suomen vahvuuslukulistoille, ja turnauksessa voi saavuttaa FIDE-arvonimien normeja (SM, KvM, NSM, NKvM). Katso [Pääturnaus](/main-event/).

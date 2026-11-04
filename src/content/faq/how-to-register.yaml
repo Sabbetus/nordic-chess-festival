@@ -1,0 +1,9 @@
+order: 3
+question:
+  en: How do I register?
+  fi: Miten rekisteröidyn?
+answer:
+  en: |-
+    Fill in the [registration form](/register/#register) with your FIDE ID and contact details. Your name, federation, title and rating are fetched from FIDE's list, so you only type the ID. Check the price and pay online; once the payment goes through you are registered, and we add you to the [Players page](/players/) and the official entry list on chess-results.com, usually within 24 hours.
+  fi: |-
+    Täytä [rekisteröitymislomake](/register/#register) FIDE-tunnuksellasi ja yhteystiedoillasi. Nimesi, liittosi, titteli ja vahvuuslukusi haetaan FIDEn listalta, joten kirjoitat vain tunnuksen. Tarkista hinta ja maksa verkossa; maksun jälkeen olet rekisteröitynyt, ja lisäämme sinut [Pelaajat-sivulle](/players/) ja viralliseen osallistujaluetteloon chess-results.comissa yleensä alle 24 tunnissa.

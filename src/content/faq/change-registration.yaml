@@ -1,0 +1,9 @@
+order: 10
+question:
+  en: Can I change my details after registering?
+  fi: Voinko muuttaa tietojani rekisteröitymisen jälkeen?
+answer:
+  en: |-
+    Email [info@nordicchess.fi](mailto:info@nordicchess.fi). The organisers can correct the spelling of your name and your contact details. Your federation, title and rating come straight from FIDE's list.
+  fi: |-
+    Kirjoita osoitteeseen [info@nordicchess.fi](mailto:info@nordicchess.fi). Järjestäjät voivat korjata nimesi kirjoitusasun ja yhteystietosi. Liittosi, titteli ja vahvuuslukusi tulevat suoraan FIDEn listalta.

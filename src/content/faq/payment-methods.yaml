@@ -1,0 +1,9 @@
+order: 8
+question:
+  en: How can I pay?
+  fi: Miten voin maksaa?
+answer:
+  en: |-
+    Payment is made securely online through Stripe: by card, Apple Pay, Google Pay, MobilePay or Klarna. The options shown at checkout depend on your country and device. We never see or store your card details, and Stripe emails the receipt to the address you gave.
+  fi: |-
+    Maksu tehdään turvallisesti verkossa Stripen kautta: kortilla, Apple Paylla, Google Paylla, MobilePaylla tai Klarnalla. Kassalla näkyvät vaihtoehdot riippuvat maastasi ja laitteestasi. Emme näe tai tallenna korttitietojasi, ja Stripe lähettää kuitin antamaasi sähköpostiosoitteeseen.

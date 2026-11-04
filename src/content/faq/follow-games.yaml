@@ -1,0 +1,9 @@
+order: 17
+question:
+  en: Where can I follow the games and results?
+  fi: Mistä voin seurata pelejä ja tuloksia?
+answer:
+  en: |-
+    Pairings and results are published on chess-results.com and at the playing venue. Some of the games are shown on live boards with a 15-minute delay; the links will be on the [Broadcast](/broadcast/) page when the Main Event starts.
+  fi: |-
+    Parit ja tulokset julkaistaan chess-results.comissa ja pelipaikalla. Osa peleistä välitetään livelautoina 15 minuutin viiveellä; linkit ovat [Suora lähetys](/broadcast/) -sivulla pääturnauksen alkaessa.
