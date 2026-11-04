@@ -54,6 +54,8 @@ const faq = defineCollection({
   schema: z.object({
     question: localized,
     answer: localized,
+    /** The sub-header the question is listed under; the headings are in the translations (faq.categories). */
+    category: z.enum(['general', 'registration', 'tournament', 'travel']).default('general'),
     order: z.number().default(100),
   }),
 });

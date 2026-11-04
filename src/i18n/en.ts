@@ -389,6 +389,7 @@ const en = {
   faq: {
     title: 'Frequently asked questions',
     lead: 'Quick answers about the festival. Cannot find yours? Get in touch.',
+    categories: { general: 'General', registration: 'Registration and fees', tournament: 'The tournament', travel: 'Travel and accommodation' },
   },
   contact: {
     title: 'Contact',

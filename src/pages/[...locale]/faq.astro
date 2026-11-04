@@ -9,6 +9,10 @@ const m = messages[lang];
 import { getCollection } from "astro:content";
 const f = m.faq;
 const items = (await getCollection("faq")).sort((a, b) => a.data.order - b.data.order);
+const categoryOrder = ['general', 'registration', 'tournament', 'travel'] as const;
+const groups = categoryOrder
+  .map((key) => ({ key, items: items.filter((i) => i.data.category === key) }))
+  .filter((g) => g.items.length > 0);
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -24,17 +28,24 @@ const jsonLd = {
   <PageHero title={f.title} lead={f.lead} />
   <section class="section">
     <div class="container narrow">
-      {items.map((i) => (
-        <details>
-          <summary>{i.data.question[lang]}</summary>
-          <p>{linkParts(i.data.answer[lang], lang).map((p) => (p.href ? <a href={p.href}>{p.text}</a> : p.text))}</p>
-        </details>
+      {groups.map((g) => (
+        <div class="group">
+          <h2 id={g.key}>{f.categories[g.key]}</h2>
+          {g.items.map((i) => (
+            <details>
+              <summary>{i.data.question[lang]}</summary>
+              <p>{linkParts(i.data.answer[lang], lang).map((p) => (p.href ? <a href={p.href}>{p.text}</a> : p.text))}</p>
+            </details>
+          ))}
+        </div>
       ))}
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .group + .group { margin-top: var(--space-8); }
+  .group h2 { font-size: var(--text-h3); margin-bottom: var(--space-4); color: var(--ice); }
   details { border-bottom: 1px solid var(--line); }
   details:first-child { border-top: 1px solid var(--line); }
   summary { cursor: pointer; list-style: none; padding-block: var(--space-4); font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; display: flex; justify-content: space-between; gap: var(--space-4); align-items: center; }

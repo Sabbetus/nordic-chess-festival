@@ -1,4 +1,5 @@
-order: 10
+order: 11
+category: registration
 question:
   en: Can I change my details after registering?
   fi: Voinko muuttaa tietojani rekisteröitymisen jälkeen?

@@ -391,6 +391,7 @@ const fi: Messages = {
   faq: {
     title: 'Usein kysytyt kysymykset',
     lead: 'Lyhyet vastaukset festivaalia koskeviin kysymyksiin. Etkö löytänyt omaasi? Ota yhteyttä.',
+    categories: { general: 'Yleistä', registration: 'Rekisteröityminen ja maksut', tournament: 'Turnaus', travel: 'Matkat ja majoitus' },
   },
   contact: {
     title: 'Yhteystiedot',
