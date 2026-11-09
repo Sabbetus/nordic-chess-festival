@@ -18,7 +18,7 @@ Requires Node 22.12 or newer.
 | Entry fees, discount rules, fee calculator | `src/data/fees.ts` (single source of truth) |
 | Site text, one file per language | `src/i18n/en.ts`, `src/i18n/fi.ts` |
 | Adding a language | add `src/i18n/<code>.ts`, register it in `src/i18n/utils.ts` and `astro.config.mjs` |
-| Guest profiles (GMs, streamers) | `src/content/guests/*.yaml`, photos in `src/assets/guests/` |
+| Guest profiles (GMs, content creators) | `src/content/guests/*.yaml`, photos in `src/assets/guests/` |
 | News | `src/content/news/<lang>/<slug>.md` (same slug in each language) |
 | FAQ, side events | `src/content/faq/`, `src/content/side-events/` |
 | Registered players (synced from chess-results) | `src/data/registered-players.json` |

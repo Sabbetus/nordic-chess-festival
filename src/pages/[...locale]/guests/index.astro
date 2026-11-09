@@ -11,7 +11,7 @@ const g = m.guests;
 const all = (await getCollection("guests")).sort((a, b) => a.data.order - b.data.order);
 const groups = [
   { title: g.gm, items: all.filter((x) => x.data.kind === "gm") },
-  { title: g.streamer, items: all.filter((x) => x.data.kind === "streamer") },
+  { title: g.creator, items: all.filter((x) => x.data.kind === "creator") },
 ].filter((x) => x.items.length > 0);
 ---
 

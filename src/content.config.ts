@@ -5,13 +5,13 @@ import { glob } from 'astro/loaders';
 /** A string per site language. Add a key here when a language is added. */
 const localized = z.object({ en: z.string(), fi: z.string() });
 
-// Invited key players and streamers. One YAML file per person in src/content/guests/.
+// Invited key players and content creators. One YAML file per person in src/content/guests/.
 const guests = defineCollection({
   loader: glob({ pattern: '*.yaml', base: './src/content/guests' }),
   schema: ({ image }) =>
     z.object({
       name: z.string(),
-      kind: z.enum(['gm', 'streamer']),
+      kind: z.enum(['gm', 'creator']),
       /** FIDE title, shown before the name, e.g. "GM". */
       title: z.string().optional(),
       federation: z.string().length(3).optional(),

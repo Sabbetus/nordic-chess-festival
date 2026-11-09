@@ -46,8 +46,8 @@ const fi: Messages = {
     leadLines: [
       'Entinen maailmanmestaruushaastaja.',
       'Suomen kaikkien aikojen vahvin pelaaja.',
-      'Useita Pohjoismaiden mestareita.',
-      'Suosikkishakkistriimaajasi.',
+      'Pohjoismaiden ja Baltian mestareita.',
+      'Suosittuja sisällöntuottajia.',
       'Ja sinä, laudan toisella puolella.',
     ],
     ctaPrimary: 'Rekisteröityminen ja maksut',
@@ -72,7 +72,7 @@ const fi: Messages = {
     ],
     guests: {
       eyebrow: 'Vahvistetut kutsuvieraat',
-      title: 'Suurmestareita ja striimaajia shakkilaudan ääressä',
+      title: 'Suurmestareita ja sisällöntuottajia shakkilaudan ääressä',
       text: 'Ensimmäiset kutsuvieraat, jotka pelaavat Kangasalla.',
       more: 'Lisää kutsuvieraita julkistetaan myöhemmin.',
     },
@@ -277,10 +277,10 @@ const fi: Messages = {
   },
   guests: {
     title: 'Kutsuvieraat',
-    lead: 'Suurmestarit ja striimaajat, jotka tulevat Kangasalle.',
+    lead: 'Suurmestarit ja sisällöntuottajat, jotka tulevat Kangasalle.',
     gm: 'Suurmestarit',
-    streamer: 'Striimaajat',
-    streamerLabel: 'Striimaaja',
+    creator: 'Sisällöntuottajat',
+    creatorLabel: 'Sisällöntuottaja',
     empty: 'Kutsuvieraat julkistetaan pian.',
     about: 'Tietoa',
     links: 'Linkit',

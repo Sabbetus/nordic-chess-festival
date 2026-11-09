@@ -44,8 +44,8 @@ const en = {
     leadLines: [
       'A former World Championship challenger.',
       'Strongest Finnish player of\u00A0all\u00A0time.',
-      'Multiple Nordic champions.',
-      'Your favorite chess streamers.',
+      'Nordic and Baltic champions.',
+      'Popular content creators.',
       'And you, across the board.',
     ],
     ctaPrimary: 'Registration & Fees',
@@ -70,7 +70,7 @@ const en = {
     ],
     guests: {
       eyebrow: 'Confirmed guests',
-      title: 'Grandmasters and streamers at the board',
+      title: 'Grandmasters and content creators at the board',
       text: 'The first guests who will be playing in Kangasala.',
       more: 'More guests will be announced.',
     },
@@ -275,10 +275,10 @@ const en = {
   },
   guests: {
     title: 'Guests',
-    lead: 'The grandmasters and streamers joining us in Kangasala.',
+    lead: 'The grandmasters and content creators joining us in Kangasala.',
     gm: 'Grandmasters',
-    streamer: 'Streamers',
-    streamerLabel: 'Streamer',
+    creator: 'Content creators',
+    creatorLabel: 'Content creator',
     empty: 'Guests will be announced soon.',
     about: 'About',
     links: 'Links',

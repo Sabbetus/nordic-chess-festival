@@ -1,0 +1,33 @@
+name: Mika Karttunen
+kind: creator
+title: IM
+federation: FIN
+fideId: 502081
+rating:
+  value: 2483
+  month: '2026-11'
+peakRating: 2497
+photo: ../../assets/guests/mika-karttunen.jpg
+photoPosition: "50% 30%"
+order: 4
+tagline:
+  en: Seven-time Finnish champion and chess content creator
+  fi: Seitsenkertainen Suomen mestari ja shakin sisällöntuottaja
+bio:
+  en: |
+    One of the strongest players in Finland. Mika has been an International Master since 2001, came within a few points of the 2500 mark, and has won the Finnish Championship seven times (2002, 2006, 2007, 2009, 2010, 2013 and 2014), more than any other active player. He has 14 Finnish Championship medals in all and played for Finland at seven Chess Olympiads between 2000 and 2012.
+
+    He is also one of Finland's best-known chess teachers. In 2011 he co-founded Shakkilinna with IM Heikki Lehtinen to promote children's and youth chess, and its national project Avainsiirto is an interactive chess teaching website made with the Finnish Chess Federation and the University of Tampere. He has served as the federation's head youth coach and as a board member.
+
+    Mika has written for the magazine Suomen Shakki since 2000 and is the author of three chess books, including Shakki, matti! (2022). Today he shares chess on the Shakkilinna channels on YouTube and Twitch.
+  fi: |
+    Yksi Suomen vahvimmista pelaajista. Mika on ollut kansainvälinen mestari vuodesta 2001, on käynyt muutaman pisteen päässä 2500:n rajasta ja voittanut Suomen mestaruuden seitsemän kertaa (2002, 2006, 2007, 2009, 2010, 2013 ja 2014), enemmän kuin kukaan muu aktiivipelaaja. Hänellä on yhteensä 14 SM-mitalia, ja hän on pelannut Suomen joukkueessa seitsemissä shakkiolympialaisissa vuosina 2000–2012.
+
+    Hän on myös yksi Suomen tunnetuimmista shakinopettajista. Vuonna 2011 hän perusti IM Heikki Lehtisen kanssa Shakkilinnan edistämään lasten ja nuorten shakkia, ja sen valtakunnallinen hanke Avainsiirto on interaktiivinen shakinopetussivusto, joka on tehty yhdessä Suomen Shakkiliiton ja Tampereen yliopiston kanssa. Hän on toiminut liiton nuorisovalmennuspäällikkönä ja hallituksen jäsenenä.
+
+    Mika on kirjoittanut Suomen Shakki -lehteen vuodesta 2000 ja on kolmen shakkikirjan kirjoittaja, joihin kuuluu Shakki, matti! (2022). Nykyään hän jakaa shakkia Shakkilinnan YouTube- ja Twitch-kanavilla.
+links:
+  - label: YouTube
+    url: https://www.youtube.com/@chesscastle_shakkilinna
+  - label: Twitch
+    url: https://www.twitch.tv/shakkilinna
