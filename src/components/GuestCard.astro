@@ -54,8 +54,8 @@ const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
   /* Touch: there is no hover, so the card nearest the middle of the screen (see the script below) fades to colour. No zoom. */
   @media (hover: none) {
     /* A slow, even fade: the default curve does most of its work in the first moments and feels instant. */
-    .photo :global(img) { transition: filter 1.2s ease-in-out; }
-    .guest { transition: border-color 1.2s ease-in-out; }
+    .photo :global(img) { transition: filter 1s ease-in-out; }
+    .guest { transition: border-color 1s ease-in-out; }
     .guest.is-active .photo :global(img) { filter: grayscale(0.15) contrast(1.02); }
     .guest.is-active { border-color: var(--ice-border); }
   }
@@ -65,8 +65,8 @@ const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
     .guest .photo :global(img) { transition: filter 0.5s var(--ease) !important; }
   }
   @media (prefers-reduced-motion: reduce) and (hover: none) {
-    .guest .photo :global(img) { transition: filter 1.2s ease-in-out !important; }
-    .guest { transition: border-color 1.2s ease-in-out !important; }
+    .guest .photo :global(img) { transition: filter 1s ease-in-out !important; }
+    .guest { transition: border-color 1s ease-in-out !important; }
   }
   .photo::after {
     content: ''; position: absolute; inset: 0; pointer-events: none;
