@@ -41,13 +41,24 @@ const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
     background: linear-gradient(160deg, var(--surface-2), var(--surface)); border: 1px solid var(--line);
     color: var(--white); transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
   }
-  .guest:hover { border-color: var(--ice-border); transform: translateY(-3px); color: var(--white); }
   .photo { position: absolute; inset: 0; display: grid; place-items: center; }
   .photo :global(img) {
     width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%;
     filter: grayscale(1) contrast(1.05) brightness(0.92); transition: filter 0.5s var(--ease), transform 0.8s var(--ease);
   }
-  .guest:hover .photo :global(img) { filter: grayscale(0.15) contrast(1.02); transform: scale(1.04); }
+  /* Mouse: the card lifts and its photo turns to colour (and zooms a little) on hover. */
+  @media (hover: hover) {
+    .guest:hover { border-color: var(--ice-border); transform: translateY(-3px); color: var(--white); }
+    .guest:hover .photo :global(img) { filter: grayscale(0.15) contrast(1.02); transform: scale(1.04); }
+  }
+  /* Touch: there is no hover, so the card nearest the middle of the screen (see the script below) fades to colour. No zoom. */
+  @media (hover: none) {
+    .guest.is-active .photo :global(img) { filter: grayscale(0.15) contrast(1.02); }
+    .guest.is-active { border-color: var(--ice-border); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .photo :global(img) { transition: none; }
+  }
   .photo::after {
     content: ''; position: absolute; inset: 0; pointer-events: none;
     background: linear-gradient(to top, rgba(10, 10, 10, 0.96) 0%, rgba(10, 10, 10, 0.55) 38%, transparent 65%);
@@ -63,3 +74,44 @@ const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
   h3 { font-size: 1.7rem; line-height: 1.15; margin: 0; }
   .tagline { font-size: var(--text-sm); color: var(--muted); line-height: 1.4; min-height: 2.8em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 </style>
+
+<script>
+  // Touch screens: while scrolling, the guest card nearest the middle of the screen is the "active" one and shows its
+  // photo in colour. Exactly one card at a time; a card far from the middle (barely on screen) does not count.
+  if (window.matchMedia('(hover: none)').matches) {
+    let current: HTMLElement | null = null;
+    let queued = false;
+
+    const update = () => {
+      queued = false;
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      let best: HTMLElement | null = null;
+      let bestDistance = window.innerHeight * 0.45;
+      document.querySelectorAll<HTMLElement>('.guest').forEach((card) => {
+        const r = card.getBoundingClientRect();
+        if (r.width === 0 || r.bottom < 0 || r.top > window.innerHeight) return; // hidden or off screen
+        const d = Math.hypot(r.left + r.width / 2 - cx, r.top + r.height / 2 - cy);
+        if (d < bestDistance) {
+          bestDistance = d;
+          best = card;
+        }
+      });
+      if (best !== current) {
+        current?.classList.remove('is-active');
+        (best as HTMLElement | null)?.classList.add('is-active');
+        current = best;
+      }
+    };
+    const queue = () => {
+      if (!queued) {
+        queued = true;
+        window.requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    update();
+  }
+</script>
