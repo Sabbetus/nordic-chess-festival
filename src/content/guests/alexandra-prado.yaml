@@ -6,7 +6,9 @@ fideId: 3301346
 rating:
   value: 1855
   month: '2026-11'
-# No photo yet: a proper one is on its way. The card shows her initials until then.
+photo: ../../assets/guests/alexandra-prado.jpg
+# A temporary photo (source not known): replace it with the photos she sends, and add the credit.
+photoPosition: "50% 30%"
 order: 8
 tagline:
   en: Bolivian WCM and popular chess content creator
@@ -25,3 +27,7 @@ links:
     url: https://www.youtube.com/channel/UCLT1G7fG2LmiQeJ5Em7TprA
   - label: Twitch
     url: https://www.twitch.tv/alexandrachess
+  - label: Instagram
+    url: https://www.instagram.com/alexandra.chess/
+  - label: Facebook
+    url: https://www.facebook.com/alexandranaira.pradoserrano/
