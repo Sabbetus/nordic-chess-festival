@@ -97,5 +97,6 @@ const jsonLd = {
   .facts dd a:hover { color: var(--ice); }
   .facts dt { font-size: var(--text-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
   .links-title { font-size: 1.5rem; margin-bottom: var(--space-3); }
-  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; gap: var(--space-5); } .photo { position: static; max-width: 24rem; } }
+  /* Narrow screens: the photo is no longer sticky, but it must stay positioned (relative, not static) so that the credit sits at its bottom edge; `top: auto` cancels the sticky offset, which would otherwise push a relative box down. */
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; gap: var(--space-5); } .photo { position: relative; top: auto; max-width: 24rem; } }
 </style>
