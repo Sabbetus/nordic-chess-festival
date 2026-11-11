@@ -85,7 +85,8 @@ const jsonLd = {
   .layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-7); align-items: start; }
   .photo { position: sticky; top: calc(var(--header-h) + 1.5rem); aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(160deg, var(--surface-2), var(--surface)); display: grid; place-items: center; }
   .photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .photo figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: var(--space-2) var(--space-3); font-size: var(--text-xs); color: var(--muted); background: rgba(10, 10, 10, 0.78); }
+  /* The credit is always one line: the script below shrinks the text to fit; without script it is cut off with an ellipsis. */
+  .photo figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: var(--space-2) var(--space-3); font-size: var(--text-xs); color: var(--muted); background: rgba(10, 10, 10, 0.78); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .photo figcaption a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
   .photo figcaption a:hover { color: var(--ice); }
   .mono { font-family: var(--font-display); font-size: 8rem; color: var(--ice); opacity: 0.5; }
@@ -100,3 +101,20 @@ const jsonLd = {
   /* Narrow screens: the photo is no longer sticky, but it must stay positioned (relative, not static) so that the credit sits at its bottom edge; `top: auto` cancels the sticky offset, which would otherwise push a relative box down. */
   @media (max-width: 900px) { .layout { grid-template-columns: 1fr; gap: var(--space-5); } .photo { position: relative; top: auto; max-width: 24rem; } }
 </style>
+
+<script>
+  // Keep the photo credit on one line: shrink its text a little at a time until it fits the width of the photo (never below 8 px).
+  const fitCredit = () => {
+    const caption = document.querySelector<HTMLElement>('.photo figcaption');
+    if (!caption) return;
+    caption.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(caption).fontSize);
+    while (caption.scrollWidth > caption.clientWidth && size > 8) {
+      size -= 0.25;
+      caption.style.fontSize = `${size}px`;
+    }
+  };
+  fitCredit();
+  document.fonts?.ready.then(fitCredit);
+  window.addEventListener('resize', fitCredit);
+</script>
