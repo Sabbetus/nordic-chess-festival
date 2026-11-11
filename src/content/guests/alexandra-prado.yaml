@@ -1,0 +1,27 @@
+name: Alexandra Prado
+kind: creator
+title: WCM
+federation: BOL
+fideId: 3301346
+rating:
+  value: 1855
+  month: '2026-11'
+# No photo yet: a proper one is on its way. The card shows her initials until then.
+order: 8
+tagline:
+  en: Bolivian WCM and popular chess content creator
+  fi: Bolivialainen NCM ja suosittu shakin sisällöntuottaja
+bio:
+  en: |
+    Known online as AlexandraChess, Alexandra is a Woman Candidate Master from Bolivia and was one of the best junior players in her country. As a junior she represented Bolivia at the Olympiad and at the World Championship.
+
+    She began streaming in Spanish on a national Bolivian channel during the pandemic, then switched to English and became known for beginner-friendly traps and tricks, often shown on a real board. Her first video of this kind reportedly passed a million views, and she now has hundreds of thousands of followers across YouTube, Twitch and other platforms.
+  fi: |
+    Verkossa AlexandraChess-nimellä tunnettu Alexandra on bolivialainen naisten ehdokasmestari ja yksi maansa parhaista junioripelaajista. Junioreena hän edusti Boliviaa olympialaisissa ja maailmanmestaruuskilpailuissa.
+
+    Hän aloitti suoratoiston espanjaksi bolivialaisella kansallisella kanavalla pandemian aikana, siirtyi sitten englantiin ja tuli tunnetuksi aloittelijaystävällisistä ansoista ja vinkeistä, joita hän esittelee usein oikealla laudalla. Hänen ensimmäinen tällainen videonsa ylitti kuulemma miljoona katselukertaa, ja nykyään hänellä on satoja tuhansia seuraajia YouTubessa, Twitchissä ja muilla alustoilla.
+links:
+  - label: YouTube
+    url: https://www.youtube.com/channel/UCLT1G7fG2LmiQeJ5Em7TprA
+  - label: Twitch
+    url: https://www.twitch.tv/alexandrachess

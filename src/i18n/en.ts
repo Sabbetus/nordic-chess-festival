@@ -70,7 +70,7 @@ const en = {
     ],
     guests: {
       eyebrow: 'Confirmed guests',
-      title: 'Grandmasters and content creators at the board',
+      title: 'Top players and content creators at the board',
       text: 'The first guests who will be playing in Kangasala.',
       more: 'More guests will be announced.',
     },
@@ -275,8 +275,9 @@ const en = {
   },
   guests: {
     title: 'Guests',
-    lead: 'The grandmasters and content creators joining us in Kangasala.',
+    lead: 'The top players and content creators joining us in Kangasala.',
     gm: 'Grandmasters',
+    player: 'Players',
     creator: 'Content creators',
     creatorLabel: 'Content creator',
     empty: 'Guests will be announced soon.',

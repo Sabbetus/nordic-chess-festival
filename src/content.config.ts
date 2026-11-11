@@ -11,7 +11,8 @@ const guests = defineCollection({
   schema: ({ image }) =>
     z.object({
       name: z.string(),
-      kind: z.enum(['gm', 'creator']),
+      /** Only changes the label on the profile page; the guests are listed in one row-by-row grid sorted by `order`. */
+      kind: z.enum(['gm', 'creator', 'player']),
       /** FIDE title, shown before the name, e.g. "GM". */
       title: z.string().optional(),
       federation: z.string().length(3).optional(),

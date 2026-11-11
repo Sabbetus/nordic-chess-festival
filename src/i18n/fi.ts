@@ -72,7 +72,7 @@ const fi: Messages = {
     ],
     guests: {
       eyebrow: 'Vahvistetut kutsuvieraat',
-      title: 'Suurmestareita ja sisällöntuottajia shakkilaudan ääressä',
+      title: 'Huippupelaajia ja sisällöntuottajia shakkilaudan ääressä',
       text: 'Ensimmäiset kutsuvieraat, jotka pelaavat Kangasalla.',
       more: 'Lisää kutsuvieraita julkistetaan myöhemmin.',
     },
@@ -277,8 +277,9 @@ const fi: Messages = {
   },
   guests: {
     title: 'Kutsuvieraat',
-    lead: 'Suurmestarit ja sisällöntuottajat, jotka tulevat Kangasalle.',
+    lead: 'Huippupelaajat ja sisällöntuottajat, jotka tulevat Kangasalle.',
     gm: 'Suurmestarit',
+    player: 'Pelaajat',
     creator: 'Sisällöntuottajat',
     creatorLabel: 'Sisällöntuottaja',
     empty: 'Kutsuvieraat julkistetaan pian.',

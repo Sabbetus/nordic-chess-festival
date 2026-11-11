@@ -26,6 +26,14 @@ test('a new rating and month are written, and nothing else in the file changes',
   assert.equal(r.text, FILE.replace('value: 2570', 'value: 2581').replace("'2026-10'", "'2026-11'"));
 });
 
+test('a file without a peak rating is updated and gets no peak added', () => {
+  const noPeak = FILE.replace('peakRating: 2656\n', '');
+  assert.equal(readGuest(noPeak)?.peak, null);
+  const r = applyRating(noPeak, found(2581));
+  assert.equal(r.changed, true);
+  assert.equal(r.text, noPeak.replace('value: 2570', 'value: 2581').replace("'2026-10'", "'2026-11'"));
+});
+
 test('the peak rating only moves up', () => {
   assert.match(applyRating(FILE, found(2660)).text, /peakRating: 2660/);
   assert.match(applyRating(FILE, found(2500)).text, /peakRating: 2656/);

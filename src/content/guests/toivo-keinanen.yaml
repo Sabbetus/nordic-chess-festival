@@ -1,0 +1,23 @@
+name: Toivo Keinänen
+kind: player
+title: IM
+federation: FIN
+fideId: 509825
+rating:
+  value: 2508
+  month: '2026-11'
+peakRating: 2557
+# No photo yet. Keep this guest last on the list: a high order number puts a new guest before him unless it is higher.
+order: 999
+tagline:
+  en: Finnish champion and one of Finland's highest-rated players
+  fi: Suomen mestari ja yksi Suomen korkeimmin luokitelluista pelaajista
+bio:
+  en: |
+    The dominant force in Finnish chess in recent years. Toivo has won the Finnish Championship five times (2019, 2021, 2023, 2024 and 2025), the last three in a row. He won his first title at the age of 16, and he is rated above 2500. He became a FIDE Master in 2016 and an International Master in 2019.
+
+    He is just as strong at faster time controls: Finnish rapid and blitz champion in 2021, he finished eighth at both the European Blitz and the European Rapid Championships that December.
+  fi: |
+    Viime vuosien hallitseva pelaaja suomalaisessa shakissa. Toivo on voittanut Suomen mestaruuden viisi kertaa (2019, 2021, 2023, 2024 ja 2025), kolme viimeisintä peräkkäin. Ensimmäisen mestaruutensa hän voitti 16-vuotiaana, ja hänen vahvuuslukunsa on yli 2500. Hänestä tuli FIDE-mestari vuonna 2016 ja kansainvälinen mestari vuonna 2019.
+
+    Hän on yhtä vahva nopeammilla miettimisajoilla: vuonna 2021 hän voitti Suomen mestaruuden sekä nopeassa shakissa että pikashakissa ja sijoittui joulukuussa kahdeksanneksi sekä Euroopan pikashakin että nopean shakin mestaruuskilpailuissa.
