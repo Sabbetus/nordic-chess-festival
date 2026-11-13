@@ -62,6 +62,9 @@
 /* ---------- Reset & base ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 1rem); -webkit-text-size-adjust: 100%; }
+/* Clips sideways overflow (the hero's perspective floor) without making a scroll container. Without it, Chrome on Android
+   jumped the page up to the venue panel when its toolbar slid away at the very bottom. */
+main { overflow-x: clip; }
 body {
   background: var(--black);
   color: var(--white);
