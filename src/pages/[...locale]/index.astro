@@ -110,7 +110,7 @@ const jsonLd = [
       </div>
       <div class="guest-grid" data-guest-grid>
         <noscript set:html={'<style>.guest-item{display:contents !important}</style>'} />
-        {guests.map((g, i) => <div class={`guest-item ${hideClasses(i)}`.trim()}><GuestCard guest={g} lang={lang} /></div>)}
+        {guests.map((g, i) => <div class={`guest-item ${hideClasses(i)}`.trim()}><GuestCard guest={g} lang={lang} colour /></div>)}
         {!fillsRow && guests.length <= DESKTOP_GUESTS && <div class="guest-more"><p>{h.guests.more}</p></div>}
       </div>
       {guests.length > MOBILE_GUESTS && (

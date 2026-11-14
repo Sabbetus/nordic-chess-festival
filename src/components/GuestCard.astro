@@ -4,8 +4,10 @@ import type { CollectionEntry } from 'astro:content';
 import { localePath, messages, type Locale } from '../i18n/utils';
 import { titleLabel } from '../lib/titles';
 
-interface Props { guest: CollectionEntry<'guests'>; lang: Locale }
-const { guest, lang } = Astro.props;
+// colour: show the photo in full colour all the time (the front page); otherwise it is black and white until hovered or
+// scrolled to the middle of a touch screen.
+interface Props { guest: CollectionEntry<'guests'>; lang: Locale; colour?: boolean }
+const { guest, lang, colour = false } = Astro.props;
 const m = messages[lang];
 const d = guest.data;
 // A landscape photo shown with object-fit: cover in a portrait box is scaled far wider than the box,
@@ -19,7 +21,7 @@ const sizes = `(min-width: 1100px) ${Math.round(400 * spread)}px, (min-width: 70
 const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
 ---
 
-<a class="guest" href={localePath(lang, `/guests/${guest.id}/`)}>
+<a class:list={['guest', { colour }]} href={localePath(lang, `/guests/${guest.id}/`)}>
   <div class="photo">
     {d.photo ? (
       <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={widths} sizes={sizes} quality={90} style={d.photoPosition ? `object-position: ${d.photoPosition}` : undefined} />
@@ -59,6 +61,8 @@ const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
     .guest.is-active .photo :global(img) { filter: grayscale(0.15) contrast(1.02); }
     .guest.is-active { border-color: var(--ice-border); }
   }
+  /* Colour cards (front page): always in colour; on a mouse only the lift and zoom remain on hover. */
+  .guest.colour .photo :global(img), .guest.colour:hover .photo :global(img) { filter: none; }
   /* The site switches transitions off for people who ask for reduced motion (global.css). The colour fade is not movement,
      so it is kept. */
   @media (prefers-reduced-motion: reduce) {
@@ -97,7 +101,7 @@ const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
       const cy = window.innerHeight / 2;
       let best: HTMLElement | null = null;
       let bestDistance = window.innerHeight * 0.45;
-      document.querySelectorAll<HTMLElement>('.guest').forEach((card) => {
+      document.querySelectorAll<HTMLElement>('.guest:not(.colour)').forEach((card) => {
         const r = card.getBoundingClientRect();
         if (r.width === 0 || r.bottom < 0 || r.top > window.innerHeight) return; // hidden or off screen
         const d = Math.hypot(r.left + r.width / 2 - cx, r.top + r.height / 2 - cy);
