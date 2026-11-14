@@ -53,7 +53,7 @@ const jsonLd = {
           )}
         </figure>
         <div class="stack">
-          <p class="eyebrow">{m.guests[d.kind]}{d.placeholder ? ` · ${m.guests.placeholderBadge}` : ""}</p>
+          {d.placeholder && <p class="eyebrow">{m.guests.placeholderBadge}</p>}
           <h1>{fullName}</h1>
           {d.tagline && <p class="lead">{d.tagline[lang]}</p>}
           <dl class="facts">
