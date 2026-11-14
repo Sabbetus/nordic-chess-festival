@@ -19,7 +19,7 @@ const all = (await getCollection("guests")).sort((a, b) => a.data.order - b.data
       {all.length === 0 ? (
         <div class="notice"><p>{g.empty}</p></div>
       ) : (
-        <div class="guest-grid-lg">{all.map((x) => <GuestCard guest={x} lang={lang} />)}</div>
+        <div class="guest-grid-lg">{all.map((x) => <GuestCard guest={x} lang={lang} colour />)}</div>
       )}
     </div>
   </section>
