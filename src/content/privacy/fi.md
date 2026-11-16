@@ -1,7 +1,7 @@
 ---
 title: Tietosuojaseloste
-updated: '2026-10-29'
-draft: true
+updated: '2026-11-16'
+draft: false
 ---
 
 Tässä selosteessa kerrotaan, mitä henkilötietoja Nordic Chess Festival kerää rekisteröitymisen yhteydessä, miksi, kuka niitä käsittelee ja kuinka kauan niitä säilytetään.
@@ -32,6 +32,12 @@ Emme vastaanota emmekä tallenna korttitietojasi. Maksut käsittelee ulkopuoline
 
 Emme käytä tietojasi markkinointiin, ellet erikseen tilaa uutiskirjettä, emmekä myy tietoja eteenpäin.
 
+## Sivuston kävijätilastot
+
+Nähdäksemme, miten sivustoa käytetään (mitä sivuja katsotaan, mistä maista ja millä laitteilla, ja kuinka nopeasti sivut latautuvat), ja kehittääksemme sitä käytämme **Cloudflare Web Analytics** -palvelua. Se on suunniteltu yksityisyyttä kunnioittavaksi: se ei aseta evästeitä eikä tallenna mitään laitteellesi, eikä se seuraa sinua käynnistä toiseen tai sivustolta toiselle. Se antaa meille vain koottuja lukuja, kuten sivunäyttöjen määrän sivuittain, viittaavat sivustot, maan, selaimen, laitetyypin ja sivujen latausajat. Katsomasi sivun osoite tallennetaan ilman kyselyosaa. Cloudflare säilyttää tarkat tiedot lyhyen aikaa (noin 7 päivää) ja sen jälkeen vain koottuna.
+
+Cloudflare, Inc. käsittelee näitä tietoja puolestamme (palvelun toimintaan tarvitaan tekniset tiedot, joita selaimesi lähettää ladatessaan sivustoa, kuten IP-osoite). Peruste on oikeutettu etumme ymmärtää ja kehittää sivustoamme. Voit estää tilastoinnin selainlaajennuksella tai selaimesi seurannanestolla, eikä sivusto toimi sen takia eri tavalla. Tilastoja ei kerätä järjestäjien hallintasivulta.
+
 ## Mitä julkaistaan
 
 Rekisteröityneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa chess-results.com-palvelussa ja tällä sivustolla. Tavallisesti näkyvät nimi, liitto, titteli ja vahvuusluku. Sähköpostiosoitettasi, puhelinnumeroasi tai syntymävuottasi emme julkaise. Vahvuuslukuun vaikuttavien turnausten tulokset toimitetaan FIDElle ja Suomen Shakkiliitolle, jotka julkaisevat ne omien käytäntöjensä mukaan.
@@ -41,7 +47,7 @@ Rekisteröityneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa
 Käytämme seuraavia palveluntarjoajia ja tietojen vastaanottajia:
 
 - **Maksupalvelun tarjoaja** verkossa tehtäviä kortti- ja mobiilimaksuja varten.
-- **IT-palveluntarjoajat** tämän sivuston ylläpitoa ja rekisteröitymistietojen tallennusta varten.
+- **IT-palveluntarjoajat** tämän sivuston ylläpitoa, sen suojaamista väärinkäytöksiltä (mukaan lukien rekisteröitymislomakkeen robottitarkistus), rekisteröitymistietojen tallennusta ja edellä kuvattuja kävijätilastoja varten. Pääasiallinen palveluntarjoaja on Cloudflare.
 - **Turnauksenhallintaohjelmisto**, jota järjestäjät ja tuomarit käyttävät, sekä **verkossa toimiva tulospalvelu**, jossa tulokset julkaistaan (chess-results.com).
 - **FIDE ja Suomen Shakkiliitto** vahvuuslukujen ja tulosten raportointia varten.
 - **Uutiskirjepalvelun tarjoaja**, vain jos tilaat uutiskirjeen.
@@ -56,7 +62,7 @@ Osa palveluntarjoajista käsittelee tietoja puolestamme. Osa, kuten maksupalvelu
 
 ## Miten suojaamme tiedot
 
-Rekisteröitymistiedot tallennetaan pääsynhallittuun järjestelmään, ja niihin on pääsy vain muutamalla nimetyllä järjestäjällä ja tuomarilla. Yhteydet on salattu, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä. Ainoa asetettava eväste on toiminnallinen `lang`, joka muistaa valintasi, jos käytät kielenvaihtoa (säilyy enintään vuoden). Ilman sitä sivusto valitsee suomen tai englannin selaimesi kieliasetuksen perusteella.
+Rekisteröitymistiedot tallennetaan pääsynhallittuun järjestelmään, ja niihin on pääsy vain muutamalla nimetyllä järjestäjällä ja tuomarilla. Yhteydet on salattu, eikä korttitietoja kulje järjestelmiemme kautta. Sivustolla ei käytetä mainos- tai seurantaevästeitä, eivätkä edellä kuvatut kävijätilastotkaan käytä evästeitä. Ainoa asetettava eväste on toiminnallinen `lang`, joka muistaa valintasi, jos käytät kielenvaihtoa (säilyy enintään vuoden). Ilman sitä sivusto valitsee suomen tai englannin selaimesi kieliasetuksen perusteella.
 
 ## Oikeutesi
 

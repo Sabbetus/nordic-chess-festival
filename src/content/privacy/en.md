@@ -1,7 +1,7 @@
 ---
 title: Privacy policy
-updated: '2026-10-29'
-draft: true
+updated: '2026-11-16'
+draft: false
 ---
 
 This policy explains what personal data Nordic Chess Festival collects when you register for the festival, why, who sees it and how long we keep it.
@@ -32,6 +32,12 @@ We do **not** receive or store your card details. Payments are handled by an ext
 
 We do not use your data for marketing unless you separately subscribe to the newsletter, and we do not sell it.
 
+## Website visitor statistics
+
+To see how the website is used (which pages are visited, from which countries and devices, and how fast the pages load) and to improve it, we use **Cloudflare Web Analytics**. It is built to be privacy-friendly: it sets no cookies and stores nothing on your device, and it does not follow you from one visit or website to another. It gives us only aggregated figures, such as page views per page, referring websites, country, browser, device type and page loading times. The address of the page you view is recorded without its query string. Cloudflare keeps the detailed data for a short period (about 7 days) and then only in aggregated form.
+
+Cloudflare, Inc. processes this data on our behalf (the technical data your browser sends when it loads the website, such as the IP address, is needed for the service to work). The basis is our legitimate interest in understanding and improving our website. You can block the statistics with a browser extension or your browser's tracking protection, and the site works the same without them. The statistics are not collected on the organisers' admin page.
+
 ## What is published
 
 Registered players appear in the public player list and results on chess-results.com and on this website. This normally includes name, federation, title and rating. Your email address, phone number and year of birth are not published by us. Results of rated tournaments are submitted to FIDE and the Finnish Chess Federation, which publish them under their own policies.
@@ -41,7 +47,7 @@ Registered players appear in the public player list and results on chess-results
 We use the following kinds of service providers and recipients:
 
 - **A payment service provider** for online card and mobile payments.
-- **IT service providers** for hosting this website and storing the registration data.
+- **IT service providers** for hosting this website, protecting it against abuse (including a bot check on the registration form), storing the registration data and providing the visitor statistics described above. The main provider is Cloudflare.
 - **Tournament management software**, used by the organisers and arbiters, and **an online results service** where results are published (chess-results.com).
 - **FIDE and the Finnish Chess Federation**, for rating and result reporting.
 - **A newsletter service provider**, only if you subscribe to the newsletter.
@@ -56,7 +62,7 @@ Some of them process data on our behalf. Others, such as the payment provider, a
 
 ## How we protect it
 
-Registration data is stored in an access-controlled system and is available only to a small number of named organisers and arbiters. Connections are encrypted, and card details never pass through our systems. We do not use advertising or tracking cookies on this website. The only cookie it sets is a functional one, `lang`, which remembers your choice if you use the language switch (kept for up to a year). Without it, the site picks Finnish or English from your browser's language setting.
+Registration data is stored in an access-controlled system and is available only to a small number of named organisers and arbiters. Connections are encrypted, and card details never pass through our systems. We do not use advertising or tracking cookies on this website, and the visitor statistics described above use no cookies either. The only cookie it sets is a functional one, `lang`, which remembers your choice if you use the language switch (kept for up to a year). Without it, the site picks Finnish or English from your browser's language setting.
 
 ## Your rights
 

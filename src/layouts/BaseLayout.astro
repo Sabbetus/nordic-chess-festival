@@ -19,6 +19,10 @@ interface Props {
 const { lang, path, title, description, image = '/preview.jpg', noindex: noindexProp = false, jsonLd } = Astro.props;
 // Set PUBLIC_NOINDEX=true as a build variable on test and preview deployments.
 const noindex = noindexProp || import.meta.env.PUBLIC_NOINDEX === 'true';
+// Cloudflare Web Analytics (cookie-free visitor statistics). Only when the site token is set as a build variable, and never
+// on the organiser page.
+const analyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
+const analytics = Boolean(analyticsToken) && !path.startsWith('/admin/');
 const m = messages[lang];
 const pageTitle = title ? `${title} | ${m.meta.siteName} 2027` : m.meta.title;
 const pageDescription = description ?? m.meta.description;
@@ -76,6 +80,7 @@ const earlyBirdEnds = `${rules.earlyBirdDeadline}T23:59:59+02:00`;
       <slot />
     </main>
     <Footer lang={lang} path={path} />
+    {analytics && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: analyticsToken })}></script>}
     <script>
       import '../scripts/fit-headings';
     </script>

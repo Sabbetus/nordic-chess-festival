@@ -35,7 +35,8 @@ The site is built and hosted with Cloudflare Workers Builds (static assets). `wr
 - Build command: `npm run build`
 - Deploy command: `npx wrangler deploy`
 - Build variables: `NODE_VERSION=22`, and `PUBLIC_NOINDEX=true` on test and preview deployments
-  (adds `noindex` to every page; remove it at launch)
+  (adds `noindex` to every page; remove it at launch). At launch also `PUBLIC_CF_ANALYTICS_TOKEN`: the site
+  token of Cloudflare Web Analytics (cookie-free statistics; nothing is collected while it is unset).
 
 Production branch is set in Cloudflare under Settings > Builds > Branch control.
 

@@ -13,6 +13,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 - [ ] Travel & stay: final content, hotel details and bus times.
 - [ ] December: add the online booking code of Hotel H28 and Hotelli Kuohu to the Travel & stay page (it currently says the code is coming in December and that booking is by email or phone) and remove the "coming in December" notice. Also revisit the bus pick-up wording once the stops are known.
 - [ ] Intro text and the guest list (replacement for the removed content creator, "more guests" slot).
+- [ ] **Cloudflare Web Analytics.** In the Cloudflare dashboard (Analytics & Logs, Web Analytics) add the site `nordicchess.fi` with the manual snippet option and copy its token (the `token` value in `data-cf-beacon`). Set it as the build variable `PUBLIC_CF_ANALYTICS_TOKEN` in Workers Builds, next to the other build variables, and rebuild. Do not also turn on Cloudflare's automatic setup for the zone, or each visit is counted twice. Check a live page: its source contains `beacon.min.js` with the token, and the dashboard shows visits after a few minutes. Test sites leave the variable unset, so they collect nothing. The privacy policy already describes it.
 - [ ] Check `sitemap-index.xml` and the hreflang links on the live domain, and submit the sitemap in Google Search Console.
 - [x] Language redirect (`worker/lang.ts`): with a Finnish browser and no `lang` cookie, an English page (e.g. `/travel/`) must redirect to `/fi/travel/`; with an English browser, or after choosing EN in the language switch, it must not. Check that Google can still fetch English pages (no redirect without a Finnish `Accept-Language`).
 
@@ -28,7 +29,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
 - [ ] Set `ADMIN_TOKEN` to a fresh long random value and keep it in the organisers' password manager.
 - [ ] FIDE list in R2 (list 2026-11 uploaded by hand, `/api/health` shows `registration: true`; still open: GitHub secrets, `SITE_URL`, merge to `main`)
   Setup details (docs/registration-setup.md, "FIDE list"): bucket `ncf-fide`, GitHub secrets `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, variable `SITE_URL`, and `fide-refresh.yml` merged to `main` (the monthly schedule only runs from there). Check that `/api/health` shows `registration: true` and the current `fideMonth`.
-- [ ] Privacy policy: confirm the retention periods (12 months, 6 years for accounting) and the note about minors, then set `draft: false` in `src/content/privacy/*.md`.
+- [x] Privacy policy: final version written (includes Cloudflare Web Analytics, the hosting provider and the bot check); `draft: false`. Still worth a last read by the organisers: the retention periods (12 months, 6 years for accounting) and the note about minors.
 - [ ] Accountant: confirm the non-VAT assumption and the refund and receipt handling.
 - [ ] Russia and Belarus block (decision of the Finnish Chess Federation): confirm the wording with the Federation. Players with the neutral FIDE federation code (`FID`) are allowed to play (decided). Test with a Russian or Belarusian FIDE ID on the live site.
 - [ ] Full test round on the live site with a real small payment, then refund it.
