@@ -49,14 +49,14 @@ test('titles and ratings are checked', () => {
   assert.ok(validateRegistration({ ...good, title: 'WGM', rating: '' }).ok);
 });
 
-test('prices: bus is 50 EUR extra, grandmasters are free, early bird by date', () => {
+test('prices: bus is 60 EUR extra, grandmasters are free, early bird by date', () => {
   const reg = { title: null, rating: 1850, birthYear: 1990, bus: false };
   assert.equal(quote(reg, '2027-03-01').totalCents, 21500);
-  assert.equal(quote({ ...reg, bus: true }, '2027-03-01').totalCents, 26500);
+  assert.equal(quote({ ...reg, bus: true }, '2027-03-01').totalCents, 27500);
   assert.equal(quote(reg, '2027-01-31').totalCents, 17000);
   const gm = { title: 'GM' as const, rating: 2600, birthYear: 1985, bus: false };
   assert.equal(quote(gm, '2027-03-01').free, true);
-  assert.equal(quote({ ...gm, bus: true }, '2027-03-01').totalCents, 5000);
+  assert.equal(quote({ ...gm, bus: true }, '2027-03-01').totalCents, 6000);
   assert.equal(quote({ ...gm, bus: true }, '2027-03-01').free, false);
 });
 

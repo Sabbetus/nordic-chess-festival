@@ -31,7 +31,7 @@ test('checkout session: entry fee and bus as separate line items, amounts in cen
   if (!v.ok) return;
   const params = buildSessionParams(v.value, quote(v.value, '2027-03-01'), 'reg-1', 'https://example.org', 1_800_000_000) as Record<string, unknown>;
   const items = params.line_items as { price_data: { unit_amount: number } }[];
-  assert.deepEqual(items.map((i) => i.price_data.unit_amount), [21500, 5000]);
+  assert.deepEqual(items.map((i) => i.price_data.unit_amount), [21500, 6000]);
   assert.equal(params.client_reference_id, 'reg-1');
   assert.equal(params.success_url, 'https://example.org/register/thanks/?r=reg-1');
   assert.equal(params.expires_at, 1_800_003_600);

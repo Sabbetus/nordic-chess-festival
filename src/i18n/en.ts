@@ -376,7 +376,7 @@ const en = {
     viewOnMap: 'View on map',
     venueAlt: 'Kangasala Areena, the festival venue',
     busTitle: 'Festival bus',
-    busText: 'A daily bus runs between central Tampere and Kangasala Areena, return trips included, for 50 €. The ride takes about 25 minutes and goes straight to the venue. It picks up at partner hotels.',
+    busText: 'A daily bus runs between central Tampere and Kangasala Areena, return trips included, for 60 €. The ride takes about 25 minutes and goes straight to the venue. It picks up at partner hotels.',
     busTimetable: 'The timetable is not published on the website. It is emailed to registered players who have bought the bus transfer.',
     busCta: 'Add the bus when you register',
     localTitle: 'Local bus',

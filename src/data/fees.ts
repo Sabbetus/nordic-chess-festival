@@ -23,7 +23,7 @@ export const rules = {
 } as const;
 
 /** Optional daily bus transfer between central Tampere and the venue, return trips included. */
-export const busTransfer = { price: 50 } as const;
+export const busTransfer = { price: 60 } as const;
 
 export type BandId =
   | 'gm'

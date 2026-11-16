@@ -377,7 +377,7 @@ const fi: Messages = {
     viewOnMap: 'Näytä kartalla',
     venueAlt: 'Kangasala Areena, festivaalin pelipaikka',
     busTitle: 'Festivaalibussi',
-    busText: 'Päivittäinen bussi kulkee Tampereen keskustan ja Kangasala Areenan välillä, paluumatkat mukaan lukien, hintaan 50 €. Matka kestää noin 25 minuuttia, ja bussi vie suoraan pelipaikalle. Bussi noutaa matkustajat yhteistyöhotelleista.',
+    busText: 'Päivittäinen bussi kulkee Tampereen keskustan ja Kangasala Areenan välillä, paluumatkat mukaan lukien, hintaan 60 €. Matka kestää noin 25 minuuttia, ja bussi vie suoraan pelipaikalle. Bussi noutaa matkustajat yhteistyöhotelleista.',
     busTimetable: 'Aikataulua ei julkaista verkkosivuilla. Se lähetetään sähköpostitse rekisteröityneille pelaajille, jotka ovat ostaneet bussikuljetuksen.',
     busCta: 'Lisää bussi rekisteröityessäsi',
     localTitle: 'Paikallisbussi',

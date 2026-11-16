@@ -115,7 +115,7 @@ test('a grandmaster registers for free, with no Stripe call, awaiting verificati
 test('a grandmaster who wants the bus pays only for the bus', async () => {
   await handleRegister(post('/api/register', person({ fideId: '100011', bus: true })), env, NOW);
   assert.equal(stripeCalls.length, 1);
-  assert.equal(stripeCalls[0].body.get('line_items[0][price_data][unit_amount]'), '5000');
+  assert.equal(stripeCalls[0].body.get('line_items[0][price_data][unit_amount]'), '6000');
   assert.equal(stripeCalls[0].body.get('line_items[1][price_data][unit_amount]'), null);
 });
 
