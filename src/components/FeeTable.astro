@@ -68,8 +68,9 @@ const label = (id: string, fallback: string) => (id === 'unrated' ? m.unrated : 
     .fees th:last-child, .fees td:last-child { padding-right: 0.85rem; }
     .fees thead th { white-space: normal; font-size: 0.8rem; letter-spacing: 0; line-height: 1.25; hyphens: auto; overflow-wrap: break-word; }
     .fees thead th small { display: none; }
-    /* The icon sits to the left of the heading text, so the text itself stays aligned with the numbers below it. */
-    .h { display: flex; flex-direction: row-reverse; justify-content: flex-start; align-items: center; gap: 0.3rem; }
+    /* Every column is left-aligned on phones (headings and values alike); the icon follows its heading text. */
+    .fees th, .fees td, .fees .col-num { text-align: left; }
+    .h { display: flex; align-items: center; gap: 0.3rem; }
     /* The icon is no taller than the text, so the headings line up; the tap area is enlarged by the ::after. */
     .info {
       display: inline-grid; place-items: center; position: relative; width: 1rem; height: 1rem; padding: 0; margin: 0;
