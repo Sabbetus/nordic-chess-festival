@@ -265,7 +265,7 @@ const en = {
       free: 'Grandmasters play for free, so there is nothing to pay.',
       nextTitle: 'What happens next',
       next: [
-        'We add you to the [[players:Players page]] and to the official entry list on [[results:chess-results.com]]. This is usually done in less than 24 hours.',
+        'We add you to the [[players:Players page]] and to the official entry list on [[results:chess-results.com]]. This is usually done in less than 48 hours.',
         'Confirm your participation either online or on site on Saturday, 12 June 2027, as described in the [[regulations:competition regulations]].',
       ],
       contact: 'Questions or changes to your registration? Email info@nordicchess.fi.',
