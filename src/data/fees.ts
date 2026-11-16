@@ -47,9 +47,10 @@ export interface FeeBand {
 }
 
 // Discounted fees are 20 % off, rounded down to the nearest 5 € (so some fees do not change at all).
+// IM / WIM is a deliberate exception (70 € -> 50 €).
 export const bands: readonly FeeBand[] = [
   { id: 'gm', label: 'GM / WGM', regular: 0, discounted: 0 },
-  { id: 'im', label: 'IM / WIM', regular: 70, discounted: 55 },
+  { id: 'im', label: 'IM / WIM', regular: 70, discounted: 50 },
   { id: 'fm', label: 'FM & 2300+', regular: 130, discounted: 100 },
   { id: 'r2150', label: '2150–2299', regular: 170, discounted: 135 },
   { id: 'r2000', label: '2000–2149', regular: 190, discounted: 150 },

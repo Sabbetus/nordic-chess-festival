@@ -26,15 +26,15 @@ test('titles and rating band edges', () => {
   assert.equal(fee({ title: 'GM', birthYear: 1985, paidOn: '2027-04-01', rating: 2600 }), 0);
   assert.equal(fee({ title: 'WGM', birthYear: 1985, paidOn: '2027-04-01', rating: 2300 }), 0);
   assert.equal(fee({ title: 'IM', birthYear: 1985, paidOn: '2027-04-01', rating: 2400 }), 70);
-  assert.equal(fee({ title: 'IM', birthYear: 1985, paidOn: '2027-01-02', rating: 2400 }), 55);
+  assert.equal(fee({ title: 'IM', birthYear: 1985, paidOn: '2027-01-02', rating: 2400 }), 50);
   assert.equal(fee({ title: 'FM', birthYear: 1985, paidOn: '2027-04-01', rating: 2250 }), 130);
   assert.equal(calculateFee({ birthYear: 1985, paidOn: '2027-04-01', rating: 2300 }).band.id, 'fm');
   assert.equal(calculateFee({ birthYear: 1985, paidOn: '2027-04-01', rating: 2299 }).band.id, 'r2150');
   assert.equal(calculateFee({ birthYear: 1985, paidOn: '2027-04-01', rating: 1399 }).band.id, 'unrated');
 });
 
-test('discounted fees are 20 % off rounded down to 5', () => {
-  for (const b of bands.filter((x) => x.regular > 0)) {
+test('discounted fees are 20 % off rounded down to 5 (IM / WIM is a fixed exception)', () => {
+  for (const b of bands.filter((x) => x.regular > 0 && x.id !== 'im')) {
     assert.equal(b.discounted, Math.floor((b.regular * 0.8) / 5) * 5, b.id);
   }
 });
