@@ -212,7 +212,7 @@ const jsonLd = [
   <section class="partners">
     <div class="container">
       <p>
-        {h.partnersLabel}
+        {h.partnersLabel}{' '}
         {site.partners.map((p, i) => (
           <>{i > 0 && ' & '}<a href={p.url} target="_blank" rel="noopener">{p.name}</a></>
         ))}
