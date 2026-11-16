@@ -14,19 +14,19 @@ const c = m.contact;
   <section class="section">
     <div class="container stack">
       <div class="email-row">
-        <h3>{c.emailTitle}</h3>
+        <h3 role="heading" aria-level="2">{c.emailTitle}</h3>
         <a href={`mailto:${site.email}`}>{site.email}</a>
       </div>
 
       <article class="org">
         <div class="org-info">
-          <h3>{c.organiserTitle}</h3>
+          <h3 role="heading" aria-level="2">{c.organiserTitle}</h3>
           <p>{c.organiserText}</p>
           <p>{c.businessId}: {site.businessId}</p>
           <p>{c.chairmanText}</p>
         </div>
         <div class="org-purpose">
-          <h3>{c.aboutTitle}</h3>
+          <h3 role="heading" aria-level="2">{c.aboutTitle}</h3>
           <p>{c.aboutText}</p>
         </div>
       </article>

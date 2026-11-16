@@ -6,8 +6,9 @@ import { titleLabel } from '../lib/titles';
 
 // colour: show the photo in full colour all the time (the front page); otherwise it is black and white until hovered or
 // scrolled to the middle of a touch screen.
-interface Props { guest: CollectionEntry<'guests'>; lang: Locale; colour?: boolean }
-const { guest, lang, colour = false } = Astro.props;
+// topLevel: the card sits directly under the page's h1 (the Guests page), so its name is a level 2 heading.
+interface Props { guest: CollectionEntry<'guests'>; lang: Locale; colour?: boolean; topLevel?: boolean }
+const { guest, lang, colour = false, topLevel = false } = Astro.props;
 const m = messages[lang];
 const d = guest.data;
 // A landscape photo shown with object-fit: cover in a portrait box is scaled far wider than the box,
@@ -15,7 +16,7 @@ const d = guest.data;
 const photo = d.photo;
 const spread = photo ? Math.max(1, photo.width / photo.height / 0.75) : 1;
 const widths = photo
-  ? [...new Set([480, 800, 1200, 1600, 2000].filter((w) => w < photo.width).concat(photo.width))].sort((a, b) => a - b)
+  ? [...new Set([480, 640, 800, 1200, 1600, 2000].filter((w) => w < photo.width).concat(photo.width))].sort((a, b) => a - b)
   : [];
 const sizes = `(min-width: 1100px) ${Math.round(400 * spread)}px, (min-width: 701px) ${Math.round(50 * spread)}vw, ${Math.round(100 * spread)}vw`;
 const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
@@ -24,7 +25,7 @@ const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
 <a class:list={['guest', { colour }]} href={localePath(lang, `/guests/${guest.id}/`)}>
   <div class="photo">
     {d.photo ? (
-      <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={widths} sizes={sizes} quality={90} style={d.photoPosition ? `object-position: ${d.photoPosition}` : undefined} />
+      <Image src={d.photo} alt={d.photoAlt?.[lang] ?? d.name} widths={widths} sizes={sizes} quality={80} style={d.photoPosition ? `object-position: ${d.photoPosition}` : undefined} />
     ) : (
       <span class="mono" aria-hidden="true">{initials}</span>
     )}
@@ -32,7 +33,7 @@ const initials = d.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
   </div>
   <div class="info">
     <p class="eyebrow">{[d.title ? titleLabel(lang, d.title) : null, d.federation, d.kind === 'creator' ? m.guests.creatorLabel : null].filter(Boolean).join(' · ')}</p>
-    <h3>{d.name}</h3>
+    <h3 role={topLevel ? 'heading' : undefined} aria-level={topLevel ? 2 : undefined}>{d.name}</h3>
     {d.tagline && <p class="tagline">{d.tagline[lang]}</p>}
   </div>
 </a>

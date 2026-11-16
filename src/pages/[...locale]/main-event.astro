@@ -5,6 +5,8 @@ import PageHero from '../../components/PageHero.astro';
 import Schedule from '../../components/Schedule.astro';
 import { localePath, localeStaticPaths, messages } from '../../i18n/utils';
 import { venue } from '../../data/schedule';
+import { festival, bands } from '../../data/fees';
+import { site } from '../../data/site';
 
 export function getStaticPaths() {
   return localeStaticPaths();
@@ -41,9 +43,39 @@ const cards: { title: string; rows: string[][] }[] = [
     ],
   },
 ];
+
+const fees = bands.flatMap((b) => [b.regular, b.discounted]);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsEvent',
+  name: `${festival.name} ${festival.year}: ${t.title}`,
+  description,
+  inLanguage: lang,
+  startDate: festival.startDate,
+  endDate: festival.endDate,
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place',
+    name: venue.name,
+    address: { '@type': 'PostalAddress', streetAddress: venue.street, addressLocality: venue.city, addressCountry: venue.countryCode },
+  },
+  organizer: { '@type': 'Organization', name: site.organiser, url: site.url, email: site.email },
+  image: `${site.url}/preview.jpg`,
+  sport: 'Chess',
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'EUR',
+    lowPrice: Math.min(...fees),
+    highPrice: Math.max(...fees),
+    offerCount: bands.length,
+    url: new URL(localePath(lang, '/register/'), site.url).href,
+    availability: 'https://schema.org/InStock',
+  },
+};
 ---
 
-<BaseLayout lang={lang} path="/main-event/" title={t.title} description={description}>
+<BaseLayout lang={lang} path="/main-event/" title={t.title} description={description} jsonLd={jsonLd}>
   <PageHero title={t.title}>{leadBefore}<a href={localePath(lang, '/register/')}>{t.leadLink}</a>{leadAfter}</PageHero>
 
   <section class="section">

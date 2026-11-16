@@ -41,8 +41,8 @@ const earlyBirdEnds = `${rules.earlyBirdDeadline}T23:59:59+02:00`;
     <meta name="theme-color" content="#0a0a0a" />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
-    {locales.map((l) => <link rel="alternate" hreflang={l} href={new URL(localePath(l, path), site).href} />)}
-    <link rel="alternate" hreflang="x-default" href={new URL(localePath(defaultLocale, path), site).href} />
+    {!path.startsWith('/admin/') && locales.map((l) => <link rel="alternate" hreflang={l} href={new URL(localePath(l, path), site).href} />)}
+    {!path.startsWith('/admin/') && <link rel="alternate" hreflang="x-default" href={new URL(localePath(defaultLocale, path), site).href} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 

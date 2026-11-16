@@ -3,8 +3,19 @@ const en = {
     siteName: 'Nordic Chess Festival',
     title: 'Nordic Chess Festival 2027',
     description:
-      'Nordic Chess Festival: an international open chess festival in Kangasala, Finland, 12–20 June 2027. A nine-round Main Event, side events and a prize pool of at least 10 000 €.',
+      'An international open chess festival in Kangasala, Finland, 12–20 June 2027: a nine-round Main Event, side events and a prize pool of at least 10 000 €.',
     ogLocale: 'en_US',
+    /** Search-result descriptions of the pages whose on-page intro is too short to serve as one. */
+    pages: {
+      broadcast: 'Follow the Nordic Chess Festival live: pairings, results and games from every round of the Main Event in Kangasala, Finland.',
+      faq: 'Answers about the Nordic Chess Festival in Kangasala: registration, entry fees, rules, travel and accommodation. Cannot find yours? Get in touch.',
+      guests: 'The top players and content creators joining the Nordic Chess Festival in Kangasala, Finland, 12–20 June 2027.',
+      news: 'News and announcements from the Nordic Chess Festival, the international open chess festival in Kangasala, Finland, 12–20 June 2027.',
+      players: 'See who has registered for the Nordic Chess Festival Main Event. The list is synced with the official entry list on chess-results.com.',
+      privacy: 'How the Nordic Chess Festival collects, uses and protects your personal data when you register, pay or contact us.',
+      sideEvents: 'More than the Main Event: the side events of the Nordic Chess Festival in Kangasala, Finland, 12–20 June 2027.',
+      guestSuffix: 'Guest of the Nordic Chess Festival, 12–20 June 2027.',
+    },
   },
   common: {
     dates: '12–20 June 2027',

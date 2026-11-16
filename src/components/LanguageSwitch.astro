@@ -3,9 +3,11 @@ import { locales, localeNames, localePath, messages, type Locale } from '../i18n
 
 interface Props { lang: Locale; path: string }
 const { lang, path } = Astro.props;
+// The organiser page exists in English only, so there is nothing to switch to.
+const show = !path.startsWith('/admin/');
 ---
 
-<nav class="lang" aria-label={messages[lang].common.language}>
+{show && <nav class="lang" aria-label={messages[lang].common.language}>
   {locales.map((l) => (
     <a
       href={localePath(l, path)}
@@ -15,7 +17,7 @@ const { lang, path } = Astro.props;
       title={localeNames[l]}
     >{l.toUpperCase()}</a>
   ))}
-</nav>
+</nav>}
 
 <script>
   // Remember the chosen language, so that the automatic redirect to Finnish (worker/lang.ts) leaves this visitor alone.

@@ -10,7 +10,7 @@ const s = m.sideEvents;
 const events = (await getCollection("sideEvents")).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<BaseLayout lang={lang} path="/side-events/" title={s.title} description={s.lead}>
+<BaseLayout lang={lang} path="/side-events/" title={s.title} description={m.meta.pages.sideEvents}>
   <PageHero title={s.title} lead={s.lead} />
   <section class="section">
     <div class="container">
@@ -20,7 +20,7 @@ const events = (await getCollection("sideEvents")).sort((a, b) => a.data.order -
         <div class="grid grid-2">
           {events.map((e) => (
             <article class="card">
-              <h3>{e.data.title[lang]}</h3>
+              <h3 role="heading" aria-level="2">{e.data.title[lang]}</h3>
               <p>{e.data.description[lang]}</p>
               {e.data.when && <p class="meta">{s.when}: {e.data.when[lang]}</p>}
               {e.data.entryFee && <p class="meta">{s.entryFee}: {e.data.entryFee[lang]}</p>}

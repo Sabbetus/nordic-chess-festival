@@ -5,8 +5,18 @@ const fi: Messages = {
     siteName: 'Nordic Chess Festival',
     title: 'Nordic Chess Festival 2027',
     description:
-      'Nordic Chess Festival: kansainvälinen avoin shakkifestivaali Kangasalla 12.–20.6.2027. Yhdeksän kierroksen pääturnaus, oheistapahtumia ja vähintään 10 000 euron palkintopotti.',
+      'Kansainvälinen avoin shakkifestivaali Kangasalla 12.–20.6.2027: yhdeksän kierroksen pääturnaus, oheistapahtumia ja vähintään 10 000 euron palkintopotti.',
     ogLocale: 'fi_FI',
+    pages: {
+      broadcast: 'Seuraa Nordic Chess Festivalia suorana: parit, tulokset ja pelit pääturnauksen jokaiselta kierrokselta Kangasalla.',
+      faq: 'Vastauksia Nordic Chess Festivalista Kangasalla: rekisteröityminen, osallistumismaksut, säännöt, matkat ja majoitus. Etkö löytänyt omaasi? Ota yhteyttä.',
+      guests: 'Huippupelaajat ja sisällöntuottajat, jotka tulevat Nordic Chess Festivaliin Kangasalle 12.–20.6.2027.',
+      news: 'Uutisia ja tiedotteita Nordic Chess Festivalilta, kansainväliseltä avoimelta shakkifestivaalilta Kangasalla 12.–20.6.2027.',
+      players: 'Katso, ketkä ovat rekisteröityneet Nordic Chess Festivalin pääturnaukseen. Luettelo vastaa chess-results.comin virallista osallistujaluetteloa.',
+      privacy: 'Miten Nordic Chess Festival kerää, käyttää ja suojaa henkilötietojasi, kun rekisteröidyt, maksat tai otat meihin yhteyttä.',
+      sideEvents: 'Muutakin kuin pääturnaus: Nordic Chess Festivalin oheisohjelma Kangasalla 12.–20.6.2027.',
+      guestSuffix: 'Vieras Nordic Chess Festivalilla 12.–20.6.2027.',
+    },
   },
   common: {
     dates: '12.–20.6.2027',

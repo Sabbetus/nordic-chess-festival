@@ -11,7 +11,7 @@ const doc = await getEntry('privacy', lang);
 const { Content } = await render(doc!);
 ---
 
-<BaseLayout lang={lang} path="/privacy/" title={p.title} description={p.lead}>
+<BaseLayout lang={lang} path="/privacy/" title={p.title} description={m.meta.pages.privacy}>
   <PageHero title={p.title} lead={p.lead} />
   <section class="section">
     <div class="container narrow stack">

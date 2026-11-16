@@ -91,6 +91,9 @@ img, svg { display: block; max-width: 100%; }
 a { color: var(--ice); text-decoration: none; }
 a:hover { color: var(--ice-bright); }
 :focus-visible { outline: 2px solid var(--ice); outline-offset: 3px; border-radius: 2px; }
+/* Bigger tap areas for plain text links, without moving anything: padding on an inline link grows its hit area, not its line.
+   (Buttons, photo credits and block-level cards are left alone.) */
+.site-footer :where(ul, .brand) a:not(.logo), .partners a, main :where(p, li, dd) a:not(.btn, .credit, .card) { padding-block: 0.3rem; }
 ::selection { background: var(--ice); color: var(--black); }
 
 h1, h2, h3 { font-family: var(--font-display); font-weight: 600; color: var(--white); text-wrap: balance; }

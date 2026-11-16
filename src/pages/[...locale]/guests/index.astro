@@ -12,14 +12,14 @@ const all = (await getCollection("guests")).sort((a, b) => a.data.order - b.data
 // One grid for everyone, in the order set in the guest files (`order`): the cards say who is a grandmaster, a content creator and so on.
 ---
 
-<BaseLayout lang={lang} path="/guests/" title={g.title} description={g.lead}>
+<BaseLayout lang={lang} path="/guests/" title={g.title} description={m.meta.pages.guests}>
   <PageHero title={g.title} lead={g.lead} />
   <section class="section">
     <div class="container">
       {all.length === 0 ? (
         <div class="notice"><p>{g.empty}</p></div>
       ) : (
-        <div class="guest-grid-lg">{all.map((x) => <GuestCard guest={x} lang={lang} colour />)}</div>
+        <div class="guest-grid-lg">{all.map((x) => <GuestCard guest={x} lang={lang} colour topLevel />)}</div>
       )}
     </div>
   </section>

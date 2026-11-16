@@ -8,7 +8,7 @@ const m = messages[lang];
 const l = m.broadcast;
 ---
 
-<BaseLayout lang={lang} path="/broadcast/" title={l.title} description={l.lead}>
+<BaseLayout lang={lang} path="/broadcast/" title={l.title} description={m.meta.pages.broadcast}>
   <PageHero title={l.title} lead={l.lead} />
   <section class="section"><div class="container narrow"><div class="notice"><p>{l.text}</p></div></div></section>
 </BaseLayout>

@@ -14,7 +14,7 @@ const list = registered.players as { title?: string; name: string; fed: string; 
 const updated = registered.updatedAt ? formatDate(lang, new Date(registered.updatedAt)) : null;
 ---
 
-<BaseLayout lang={lang} path="/players/" title={p.title} description={p.lead}>
+<BaseLayout lang={lang} path="/players/" title={p.title} description={m.meta.pages.players}>
   <PageHero title={p.title} lead={p.lead} />
 
   <section class="section">

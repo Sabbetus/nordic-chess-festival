@@ -15,7 +15,7 @@ const items = (await getCollection("news"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<BaseLayout lang={lang} path="/news/" title={n.title} description={n.lead}>
+<BaseLayout lang={lang} path="/news/" title={n.title} description={m.meta.pages.news}>
   <PageHero title={n.title}>{n.lead}{' '}<a href="#newsletter">{n.subscribeLink}</a></PageHero>
   <section class="section">
     <div class="container">
@@ -28,7 +28,7 @@ const items = (await getCollection("news"))
           {items.map((i, idx) => (
             <a class="card" href={localePath(lang, `/news/${i.id.split("/")[1]}/`)} data-more={idx >= PAGE ? "" : undefined} hidden={idx >= PAGE ? true : undefined}>
               <p class="eyebrow">{formatDate(lang, i.data.date)}</p>
-              <h3>{i.data.title}</h3>
+              <h3 role="heading" aria-level="2">{i.data.title}</h3>
               <p>{i.data.summary}</p>
             </a>
           ))}
