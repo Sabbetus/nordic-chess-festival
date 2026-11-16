@@ -17,17 +17,17 @@ const label = (id: string, fallback: string) => (id === 'unrated' ? m.unrated : 
         <th scope="col">{m.colRating}</th>
         <th scope="col" class="col-num">{m.colRegular}</th>
         <th scope="col" class="col-num" data-early-bird>
-          {m.colEarly}
+          <span class="h">{m.colEarly}
           <button class="info" type="button" aria-label={m.colEarlyNote} aria-expanded="false" aria-controls="fee-note" data-note={m.colEarlyNote}>
             <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="M10 9v5" /><circle cx="10" cy="6.2" r="0.6" fill="currentColor" /></svg>
-          </button>
+          </button></span>
           <small>{m.colEarlyNote}</small>
         </th>
         <th scope="col" class="col-num">
-          {m.colDiscount}
+          <span class="h">{m.colDiscount}
           <button class="info" type="button" aria-label={m.colDiscountNote} aria-expanded="false" aria-controls="fee-note" data-note={m.colDiscountNote}>
             <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="8.2" /><path d="M10 9v5" /><circle cx="10" cy="6.2" r="0.6" fill="currentColor" /></svg>
-          </button>
+          </button></span>
           <small>{m.colDiscountNote}</small>
         </th>
       </tr>
@@ -68,11 +68,15 @@ const label = (id: string, fallback: string) => (id === 'unrated' ? m.unrated : 
     .fees th:last-child, .fees td:last-child { padding-right: 0.85rem; }
     .fees thead th { white-space: normal; font-size: 0.8rem; letter-spacing: 0; line-height: 1.25; hyphens: auto; overflow-wrap: break-word; }
     .fees thead th small { display: none; }
+    /* The icon sits to the left of the heading text, so the text itself stays aligned with the numbers below it. */
+    .h { display: flex; flex-direction: row-reverse; justify-content: flex-start; align-items: center; gap: 0.3rem; }
+    /* The icon is no taller than the text, so the headings line up; the tap area is enlarged by the ::after. */
     .info {
-      display: inline-grid; place-items: center; vertical-align: -0.2em; margin-left: 0.2rem; padding: 0.25rem; margin-block: -0.25rem;
+      display: inline-grid; place-items: center; position: relative; width: 1rem; height: 1rem; padding: 0; margin: 0;
       background: none; border: 0; border-radius: 50%; color: var(--ice); cursor: pointer;
     }
-    .info[aria-expanded='true'] { background: var(--ice-dim); }
+    .info::after { content: ''; position: absolute; inset: -0.6rem; }
+    .info[aria-expanded='true'] { box-shadow: 0 0 0 0.25rem var(--ice-dim); }
     .fees thead .note-row:not([hidden]) { display: table-row; }
     .note-row td {
       padding: 0.6rem 0.85rem; background: var(--ice-dim); border-top: 1px solid var(--ice-border); border-bottom: 1px solid var(--ice-border);
@@ -90,7 +94,7 @@ const label = (id: string, fallback: string) => (id === 'unrated' ? m.unrated : 
   }
   @media (max-width: 340px) {
     .fees thead th { font-size: 0.62rem; }
-    .info { margin-left: 0; }
+    .h { gap: 0.1rem; }
     .fees tbody th, td { font-size: 0.8rem; }
   }
 </style>
