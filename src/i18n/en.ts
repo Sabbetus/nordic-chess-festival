@@ -63,7 +63,7 @@ const en = {
     ctaSecondary: 'Schedule & regulations',
     countdown: {
       earlyLabel: 'Early bird ends in',
-      earlyWhen: 'Pay by 31 January 2027 and save up to 20%',
+      earlyWhen: 'Pay by 31 January 2027 and save 20%',
       earlyCta: 'See entry fees',
       label: 'Round 1 starts in',
       days: 'days',
@@ -104,7 +104,7 @@ const en = {
     },
     fees: {
       eyebrow: 'Entry fees',
-      title: 'Early bird: save up to 20%',
+      title: 'Early bird: save 20%',
       text: 'Pay your entry fee by 31 January 2027 and get the early bird price. Juniors and seniors always pay the discounted price.',
       textAfter: 'Entry fees depend on your FIDE rating on the day you pay. Juniors and seniors pay the discounted price.',
       free: 'Grandmasters (GM and WGM) play for free.',

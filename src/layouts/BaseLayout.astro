@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { locales, defaultLocale, localePath, messages, type Locale } from '../i18n/utils';
 import { rules } from '../data/fees';
+import { headerNav, registerItem, footerGroups } from '../data/nav';
 
 interface Props {
   lang: Locale;
@@ -12,11 +13,15 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  /** Size and description of `image` (the default preview picture is 1200 x 630). */
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
   noindex?: boolean;
   jsonLd?: object | object[];
 }
 
-const { lang, path, title, description, image = '/preview.jpg', noindex: noindexProp = false, jsonLd } = Astro.props;
+const { lang, path, title, description, image = '/preview.jpg', imageWidth = 1200, imageHeight = 630, imageAlt, noindex: noindexProp = false, jsonLd } = Astro.props;
 // Set PUBLIC_NOINDEX=true as a build variable on test and preview deployments.
 const noindex = noindexProp || import.meta.env.PUBLIC_NOINDEX === 'true';
 // Cloudflare Web Analytics (cookie-free visitor statistics). Only when the site token is set as a build variable, and never
@@ -29,7 +34,27 @@ const pageDescription = description ?? m.meta.description;
 const site = Astro.site!;
 const canonical = new URL(localePath(lang, path), site).href;
 const imageUrl = new URL(image, site).href;
-const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+// Breadcrumb trail for search results: Home > section > page, built from the path and the navigation labels.
+const navLabels = new Map([...headerNav, registerItem, ...footerGroups.flatMap((g) => g.items)].map((i) => [i.path.replace(/#.*/, ''), m.nav[i.key]]));
+const segments = path.split('/').filter(Boolean);
+const trail = segments.map((_, i) => {
+  const p = `/${segments.slice(0, i + 1).join('/')}/`;
+  return { name: i === segments.length - 1 ? (title ?? navLabels.get(p)) : navLabels.get(p), url: new URL(localePath(lang, p), site).href };
+});
+const breadcrumbs =
+  !noindex && trail.length > 0 && trail.every((c) => c.name)
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [{ name: m.meta.siteName, url: new URL(localePath(lang, '/'), site).href }, ...trail].map((c, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: c.name,
+          item: c.url,
+        })),
+      }
+    : null;
+const ld = [...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []), ...(breadcrumbs ? [breadcrumbs] : [])];
 
 // Finnish midnight after the deadline day (UTC+2 in winter).
 const earlyBirdEnds = `${rules.earlyBirdDeadline}T23:59:59+02:00`;
@@ -48,6 +73,10 @@ const earlyBirdEnds = `${rules.earlyBirdDeadline}T23:59:59+02:00`;
     {!path.startsWith('/admin/') && locales.map((l) => <link rel="alternate" hreflang={l} href={new URL(localePath(l, path), site).href} />)}
     {!path.startsWith('/admin/') && <link rel="alternate" hreflang="x-default" href={new URL(localePath(defaultLocale, path), site).href} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <link rel="preload" href="/fonts/cormorant-garamond-v21-latin-600.woff2" as="font" type="font/woff2" crossorigin />
@@ -60,11 +89,15 @@ const earlyBirdEnds = `${rules.earlyBirdDeadline}T23:59:59+02:00`;
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+    {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
     <meta property="og:locale" content={m.meta.ogLocale} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={imageUrl} />
+    {imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
 
     {ld.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
 

@@ -10,6 +10,7 @@ peakRating: 1938
 photo: ../../assets/guests/alexandra-prado.jpg
 # A temporary photo (source not known): replace it with the photos she sends, and add the credit.
 photoPosition: "50% 30%"
+socialCropY: 0.12
 order: 4
 tagline:
   en: Bolivian WCM and popular chess content creator

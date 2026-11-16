@@ -29,6 +29,8 @@ const guests = defineCollection({
       photoSourceUrl: z.url().optional(),
       /** CSS object-position for cropping portraits, e.g. "50% 20%". */
       photoPosition: z.string().optional(),
+      /** Where the wide social-sharing crop (1.91:1) of the portrait starts, from the top (0) to the bottom (1) of the photo. */
+      socialCropY: z.number().min(0).max(1).default(0.15),
       tagline: localized.optional(),
       bio: localized,
       links: z.array(z.object({ label: z.string(), url: z.url() })).default([]),

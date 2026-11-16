@@ -13,20 +13,20 @@ MobilePay, Klarna. Nothing is implemented yet. No secret keys belong in this rep
 
 Fee rules live in `src/data/fees.ts` (single source of truth, tested in `tests/fees.test.ts`; run `npm test`): 8 paying
 bands, two prices each, early bird until 31 Jan 2027, junior (born 2009 or later) and senior (born 1962 or
-earlier) discount, discounts never stack, IM / WIM exception.
+earlier) discount (20 % off, rounded down to 5 €), discounts never stack, IM / WIM exception.
 
 | Band | Regular € | Discounted € (early bird, junior, senior) |
 | --- | --- | --- |
 | IM / WIM | 70 | 50 |
 | FM & 2300+ | 130 | 100 |
-| 2150–2299 | 170 | 130 |
-| 2000–2149 | 190 | 145 |
-| 1800–1999 | 215 | 165 |
-| 1600–1799 | 240 | 180 |
-| 1400–1599 | 270 | 205 |
-| Unrated | 300 | 225 |
+| 2150–2299 | 170 | 135 |
+| 2000–2149 | 190 | 150 |
+| 1800–1999 | 215 | 170 |
+| 1600–1799 | 240 | 190 |
+| 1400–1599 | 270 | 215 |
+| Unrated | 300 | 240 |
 
-Optional bus transfer from Tampere: a fixed, subsidised amount (details and price to come), added only if the
+Optional bus transfer from Tampere: 60 € (return trips included), added only if the
 player wants it. Hotels are booked directly between players and hotels and are not part of the payment.
 
 ## What Stripe supports (from Stripe's documentation)

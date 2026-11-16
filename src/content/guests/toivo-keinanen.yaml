@@ -10,6 +10,7 @@ peakRating: 2557
 photo: ../../assets/guests/toivo-keinanen.jpg
 photoCredit: "Suomen Shakkiliitto"
 photoPosition: "50% 15%"
+socialCropY: 0.1
 # Keep this guest last on the list: a new guest goes before him unless its order number is higher.
 order: 999
 tagline:

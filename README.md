@@ -45,6 +45,15 @@ stable `workers.dev` address always shows the latest new site while `main` still
 At launch: merge to `main`, switch the production branch back to `main`, remove `PUBLIC_NOINDEX`,
 and point nordicchess.fi at Cloudflare. The full list is in `docs/launch-checklist.md`.
 
+## Search engines, social cards and AI assistants
+
+- `/llms.txt` (`src/pages/llms.txt.ts`) is generated from the site's own data (fees, dates, guests), so it cannot go stale.
+- Every guest page is shared with its own picture, `/og/guests/<slug>.jpg` (`src/pages/og/guests/[slug].jpg.ts`): the portrait cut
+  to the wide 1.91:1 shape. `socialCropY` in the guest file (0 = top, 1 = bottom) chooses which strip of the photo is used.
+- Structured data: event, FAQ, guest (Person) and breadcrumb data are built in the pages and `BaseLayout.astro`.
+- Favicons, the Apple icon and the web manifest come from `public/favicon.svg`: run `node scripts/generate-icons.mjs` after
+  changing it.
+
 ## Image sources
 
 Guest portraits come from Wikimedia Commons; author and licence are shown next to each photo (see
