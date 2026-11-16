@@ -46,18 +46,17 @@ export interface FeeBand {
   discounted: number;
 }
 
-// Discounted fees are 25 % off, rounded up to the nearest 5 €.
-// IM / WIM is a deliberate exception (70 € -> 50 €).
+// Discounted fees are 20 % off, rounded down to the nearest 5 € (so some fees do not change at all).
 export const bands: readonly FeeBand[] = [
   { id: 'gm', label: 'GM / WGM', regular: 0, discounted: 0 },
-  { id: 'im', label: 'IM / WIM', regular: 70, discounted: 50 },
+  { id: 'im', label: 'IM / WIM', regular: 70, discounted: 55 },
   { id: 'fm', label: 'FM & 2300+', regular: 130, discounted: 100 },
-  { id: 'r2150', label: '2150–2299', regular: 170, discounted: 130 },
-  { id: 'r2000', label: '2000–2149', regular: 190, discounted: 145 },
-  { id: 'r1800', label: '1800–1999', regular: 215, discounted: 165 },
-  { id: 'r1600', label: '1600–1799', regular: 240, discounted: 180 },
-  { id: 'r1400', label: '1400–1599', regular: 270, discounted: 205 },
-  { id: 'unrated', label: 'Unrated', regular: 300, discounted: 225 },
+  { id: 'r2150', label: '2150–2299', regular: 170, discounted: 135 },
+  { id: 'r2000', label: '2000–2149', regular: 190, discounted: 150 },
+  { id: 'r1800', label: '1800–1999', regular: 215, discounted: 170 },
+  { id: 'r1600', label: '1600–1799', regular: 240, discounted: 190 },
+  { id: 'r1400', label: '1400–1599', regular: 270, discounted: 215 },
+  { id: 'unrated', label: 'Unrated', regular: 300, discounted: 240 },
 ];
 
 export type Title = 'GM' | 'WGM' | 'IM' | 'WIM' | 'FM' | 'WFM' | 'CM' | 'WCM';

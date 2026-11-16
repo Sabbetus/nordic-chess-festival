@@ -10,7 +10,7 @@ const price = (n: number) => (n === 0 ? m.free : formatEuro(n));
 const label = (id: string, fallback: string) => (id === 'unrated' ? m.unrated : localizeTitles(lang, fallback));
 ---
 
-<div class="table-wrap">
+<div class="table-wrap fees">
   <table>
     <thead>
       <tr>
@@ -34,6 +34,38 @@ const label = (id: string, fallback: string) => (id === 'unrated' ? m.unrated : 
 </div>
 
 <style>
+  /* The table is only as wide as its content (not the whole page), and on phones it is compact enough to fit without
+     scrolling sideways: the column headings wrap onto several lines instead of stretching the table. */
+  .fees { width: fit-content; max-width: 100%; }
+  .fees table { width: auto; }
+  .fees th, .fees td { padding: 0.9rem 1.6rem; }
+  .fees thead th { white-space: normal; }
+  .fees thead th small { max-width: 11rem; margin-left: auto; }
   td { font-family: var(--font-body); font-weight: 500; font-size: 1.05rem; }
   td.accent { color: var(--ice); }
+  @media (max-width: 640px) {
+    /* Edge to edge on phones: the table borrows the page margins for extra room. */
+    .fees { width: auto; max-width: none; margin-inline: calc(var(--gutter) * -1); border-inline: 0; border-radius: 0; }
+    .fees table { width: 100%; }
+    .fees th, .fees td { padding: 0.75rem 0.5rem; }
+    .fees th:first-child, .fees td:first-child { padding-left: 0.85rem; }
+    .fees th:last-child, .fees td:last-child { padding-right: 0.85rem; }
+    .fees thead th { font-size: 0.8rem; letter-spacing: 0; line-height: 1.25; }
+    .fees thead th small { font-size: 0.66rem; max-width: none; margin-left: 0; margin-top: 0.15rem; line-height: 1.25; }
+    .fees tbody th { font-size: 0.9rem; }
+    .fees thead th { hyphens: auto; overflow-wrap: break-word; }
+    td { font-size: 0.95rem; }
+  }
+  @media (max-width: 400px) {
+    .fees th, .fees td { padding-inline: 0.3rem; }
+    .fees th:first-child, .fees td:first-child { padding-left: 0.65rem; }
+    .fees th:last-child, .fees td:last-child { padding-right: 0.65rem; }
+    .fees thead th { font-size: 0.64rem; }
+    .fees thead th small { font-size: 0.6rem; }
+    .fees tbody th, td { font-size: 0.84rem; }
+  }
+  @media (max-width: 340px) {
+    .fees thead th { font-size: 0.58rem; }
+    .fees th, .fees td { padding-inline: 0.2rem; }
+  }
 </style>

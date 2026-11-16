@@ -64,7 +64,7 @@ const fi: Messages = {
     ctaSecondary: 'Aikataulu ja määräykset',
     countdown: {
       earlyLabel: 'Early bird -hinta päättyy',
-      earlyWhen: 'Maksa 31. tammikuuta 2027 mennessä ja säästä jopa 25 %',
+      earlyWhen: 'Maksa 31. tammikuuta 2027 mennessä ja säästä jopa 20 %',
       earlyCta: 'Katso maksut',
       label: '1. kierrokseen',
       days: 'päivää',
@@ -105,7 +105,7 @@ const fi: Messages = {
     },
     fees: {
       eyebrow: 'Osallistumismaksut',
-      title: 'Early bird: säästä jopa 25 %',
+      title: 'Early bird: säästä jopa 20 %',
       text: 'Maksa osallistumismaksu 31. tammikuuta 2027 mennessä ja saat early bird -hinnan. Juniorit ja seniorit maksavat aina alennetun hinnan.',
       textAfter: 'Osallistumismaksu riippuu FIDE-vahvuusluvustasi maksupäivänä. Juniorit ja seniorit maksavat alennetun hinnan.',
       free: 'Suurmestarit (SM ja NSM) pelaavat ilmaiseksi.',

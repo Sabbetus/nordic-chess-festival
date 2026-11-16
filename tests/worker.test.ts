@@ -66,7 +66,7 @@ test('the price cannot be chosen by the browser', async () => {
 
 test('early bird applies by Finnish date', async () => {
   await handleRegister(post('/api/register', person()), env, new Date('2027-01-31T21:00:00Z'));
-  assert.equal(stripeCalls[0].body.get('line_items[0][price_data][unit_amount]'), '16500');
+  assert.equal(stripeCalls[0].body.get('line_items[0][price_data][unit_amount]'), '17000');
 });
 
 test('the webhook marks the registration paid, and repeating it changes nothing', async () => {
@@ -131,8 +131,8 @@ test('a player with a FIDE ID but no rating pays the unrated price', async () =>
 test('juniors and seniors get their discount from the birth year in FIDE\'s list', async () => {
   await handleRegister(post('/api/register', person({ fideId: '100012' })), env, NOW);
   await handleRegister(post('/api/register', person({ fideId: '100013' })), env, NOW);
-  assert.equal(stripeCalls[0].body.get('line_items[0][price_data][unit_amount]'), '16500');
-  assert.equal(stripeCalls[1].body.get('line_items[0][price_data][unit_amount]'), '16500');
+  assert.equal(stripeCalls[0].body.get('line_items[0][price_data][unit_amount]'), '17000');
+  assert.equal(stripeCalls[1].body.get('line_items[0][price_data][unit_amount]'), '17000');
 });
 
 test('the same FIDE ID cannot register twice once the first registration is live', async () => {
