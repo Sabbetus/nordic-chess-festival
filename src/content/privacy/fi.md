@@ -36,7 +36,7 @@ Emme käytä tietojasi markkinointiin, ellet erikseen tilaa uutiskirjettä, emme
 
 Nähdäksemme, miten sivustoa käytetään (mitä sivuja katsotaan, mistä maista ja millä laitteilla, ja kuinka nopeasti sivut latautuvat), ja kehittääksemme sitä käytämme **Cloudflare Web Analytics** -palvelua. Se on suunniteltu yksityisyyttä kunnioittavaksi: se ei aseta evästeitä eikä tallenna mitään laitteellesi, eikä se seuraa sinua käynnistä toiseen tai sivustolta toiselle. Se antaa meille vain koottuja lukuja, kuten sivunäyttöjen määrän sivuittain, viittaavat sivustot, maan, selaimen, laitetyypin ja sivujen latausajat. Katsomasi sivun osoite tallennetaan ilman kyselyosaa. Cloudflare säilyttää tarkat tiedot lyhyen aikaa (noin 7 päivää) ja sen jälkeen vain koottuna.
 
-Cloudflare, Inc. käsittelee näitä tietoja puolestamme (palvelun toimintaan tarvitaan tekniset tiedot, joita selaimesi lähettää ladatessaan sivustoa, kuten IP-osoite). Peruste on oikeutettu etumme ymmärtää ja kehittää sivustoamme. Voit estää tilastoinnin selainlaajennuksella tai selaimesi seurannanestolla, eikä sivusto toimi sen takia eri tavalla. Tilastoja ei kerätä järjestäjien hallintasivulta.
+Cloudflare, Inc. käsittelee näitä tietoja puolestamme (palvelun toimintaan tarvitaan tekniset tiedot, joita selaimesi lähettää ladatessaan sivustoa, kuten IP-osoite). Peruste on oikeutettu etumme ymmärtää ja kehittää sivustoamme. Voit estää tilastoinnin selainlaajennuksella tai selaimesi seurannanestolla, eikä sivusto toimi sen takia eri tavalla.
 
 ## Mitä julkaistaan
 

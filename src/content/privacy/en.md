@@ -36,7 +36,7 @@ We do not use your data for marketing unless you separately subscribe to the new
 
 To see how the website is used (which pages are visited, from which countries and devices, and how fast the pages load) and to improve it, we use **Cloudflare Web Analytics**. It is built to be privacy-friendly: it sets no cookies and stores nothing on your device, and it does not follow you from one visit or website to another. It gives us only aggregated figures, such as page views per page, referring websites, country, browser, device type and page loading times. The address of the page you view is recorded without its query string. Cloudflare keeps the detailed data for a short period (about 7 days) and then only in aggregated form.
 
-Cloudflare, Inc. processes this data on our behalf (the technical data your browser sends when it loads the website, such as the IP address, is needed for the service to work). The basis is our legitimate interest in understanding and improving our website. You can block the statistics with a browser extension or your browser's tracking protection, and the site works the same without them. The statistics are not collected on the organisers' admin page.
+Cloudflare, Inc. processes this data on our behalf (the technical data your browser sends when it loads the website, such as the IP address, is needed for the service to work). The basis is our legitimate interest in understanding and improving our website. You can block the statistics with a browser extension or your browser's tracking protection, and the site works the same without them.
 
 ## What is published
 
