@@ -53,6 +53,7 @@ const label = (id: string, fallback: string) => (id === 'unrated' ? m.unrated : 
   .fees { width: fit-content; max-width: 100%; }
   .fees table { width: auto; }
   .fees th, .fees td { padding: 0.9rem 1.6rem; }
+  .fees th, .fees td, .fees .col-num { text-align: left; }
   .fees thead th small { white-space: nowrap; }
   .info, .note-row { display: none; }
   td { font-family: var(--font-body); font-weight: 500; font-size: 1.05rem; }
@@ -66,16 +67,16 @@ const label = (id: string, fallback: string) => (id === 'unrated' ? m.unrated : 
     .fees th, .fees td { padding: 0.75rem 0.5rem; }
     .fees th:first-child, .fees td:first-child { padding-left: 0.85rem; }
     .fees th:last-child, .fees td:last-child { padding-right: 0.85rem; }
-    .fees thead th { white-space: normal; font-size: 0.8rem; letter-spacing: 0; line-height: 1.25; hyphens: auto; overflow-wrap: break-word; }
+    .fees thead th { vertical-align: baseline; white-space: normal; font-size: 0.8rem; letter-spacing: 0; line-height: 1.25; hyphens: auto; overflow-wrap: break-word; }
     .fees thead th small { display: none; }
-    /* Every column is left-aligned on phones (headings and values alike); the icon follows its heading text. */
-    .fees th, .fees td, .fees .col-num { text-align: left; }
+    /* The icon follows its heading text. */
     .h { display: flex; align-items: center; gap: 0.3rem; }
     /* The icon is no taller than the text, so the headings line up; the tap area is enlarged by the ::after. */
     .info {
-      display: inline-grid; place-items: center; position: relative; width: 1rem; height: 1rem; padding: 0; margin: 0;
+      display: inline-grid; place-items: center; position: relative; width: 1.25em; height: 1.25em; padding: 0; margin: 0;
       background: none; border: 0; border-radius: 50%; color: var(--ice); cursor: pointer;
     }
+    .info svg { width: 100%; height: 100%; }
     .info::after { content: ''; position: absolute; inset: -0.6rem; }
     .info[aria-expanded='true'] { box-shadow: 0 0 0 0.25rem var(--ice-dim); }
     .fees thead .note-row:not([hidden]) { display: table-row; }
