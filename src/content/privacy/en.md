@@ -34,9 +34,9 @@ We do not use your data for marketing unless you separately subscribe to the new
 
 ## Website visitor statistics
 
-To see how the website is used (which pages are visited, from which countries and devices, and how fast the pages load) and to improve it, we use **Cloudflare Web Analytics**. It is built to be privacy-friendly: it sets no cookies and stores nothing on your device, and it does not follow you from one visit or website to another. It gives us only aggregated figures, such as page views per page, referring websites, country, browser, device type and page loading times. The address of the page you view is recorded without its query string. Cloudflare keeps the detailed data for a short period (about 7 days) and then only in aggregated form.
+To see how the website is used (which pages are visited, from which countries and devices, and how fast the pages load) and to improve it, we use a privacy-friendly **web analytics service**. It sets no cookies and stores nothing on your device, and it does not follow you from one visit or website to another. It gives us only aggregated figures, such as page views per page, referring websites, country, browser, device type and page loading times. The address of the page you view is recorded without its query string. The service keeps the detailed data for a short period (about 7 days) and then only in aggregated form.
 
-Cloudflare, Inc. processes this data on our behalf (the technical data your browser sends when it loads the website, such as the IP address, is needed for the service to work). The basis is our legitimate interest in understanding and improving our website. You can block the statistics with a browser extension or your browser's tracking protection, and the site works the same without them.
+The service provider processes this data on our behalf (the technical data your browser sends when it loads the website, such as the IP address, is needed for the service to work). The basis is our legitimate interest in understanding and improving our website. You can block the statistics with a browser extension or your browser's tracking protection, and the site works the same without them.
 
 ## What is published
 
@@ -47,7 +47,7 @@ Registered players appear in the public player list and results on chess-results
 We use the following kinds of service providers and recipients:
 
 - **A payment service provider** for online card and mobile payments.
-- **IT service providers** for hosting this website, protecting it against abuse (including a bot check on the registration form), storing the registration data and providing the visitor statistics described above. The main provider is Cloudflare.
+- **IT service providers** for hosting this website, protecting it against abuse (including a bot check on the registration form), storing the registration data and providing the visitor statistics described above.
 - **Tournament management software**, used by the organisers and arbiters, and **an online results service** where results are published (chess-results.com).
 - **FIDE and the Finnish Chess Federation**, for rating and result reporting.
 - **A newsletter service provider**, only if you subscribe to the newsletter.

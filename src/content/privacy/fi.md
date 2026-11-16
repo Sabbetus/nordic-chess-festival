@@ -34,9 +34,9 @@ Emme käytä tietojasi markkinointiin, ellet erikseen tilaa uutiskirjettä, emme
 
 ## Sivuston kävijätilastot
 
-Nähdäksemme, miten sivustoa käytetään (mitä sivuja katsotaan, mistä maista ja millä laitteilla, ja kuinka nopeasti sivut latautuvat), ja kehittääksemme sitä käytämme **Cloudflare Web Analytics** -palvelua. Se on suunniteltu yksityisyyttä kunnioittavaksi: se ei aseta evästeitä eikä tallenna mitään laitteellesi, eikä se seuraa sinua käynnistä toiseen tai sivustolta toiselle. Se antaa meille vain koottuja lukuja, kuten sivunäyttöjen määrän sivuittain, viittaavat sivustot, maan, selaimen, laitetyypin ja sivujen latausajat. Katsomasi sivun osoite tallennetaan ilman kyselyosaa. Cloudflare säilyttää tarkat tiedot lyhyen aikaa (noin 7 päivää) ja sen jälkeen vain koottuna.
+Nähdäksemme, miten sivustoa käytetään (mitä sivuja katsotaan, mistä maista ja millä laitteilla, ja kuinka nopeasti sivut latautuvat), ja kehittääksemme sitä käytämme yksityisyyttä kunnioittavaa **verkkoanalytiikkapalvelua**. Se ei aseta evästeitä eikä tallenna mitään laitteellesi, eikä se seuraa sinua käynnistä toiseen tai sivustolta toiselle. Se antaa meille vain koottuja lukuja, kuten sivunäyttöjen määrän sivuittain, viittaavat sivustot, maan, selaimen, laitetyypin ja sivujen latausajat. Katsomasi sivun osoite tallennetaan ilman kyselyosaa. Palvelu säilyttää tarkat tiedot lyhyen aikaa (noin 7 päivää) ja sen jälkeen vain koottuna.
 
-Cloudflare, Inc. käsittelee näitä tietoja puolestamme (palvelun toimintaan tarvitaan tekniset tiedot, joita selaimesi lähettää ladatessaan sivustoa, kuten IP-osoite). Peruste on oikeutettu etumme ymmärtää ja kehittää sivustoamme. Voit estää tilastoinnin selainlaajennuksella tai selaimesi seurannanestolla, eikä sivusto toimi sen takia eri tavalla.
+Palveluntarjoaja käsittelee näitä tietoja puolestamme (palvelun toimintaan tarvitaan tekniset tiedot, joita selaimesi lähettää ladatessaan sivustoa, kuten IP-osoite). Peruste on oikeutettu etumme ymmärtää ja kehittää sivustoamme. Voit estää tilastoinnin selainlaajennuksella tai selaimesi seurannanestolla, eikä sivusto toimi sen takia eri tavalla.
 
 ## Mitä julkaistaan
 
@@ -47,7 +47,7 @@ Rekisteröityneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa
 Käytämme seuraavia palveluntarjoajia ja tietojen vastaanottajia:
 
 - **Maksupalvelun tarjoaja** verkossa tehtäviä kortti- ja mobiilimaksuja varten.
-- **IT-palveluntarjoajat** tämän sivuston ylläpitoa, sen suojaamista väärinkäytöksiltä (mukaan lukien rekisteröitymislomakkeen robottitarkistus), rekisteröitymistietojen tallennusta ja edellä kuvattuja kävijätilastoja varten. Pääasiallinen palveluntarjoaja on Cloudflare.
+- **IT-palveluntarjoajat** tämän sivuston ylläpitoa, sen suojaamista väärinkäytöksiltä (mukaan lukien rekisteröitymislomakkeen robottitarkistus), rekisteröitymistietojen tallennusta ja edellä kuvattuja kävijätilastoja varten.
 - **Turnauksenhallintaohjelmisto**, jota järjestäjät ja tuomarit käyttävät, sekä **verkossa toimiva tulospalvelu**, jossa tulokset julkaistaan (chess-results.com).
 - **FIDE ja Suomen Shakkiliitto** vahvuuslukujen ja tulosten raportointia varten.
 - **Uutiskirjepalvelun tarjoaja**, vain jos tilaat uutiskirjeen.
