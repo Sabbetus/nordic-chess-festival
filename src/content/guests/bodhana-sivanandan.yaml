@@ -1,0 +1,34 @@
+name: Bodhana Sivanandan
+kind: player
+title: FM
+federation: ENG
+fideId: 497592
+rating:
+  value: 2414
+  month: '2026-11'
+peakRating: 2414
+photo: ../../assets/guests/bodhana-sivanandan.jpg
+photoCredit: "Yunfan Zhao / lichess.org, CC BY-SA 4.0"
+photoSourceUrl: https://commons.wikimedia.org/wiki/File:Bodhana_Sivanandan_2026_Olympiad_(cropped).jpg
+photoPosition: "50% 20%"
+socialCropY: 0.25
+order: 2
+tagline:
+  en: Chess prodigy and British Women's Champion
+  fi: Shakkilapsinero ja Britannian naisten mestari
+bio:
+  en: |
+    One of the most remarkable young talents in the world of chess. Bodhana was born in London in 2015 and started playing during the 2020 lockdown. In 2022 she won all 24 games and three gold medals at the European Schools Championships, and in 2024 she was the world's number one girl under 10. That summer, at the age of nine, she was selected for the England women's team at the Olympiad in Budapest, the youngest person ever picked for a full England team in any sport.
+
+    In August 2025 she beat grandmaster Peter Wells at the British Championship, the youngest girl ever to defeat a grandmaster, and earned the final norm for the Woman International Master title. In 2026 she became a FIDE Master, England's top-rated woman and, at 11, the youngest ever British Women's Champion after winning the title in a rapid playoff. Her rating has passed 2400.
+
+    At the 2026 Olympiad in Samarkand she played top board for England and made the norms for the International Master and Woman Grandmaster titles, which are awaiting FIDE's confirmation.
+  fi: |
+    Yksi shakkimaailman merkittävimmistä nuorista kyvyistä. Bodhana syntyi Lontoossa vuonna 2015 ja aloitti pelaamisen vuoden 2020 koronasulun aikana. Vuonna 2022 hän voitti kaikki 24 pelaamaansa peliä ja kolme kultamitalia Euroopan koulujen mestaruuskilpailuissa, ja vuonna 2024 hän oli maailman paras alle 10-vuotias tyttö. Samana kesänä, yhdeksänvuotiaana, hänet valittiin Englannin naisjoukkueeseen Budapestin olympialaisiin, nuorimpana koskaan valittuna Englannin täysikokoiseen joukkueeseen missään urheilulajissa.
+
+    Elokuussa 2025 hän voitti suurmestari Peter Wellsin Britannian mestaruuskilpailuissa, nuorimpana tyttönä koskaan suurmestarin voittanut, ja saavutti viimeisen normin naisten kansainvälisen mestarin arvoon. Vuonna 2026 hänestä tuli FIDE-mestari (FM), Englannin korkeimmin luokiteltu nainen ja 11-vuotiaana nuorin koskaan Britannian naisten mestari voitettuaan tittelin pikashakin ratkaisuosissa. Hänen vahvuuslukunsa on ylittänyt 2400:n.
+
+    Samarkandin olympialaisissa 2026 hän pelasi Englannin ykkösluutua ja saavutti normit kansainvälisen mestarin (IM) ja naisten suurmestarin (WGM) arvoihin, jotka odottavat FIDEn vahvistusta.
+links:
+  - label: Wikipedia
+    url: https://en.wikipedia.org/wiki/Bodhana_Sivanandan
