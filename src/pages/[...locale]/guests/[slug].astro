@@ -70,7 +70,7 @@ const jsonLd = {
         </figure>
         <div class="stack">
           {d.placeholder && <p class="eyebrow">{m.guests.placeholderBadge}</p>}
-          <h1>{fullName}</h1>
+          <h1><span class="name">{fullName}</span></h1>
           {d.tagline && <p class="lead">{d.tagline[lang]}</p>}
           <dl class="facts">
             {d.federation && <div><dt>{m.guests.federation}</dt><dd>{d.federation}</dd></div>}
@@ -107,6 +107,12 @@ const jsonLd = {
   .photo figcaption a:hover { color: var(--ice); }
   .mono { font-family: var(--font-display); font-size: 8rem; color: var(--ice); opacity: 0.5; }
   h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+  /* Two-column layout: the name always sits on one line (the script below shrinks long names to fit the column), in a box of
+     the same height on every guest page, so that everything under it lines up from page to page. */
+  @media (min-width: 901px) {
+    h1 { height: 1.2em; display: flex; align-items: center; }
+    .name { display: inline-block; white-space: nowrap; }
+  }
   .facts { display: flex; gap: var(--space-6); flex-wrap: wrap; }
   .facts div { display: flex; flex-direction: column-reverse; gap: 0.2rem; }
   .facts dd { font-family: var(--font-display); font-size: 2rem; font-weight: 600; line-height: 1; }
@@ -119,6 +125,28 @@ const jsonLd = {
 </style>
 
 <script>
+  // Desktop: scale the guest's name down until it fits on one line (never below 28 px; below that it wraps as usual).
+  const fitName = () => {
+    const h1 = document.querySelector<HTMLElement>('.profile h1');
+    const name = h1?.querySelector<HTMLElement>('.name');
+    if (!h1 || !name) return;
+    name.style.fontSize = '';
+    name.style.whiteSpace = '';
+    if (!window.matchMedia('(min-width: 901px)').matches) return;
+    const full = parseFloat(getComputedStyle(h1).fontSize);
+    const room = h1.clientWidth;
+    if (name.scrollWidth <= room) return;
+    const size = Math.floor(full * (room / name.scrollWidth) * 0.99 * 4) / 4;
+    if (size >= 28) name.style.fontSize = `${size}px`;
+    else {
+      name.style.fontSize = '28px';
+      name.style.whiteSpace = 'normal';
+    }
+  };
+  fitName();
+  document.fonts?.ready.then(fitName);
+  window.addEventListener('resize', fitName);
+
   // Keep the photo credit on one line: shrink its text a little at a time until it fits the width of the photo (never below 8 px).
   const fitCredit = () => {
     const caption = document.querySelector<HTMLElement>('.photo figcaption');
