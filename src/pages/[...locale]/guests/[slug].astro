@@ -71,7 +71,7 @@ const jsonLd = {
         <div class="stack">
           {d.placeholder && <p class="eyebrow">{m.guests.placeholderBadge}</p>}
           <h1><span class="name">{fullName}</span></h1>
-          {d.tagline && <p class="lead">{d.tagline[lang]}</p>}
+          {d.tagline && <p class="lead"><span class="tag">{d.tagline[lang]}</span></p>}
           <dl class="facts">
             {d.federation && <div><dt>{m.guests.federation}</dt><dd>{d.federation}</dd></div>}
             {d.rating && (
@@ -112,6 +112,9 @@ const jsonLd = {
   @media (min-width: 901px) {
     h1 { height: 1.2em; display: flex; align-items: center; }
     .name { display: inline-block; white-space: nowrap; }
+    /* The tagline too: one line (shrunk to fit by the script below) in a box of a fixed height. */
+    .stack > .lead { max-width: none; height: 1.6em; line-height: 1.6; display: flex; align-items: center; }
+    .tag { display: inline-block; white-space: nowrap; }
   }
   .facts { display: flex; gap: var(--space-6); flex-wrap: wrap; }
   .facts div { display: flex; flex-direction: column-reverse; gap: 0.2rem; }
@@ -125,27 +128,32 @@ const jsonLd = {
 </style>
 
 <script>
-  // Desktop: scale the guest's name down until it fits on one line (never below 28 px; below that it wraps as usual).
-  const fitName = () => {
-    const h1 = document.querySelector<HTMLElement>('.profile h1');
-    const name = h1?.querySelector<HTMLElement>('.name');
-    if (!h1 || !name) return;
-    name.style.fontSize = '';
-    name.style.whiteSpace = '';
+  // Desktop: scale the guest's name and tagline down until each fits on one line (never below 28 px for the name and 12 px
+  // for the tagline; below that they wrap as usual).
+  const fitLine = (box: HTMLElement | null, text: HTMLElement | null | undefined, floor: number) => {
+    if (!box || !text) return;
+    text.style.fontSize = '';
+    text.style.whiteSpace = '';
     if (!window.matchMedia('(min-width: 901px)').matches) return;
-    const full = parseFloat(getComputedStyle(h1).fontSize);
-    const room = h1.clientWidth;
-    if (name.scrollWidth <= room) return;
-    const size = Math.floor(full * (room / name.scrollWidth) * 0.99 * 4) / 4;
-    if (size >= 28) name.style.fontSize = `${size}px`;
+    const full = parseFloat(getComputedStyle(box).fontSize);
+    const room = box.clientWidth;
+    if (text.scrollWidth <= room) return;
+    const size = Math.floor(full * (room / text.scrollWidth) * 0.99 * 4) / 4;
+    if (size >= floor) text.style.fontSize = `${size}px`;
     else {
-      name.style.fontSize = '28px';
-      name.style.whiteSpace = 'normal';
+      text.style.fontSize = `${floor}px`;
+      text.style.whiteSpace = 'normal';
     }
   };
-  fitName();
-  document.fonts?.ready.then(fitName);
-  window.addEventListener('resize', fitName);
+  const fitLines = () => {
+    const h1 = document.querySelector<HTMLElement>('.profile h1');
+    fitLine(h1, h1?.querySelector<HTMLElement>('.name'), 28);
+    const lead = document.querySelector<HTMLElement>('.profile .stack > .lead');
+    fitLine(lead, lead?.querySelector<HTMLElement>('.tag'), 12);
+  };
+  fitLines();
+  document.fonts?.ready.then(fitLines);
+  window.addEventListener('resize', fitLines);
 
   // Keep the photo credit on one line: shrink its text a little at a time until it fits the width of the photo (never below 8 px).
   const fitCredit = () => {
