@@ -191,7 +191,7 @@ const jsonLd = [
           <p class="lead">{h.fees.textAfter}</p>
         </div>
         <p class="free">{h.fees.free}</p>
-        <p class="btn-row"><a class="btn btn-primary" href={localePath(lang, '/register/#fees')}>{h.fees.cta} <span class="arrow" aria-hidden="true">→</span></a></p>
+        <p class="btn-row fees-btn"><a class="btn btn-primary" href={localePath(lang, '/register/#fees')}>{h.fees.cta} <span class="arrow" aria-hidden="true">→</span></a></p>
       </article>
       <article class="panel">
         <p class="eyebrow rule">{h.venue.eyebrow}</p>
@@ -251,6 +251,8 @@ const jsonLd = [
   @media (max-width: 700px) { .hero .eyebrow { white-space: nowrap; font-size: min(0.75rem, 3.4vw); letter-spacing: 0.1em; } }
   /* Phones: both hero buttons stay on one line and share one text size, which shrinks with the screen width (the Finnish
      "Rekisteröityminen ja maksut" is the longest label). */
+  /* Phones: the fees button keeps its text on one line (the Finnish label is long), with the text shrinking with the screen width. */
+  @media (max-width: 520px) { .fees-btn .btn { white-space: nowrap; font-size: min(var(--text-sm), 3.7vw); letter-spacing: 0.08em; padding-inline: 1.1rem; gap: 0.4rem; } }
   @media (max-width: 520px) { .hero .btn-row { display: grid; } .hero .btn-row .btn { justify-content: center; white-space: nowrap; font-size: min(var(--text-sm), 3.9vw); letter-spacing: 0.1em; padding-inline: 1rem; gap: 0.4rem; } }
   /* The highlighted closing line moves as a whole to the next line instead of being split. */
   .hero .lead .accent { color: var(--ice); white-space: nowrap; }
