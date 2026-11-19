@@ -109,7 +109,7 @@ const fi: Messages = {
       text: 'Maksa osallistumismaksu 31. tammikuuta 2027 mennessä ja saat early bird -hinnan. Juniorit ja seniorit maksavat aina alennetun hinnan.',
       textAfter: 'Osallistumismaksu riippuu FIDE-vahvuusluvustasi maksupäivänä. Juniorit ja seniorit maksavat alennetun hinnan.',
       free: 'Suurmestarit (SM ja NSM) pelaavat ilmaiseksi.',
-      cta: 'Katso kaikki maksut',
+      cta: 'Katso osallistumismaksut',
     },
     venue: {
       eyebrow: 'Pelipaikka',
