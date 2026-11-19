@@ -173,7 +173,7 @@ const fi: Messages = {
     statusCta: 'Tilaa uutiskirje',
     feesTitle: 'Osallistumismaksut',
     colRating: 'FIDE-vahvuusluku',
-    colRegular: 'Normaalimaksu',
+    colRegular: 'Normaali hinta',
     colEarly: 'Early bird',
     colEarlyNote: 'maksettu 31.1.2027 mennessä',
     colDiscount: 'Juniorit / seniorit',
