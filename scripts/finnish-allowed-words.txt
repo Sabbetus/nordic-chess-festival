@@ -126,3 +126,7 @@ com
 in
 min
 per
+Baku-kiihdytystä
+IM-arvonimen
+MBE-kunniamerkki
+WIM

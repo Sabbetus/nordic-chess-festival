@@ -89,7 +89,7 @@ const fi: Messages = {
     glance: {
       eyebrow: 'Pääturnaus',
       title: 'Yhdeksän kierrosta, yhdeksän päivää',
-      text: 'Yhdeksän kierrosta yhdessä avoimessa ryhmässä. Parit määrätään FIDEn sveitsiläisellä järjestelmällä Baku-kiihdytyksellä. Turnauksessa voi saavuttaa FIDE-arvonimien normeja, ja tulokset vaikuttavat sekä FIDEn että Suomen vahvuuslukulistoihin. Ensimmäinen kierros pelataan 12. kesäkuuta ja viimeinen 20. kesäkuuta.',
+      text: 'Yhdeksän kierrosta yhdessä avoimessa ryhmässä. Parit määrätään FIDEn sveitsiläisellä järjestelmällä, jossa käytetään Baku-kiihdytystä. Turnauksessa voi saavuttaa FIDE-arvonimien normeja, ja tulokset vaikuttavat sekä FIDEn että Suomen vahvuuslukulistoihin. Ensimmäinen kierros pelataan 12. kesäkuuta ja viimeinen 20. kesäkuuta.',
       link: 'Koko aikataulu ja määräykset',
     },
     location: {
@@ -100,7 +100,7 @@ const fi: Messages = {
     },
     prize: {
       eyebrow: 'Palkinnot',
-      text: 'Taattu palkintopotti, ja palkintoja jaetaan muillekin kuin kärkipelaajille. Parhaalle naispelaajalle, parhaalle juniorille ja parhaalle seniorille on omat palkintonsa, ja vahvuusluokille jaetaan palkintoja, joten jokaisella tasolla on tavoiteltavaa.',
+      text: 'Taattu palkintopotti, ja palkintoja jaetaan muillekin kuin kärkipelaajille. Parhaalle naispelaajalle, parhaalle juniorille ja parhaalle seniorille on omat palkintonsa, ja vahvuusluokille jaetaan palkintoja, joten jokaisella tasolla on jotain tavoiteltavaa.',
       cta: 'Tietoa palkinnoista',
     },
     fees: {
@@ -150,7 +150,7 @@ const fi: Messages = {
       prizePool: '10 000 € taattu',
       timeControl: '90 min / 40 siirtoa + 30 min + 30 s / siirto alkaen siirrosta 1',
       pairings: 'FIDEn sveitsiläinen järjestelmä Baku-kiihdytyksellä (140 pelaajasta alkaen)',
-      rating: 'Tulokset lasketaan FIDEn (elo) ja Suomen (selo) vahvuuslukuihin. FIDE-arvonimen normit (SM, KvM, NSM, NKvM) ovat mahdollisia',
+      rating: 'Tulokset lasketaan sekä FIDEn (elo) että Suomen (selo) vahvuuslukuihin. Turnauksessa voi saavuttaa FIDE-arvonimien normeja (SM, KvM, NSM, NKvM).',
     },
     scheduleTitle: 'Aikataulu',
     scheduleNote: 'Kaikki ajat ovat Suomen aikaa (EEST, UTC+3).',
@@ -311,7 +311,7 @@ const fi: Messages = {
     items: [
       'Parhaat palkinnot on varattu kärkipelaajille',
       'Palkinnot parhaalle naispelaajalle, parhaalle juniorille ja parhaalle seniorille',
-      'Vahvuusluokkapalkinnot, joten jokaisella tasolla on tavoiteltavaa',
+      'Vahvuusluokkapalkinnot, joten jokaisella tasolla on jotain tavoiteltavaa',
     ],
     sharing: 'Palkinnot jaetaan samassa pistemäärässä olevien pelaajien kesken, ja yksi pelaaja voi saada vain yhden rahapalkinnon. Katso kilpailumääräysten 8 §.',
     regulationsLink: 'Lue määräykset',

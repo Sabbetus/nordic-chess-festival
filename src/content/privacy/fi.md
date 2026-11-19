@@ -8,15 +8,15 @@ Tässä selosteessa kerrotaan, mitä henkilötietoja Nordic Chess Festival kerä
 
 ## Rekisterinpitäjä
 
-Rekisterinpitäjä on **Nordic Chess Festival ry** (Kangasala). Kaikissa tietosuoja-asioissa yhteys: [info@nordicchess.fi](mailto:info@nordicchess.fi).
+Rekisterinpitäjä on **Nordic Chess Festival ry** (Kangasala). Kaikissa tietosuoja-asioissa voit ottaa yhteyttä osoitteeseen [info@nordicchess.fi](mailto:info@nordicchess.fi).
 
 ## Mitä tietoja keräämme
 
 Rekisteröitymisessä keräämme:
 
 - nimen, sähköpostiosoitteen ja puhelinnumeron
-- FIDE-tunnuksen (jokaisella rekisteröityjällä on oltava)
-- nimen, liiton, FIDE-arvonimen, FIDE-vahvuusluvun ja syntymävuoden: haemme nämä FIDE-tunnuksesi perusteella FIDEn julkiselta listalta, joten et kirjoita niitä itse (vain syntymävuoden, jos FIDEllä sitä ei ole; sitä käytetään juniori- ja seniorihintojen soveltamiseen)
+- FIDE-tunnuksen (jokaisella rekisteröityvällä on oltava)
+- nimen, liiton, FIDE-arvonimen, FIDE-vahvuusluvun ja syntymävuoden: haemme nämä FIDE-tunnuksesi perusteella FIDEn julkiselta listalta, joten et kirjoita niitä itse (syntymävuoden annat itse vain, jos sitä ei ole FIDEn listalla; sitä käytetään juniori- ja seniorihintojen soveltamiseen)
 - tiedon siitä, tilasitko bussikuljetuksen
 - maksetun summan ja tiedon maksun onnistumisesta
 
@@ -34,13 +34,13 @@ Emme käytä tietojasi markkinointiin, ellet erikseen tilaa uutiskirjettä, emme
 
 ## Sivuston kävijätilastot
 
-Nähdäksemme, miten sivustoa käytetään (mitä sivuja katsotaan, mistä maista ja millä laitteilla, ja kuinka nopeasti sivut latautuvat), ja kehittääksemme sitä käytämme yksityisyyttä kunnioittavaa **verkkoanalytiikkapalvelua**. Se ei aseta evästeitä eikä tallenna mitään laitteellesi, eikä se seuraa sinua käynnistä toiseen tai sivustolta toiselle. Se antaa meille vain koottuja lukuja, kuten sivunäyttöjen määrän sivuittain, viittaavat sivustot, maan, selaimen, laitetyypin ja sivujen latausajat. Katsomasi sivun osoite tallennetaan ilman kyselyosaa. Palvelu säilyttää tarkat tiedot lyhyen aikaa (noin 7 päivää) ja sen jälkeen vain koottuna.
+Jotta näemme, miten sivustoa käytetään (mitä sivuja katsotaan, mistä maista ja millä laitteilla, ja kuinka nopeasti sivut latautuvat), ja voimme kehittää sitä, käytämme yksityisyyttä kunnioittavaa **verkkoanalytiikkapalvelua**. Se ei aseta evästeitä eikä tallenna mitään laitteellesi, eikä se seuraa sinua käynnistä toiseen tai sivustolta toiselle. Se antaa meille vain koottuja lukuja: sivujen katselukerrat, viittaavat sivustot, kävijän maa, selain, laitetyyppi ja sivujen latausajat. Katsomasi sivun osoite tallennetaan ilman kyselyosaa. Palvelu säilyttää tarkat tiedot lyhyen aikaa (noin 7 päivää) ja sen jälkeen vain koottuna.
 
 Palveluntarjoaja käsittelee näitä tietoja puolestamme (palvelun toimintaan tarvitaan tekniset tiedot, joita selaimesi lähettää ladatessaan sivustoa, kuten IP-osoite). Peruste on oikeutettu etumme ymmärtää ja kehittää sivustoamme. Voit estää tilastoinnin selainlaajennuksella tai selaimesi seurannanestolla, eikä sivusto toimi sen takia eri tavalla.
 
 ## Mitä julkaistaan
 
-Rekisteröityneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa chess-results.com-palvelussa ja tällä sivustolla. Tavallisesti näkyvät nimi, liitto, titteli ja vahvuusluku. Sähköpostiosoitettasi, puhelinnumeroasi tai syntymävuottasi emme julkaise. Vahvuuslukuun vaikuttavien turnausten tulokset toimitetaan FIDElle ja Suomen Shakkiliitolle, jotka julkaisevat ne omien käytäntöjensä mukaan.
+Rekisteröityneet pelaajat näkyvät julkisessa pelaajaluettelossa ja tuloksissa chess-results.com-palvelussa ja tällä sivustolla. Tavallisesti näkyvät nimi, liitto, arvonimi ja vahvuusluku. Sähköpostiosoitettasi, puhelinnumeroasi tai syntymävuottasi emme julkaise. Vahvuuslukuun vaikuttavien turnausten tulokset toimitetaan FIDElle ja Suomen Shakkiliitolle, jotka julkaisevat ne omien käytäntöjensä mukaan.
 
 ## Kuka käsittelee tietoja
 
@@ -52,7 +52,7 @@ Käytämme seuraavia palveluntarjoajia ja tietojen vastaanottajia:
 - **FIDE ja Suomen Shakkiliitto** vahvuuslukujen ja tulosten raportointia varten.
 - **Uutiskirjepalvelun tarjoaja**, vain jos tilaat uutiskirjeen.
 
-Osa palveluntarjoajista käsittelee tietoja puolestamme. Osa, kuten maksupalvelun tarjoaja, vastaa itse maksutietojesi käsittelystä. Osa palveluntarjoajista sijaitsee EU:n/ETA:n ulkopuolella, erityisesti Yhdysvalloissa. Tällöin siirrot perustuvat GDPR:n edellyttämiin suojatoimiin, kuten EU–USA-tietosuojakehykseen (Data Privacy Framework) tai vakiosopimuslausekkeisiin. Pyynnöstä kerromme, mitkä tietyt palveluntarjoajat käsittelevät tietojasi.
+Osa palveluntarjoajista käsittelee tietoja puolestamme. Osa, kuten maksupalvelun tarjoaja, vastaa itse maksutietojesi käsittelystä. Osa palveluntarjoajista sijaitsee EU:n/ETA:n ulkopuolella, erityisesti Yhdysvalloissa. Tällöin siirrot perustuvat GDPR:n edellyttämiin suojatoimiin, kuten EU–USA-tietosuojakehykseen (Data Privacy Framework) tai vakiosopimuslausekkeisiin. Pyynnöstä kerromme, mitkä palveluntarjoajat käsittelevät tietojasi.
 
 ## Kuinka kauan tietoja säilytetään
 
@@ -66,7 +66,7 @@ Rekisteröitymistiedot tallennetaan pääsynhallittuun järjestelmään, ja niih
 
 ## Oikeutesi
 
-Voit pyytää nähdäksesi sinusta tallennetut tiedot sekä oikaista, poistaa (kun se on sallittua), rajoittaa tai saada ne siirrettynä. Voit myös vastustaa oikeutettuun etuun perustuvaa käsittelyä. Kirjoita osoitteeseen [info@nordicchess.fi](mailto:info@nordicchess.fi). Jos katsot tietojesi käsittelyn olevan lainvastaista, voit tehdä valituksen tietosuojavaltuutetulle ([tietosuoja.fi](https://tietosuoja.fi)).
+Voit pyytää nähtäväksesi sinusta tallennetut tiedot sekä oikaista niitä, poistaa niitä (kun se on sallittua), rajoittaa niiden käyttöä tai saada ne siirrettynä. Voit myös vastustaa oikeutettuun etuun perustuvaa käsittelyä. Kirjoita osoitteeseen [info@nordicchess.fi](mailto:info@nordicchess.fi). Jos katsot tietojesi käsittelyn olevan lainvastaista, voit tehdä valituksen tietosuojavaltuutetulle ([tietosuoja.fi](https://tietosuoja.fi)).
 
 ## Lapset
 
