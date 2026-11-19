@@ -130,3 +130,4 @@ Baku-kiihdytystä
 IM-arvonimen
 MBE-kunniamerkki
 WIM
+KvM-arvonimen

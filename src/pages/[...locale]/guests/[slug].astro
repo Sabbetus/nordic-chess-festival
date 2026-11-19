@@ -34,7 +34,13 @@ const jobTitles: Record<string, string> = {
   GM: "Chess grandmaster", WGM: "Chess woman grandmaster", IM: "Chess international master", WIM: "Chess woman international master",
   FM: "Chess FIDE master", WFM: "Chess woman FIDE master", CM: "Chess candidate master", WCM: "Chess woman candidate master",
 };
-const jobTitle = [d.title ? jobTitles[d.title] : undefined, d.kind === "creator" ? "chess content creator" : undefined].filter(Boolean).join(" and ");
+const jobTitlesFi: Record<string, string> = {
+  GM: "Shakin suurmestari", WGM: "Shakin naisten suurmestari", IM: "Shakin kansainvälinen mestari", WIM: "Shakin naisten kansainvälinen mestari",
+  FM: "Shakin FIDE-mestari", WFM: "Shakin naisten FIDE-mestari", CM: "Shakin ehdokasmestari", WCM: "Shakin naisten ehdokasmestari",
+};
+const jobTitle = lang === "fi"
+  ? [d.title ? jobTitlesFi[d.title] : undefined, d.kind === "creator" ? "shakin sisällöntuottaja" : undefined].filter(Boolean).join(" ja ")
+  : [d.title ? jobTitles[d.title] : undefined, d.kind === "creator" ? "chess content creator" : undefined].filter(Boolean).join(" and ");
 const pageUrl = new URL(localePath(lang, `/guests/${guest.id}/`), Astro.site!).href;
 const jsonLd = {
   "@context": "https://schema.org",
