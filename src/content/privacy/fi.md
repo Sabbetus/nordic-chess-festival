@@ -16,7 +16,7 @@ Rekisteröitymisessä keräämme:
 
 - nimen, sähköpostiosoitteen ja puhelinnumeron
 - FIDE-tunnuksen (jokaisella rekisteröityjällä on oltava)
-- nimen, liiton, FIDE-tittelin, FIDE-vahvuusluvun ja syntymävuoden: haemme nämä FIDE-tunnuksesi perusteella FIDEn julkiselta listalta, joten et kirjoita niitä itse (vain syntymävuoden, jos FIDEllä sitä ei ole; sitä käytetään juniori- ja seniorihintojen soveltamiseen)
+- nimen, liiton, FIDE-arvonimen, FIDE-vahvuusluvun ja syntymävuoden: haemme nämä FIDE-tunnuksesi perusteella FIDEn julkiselta listalta, joten et kirjoita niitä itse (vain syntymävuoden, jos FIDEllä sitä ei ole; sitä käytetään juniori- ja seniorihintojen soveltamiseen)
 - tiedon siitä, tilasitko bussikuljetuksen
 - maksetun summan ja tiedon maksun onnistumisesta
 
