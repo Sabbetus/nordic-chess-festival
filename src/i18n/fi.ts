@@ -65,7 +65,7 @@ const fi: Messages = {
     countdown: {
       earlyLabel: 'Early bird -hinta päättyy',
       earlyWhen: 'Maksa 31. tammikuuta 2027 mennessä ja säästä 20 %',
-      earlyCta: 'Katso maksut',
+      earlyCta: 'Katso osallistumismaksut',
       label: '1. kierrokseen',
       days: 'päivää',
       hours: 'tuntia',
