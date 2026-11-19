@@ -45,6 +45,14 @@ stable `workers.dev` address always shows the latest new site while `main` still
 At launch: merge to `main`, switch the production branch back to `main`, remove `PUBLIC_NOINDEX`,
 and point nordicchess.fi at Cloudflare. The full list is in `docs/launch-checklist.md`.
 
+## Finnish texts
+
+`npm run check:fi` spell-checks every Finnish text on the site (interface, FAQ, guests, privacy policy; not the competition
+regulations, which are the organisers' original Finnish text) with Voikko, LibreOffice's Finnish spell checker. Run it after
+writing or changing Finnish. It needs `sudo apt install python3-libvoikko voikko-fi python3-yaml`. Words that are fine but
+unknown to Voikko (names, loanwords) go in `scripts/finnish-allowed-words.txt`. It finds misspelled and made-up words only:
+the wording, grammar and chess terms still need a person who knows Finnish.
+
 ## Search engines, social cards and AI assistants
 
 - `/llms.txt` (`src/pages/llms.txt.ts`) is generated from the site's own data (fees, dates, guests), so it cannot go stale.
