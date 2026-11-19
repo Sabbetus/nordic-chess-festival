@@ -228,7 +228,7 @@ const fi: Messages = {
       summaryBus: 'Bussikuljetus',
       summaryTotal: 'Yhteensä',
       free: 'Ilmainen',
-      reasons: { 'early-bird': 'Early bird -hinta', junior: 'Juniorihinta', senior: 'Seniorihinta', none: 'Normaalihinta' },
+      reasons: { 'early-bird': 'Early bird -hinta', junior: 'Juniorihinta', senior: 'Seniorihinta', none: 'Normaali hinta' },
       earlyBirdNote: 'Early bird -hinnat koskevat 31. tammikuuta 2027 mennessä tehtyjä maksuja.',
       gmNote: 'Suurmestarit pelaavat ilmaiseksi.',
       submitPay: 'Siirry maksamaan',
