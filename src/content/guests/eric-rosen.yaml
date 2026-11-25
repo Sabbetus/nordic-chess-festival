@@ -8,10 +8,9 @@ rating:
   month: '2026-11'
 peakRating: 2423
 photo: ../../assets/guests/eric-rosen.jpg
-photoCredit: "Viktorija Ni, CC0"
-photoSourceUrl: https://commons.wikimedia.org/wiki/File:Eric_Rosen.jpg
-photoPosition: "50% 25%"
-socialCropY: 0.2
+photoCredit: "Courtesy of Eric Rosen"
+photoPosition: "43% 30%"
+socialCropY: 0.07
 order: 2
 tagline:
   en: American IM and one of the best-known chess streamers

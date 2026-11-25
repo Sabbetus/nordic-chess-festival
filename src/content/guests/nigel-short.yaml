@@ -10,7 +10,7 @@ peakRating: 2712
 photo: ../../assets/guests/nigel-short.jpg
 photoCredit: "Courtesy of Nigel Short"
 photoPosition: "60% 40%"
-socialCropY: 0.5
+socialCropY: 0.25
 order: 1
 tagline:
   en: Former World Championship challenger
