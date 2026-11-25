@@ -1,0 +1,38 @@
+name: Eric Rosen
+kind: creator
+title: IM
+federation: USA
+fideId: 2032562
+rating:
+  value: 2377
+  month: '2026-11'
+peakRating: 2423
+photo: ../../assets/guests/eric-rosen.jpg
+photoCredit: "Viktorija Ni, CC0"
+photoSourceUrl: https://commons.wikimedia.org/wiki/File:Eric_Rosen.jpg
+photoPosition: "50% 25%"
+socialCropY: 0.2
+order: 2
+tagline:
+  en: American IM and one of the best-known chess streamers
+  fi: Yhdysvaltalainen KvM ja yksi tunnetuimmista shakin striimaajista
+bio:
+  en: |
+    Known online as imrosen, Eric is an American International Master and one of the best-known chess streamers and educators in the world. He grew up in Skokie, Illinois, and won the US national K-12 championship in 2011 with a perfect 7/7. He became a FIDE Master that year and an International Master in 2015, after norms at the 2011 World Under-18 Championship, the North American Masters, the Philadelphia Open and the Chicago Open.
+
+    He studied at the University of Illinois and then at Webster University on a chess scholarship, graduating in 2017. He has been making chess videos on YouTube since 2013 and streaming on Twitch since 2017, and now has hundreds of thousands of followers on both.
+
+    In 2022 he won Chess.com's I'M Not a GM Speed Chess Championship, and in 2018 he beat Magnus Carlsen in a bullet game without knowing who his opponent was.
+  fi: |
+    Verkossa imrosen-nimellä tunnettu Eric on yhdysvaltalainen kansainvälinen mestari ja yksi maailman tunnetuimmista shakin striimaajista ja opettajista. Hän kasvoi Skokiessa Illinoisissa ja voitti vuonna 2011 Yhdysvaltain koululaisten kansallisen mestaruuden (K-12) täydellä 7/7-tuloksella. Samana vuonna hänestä tuli FIDE-mestari (FM) ja vuonna 2015 kansainvälinen mestari (KvM), kun hän oli saavuttanut normit alle 18-vuotiaiden maailmanmestaruuskilpailuissa 2011, North American Mastersissa, Philadelphia Openissa ja Chicago Openissa.
+
+    Hän opiskeli Illinoisin yliopistossa ja sen jälkeen Webster Universityssä shakkistipendiaattina ja valmistui vuonna 2017. Hän on tehnyt shakkivideoita YouTubeen vuodesta 2013 ja striimannut Twitchissä vuodesta 2017, ja nykyään hänellä on satoja tuhansia seuraajia molemmilla alustoilla.
+
+    Vuonna 2022 hän voitti Chess.comin I'M Not a GM Speed Chess Championship -turnauksen, ja vuonna 2018 hän voitti Magnus Carlsenin bullet-pelissä tietämättä, kenen kanssa pelasi.
+links:
+  - label: YouTube
+    url: https://www.youtube.com/user/RosenChess
+  - label: Twitch
+    url: https://www.twitch.tv/imrosen
+  - label: Website
+    url: https://imrosen.com

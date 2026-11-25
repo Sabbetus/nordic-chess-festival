@@ -8,11 +8,10 @@ rating:
   month: '2026-11'
 peakRating: 2414
 photo: ../../assets/guests/bodhana-sivanandan.jpg
-photoCredit: "Yunfan Zhao / lichess.org, CC BY-SA 4.0"
-photoSourceUrl: https://commons.wikimedia.org/wiki/File:Bodhana_Sivanandan_2026_Olympiad_(cropped).jpg
-photoPosition: "50% 20%"
-socialCropY: 0.25
-order: 2
+photoCredit: "Lucy Baker"
+photoPosition: "50% 15%"
+socialCropY: 0.18
+order: 3
 tagline:
   en: Chess prodigy and British Women's Champion
   fi: Huippulupaus ja Britannian naisten mestari
