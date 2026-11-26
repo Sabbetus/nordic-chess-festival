@@ -109,5 +109,5 @@ Decisions made by the Chief Arbiter may be appealed to the Finnish Committee of 
 
 ## 11 § Contact persons during the tournament
 
-- **Chief Organizer:** Henry Brade, henry@nordicchess.fi
-- **Chief Arbiter:** IA Eetu Tiiva, eetu.tiiva@outlook.com
+- **Chief Organizer:** Henry Brade, henry@nordicchess.fi, +358 40 870 2233
+- **Chief Arbiter:** IA Eetu Tiiva, eetu.tiiva@outlook.com, +358 40 935 7959

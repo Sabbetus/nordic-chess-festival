@@ -117,5 +117,5 @@ Päätuomarin päätöksistä voi valittaa shakkituomaritoimikuntaan. Valitus on
 
 ## 11 § Yhteyshenkilöt kilpailun aikana
 
-- **Kilpailun johtaja:** Henry Brade, henry@nordicchess.fi
-- **Päätuomari:** KvT Eetu Tiiva, eetu.tiiva@outlook.com
+- **Kilpailun johtaja:** Henry Brade, henry@nordicchess.fi, +358 40 870 2233
+- **Päätuomari:** KvT Eetu Tiiva, eetu.tiiva@outlook.com, +358 40 935 7959
