@@ -10,6 +10,7 @@ Tick these off before nordicchess.fi goes live. Details for the registration ite
   Then check a live page: its source must not contain `<meta name="robots" content="noindex">`, and PageSpeed's "Page is blocked from indexing" warning is gone.
 - [ ] Merge to `main`, switch Cloudflare's production branch back to `main`, and point nordicchess.fi at Cloudflare (see `README.md`).
 - [ ] Replace or remove all `placeholder: true` content (news, guests, side events). Placeholders are already `noindex` and out of the sitemap, but should not be public.
+- [ ] **Regulations: 1:1 check against the final documents.** The organisers will send the final regulation documents (Finnish and English). Compare them line by line with the Main Event page (`src/content/regulations/fi.md` and `en.md`): every section, the schedule, time control, tie-breaks, rules, the officials and contact details (names, emails, phone numbers: the phone numbers were added in `1c5b556` and may be missing from the original), and remove the `preliminary: true` flag and the "preliminary regulations" notice once they match.
 - [ ] Travel & stay: final content, hotel details and bus times.
 - [ ] December: add the online booking code of Hotel H28 and Hotelli Kuohu to the Travel & stay page (it currently says the code is coming in December and that booking is by email or phone) and remove the "coming in December" notice. Also revisit the bus pick-up wording once the stops are known.
 - [ ] Intro text and the guest list (replacement for the removed content creator, "more guests" slot).
